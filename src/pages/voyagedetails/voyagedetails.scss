@@ -1,0 +1,512 @@
+page-voyagedetails {
+
+  .container .subContainer {
+    background-color: rgba(17, 62, 99, 0.95);
+    color: white;
+    font-size: 61%;
+    height : 35px;
+  }
+
+  .right_arrow{
+    padding-left: 0px !important;
+  }
+
+  .container .subContainer2 {
+    background: gray;
+    color : white;
+    border: thin solid white;
+    font-size :61%;
+    font-weight : lighter;
+  }
+
+  .filters {
+
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+
+      ion-icon {
+        color: #ccc;
+      }
+
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      /*font-weight: 700;*/
+      border-bottom: 5px solid lightblue;
+    }
+  }
+
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+  .title{
+    position : relative;
+    right : 6%;
+  }
+
+  #notifybadge{
+    float:right;
+  }
+  #back{
+    float:left;
+  }
+
+  #tool .button-md .toolbar-md {
+    padding:0 !important;
+    margin:0 !important;
+  }
+  #notifications-badge {
+    background-color: red;
+    position: absolute;
+    bottom: 60%;
+    right: 0;
+    border-radius: 50%;
+    height: 85%;
+  }
+  .photobutton {
+    width: 40%;
+    height: 80%;
+    font-size: 10%;
+  }
+  .photoicon{
+    position: relative;
+    left: 8%;
+    bottom: 3%;
+  }
+  #agentbutton{
+
+    width: 22%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+    margin-left : -6px;
+  }
+
+  #vesselbutton{
+
+    width: 22%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+    //right : -6px;
+  }
+
+  #voyagebutton {
+
+    width: 25%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+    //right : -16px;
+  }
+
+  #otherbutton{
+
+    width: 22%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+    //right : -16px;
+  }
+
+  ion-label .span {
+    color: red;
+  }
+  .buttontool {
+    width:100%;
+  }
+  .collapsediv {
+    padding: 0px 5px 0px 5px;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  .collapsedivtitle {
+    background-color: #2a739b;
+    color: white;
+    font-size: 2rem !important;
+  }
+  .collapsedivtitle:hover {
+    background-color: #67D3F4;
+    color: white;
+  }
+
+  .footer_submit{
+    font-size: 2rem;
+  }
+  .collapsedivsubfields {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .collapsedivsubfields .item-md{
+    padding: 10px;
+  }
+  .left {
+    width: 100%! important;
+  }
+  .splitrow {
+    /* margin-top: 10px;*/
+  }
+  .vflagerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 0px;
+    margin-left: 15px;
+  }
+  p {
+    padding: 0px 0px 0px 5px;
+  }
+  .vowncountryerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 0px;
+    margin-left: 15px;
+  }
+  .vownstateerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 10px;
+    margin-left: 15px;
+  }
+  .vopcountryerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 10px;
+    margin-left: 15px;
+  }
+  .vopstateerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 0px;
+    margin-left: 15px;
+  }
+  .vactiveerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 10px;
+    margin-left: 15px;
+  }
+  .vtypeerror {
+    border-bottom: 1px solid red;
+    position: relative;
+    bottom: 10px;
+    margin-left: 15px;
+  }
+  .bold {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 3% !important;
+  }
+  .attchlabels {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+  }
+
+  .ionrow{
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+    min-height: 88px;
+  }
+  ion-col{
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+  .boxd {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    padding-left: 5px;
+    padding-top: 5px;
+  }
+  .dateitem{
+    margin-bottom: -8% !important;
+  }
+  .item-md{
+    margin-bottom: -2%;
+    padding-right: 0px !important;
+    padding-left: 0;
+    width: 100% !important;
+
+  }
+  .dateitemlast{
+    margin-top: 1%;
+    margin-bottom: -8% !important;
+  }
+  .voyageValueDisplay{
+    padding-left: 8.5%;
+  }
+  .voyageselect{
+    margin-left:4.5%;
+  }
+  #rfidbutton{
+    bottom: 40px;
+    float: right;
+    z-index: 1;
+    font-size: 3em;
+    position: relative;
+    right: 4%;
+    margin-bottom: -5%;
+  }
+
+
+  #cal {
+    float: right;
+    z-index: 1;
+    font-size: 2em;
+    position: relative;
+    bottom: 40%;
+    right: 4%;
+    margin-bottom: -5%;
+  }
+  #attachdate {
+    float: right;
+    z-index: 1;
+    font-size: 1em;
+    position: relative;
+    bottom: 5%;
+    margin-right: -5%;
+  }
+
+  .iconadd{
+    background-color: #185389;
+    color: white;
+    height: 47px;
+    width: 43px;
+    float: right;
+    position: relative;
+    bottom: 53px;
+    right: 0px;
+    margin-bottom: -42px !important;
+  }
+  .iconsearch{
+    background-color: #185389;
+    color: white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    position: relative;
+    bottom: 45px;
+    right : 0px;
+    margin-bottom : -42px !important;
+    z-index: 2 !important;
+  }
+
+
+
+  .iconsearch-ios {
+    background-color: #185389;
+    color: white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    position: relative;
+    bottom: 45px;
+    right: 7px;
+    margin-bottom: -42px !important;
+    z-index: 2 !important;
+  }
+
+  .toolbar-title-ios {
+    color: #fff;
+    position: relative;
+    bottom: 40px;
+  }
+  .portdetails {
+    border: 1px solid black;
+    padding: 2%;
+    margin: 2%;
+  }
+  .rfiddiv {
+    padding-left: 10px;
+    width: 50% !important;
+  }
+
+  .subheader1 {
+    color: #929292 !important;
+    font-size: 14px !important;
+    font-weight: 500;
+    min-height: 1.9rem;
+  }
+
+  .subheader2 {
+    color: #000 !important;
+    font-size: 14px !important;
+    padding-left: 8.5%;
+    font-weight: 500;
+  }
+
+  .ionrow{
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+
+  }
+
+
+  .ioncol{
+    color: #a0a0a0;
+  }
+  .ioncolrightwithcolor{
+    color: #a0a0a0;
+  }
+
+
+  .rfidnum .item-inner {
+    position: relative;
+    bottom: 10px;
+    font-weight: bold;
+  }
+
+  .clse {
+    float: right;
+    color: blue;
+    font-weight: bold;
+  }
+  .rfid {
+    width: 88%;
+  }
+  .attachInput {
+    width: 88%;
+    top: 20%;
+  }
+  .rfidnum {
+
+    border: 1px solid;
+    margin-top:10px;
+    height: 10px;
+    background-color: #EEF0F1;
+  }
+
+  .rfidnum .item-inner{
+    margin-top: 7px;
+  }
+
+
+  .pop{
+    margin-left: 1%;
+    color: #113B5F;
+    font-weight: bold;
+  }
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+  .next{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 6rem;
+    font-size: 2rem;
+    background-color: #113B5F;
+    color: white;
+    border-radius: 50%;
+    margin-bottom: 5%;
+    margin-right: 3%;
+  }
+  .add_button{
+    background-color: #113B5F;
+    margin-bottom : 10%;
+    float: left;
+  }
+  .close_button{
+    margin-top : 10%;
+    float: right;
+    margin-left:100%;
+    width: 5%;
+    color:#113B5F
+  }
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+
+  }
+  .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  .lab1 {
+    //  margin: 13px 8px 8px 12px !important;
+    color : green;
+  }
+  .attach{
+    background: white;
+    padding: 10px;
+    margin: 10px;
+  }
+  .image{
+    float: right;
+  }
+  .subheader{
+    background: white;
+    margin-top: 10px;
+    margin-left: -10px;
+  }
+  .underline{
+    border-bottom: 1px solid darkblue;
+    color:darkblue;
+  }
+  //---ios_change--start
+  //---validation highlighted in green color avoided
+  .input-has-focux .input-cover { display: none }
+  //---ios_change--end
+}
+.platform-ios page-voyagedetails .scroll-content
+{
+  margin-top: 34px !important;
+  margin-bottom: 49px;
+}

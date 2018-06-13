@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title>
+      <ion-icon name="menu" menuToggle id="men" tappable></ion-icon>
+      {{'REQUESTS' | translate}}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<!--<ion-content no-bounce has-bounsing="false" id="servicesContent">-->
+<ion-content no-bounce has-bounsing="false">
+
+
+  <ion-row responsive-sm class="firstrow">
+    <ion-col width-100 class="logo">
+      <img src="assets/img/logo.png" class="mawanilogo"/>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid fixed class="grid">
+    <ion-slides pager>
+      <ion-slide *ngFor="let slide of tempArray2; let i = index;">
+        <ion-row *ngFor="let row of slide;" responsive-sm>
+          <ion-col col-4 *ngFor="let ser of row;">
+            <div class="image" (click)="openservice(ser)" tappable>
+              <img class="fields" [src]='ser.icon'/>
+              {{ser.caption}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-slide>
+    </ion-slides>
+  </ion-grid>
+</ion-content>

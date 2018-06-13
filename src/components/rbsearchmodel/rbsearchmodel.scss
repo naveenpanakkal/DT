@@ -1,0 +1,70 @@
+rbsearchmodel {
+  .selectAll .checkbox {
+    position: absolute;
+    height:30px;
+    width: 100%;z-index:10;
+    margin:0px !important;
+    margin-left:10px !important
+  }
+  .toolbar-title{
+    font-weight: 500 !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+  .title{
+    position : relative;
+    right : 6%;
+  }
+
+  .compareTitle{
+    position : relative;
+    right : 6%;
+  }
+  .subheader{
+    background: white;
+    margin-top: 10px;
+    font-weight : bold;
+  }
+  .item{
+    background: #CFCFCF;
+  }
+  .padding-left-row
+  {
+    padding-left: 10px;
+  }
+  .inner-scroll-container{
+    //position: absolute;
+    //will-change: transform;
+    height:auto;
+  }
+  .rotateIconDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  .rotateIconUp {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .barStyle{
+    height:auto;
+  }
+}
+
+.platform-ios rbsearchmodel .scroll-content {
+  margin-top: 36px !important;
+  margin-bottom: 49px;
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+
+rbsearchmodel .toolbar-content {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+.platform-ios rbsearchmodel .barStyle{
+  height:auto;
+  padding-top:14px
+}

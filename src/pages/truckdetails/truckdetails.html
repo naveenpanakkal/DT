@@ -1,0 +1,941 @@
+<ion-header>
+  <ion-navbar #navbar color="header" id="header" no-line>
+    <ion-title class="title" class="truckview-ios">{{mode_title[mode]}} - Truck Registration
+    </ion-title>
+  </ion-navbar>
+
+  <!--<ion-toolbar color="header" style="margin-top:-1%;" id="tool">-->
+    <!--<button ion-button id="truckdetailbutton" color="light" clear [style.border-bottom]="getfirstStyle()"-->
+            <!--(click)="firstpage()" tappable> Truck Details-->
+    <!--</button>-->
+    <!--<button ion-button id="ownerdetailbutton" color="light" clear [style.border-bottom]="getsecondStyle()"-->
+            <!--(click)="secondpage()" tappable>-->
+      <!--Owner Details-->
+    <!--</button>-->
+    <!--<button ion-button id="terminaldetailbutton" color="light" clear [style.border-bottom]="getthirdStyle()"-->
+            <!--(click)="thirdpage()" tappable> Terminal & Pool Details-->
+    <!--</button>-->
+    <!--<button ion-button id="attachmentbutton" color="light" clear [style.border-bottom]="getfourthStyle()"-->
+            <!--(click)="fourthpage()" tappable>-->
+      <!--Attachments-->
+    <!--</button>-->
+  <!--</ion-toolbar>-->
+
+  <ion-toolbar class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+
+          <ion-slide (click)="filterData(category)" [class.selected]="selectedCategory== category.heading"
+                     *ngFor="let category of mainArray" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ category.heading }}</button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow right_arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+</ion-header>
+<ion-content no-bounce has-bounsing="false" overflow-scroll="true" id="truckDetailsContent">
+  <div [hidden]="!truckdetails">
+    <!--   Group1 -->
+    <div class="col" col-12 col-sm [hidden]="buttonStatus()">
+      <ion-item>
+        <ion-label color="label" stacked class="bold"> Request ID
+
+        </ion-label>
+        <ion-input class=" inputs" type="text" placeholder=" Request ID" value={{truckRegResultModel.truckRegRequestId}}
+                   [disabled]="true" (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+      </ion-item>
+    </div>
+    <div class="col" col-12 col-sm [hidden]="buttonStatus()">
+      <ion-item >
+        <ion-label color="label" stacked class="bold">Current status
+
+        </ion-label>
+        <ion-input class=" inputs" type="text" placeholder="Current status" value={{truckRegResultModel.amendRequestStatus}}
+                   [disabled]="true" (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+      </ion-item>
+    </div>
+    <form [formGroup]="groupOne" noValidate>
+      <div class="responsive-sm">
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckCountryReghidden()">
+            <ion-label color="label" stacked class="bold">Country of Registration</ion-label>
+            <ion-input class="inputs" type="text" value={{truckRegResultModel.countryOfRegistration}}
+                       placeholder="Country" [disabled]="truckCountryRegedit()"
+                       (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckstatehidden()">
+            <ion-label color="label" stacked class="bold">State/Emirates</ion-label>
+            <ion-input class="inputs" type="text" placeholder="State" value={{truckRegResultModel.state}}
+                       [disabled]="truckstateedit()" (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckplatetypehidden()">
+            <ion-label color="label" stacked class="bold">Plate Type</ion-label>
+            <ion-select style="opacity: .6;" [mode]="utils.checkUIMode()" [disabled]="truckplatetypeedit()"  placeholder="Plate Type" class="inputs" formControlName="plateType"
+            [(ngModel)]="truckRegResultModel.plateType" [ngClass]="(truckplatetypeedit() || mode == 'view'?'selectWrapper':null)" tappable>
+              <ion-option value="ConstructionEquipment">Construction Equipment</ion-option>
+              <ion-option value="Commercial">Commercial</ion-option>
+              <ion-option value="ActiveDutyMilitary">Active Duty Military</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckplatecodehidden()">
+            <ion-label color="label" stacked class="bold">Plate Code
+            </ion-label>
+            <ion-select style="opacity: .6;" [mode]="utils.checkUIMode()"   [disabled]="truckplatecodeedit()"   class="inputs" placeholder="Plate Code" formControlName="plateCode"
+            [(ngModel)]="truckRegResultModel.plateCode" [ngClass]="(truckplatecodeedit() || mode == 'view'?'selectWrapper':null)" tappable>
+              <ion-option value="PlateCode1">Plate Code 1</ion-option>
+              <ion-option value="PlateCode2">Plate Code 2</ion-option>
+              <ion-option value="PlateCode3">Plate Code 3</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="trucklpnumhidden()">
+            <ion-label color="label" stacked class="bold">License Plate Number</ion-label>
+            <ion-input class=" inputs" type="text"
+                       placeholder="License Plate Number" value="{{truckRegResultModel.licensePlateNo}}"
+                          [disabled]="trucklpnumedit()" spellcheck="false" tappable></ion-input>
+          </ion-item>
+        </div>
+        <!--<div class="error" *ngIf="formValidate && !groupOne.controls.licensePlateNo.valid"></div>-->
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckregstarthidden()">
+            <ion-label color="label" stacked class="bold">Registration Start Date
+              <span *ngIf="!truckregstartedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-datetime class=" inputs truckDatetimeMargin" name="date" placeholder="Registration Start Date" type="text"
+                          formControlName="startdate" tappable
+                          [(ngModel)]="truckRegResultModel.registrationStartDate"
+                          displayFormat="DD/MM/YYYY"
+                          [disabled]="truckregstartedit()"
+                          min={{startDateMin}}
+                          max={{maxdate}}
+                          (ionChange)="validateDate()"
+            ></ion-datetime>
+          </ion-item>
+          <ion-icon [hidden]="getCalenderIconStatus()" tappable
+                    [ngClass]="(!truckregstartedit()?'cal': 'dateTimeHide')" name="calendar" color="header"></ion-icon>
+        </div>
+      <div class="truckDetailsError" *ngIf="formValidate && !groupOne.controls.startdate.valid">Registration Start Date is mandatory</div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckregexpiryhidden()">
+            <ion-label color="label" stacked class="bold">Registration Expiry Date
+              <span *ngIf="!truckregexpiryedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-datetime class=" inputs truckDatetimeMargin" name="date" placeholder="Registration Expiry Date" type="text"
+                          formControlName="enddate" tappable
+                          [(ngModel)]="truckRegResultModel.registrationExpiryDate"
+                          displayFormat="DD/MM/YYYY"
+                          (ionChange)="validateDate()"
+                          [disabled]="truckregexpiryedit()" min={{maxdate}} max="2022-12-12"></ion-datetime>
+          </ion-item>
+          <ion-icon [hidden]="getCalenderIconStatus()" tappable
+                    [ngClass]="(!truckregexpiryedit()?'cal': 'dateTimeHide')" name="calendar" color="header"></ion-icon>
+        </div>
+        <div class="truckDetailsError_2" *ngIf="formValidate && !groupOne.controls.enddate.valid && validDateFlag">Registration Expiry Date is mandatory</div>
+        <div class="truckDetailsError_2" *ngIf="formValidate && !validDateFlag">
+          {{err_date_msg}}
+        </div>
+      </div>
+    </form>
+
+    <!---Group2-->
+
+    <form [formGroup]="groupTwo" noValidate>
+      <div class="responsive-sm">
+        <div class="col" col-12 col-sm *ngIf="showSO">
+          <ion-item [hidden]="truckregauthhidden()">
+            <ion-label color="label" stacked class="bold">Registering Authority
+              <span  *ngIf="!truckregauthedit()"  class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-select [mode]="utils.checkUIMode()" class="select" placeholder="Registering Authority" formControlName="RegAuth"
+                        [(ngModel)]="truckRegResultModel.registeringAuthority"
+                        [ngClass]="(truckregauthedit() || mode == 'view'?'selectWrapper':null)"
+                        [disabled]="truckregauthedit()" tappable>
+              <ion-option *ngFor="let reg_auth of truckRegResultModel.truckRegAuthorityMasterSOList"
+                          value={{reg_auth.registeryAuthorityValue}} [ngClass]="(mode == 'view'?'selectWrapper':null)">
+                {{reg_auth.registeryAuthorityCode}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm *ngIf="!showSO">
+          <ion-item [hidden]="truckregauthhidden()">
+            <ion-label color="label" stacked class="bold">Registering Authority
+              <span *ngIf="!truckregauthedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-select [mode]="utils.checkUIMode()" class="select" placeholder="Registering Authority" formControlName="RegAuth"
+                        [(ngModel)]="truckRegResultModel.registeringAuthority" [disabled]="truckregauthedit()"
+                        [ngClass]="(truckregauthedit() || mode == 'view'?'selectWrapper':null)" tappable>
+              <ion-option value="OWNER">OWNER</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_2" *ngIf="formValidate && !groupTwo.controls.RegAuth.valid">Registering Authority is mandatory</div>
+      </div>
+    </form>
+
+    <!--Group3-->
+
+    <form [formGroup]="groupThree" noValidate>
+      <div class="responsive-sm">
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckmodelhidden()">
+            <ion-label color="label" stacked class="bold">Truck Model</ion-label>
+            <ion-input class=" inputs" placeholder="Truck Model" type="text" [disabled]="truckmodeledit()"
+                       formControlName="truckModel" tappable
+                       [(ngModel)]="truckRegResultModel.truckModel"
+                       (keyup)="keyUpValidate($event,'','truckRegResultModel.truckModel')"
+                       (keyup.enter)="dismissKeyboard($event)"
+                       value={{truckRegResultModel.truckModel}} spellcheck="false"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError" *ngIf="formValidate && !groupThree.controls.truckModel.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckengnumhidden()">
+            <ion-label color="label" stacked class="bold">Engine Number</ion-label>
+            <ion-input class=" inputs" placeholder="Engine Number" type="text" [disabled]="truckengnumedit()"
+                       formControlName="engineNo" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.engineNo" value={{truckRegResultModel.engineNo}}
+                       (keyup.enter)="keyboardClose()" tappable spellcheck="false"
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.engineNo')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupThree.controls.engineNo.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckchasnumhidden()">
+            <ion-label color="label" stacked class="bold">Chassis Number</ion-label>
+            <ion-input class=" inputs" placeholder="Chassis Number" type="text" [disabled]="truckchasnumedit()"
+                       formControlName="chassisNo" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.chassisNo" value={{truckRegResultModel.chassisNo}}
+                       (keyup.enter)="keyboardClose()" tappable spellcheck="false"
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.chassisNo')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupThree.controls.chassisNo.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckmanufhidden()">
+            <ion-label color="label" stacked class="bold">Manufacturer</ion-label>
+            <ion-input class=" inputs" placeholder="Manufacturer" type="text" [disabled]="truckmanufedit()"
+                       formControlName="manufacturer" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.manufacturer" spellcheck="false"
+                          value={{truckRegResultModel.manufacturer}} tappable
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.manufacturer')"
+            ></ion-input>
+
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupThree.controls.manufacturer.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="trucklenhidden()">
+            <ion-label color="label" stacked class="bold">Length(Metres)</ion-label>
+            <ion-input class=" inputs" placeholder="Length" type="tel" [disabled]="trucklenedit()"
+                       formControlName="length"
+                       [(ngModel)]="truckRegResultModel.length"
+                       maxlength="10" tappable
+                       (keyup.enter)="keyboardClose()" spellcheck="false"
+                       (keyup)="keyUpValidate($event,'^[0-9]*$','truckRegResultModel.length')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError" *ngIf="truckRegResultModel.length && formValidate && !groupThree.controls.length.valid">
+          Please enter values between 1 and 10
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="trucknumaxleshidden()">
+            <ion-label color="label" stacked class="bold">Number Of Axles</ion-label>
+            <ion-input type="tel" class=" inputs" placeholder="Number Of Axles"
+                       [disabled]="trucknumaxlesedit()"
+                       formControlName="numberOfAxles"
+                       [(ngModel)]="truckRegResultModel.numberOfAxles"
+                       maxlength="10"
+                       (keyup.enter)="keyboardClose()" tappable spellcheck="false"
+                       (keyup)="keyUpValidate($event,'^[0-9]*$','truckRegResultModel.numberOfAxles')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupThree.controls.numberOfAxles.valid">
+          Please enter values between 1 and 10
+        </div>
+      </div>
+    </form>
+
+    <!---Group4-->
+
+    <form [formGroup]="groupFour" noValidate>
+      <div class="responsive-sm">
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="trucktypehidden()">
+            <ion-label color="label" stacked class="bold">Type
+              <span *ngIf="!trucktypeedit()" class="span" [hidden]="isInViewMode()">*</span></ion-label>
+            <ion-select [mode]="utils.checkUIMode()" class="select" placeholder="Type" [disabled]="trucktypeedit()"
+                        formControlName="type" (ionChange)="onChangeType()" tappable
+                        [(ngModel)]="truckRegResultModel.type" [ngClass]="(trucktypeedit() || mode == 'view'?'selectWrapper':null)">
+              <!-- <ion-option *ngFor="let key of Types" value="{{key}}">{{key}}</ion-option> -->
+              <ion-option value="" ng-checked="true">{{typeselection}}</ion-option>
+              <ion-option value="REFRIGERATOR">Refrigerator Truck</ion-option>
+              <ion-option value="TANK">Tank Truck</ion-option>
+              <ion-option value="TRACTOR">Tractor Truck</ion-option>
+              <ion-option value="BALLAST">Ballast Tractor</ion-option>
+              <ion-option value="HEAVYHAULER">Heavy Hauler</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError" *ngIf="formValidate && !groupFour.controls.type.valid">Type is mandatory</div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckmakeyearhidden()">
+            <ion-label color="label" stacked class="bold">Make(Year)
+              <span *ngIf="!truckmakeyearedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-select [mode]="utils.checkUIMode()" class="select" placeholder="Make(Year)" formControlName="makeYear"
+                        [(ngModel)]="truckRegResultModel.makeYear" tappable
+                        [disabled]="truckmakeyearedit()" [ngClass]="(truckmakeyearedit() || mode == 'view'?'selectWrapper':null)">
+              <ion-option value="2017">2017</ion-option>
+              <ion-option value="2016">2016</ion-option>
+              <ion-option value="2015">2015</ion-option>
+              <ion-option value="2014">2014</ion-option>
+              <ion-option value="2013">2013</ion-option>
+              <ion-option value="2012">2012</ion-option>
+              <ion-option value="2011">2011</ion-option>
+              <ion-option value="2010">2010</ion-option>
+              <ion-option value="2009">2009</ion-option>
+              <ion-option value="2008">2008</ion-option>
+              <ion-option value="2007">2007</ion-option>
+              <ion-option value="2006">2006</ion-option>
+              <ion-option value="2005">2005</ion-option>
+              <ion-option value="2004">2004</ion-option>
+              <ion-option value="2003">2003</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_2" *ngIf="formValidate && !groupFour.controls.makeYear.valid">Make(Year) is mandatory</div>
+      </div>
+    </form>
+
+    <!---Group4-->
+
+    <!---Group5-->
+
+    <form [formGroup]="groupFive" noValidate>
+      <div class="responsive-sm">
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckenginetypehidden()">
+            <ion-label color="label" stacked class="bold">Engine Type</ion-label>
+            <ion-input class=" inputs" type="text" placeholder="Engine Type" [disabled]="truckenginetypeedit()"
+                       formControlName="engineType" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.engineType" spellcheck="false"
+                       value={{truckRegResultModel.engineType}}
+                       (keyup.enter)="keyboardClose()" tappable
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.engineType')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupFive.controls.engineType.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckmgwhidden()">
+            <ion-label color="label" stacked class="bold">Maximum Gross Weight (Tonnes)</ion-label>
+            <ion-input class=" inputs" type="tel" placeholder="Maximum Gross Weight (Tonnes)"
+                       formControlName="maximumGrossWeight"
+                       [(ngModel)]="truckRegResultModel.maximumGrossWeight" [pattern]="grosspattern"
+                       [disabled]="truckmgwedit()" spellcheck="false"
+                       value={{truckRegResultModel.maximumGrossWeight}}
+                       (keyup.enter)="keyboardClose()" tappable
+                       (keyup)="keyUpValidate($event,'^[0-9]*$','truckRegResultModel.maximumGrossWeight')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupFive.controls.maximumGrossWeight.valid">
+          Please enter values between 1 and 10
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckvehcolorhidden()">
+            <ion-label color="label" stacked class="bold">Vehicle Color</ion-label>
+            <ion-input class=" inputs" type="text" placeholder="Vehicle Color" [disabled]="truckvehcoloredit()"
+                       formControlName="vehicleColor" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.vehicleColor" spellcheck="false"
+                       value={{truckRegResultModel.vehicleColor}}
+                       (keyup.enter)="keyboardClose()" tappable
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.vehicleColor')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError_3" *ngIf="formValidate && !groupFive.controls.vehicleColor.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckinsurancecomhidden()">
+            <ion-label color="label" stacked class="bold">Truck Insurance Company</ion-label>
+            <ion-input class=" inputs" type="text" placeholder="Truck Insurance Company" spellcheck="false"
+                          formControlName="truckInsuranceCompany" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.truckInsuranceCompany" [disabled]="truckinsurancecomedit()"
+                       value={{truckRegResultModel.truckInsuranceCompany}} tappable
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.truckInsuranceCompany')"
+            ></ion-input>
+          </ion-item>
+
+          <div class="truckDetailsError_1" *ngIf="formValidate && !groupFive.controls.truckInsuranceCompany.valid">
+            Please enter 3 to 255 valid characters
+          </div>
+
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckinsustarthidden()">
+            <ion-label color="label" stacked class="bold">Truck Insurance Start Date
+            </ion-label>
+            <ion-datetime class=" inputs truckDatetimeMargin" name="date" placeholder="Truck Insurance Start Date" type="date"
+                          ng-model="date" formControlName="truckInsuranceStartDate" tappable
+                          [(ngModel)]="truckRegResultModel.truckInsuranceStartDate"
+                          displayFormat="DD/MM/YYYY"
+                          (ionChange)="validateInsDate()"
+                          max={{maxdate}}  min={{startDateMin}} [disabled]="truckinsustartedit()"></ion-datetime>
+          </ion-item>
+          <ion-icon [hidden]="getCalenderIconStatus()"
+                    [ngClass]="(!truckinsustartedit()?'cal': 'dateTimeHide')" name="calendar" color="header"></ion-icon>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckinsunumhidden()">
+            <ion-label color="label" stacked class="bold">Truck Insurance Number</ion-label>
+            <ion-input class=" inputs" type="text" placeholder="Truck Insurance Number"
+                       formControlName="truckInsuranceNumber" (keyup.enter)="dismissKeyboard($event)"
+                       [(ngModel)]="truckRegResultModel.truckInsuranceNumber" spellcheck="false"
+                       value={{truckRegResultModel.truckInsuranceNumber}} [disabled]="truckinsunumedit()"
+                       (keyup.enter)="keyboardClose()" tappable
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.truckInsuranceNumber')"
+            ></ion-input>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError" *ngIf="formValidate && !groupFive.controls.truckInsuranceNumber.valid">
+          Please enter 3 to 255 valid characters
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckinsuexphidden()">
+            <ion-label color="label" stacked class="bold">Insurance Expiry Date
+            </ion-label>
+            <ion-datetime class=" inputs truckDatetimeMargin" name="date" placeholder="Insurance Expiry Date" type="date"
+                          [(ngModel)]="truckRegResultModel.insuranceExpiryDate" tappable
+                          formControlName="expirydate" displayFormat="DD/MM/YYYY"
+                          (ionChange)="validateInsDate()"
+                          [disabled]="truckinsuexpedit()"  min={{maxdate}} max="2022-12-12"></ion-datetime>
+          </ion-item>
+          <ion-icon [hidden]="getCalenderIconStatus()"
+                    [ngClass]="(!truckinsuexpedit()?'cal': 'dateTimeHide')" name="calendar" color="header"></ion-icon>
+          <div class="errorattach_mod_1" *ngIf="formValidate && !validInsDateFlag">
+            {{err_date_ins_msg}}
+          </div>
+        </div>
+
+        <div class="col" col-12 col-sm [hidden]="truckregidhidden()">
+          <ion-item >
+            <ion-label color="label" stacked class="bold">Truck Registration Id</ion-label>
+            <ion-input tappable class=" inputs"
+                       [disabled]="true"
+                       placeholder="Truck Registration Id"
+                       [value]="getTruckRegId()">
+
+            </ion-input>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm [hidden]="truckacthidden()">
+          <ion-item >
+            <ion-label color="label" stacked class="bold">Active</ion-label>
+            <ion-select [mode]="utils.checkUIMode()" class="select" placeholder="" [disabled]="truckactedit()"
+                        [hidden]="truckacthidden()" formControlName="active" [(ngModel)]="truckRegResultModel.active"
+                        [ngClass]="(truckactedit() || mode == 'view'?'selectWrapper':null)" tappable>
+              <ion-option value="Yes">Yes</ion-option>
+              <ion-option value="No">No</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div class="truckDetailsError" *ngIf="formValidate && !groupFive.controls.active.valid">Active is mandatory</div>
+        <div class="col" col-12 col-sm [hidden]="expiryhidden()">
+          <ion-item >
+            <ion-label color="label" stacked class="bold">Expiry Date</ion-label>
+            <ion-datetime class="truckinputs truckDatetimeMargin" name="date" placeholder="Expiry Date" type="date"
+                          [(ngModel)]="truckRegResultModel.expiryDate" tappable
+                          formControlName="trkexpirydate" displayFormat="DD/MM/YYYY"
+                          (ionChange)="validateexpDate()"
+                          [disabled]="trkexpirydisable()"  min={{maxdate}} max="2022-12-12"></ion-datetime>
+          </ion-item>
+          <ion-icon [hidden]="expiryCalenderIcon()"
+                    [ngClass]="(!trkexpirydisable()?'cal': 'dateTimeHide')" name="calendar" color="header" tappable></ion-icon>
+          <div class="errorattach_mod_1" *ngIf="formValidateAdmin && !validExpDateFlag">
+            {{err_date_exp_msg}}
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!---Group5-->
+  </div>
+
+
+  <div [hidden]="!truckowner">
+    <form [formGroup]="takeTwo" noValidate>
+      <div class="responsive-sm">
+        <div class="col" col-12 col-sm>
+          <ion-item class = "itemOwner"[hidden]="sameOwnerHide()">
+            <ion-label class="ownercheck" >I am the owner</ion-label>
+            <ion-checkbox class = "chkboxStyle"[mode]="utils.checkUIMode()"
+                          [(ngModel)]="ownercheckbox"
+                          checked="false"
+                          formControlName="ownercheck"
+                          (ionChange)="updateOwnerCheck()" tappable></ion-checkbox>
+          </ion-item>
+        </div>
+        <div class="col" col-12 col-sm [hidden]="ownernamehidden()" [style.margin-top]="sameOwnerHide()?'-13px':'0px'">
+          <ion-item >
+            <ion-label color="label" stacked class="bold">Name
+              <span *ngIf="!ownernameedit()"
+                    class="span"
+                    [hidden]="isInViewMode()">*</span>
+            </ion-label>
+
+            <ion-input text-wrap="" class=" inputs" type="text" placeholder="Name" formControlName="name"
+                       [(ngModel)]="truckRegResultModel.name "
+                       [disabled]="ownernameedit()"
+                       spellcheck="false"
+                       (keyup.enter)="keyboardClose()" tappable
+                       autocomplete="false"
+                       autocorrect="false"
+                       (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$','truckRegResultModel.name')"
+            ></ion-input>
+          </ion-item>
+          <div class="truckDetailsError1" *ngIf="formValidate && !takeTwo.controls.name.valid">
+            Please enter 3 to 255 valid characters
+          </div>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="owneraddonehidden()">
+            <ion-label color="label" stacked class="bold">Address Line 1
+              <span *ngIf="!owneraddoneedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-textarea class=" inputs" type="text" placeholder="Address Line 1" formControlName="addressLine1"
+                          [(ngModel)]="truckRegResultModel.addressLine1" (keyup.enter)="dismissKeyboard($event)"
+                          [disabled]="owneraddoneedit()" value={{truckRegResultModel.addressLine1}}
+                          (keyup)="keyUpValidate($event,'','truckRegResultModel.addressLine1')"
+                          spellcheck="false" style="height:30px;overflow-y: auto;overflow-x:hidden;
+                          -webkit-overflow-scrolling: touch;" tappable></ion-textarea>
+          </ion-item>
+          <div class="truckDetailsError1" *ngIf="formValidate && !takeTwo.controls.addressLine1.valid">
+            Please enter 3 to 255 valid characters
+          </div>
+        </div>
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="owneraddtwohidden()">
+            <ion-label color="label" stacked class="bold">Address Line 2</ion-label>
+            <ion-textarea class=" inputs" type="text" placeholder="Address Line 2" formControlName="addressLine2"
+                          [(ngModel)]="truckRegResultModel.addressLine2" (keyup.enter)="dismissKeyboard($event)"
+                          [disabled]="owneraddtwoedit()" value={{truckRegResultModel.addressLine2}}
+                          (keyup)="keyUpValidate($event,'','truckRegResultModel.addressLine2')"
+                          spellcheck="false" style="height:30px;overflow-y: auto;overflow-x:hidden;
+                          -webkit-overflow-scrolling: touch;" tappable></ion-textarea>
+          </ion-item>
+          <div class="truckDetailsError1" *ngIf="formValidate && !takeTwo.controls.addressLine2.valid">
+            Please enter 3 to 255 valid characters
+          </div>
+        </div>
+
+        <div class="col" col-12 col-sm>
+          <div [class]="(isInViewMode()==true)? 'rowSeperator_1': ''">
+          <ion-item class="item_border" [hidden]="ownercountryhidden()">
+            <ion-label color="label" stacked class="bold">Country
+              <span *ngIf="!ownercountryedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-input [style.border-bottom]="owneredit_1()?'1px solid #dedede':'none'" class=" inputs" [disabled]="true" [hidden]="!ownercountryedit()" [value]="truckRegResultModel.ownerCountry">
+
+            </ion-input>
+          </ion-item>
+          </div>
+        </div>
+        <div [hidden]="ownercountryedit()" class="col" col-12 col-sm>
+        <div class="rowSeperator">
+          <ion-searchbar [mode]="utils.checkUIMode()"
+                         type="text"
+                         class="search_bar"
+                         formControlName="ownerCountry"
+                         (ionInput)="getCountryNames($event)"
+                         (keyup.enter)="dismissKeyboard($event)"
+                         (ionBlur)="hideCountryChange()"
+                         (ionFocus)="countryFocus()"
+                         (ionClear)="clear_country()"
+                         [(ngModel)]="this.truckRegResultModel.ownerCountry" tappable></ion-searchbar>
+          <ion-list *ngIf="showCountryField" class="countryListStyle">
+            <ion-item *ngFor="let item of countryarray" (mousedown)="selectCountry(item)" tappable>
+              {{ item }}
+            </ion-item>
+          </ion-list>
+         </div>
+        <div class="truckDetailsError_4" *ngIf="formValidate && !takeTwo.controls.ownerCountry.valid">Country is mandatory</div>
+        </div>
+        <div class="col" col-12 col-sm>
+          <div [class]="(isInViewMode()==true)? 'rowSeperator_1': ''">
+          <ion-item class="item_border" [hidden]="ownerstatehidden()">
+            <ion-label color="label" stacked class="bold">State
+              <span  *ngIf="!ownerstateedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-input [style.border-bottom]="owneredit_1()?'1px solid #dedede':'none'" class=" inputs" [disabled]="true" [hidden]="!ownerstateedit()" [value]="truckRegResultModel.ownerState"></ion-input>
+          </ion-item>
+          </div>
+        </div>
+        <div [hidden]="ownerstateedit()" class="col" col-12 col-sm>
+          <div class="rowSeperator">
+          <ion-searchbar [mode]="utils.checkUIMode()" type="text" (ionInput)="getStateNames($event)" class="search_bar"
+                         formControlName="ownerState" (keyup.enter)="dismissKeyboard($event)"
+                         (ionBlur)="checkState($event)"
+                         [(ngModel)]="this.truckRegResultModel.ownerState"
+                         tappable></ion-searchbar>
+          <ion-list *ngIf="showStateField" class="countryListStyle">
+            <ion-item *ngFor="let item of statearray" (mousedown)="selectState(item)" tappable>
+              {{ item.stateName }}
+            </ion-item>
+          </ion-list>
+          </div>
+          <div class="truckDetailsError_4" *ngIf="formValidate && !takeTwo.controls.ownerState.valid">State is mandatory</div>
+        </div>
+
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="ownercityhidden()">
+            <ion-label color="label" stacked class="bold">City
+              <span  *ngIf="!ownercityedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-input class=" inputs" type="text" placeholder="City" formControlName="ownerCity"
+                       [(ngModel)]="truckRegResultModel.ownerCity" [disabled]="ownercityedit()" (keyup.enter)="dismissKeyboard($event)"
+                       value={{truckRegResultModel.ownerCity}} spellcheck="false"
+                       (keyup.enter)="keyboardClose()" tappable
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','truckRegResultModel.ownerCity')"
+            ></ion-input>
+          </ion-item>
+          <div class="truckDetailsError1" *ngIf="formValidate && !takeTwo.controls.ownerCity.valid">
+            Please enter 3 to 255 valid characters.
+          </div>
+        </div>
+
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="ownerposthidden()" [ngClass] = "(ownerpostedit() || mode == 'view'?'selectWrapper':null)">
+            <ion-label color="label" stacked class="bold">Post Code</ion-label>
+            <ion-input class=" inputs" placeholder="Post Code" type="tel"
+                       formControlName="ownerPostCode" [(ngModel)]="truckRegResultModel.ownerPostCode"
+                       [disabled]="ownerpostedit()"
+                       (keyup.enter)="keyboardClose()" spellcheck="false" tappable
+                       (keyup)="keyUpValidate($event,'^[0-9]*$','truckRegResultModel.ownerPostCode')"
+            ></ion-input>
+          </ion-item>
+          <div class="truckDetailsError1_post" *ngIf="formValidate && !takeTwo.controls.ownerPostCode.valid">
+            Please enter 3 to 255 valid characters
+          </div>
+        </div>
+
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="ownerphonehidden()">
+            <ion-label color="label" stacked class="bold">Phone Number
+              <span *ngIf="!ownerphoneedit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-input class=" inputs" maxlength="15" placeholder="Phone Number" type="tel"
+                       formControlName="phoneNumber" [(ngModel)]="truckRegResultModel.phoneNumber"
+                       [disabled]="ownerphoneedit()"
+                       (keyup.enter)="keyboardClose()" spellcheck="false" tappable
+                       (keyup)="keyUpValidate($event,'^[0-9+]*$','truckRegResultModel.phoneNumber')"
+            ></ion-input>
+          </ion-item>
+          <div class="truckDetailsError1" *ngIf="formValidate && !takeTwo.controls.phoneNumber.valid">
+            Please enter at least 3 valid character
+          </div>
+        </div>
+
+        <div class="col" col-12 col-sm>
+          <ion-item [hidden]="truckownedhidden()">
+            <ion-label color="label" stacked class="bold">Owned
+              <span *ngIf="!truckownededit()" class="span" [hidden]="isInViewMode()">*</span>
+            </ion-label>
+            <ion-input class=" inputs" placeholder="Owned" type="text" formControlName="leaseOwn" spellcheck="false" tappable
+                       [(ngModel)]="truckRegResultModel.leaseOwn" [disabled]="truckownededit()" (keyup.enter)="dismissKeyboard($event)"
+                       (keyup.enter)="keyboardClose()"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="terminals_tab" [hidden]="!truckterminal">
+    <form [formGroup]="takeThree" style="margin-bottom: 10px;" noValidate>
+      <div class="attach"
+           *ngFor="let terminalList of this.truckRegResultModel.truckRegTerminalSOList;let tIndex = index; let c = count">
+        <div class="bold">Terminal {{tIndex+1}}</div>
+        <div class="subheader">
+          <ion-grid class="ionrow">
+            <ion-row class="truckTerminalHeight">
+              <ion-col class="port_labels" col-5>
+                Port:
+              </ion-col>
+              <ion-col>
+                {{terminalList.port}}
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+            <ion-row class="truckTerminalHeight">
+              <ion-col class="port_labels" col-5>
+                Operating Terminal:
+              </ion-col>
+              <ion-col>
+                {{terminalList.operatingTerminal}}
+              </ion-col>
+              <ion-col *ngIf="!rfIdNumedit()">
+                <ion-toggle [mode]="utils.checkUIMode()"
+                            [checked]="getCheck(terminalList)"
+                            (ionChange)="Toggle(terminalList, tIndex)"
+                ></ion-toggle>
+              </ion-col>
+            </ion-row>
+            <ion-row class="truckTerminalHeight">
+              <ion-col class="port_labels" col-5>
+                RFID Number:
+              </ion-col>
+              <ion-col>
+                <ion-item class="rfIdBoxStyle" [hidden] ="isInEditableMode()">
+                  <ion-input   formControlName="rfidnums" type="text"
+                              [disabled]="rfIdNumeditstatus(terminalList)" spellcheck="false" tappable
+                              (keyup.enter)="keyboardClose()"
+                               [(ngModel)]="terminalList.valForClearingFeild"
+                               (paste)="onPaste($event,tIndex)"
+                              (keyup)="keyUpValidateRFID($event,'rfid_toadd'+tIndex)"
+                               (ionBlur)="rfidValue($event,tIndex)"
+                               minlength="3"
+                             maxlength="10"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-icon [hidden]="addrfIdstatus()" name="add" (click)="saverfid(rfid_toadd[tIndex],tIndex,c,terminalList)"
+                          class="rfidbutton"
+                          color="header" tappable></ion-icon>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rfidList truckTerminalHeight">
+              <ion-col col-6 class="rfid"
+                       *ngFor="let terminalListRFID of terminalList.truckRegRequestTerminalRFIDSO;let iCounter = index">
+                {{terminalListRFID.rfidNumbers}}
+                <ion-icon [hidden]="rfIdNumedit()" name="close" class="trkAttachment_clse" tappable
+                          (click)="rfIdtoPop(terminalListRFID.rfidNumbers,tIndex,iCounter)"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+        </div>
+      </div>
+      <ion-item style="bottom: 10px;top:5px;">
+        <ion-label color="dark" style="padding-top: 0px;margin-top: 5px;" stacked class="bold">Pool Name
+        </ion-label>
+        <ion-select [mode]="utils.checkUIMode()" class="select" formControlName="poolname" [(ngModel)]="poolname"
+                    multiple="true" tappable
+                    [disabled]="poolnameedit()" [ngClass]="(poolnameedit() || mode == 'view'?'selectWrapper':null)">
+          <ion-option *ngFor="let poolList of this.poolList" [value]="poolList.poolName">
+            {{poolList.poolName}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+    </form>
+  </div>
+
+  <div [hidden]="!truckattach" class="truck_attachments">
+    <form [formGroup]="takeFour" noValidate>
+      <div class="attach" formArrayName="takeFourAttachments" *ngFor="let attachment of takeFour.get('takeFourAttachments').controls; let attachIndex = index;">
+        <div [formGroupName]="attachIndex">
+          <div class="attach_head" (click)="show(attachIndex)" tappable>Attachment {{attachIndex+1}}
+          <ion-icon [name]="geticon(attachIndex)" class="image" tappable></ion-icon>
+        </div>
+          <div [hidden]="!attachments[attachIndex].showdetails" class="subheader">
+            <!--<div formArrayName="takeFourAttachments" *ngFor="let t of takeFour.get('takeFourAttachments').controls; let attachIndex = index;">-->
+            <ion-grid>
+
+              <ion-row>
+                <ion-col col-4 text-wrap>
+                  <ion-label color="label" stacked class="attchlabels Docnum_1">Document Type:
+                    <span *ngIf="!attachmentDocTypeShow(attachIndex)" class="span" [hidden]="isInViewMode()">*</span>
+                  </ion-label>
+                </ion-col>
+                <ion-col col-8 >
+                  <ion-item>
+                    <ion-input class="inputfont" type="text" formControlName="docType"
+                               [readonly]="attachmentDocTypeShow(attachIndex)"
+                               placeholder="Document Type" spellcheck="false"
+                               (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','docType'+attachIndex)"
+                               (keyup.enter)="keyboardClose()"
+                               [(ngModel)]="attachments[attachIndex].docType" tappable></ion-input>
+                  </ion-item>
+                  <div col-sm class="errorattach_mod" *ngIf="formValidate && !takeFour.controls.takeFourAttachments.controls[attachIndex].controls.docType.valid">
+                    Please enter 3 to 255 valid characters
+                  </div>
+                </ion-col>
+              </ion-row>
+
+
+              <ion-row>
+                <ion-col col-4 text-wrap class="doc_no">
+                  <ion-label color="label" stacked class="attchlabels Docnum">Document No:
+                    <span *ngIf="!truckttachdocedit()" class="span" [hidden]="isInViewMode()">*</span>
+                  </ion-label>
+                </ion-col>
+                <ion-col col-8 >
+                  <ion-item>
+                    <ion-input class="inputfont" [readonly]="truckttachdocedit()" type="text" formControlName="docNo"
+                               placeholder="Document No" tappable
+                               [(ngModel)]="attachments[attachIndex].docNum"
+                               (keyup.enter)="keyboardClose()" spellcheck="false"
+                               (keyup)="keyUpValidate($event,'^[a-z0-9A-Z ]*$','docNum'+attachIndex)"
+                    ></ion-input></ion-item>
+                  <div col-sm class="errorattach_mod" *ngIf="formValidate && !takeFour.controls.takeFourAttachments.controls[attachIndex].controls.docNo.valid">
+                    Please enter 3 to 255 valid characters
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col col-4 text-wrap>
+                  <ion-label color="label" stacked class="attchlabels">Document Issue Date:
+                    <span  *ngIf="!truckttachdocedit()" class="span" [hidden]="isInViewMode()">*</span>
+                  </ion-label>
+                </ion-col>
+                <ion-col col-8 >
+                  <ion-item>
+                  <ion-datetime [disabled]="truckttachdocedit()" class=" inputs_2 ion-datetimeinline" name="mydate"
+                                displayFormat={{dateFormat}} formControlName="fromDate" tappable
+                                placeholder="Document Issue Date"
+                                [(ngModel)]="attachments[attachIndex].docIssueDate" required max={{maxdate}} min={{DocDateMin}}></ion-datetime>
+                  </ion-item>
+                    <ion-icon [hidden]="truckfilebrowsehide()" class="attachdate" name="calendar" color="header"></ion-icon>
+                  <div col-sm class="errorattach_mod" *ngIf="formValidate && !takeFour.controls.takeFourAttachments.controls[attachIndex].controls.fromDate.valid">Document Issue Date is mandatory</div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col col-4 text-wrap>
+                  <ion-label color="label" stacked class="attchlabels">Document Expiry Date:
+                    <span *ngIf="!truckttachdocedit()" class="span" [hidden]="isInViewMode()">*</span>
+                  </ion-label>
+                </ion-col>
+                <ion-col col-8 >
+                  <ion-item>
+                  <ion-datetime [disabled]="truckttachdocedit()" class=" inputs_2 ion-datetimeinline" name="mydate"
+                                displayFormat={{dateFormat}} formControlName="toDate" tappable
+                                placeholder="Document Expiry Date"
+                                [(ngModel)]="attachments[attachIndex].docExpDate" required min={{maxdate}}
+                                max="2050-01-01"></ion-datetime>
+                  </ion-item>
+                  <ion-icon [hidden]="truckfilebrowsehide()" class="attachdate" name="calendar" color="header"></ion-icon>
+                  <div col-sm class="errorattach_mod" *ngIf="formValidate && !takeFour.controls.takeFourAttachments.controls[attachIndex].controls.toDate.valid">Document Expiry Date is mandatory</div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col col-4>
+                  <button [hidden]="truckfilebrowsehide()" [disabled]="truckttachdocedit()" class="truck_photobutton" ion-button
+                          color="submit" (click)="openDocs(attachIndex)" style="margin-top:20px;" tappable>Upload
+                    <ion-icon  name="clipboard" class="truck_photoicon" tappable></ion-icon>
+                  </button>
+                </ion-col>
+                <ion-col col-8>
+                  <ion-item text-wrap  class="input-has-focus item-input-has-focus">
+                    <ion-icon style="margin:0px;width: 30px" *ngIf="attachments[attachIndex].fileName" class="truck_fileicon" item-start tappable>
+                      <img style="height: 35px;" src="assets/img/image-icon.png"/></ion-icon>
+                    <ion-textarea [readonly]=true class="inputs" type="text"  formControlName="fileName"
+                                  (click)="openattach(attachIndex)" spellcheck="false" tappable
+                                  stacked class="underline" [(ngModel)] = "attachments[attachIndex].fileName">
+                    </ion-textarea></ion-item>
+                  <div col-sm class="errorattach_mod_doc" *ngIf="formValidate && !takeFour.controls.takeFourAttachments.controls[attachIndex].controls.fileName.valid">
+                    Please attach a document
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row><button [hidden]="hideDeleteOption(attachIndex)" class="truck_close_button" ion-button
+                               color="submit" (click)="closeAttachment(attachIndex)" tappable>DELETE</button></ion-row>
+
+            </ion-grid>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <button [hidden]="buttonAdd()" ion-button (click)="addAttachment()" class="truck_add_button" tappable>
+        <ion-icon ios="ios-add" md="md-add"></ion-icon>
+      </button>
+    </form>
+    <button [hidden]="truckdetailsubmitvalidateHide()" class="button-apply-general footer_submit" tappable
+            *ngIf="!truckdetails && !truckterminal && !truckowner" ion-button full type="submit" color="submit"
+            (click)="truckdetailsubmit()">Submit
+    </button>
+    <ion-col col-8 class="min-height-Css">
+    </ion-col>
+  </div>
+
+  <ion-fab [hidden]="(workflowStatus() && loadAction() ) || hideFloatingButton()" right bottom>
+    <button tappable class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+      <ion-label class="fabedit" [hidden]="editStatus()"></ion-label>
+      <button [hidden]="editStatus()" class="edit" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="editTruckHistory()" tappable>
+        <ion-icon name ="custom-Edit"></ion-icon>
+      </button>
+      <ion-label class="fabedit" [hidden]="cancelStatus()"></ion-label>
+      <button [hidden]="cancelStatus()" class="edit" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="deletetruck()" tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+      <ion-label class="fabedit" [hidden]="workflowStatus()"></ion-label>
+      <button [hidden]="workflowStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showWorkflow()" tappable>
+        <ion-icon name="custom-workflow"></ion-icon>
+      </button>
+      <ion-label class="fabedit" [hidden]="hideCompare()"></ion-label>
+      <button [hidden]="hideCompare()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seecomparison()" tappable>
+        <ion-icon name="custom-comparison"></ion-icon>
+      </button>
+      <ion-label class="fabedit" [hidden]="loadAction()"></ion-label>
+      <button [hidden]="loadAction()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showExecuteAction()" tappable>
+        <ion-icon name="custom-action"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+
+  <!--<button ion-button id="nextbutton" (click)="nextpage()" *ngIf="!truckattach" class="next">
+    <ion-icon name="arrow-round-forward"></ion-icon>
+  </button> -->
+
+  <!--<hr class="hr_line"/>-->
+</ion-content>
+
+<!--<ion-footer>
+  <button [hidden]="truckdetailsubmitvalidateHide()" class="footer_submit"
+          *ngIf="!truckdetails && !truckterminal && !truckowner" ion-button full type="submit" color="submit"
+         (click)="truckdetailsubmit()">Submit
+  </button>
+</ion-footer>-->

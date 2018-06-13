@@ -1,0 +1,67 @@
+informationWithHeaderModal {
+
+
+  .toolbar-title{
+    font-weight: 500 !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+  .firstcol {
+    font-weight: bold;
+    font-size: 1.4rem !important;
+  }
+
+  .closeButton{
+    width: 50%;
+    margin-top: 20px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block;
+  }
+
+ .secondcol {
+    font-size: 1.5rem !important;
+  }
+
+ .rowheight {
+    height:8%;
+  }
+
+  .title{
+    position: relative;
+  }
+
+  .rotateIconHolder{
+    width:70%;
+    height:auto;
+    float: left;
+    font-size: 18px;
+    color: white;
+  }
+
+  .subheadermodel{
+    height:auto;
+
+  }
+  .hideSubheadermodel{
+    height:0px;
+    display:none;
+    //-webkit-animation-name: closecaimdgmodel;
+    //-webkit-animation-duration: 800ms;
+    //-webkit-animation-animation-iteration-count: 1;
+    //-webkit-animation-animation-timing-function: cubic-bezier(0, 0.9, 0.17, 1.23);
+    //-webkit-animation-transform:translateZ(0);
+    //animation-name: closecaimdgmodel;
+    //animation-duration: 800ms;
+    //animation-iteration-count: 1;
+    //animation-timing-function: cubic-bezier(0, 0.9, 0.17, 1.23);
+    //transform:translateZ(0);
+  }
+
+  .option-padding-left
+  {
+    padding-left: 5px !important;
+  }
+}
+

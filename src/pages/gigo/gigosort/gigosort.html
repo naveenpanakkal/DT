@@ -1,0 +1,76 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Sort' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-bounce has-bounsing="false" class="removeScroll" >
+  <div style="height: calc(100% - 140px);">
+    <ion-row>
+      <ion-col class="removePadding sortOrderStyle"  col-8>
+        {{ 'Sortby' | translate }}
+      </ion-col>
+      <ion-col class="removePadding sortOption"  col-4>
+        <label class="toggleButtonCenterAlign" style="margin-top: 20px" >{{sortMode}}</label>
+        <ion-toggle class="toggleButtonCenterAlign" [(ngModel)]="ascend" (ngModelChange)="changeorder()"
+                    style="display: inline-block">
+        </ion-toggle>
+      </ion-col>
+    </ion-row>
+    <div style="overflow-y: auto; height: auto;    height: calc(100% - 80px);
+                          overflow-x:hidden;-webkit-overflow-scrolling: touch;">
+    <ion-list radio-group [(ngModel)]="sortselect" style="padding-right: 10px;" tappable>
+      <ion-item>
+        <ion-label>{{ 'gigoNo' | translate }}</ion-label>
+        <ion-radio value="gigoNo" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'eIRNoSummary' | translate }}</ion-label>
+        <ion-radio value="eirNo" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'eirDateAndTime' | translate }}</ion-label>
+        <ion-radio value="selectDays" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'truckNoSummary' | translate }}</ion-label>
+        <ion-radio value="truckNumber" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'designationSummary' | translate }}</ion-label>
+        <ion-radio value="moveType" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'locationSummary' | translate }}</ion-label>
+        <ion-radio value="location" tappable></ion-radio>
+      </ion-item>
+            <ion-item>
+        <ion-label>{{ 'containerCategorySummary' | translate }}</ion-label>
+        <ion-radio value="chassisNo" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'holdActionSummary' | translate }}</ion-label>
+        <ion-radio value="containerNo" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'status' | translate }}</ion-label>
+        <ion-radio value="status" tappable></ion-radio>
+      </ion-item>
+
+    </ion-list>
+    </div>
+  </div>
+  <ion-row class="bottomButtons">
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general"(click)="clear()" tappable>
+        {{ 'gigo_reset' | translate }}</button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general" (click)="submit()" tappable>
+        {{ 'gigo_done' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

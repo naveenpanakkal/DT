@@ -1,0 +1,194 @@
+page-taview {
+  .ionrow {
+    background: white;
+    //width: 98%;
+    width: 100%;
+    margin: 4px -5px -2px 3px;
+  }
+  .ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+  .additionalDetailStyle {
+    background-color: #5e84a5;
+  }
+  .taFileicon{
+    width: 20px;
+    padding-top: 13px;
+  }
+  .detailsheader {
+    height:70px;
+  }
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  .filters {
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+      ion-icon {
+        color: #ccc;
+      }
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  .padding-left-row
+  {
+    padding-left: 10px;
+  }
+  .alingn-elemnts-inline-left
+  {
+    padding: 0px;
+    display:inline-block;
+    float:left;
+  }
+  .error1{
+    border-top: 1px solid red;
+    position: relative;
+    margin-top: -1px;
+    // width:calc(100% - 16px) ;
+    // margin-left: 16px;
+    width:100%;
+  }
+  .searchbar-error
+  {
+    border-top: 1px solid red;
+    color:red;
+    position: relative;
+    width: 97%;
+    margin-top: 0px;
+    margin-left: 3px;
+  }
+  .rotateIconDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  .rotateIconUp {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .boldStyle
+  {
+    font-weight: 500;
+  }
+  .footer-submit {
+    //font-size: 2rem;
+    margin-left: calc((100% - 118px) / 2) !important
+  }
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    background-color: white;
+  }
+  .appointment-date-time{
+    width: 100%;height: 100%;
+  }
+  .appointment-date-time .datetime-text
+  {
+    padding-top: 15px;
+    padding-left: 10px;
+  }
+  .appointment-slot-select{
+    padding-top: 15px;
+  }
+  .taFilename_1 ion-label{
+    text-align: left;
+    margin-top: 5%;
+  }
+  .appointment-slot-select .select-text{
+    padding-left: 10px;
+  }
+  .alternateNum{
+    max-width: 49%;
+  }
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .taFileicon{
+      width: 27px;
+      margin-top: 13%;
+    }
+    .taFilename_1 ion-label{
+      margin-top: 5%;
+    }
+    .alternateNum{
+      max-width: 100%;
+    }
+  }
+
+  //for Swipable Slider tabs
+  .main-content-slider ion-slide {
+    min-height: 100% !important;
+  }
+
+  .main-content-slider ion-slide .slide-zoom {
+    height: 100%;
+    font-size: 14px !important;
+    text-align: initial !important;
+  }
+  .main-content-slider ion-slide .slide-zoom .scrollable-div {
+    height: 100% !important;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
+    contain: size style layout;
+    overflow-y: scroll;
+  }
+  //for Swipable Slider tabs
+}
+.platform-android page-taview .attachrowSeperator{
+  border-bottom: 1px solid #dedede;
+  //border-bottom: 1px solid #efefef;
+}
+.platform-ios page-taview  .attachrowSeperator{
+  border-bottom: 0.55px solid #c8c7cc;
+  //border-bottom: 1px solid #efefef;
+}
+.platform-ios page-taview .scroll-content {
+  margin-top: 40px !important;
+  margin-bottom: 36px !important;
+  padding-left:0px!important;
+  padding-right:0px!important;
+  overflow-y: hidden !important;
+}
+
+.platform-iphone page-taview .taFilename_1 ion-label {
+  text-align: left;
+  margin-top: 15px;
+  margin-left: 1%;
+}
+.platform-ipad page-taview .taFilename_1 ion-label {
+  text-align: left;
+  margin-top: 5%;
+  margin-left: 3%;
+}
+.platform-iphone page-taview .taFileicon{
+  width: 20px;
+  padding-top: 15px;
+  margin-left: 0%;
+}
+.platform-ipad page-taview .taFileicon {
+  margin-left: 100%;
+  padding-top: 21px;
+}

@@ -1,0 +1,538 @@
+page-truckdsearchresult {
+    .toolbar-title{
+      font-weight: 500 !important;
+      text-align: center;
+      font-size : 2.2rem;
+    }
+.title{
+          position : relative;
+		  right : 6%;
+   }
+
+
+    #notifybadge{
+        float:right;
+    }
+
+#tool .button-md .toolbar-md {
+    padding:0 !important;
+    margin:0 !important;
+}
+ #notifications-badge {
+        background-color: red;
+        position: absolute;
+        bottom: 60%;
+        right: 0;
+        border-radius: 50%;
+            height: 85%;
+        }
+ .photobutton {
+        width:48%;
+    }
+  .headers {
+    opacity: 0.9;
+    margin-top: 8px;
+    position: relative;
+    left: 3%;
+    font-weight: bold;
+    font-size: 2.0rem;
+
+
+  }
+  //.list-md {
+  //  margin: -4.5% 0 0% !important;
+  //}
+
+
+  .list-ios {
+    margin: -5% 0 0% !important;
+  }
+
+  .statusIcon {
+    align-self: flex-end;
+  }
+  .row{
+    height: 40px;
+    position : relative;
+  }
+  .subheader1 {
+    color: #000;
+    opacity: 0.6;
+    position: relative;
+    left: 5%;
+    font-weight: 500;
+    font-size: 1.6rem;
+  }
+
+  #optput{
+    text-transform: none;
+    text-align: center;
+  }
+  .toprow{
+    position: relative;
+    top: -2.5%;
+    width: 110%;
+    left: -4%;
+  }
+
+  .sortimg{
+    height: 25px;
+    position: relative;
+    right: 20%;
+  }
+
+  .topcol{
+    padding: 0 !important;
+    border-right: 1px solid #FFF;
+  }
+  .toprow{
+    position: relative;
+    top: -2.5%;
+    width: 110%;
+    left: -4%;
+  }
+  .countrow{
+    width: 100%;
+    background: white;
+    padding: 4.9%;
+  }
+  .countresult{
+    text-align: center;
+    color: #BD0002 !important;
+    font-weight: normal;
+    font-size:medium;
+  }
+  .subheader3 {
+    color: #000;
+    opacity: 0.6;
+    position: relative;
+    top: -22%;
+    font-weight: 500;
+    font-size: 1.6rem;
+  }
+  .subheader2 {
+    color: #000;
+    opacity: 0.6;
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+    .photoicon{
+        position: relative;
+    left: 18%;
+    bottom: 3%;
+    }
+   #vesselbutton{
+     width: 22%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+	margin-left : -6px;
+    }
+
+    #truckbutton{
+      width: 22%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+    //right : -6px;
+    }
+
+    #berthbutton {
+      width: 25%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+	//right : -16px;
+    }
+
+    #voyagebutton{
+      width: 22%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+	//right : -16px;
+    }
+
+	ion-label .span {
+            color: red;
+        }
+    .buttontool {
+    	width:100%;
+    }
+     .collapsediv {
+        padding: 0px 5px 0px 5px;
+        width: 100%;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    .collapsedivtitle {
+        background-color: #2a739b;
+        color: white;
+		font-size: 2rem !important;
+    }
+    .collapsedivtitle:hover {
+        background-color: #67D3F4;
+        color: white;
+    }
+	.footer_submit{
+		font-size: 2rem;
+	}
+    .collapsedivsubfields {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+	.collapsedivsubfields .item-md{
+		padding: 10px;
+	}
+    .left {
+        width: 100%! important;
+    }
+    .splitrow {
+        /* margin-top: 10px;*/
+    }
+    .vflagerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 0px;
+        margin-left: 15px;
+    }
+    p {
+        padding: 0px 0px 0px 5px;
+    }
+    .vowncountryerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 0px;
+        margin-left: 15px;
+    }
+    .vownstateerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .vopcountryerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .vopstateerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 0px;
+        margin-left: 15px;
+    }
+    .vactiveerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .filterImg{
+      height: 25px;
+      position: relative;
+      right: 20%;
+    }
+  .gridclass {
+    border-top: 3px solid lightgrey;
+    width: 100%;
+    overflow-y: hidden;
+    background: white;
+    margin-bottom: 9px;
+    margin-top: 9px;
+  }
+  .truckName {
+    height: auto;
+  }
+  .plateName {
+    height: auto;
+    position: relative;
+  }
+  .liststyle{
+    overflow-y: scroll;
+  }
+  .truckcontent{
+    position: relative;
+    z-index: 1;
+    background : #F4F4F4;
+  }
+    .vtypeerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .bold {
+        font-weight: bold;
+		font-size: 1.5rem !important;
+		padding-left: 5px;
+		padding-top: 5px;
+        margin-left: 3% !important;
+    }
+    .boxd {
+        font-weight: bold;
+		font-size: 1.5rem !important;
+		padding-left: 5px;
+		padding-top: 5px;
+    }
+    .dateitem{
+            margin-bottom: -8% !important;
+    }
+    .item-md{
+        margin-bottom: -2%;
+    padding-right: 0px !important;
+    padding-left: 0;
+    width: 100% !important;
+
+    }
+    .dateitemlast{
+            margin-top: 1%;
+            margin-bottom: -8% !important;
+    }
+    .truckinputs{
+        margin-left: 8.5%;
+    }
+    .truckselect{
+        margin-left:4.5%;
+    }
+    #rfidbutton{
+        bottom: 40px;
+        float: right;
+        z-index: 1;
+        font-size: 3em;
+        position: relative;
+        right: 4%;
+        margin-bottom: -5%;
+    }
+
+    #cal {
+         float: right;
+        z-index: 1;
+        font-size: 3em;
+        position: relative;
+        bottom: 40%;
+        right: 4%;
+        margin-bottom: -5%;
+    }
+    #nextbutton {
+    	    padding: 22px;
+    float: right;
+    position: relative;
+    height: 6rem;
+    font-size: 2rem;
+    right: 2%;
+    //border-radius: 50%;
+    background-color: #113B5F;
+    color: white;
+ margin-top: 5%;
+    margin-bottom: 5%;
+    }
+	.iconadd{
+	  	      background-color: #185389;
+    color: white;
+    height: 47px;
+    width: 43px;
+    float: right;
+    position: relative;
+    bottom: 53px;
+    right: 0px;
+    margin-bottom: -42px !important;
+	}
+	.iconsearch{
+	  	    background-color: #185389;
+    color: white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    position: relative;
+    bottom: 45px;
+	right : 0px;
+	margin-bottom : -42px !important;
+	z-index: 2 !important;
+	}
+
+	.iconsearch-ios {
+    background-color: #185389;
+    color: white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    position: relative;
+    bottom: 45px;
+    right: 7px;
+    margin-bottom: -42px !important;
+    z-index: 2 !important;
+    }
+
+     .toolbar-title-ios {
+    color: #fff;
+    position: relative;
+       //---ios_change--start
+       //---Truck search alignment issue
+    bottom: -10%;
+       //---ios_change--end
+}
+.portdetails {
+			border: 1px solid black;
+            padding: 2%;
+    margin: 2%;
+	}
+    .rfiddiv {
+			padding-left: 10px;
+			width: 50% !important;
+	}
+
+	.rfidnum .item-inner {
+	    position: relative;
+    	bottom: 10px;
+    	font-weight: bold;
+	}
+
+	.clse {
+		float: right;
+		color: blue;
+		font-weight: bold;
+	}
+    .rfid {
+		    width: 88%;
+	}
+	.rfidnum {
+
+		    border: 1px solid;
+            margin-top:10px;
+		    height: 10px;
+		    background-color: #EEF0F1;
+	}
+
+    .rfidnum .item-inner{
+        margin-top: 7px;
+    }
+
+
+    .pop{
+        margin-left: 1%;
+        color: #113B5F;
+		font-weight: bold;
+    }
+
+  .truckResult_Status{
+    color: #9BCCCE;
+    font-size: 0.8em;
+    float: right;
+    font-weight: normal;
+  }
+
+
+  .approvedicon{
+    height: 30px;
+    width: 30px;
+    float: right;
+    position: relative;
+    right: 15%;
+    margin-top: -53%;
+
+  }
+  //---ios_change--start
+  button#sortId.disable-hover.button.button-ios.button-default.button-default-ios.button-full.button-full-ios.button-ios-header{
+    right: 2%;
+  }
+
+  h6.countresult{
+    margin-top: -1.5rem !important;
+  }
+
+  div.toolbar-title.toolbar-title-ios{
+    overflow: visible;
+    margin-top: -10%;
+    margin-left: -10%;
+  }
+  //added for sliding bar color
+  .button-md-secondary {
+    color: #fff !important;
+    background-color: #F2B011 !important;
+  }
+
+  .button-md-secondary:hover:not(.disable-hover) {
+    background-color: #d49d18 !important;
+  }
+
+  .button-md-secondary.activated {
+    background-color: #d49d18 !important;
+    opacity: 1;
+  }
+
+  .button-md-secondary .button-effect {
+    background-color: #fff !important;
+  }
+// added for sliding bar color ios change
+
+.button-ios-secondary {
+    color: #fff !important;
+    background-color: #F2B011 !important;
+  }
+
+  .button-ios-secondary:hover:not(.disable-hover) {
+    background-color: #d49d18 !important;
+  }
+
+  .button-ios-secondary.activated {
+    background-color: #d49d18 !important;
+    opacity: 1;
+  }
+
+  .button-ios-secondary .button-effect {
+    background-color: #fff !important;
+  }
+
+  .statusStyle {
+    //background: #32db64;
+    text-align: center;
+  }
+  //added for sliding bar color ends here
+  //---ios_change--end
+
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .list-md {
+      margin: -0.5% 0 0% !important;
+    }
+    .truckResult_Status{
+      color: #9BCCCE;
+      font-size: 0.8em;
+      float: right;
+      font-weight: normal;
+      margin-right: 9%;
+    }
+
+    .approvedicon{
+      margin-top: -25%;
+
+    }
+  }
+  }
+
+.platform-iphone page-truckdsearchresult .approvedicon{
+  right: 27%;
+}
+
+.platform-ipad page-truckdsearchresult  .search-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+

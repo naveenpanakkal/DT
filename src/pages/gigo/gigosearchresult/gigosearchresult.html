@@ -1,0 +1,180 @@
+<!--
+  Generated template for the VesselloaddischargesummarysearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <!--<img class="fields" src="assets/img/Vessel load_Dischang Summary.svg" >-->
+    <ion-title class="title change-title-label">{{ 'gigo-result-title' | translate }}</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="navigateToSort($event)" tappable>
+          <img class="filterImg" src="assets/img/sort.svg" tappable/>
+          {{ 'Sort' | translate }}
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="navigateToFilter($event)" tappable>
+          <img class="filterImg" src="assets/img/filter.svg" tappable/>
+          {{ 'Filter' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-toolbar color="milkygrey" class="countrow countresult">
+    <div> {{gigoSearchResult?.length}} out of {{gigoSearchResult?.length}} results</div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="searchcontent" id="vesselloaddischargesummarysearchresult">
+
+  <ion-list>
+    <div class="gridclass" *ngFor="let selGiGo of gigoSearchResult; let i= index;"
+         [ngClass]="(selGiGo.longPressFired == 'true')?'selected-style':'unselected-style'" >
+      <ion-item-sliding>
+        <!--<ion-item  dt-events  [onDtItreation]="selGiGo"
+                   (onDtCustomClick)="showSummarydetails(selGiGo)"
+                   (onDtLongPress)="longPressHandle($event)" >-->
+
+        <ion-item  id="{{i}}"
+                   (click)="showSummarydetails(selGiGo)"
+                   (touchstart)="touchStartEventFired(selGiGo,i)"
+                   (touchend)="touchLeaveEventFired(selGiGo,i,$event)">
+
+
+        <!--<ion-row>-->
+            <!--<ion-col text-wrap>-->
+              <!--<h4 class="headers"> {{selGiGo.holdActionSummary}} </h4>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+          <ion-row>
+            <ion-col col-9>
+              <ion-row class="subtitle">
+                <ion-col col-4 class="wrap-content">
+                  <h6 class="subheader1">{{ 'gigo_no' | translate }}</h6>
+                </ion-col>
+                <ion-col>
+                  <h6 class="subheader2">{{selGiGo.gigoNo}}</h6>
+                </ion-col>
+              </ion-row>
+              <!--<ion-row class="subtitle">-->
+                <!--<ion-col col-4 class="wrap-content">-->
+                  <!--<h6 class="subheader1">{{ 'gigo_eir_no' | translate }}</h6>-->
+                <!--</ion-col>-->
+                <!--<ion-col>-->
+                  <!--<h6 class="subheader2">{{selGiGo.eIRNoSummary}}</h6>-->
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+              <!--<ion-row class="subtitle">-->
+                <!--<ion-col col-4 class="wrap-content">-->
+                  <!--<h6 class="subheader1">{{ 'gigo_date_time' | translate }}</h6>-->
+                <!--</ion-col>-->
+                <!--<ion-col text-wrap>-->
+                  <!--<h6 class="subheader2">{{selGiGo.eirDateAndTime}}</h6>-->
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+
+              <ion-row class="subtitle">
+                <ion-col col-4 class="wrap-content">
+                  <h6 class="subheader1">{{ 'gigo_truck_no' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap>
+                  <h6 class="subheader2">{{selGiGo.truckNumber}}</h6>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="subtitle">
+                <ion-col col-4 class="wrap-content">
+                  <h6 class="subheader1">{{ 'gigo_movetype' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap>
+                  <h6 class="subheader2">{{selGiGo.moveType}}</h6>
+                </ion-col>
+              </ion-row>
+
+              <!--<ion-row class="subtitle">-->
+                <!--<ion-col col-4 class="wrap-content">-->
+                  <!--<h6 class="subheader1">{{ 'gigo-container-no' | translate }}</h6>-->
+                <!--</ion-col>-->
+                <!--<ion-col text-wrap>-->
+                  <!--<h6 class="subheader2">{{selGiGo.holdActionSummary}}</h6>-->
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+
+              <!--<ion-row class="subtitle">-->
+                <!--<ion-col col-4 class="wrap-content">-->
+                  <!--<h6 class="subheader1">{{ 'gigo_chassis_no' | translate }}</h6>-->
+                <!--</ion-col>-->
+                <!--<ion-col text-wrap>-->
+                  <!--<h6 class="subheader2">{{selGiGo.containerCategorySummary}}</h6>-->
+                <!--</ion-col>-->
+              <!--</ion-row>-->
+            </ion-col>
+            <ion-col>
+              <ion-row>
+                <ion-col class="statusCenter" text-wrap>
+                  <img class="approvedicon" [src]="getStatusIcon(selGiGo.status)"/>
+                  <h6 [style.color]="getStyle(selGiGo)">{{getStatus(selGiGo.status)}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+
+        </ion-item>
+        <ion-item-options [hidden]="multiRequestSelected()" side="right">
+
+          <button ion-button color="secondary" [hidden]="hideShowButton(selGiGo)" (click)="editGiGo(selGiGo)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-Edit"></ion-icon>
+            {{ 'edi-b' | translate }}
+          </button>
+
+          <button ion-button color="secondary" (click)="viewGiGo(selGiGo)" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            {{ 'view' | translate }}
+          </button>
+
+          <button ion-button color="secondary" [hidden]="hideShowButton(selGiGo)"  (click)="cancelGiGo(selGiGo)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            {{ 'del-b' | translate }}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+
+
+  <ion-fab  *ngIf="multiRequestSelected() || !(hideCreate())" right bottom #fab>
+    <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu" tappable></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit" [hidden]="hideCreate()"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" [hidden]="hideCreate()"
+              (click)="openGiGoCreate()" tappable>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-label class="fabedit" *ngIf="multiRequestSelected()"></ion-label>
+      <button [hidden]="!multiRequestSelected()"ion-fab color="$icon-highlight-bg-color-onfocus"
+               (click)="navigateToMail()" tappable>
+        <ion-icon name ="custom-mail"></ion-icon>
+      </button>
+      <ion-label class="fabedit" *ngIf="multiRequestSelected()"></ion-label>
+      <button [hidden]="!multiRequestSelected()" ion-fab color="$icon-highlight-bg-color-onfocus"
+               (click)="navigateToDownload('excel')" tappable>
+        <ion-icon name="custom-csv"></ion-icon>
+      </button>
+      <ion-label class="fabedit" *ngIf="multiRequestSelected()"></ion-label>
+      <button [hidden]="!multiRequestSelected()" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="navigateToDownload('pdf')" tappable>
+        <ion-icon name="custom-pdf"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

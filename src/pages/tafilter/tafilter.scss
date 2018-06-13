@@ -1,0 +1,262 @@
+page-tafilter {
+  .create{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+  }
+
+  .searchbarStyle{
+    margin-left:15px !important;
+    margin-right: 15px !important;
+  }
+
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+  .title{
+    position: relative;
+    left: -10px;
+  }
+
+  .datetime-ios {
+    padding: 0px !important;
+  }
+
+  ion-searchbar{
+    margin-left:16px !important;
+    width:98%;
+  }
+  .div-margin {
+    margin-left: 2%;
+  }
+  .image {
+    float: right;
+  }
+  .icon-margin {
+    margin-top: 12px;
+    margin-left: 0px;
+  }
+  .cal
+  {
+    float: right;
+    font-size: 2em;
+    margin-right:20px;
+    position: relative;
+    margin-top: -14%;
+    padding: 5px !important;
+    left: 10px !important;
+    background-color: transparent;
+  }
+
+  .imoitem ion-item
+  {
+    padding: 0px !important;
+  }
+
+  .label{
+    position : relative;
+    left : 0px !important;
+    font-size: 1.6rem !important;
+
+  }
+
+  .valerror{
+    border-top: 1px solid red;
+    margin-left: 15px;
+    margin-right: 9px;
+    position: relative;
+    bottom: 12px;
+    color: red;
+  }
+
+  .valerror-search{
+    border-top: 1px solid red;
+    margin-left: 15px;
+    margin-right: 15px;
+    position: relative;
+    bottom: 12px;
+    color: red;
+    margin-top: 20px !important;
+  }
+
+  .label-left{
+    margin-left: 0% ;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .style{
+    border: none;
+    margin-left: 5%;
+    margin-top: 5%;
+
+  }
+
+  .span
+  {
+    color:red;
+  }
+
+  .button-right {
+    float: right;
+    margin-top: 10px;
+  }
+
+  #imoitem{
+    padding-top: 30%;
+  }
+
+  #buttonsearch{
+    height: 40px;
+    align-items: center;
+  }
+
+  #buttongo{
+    height: 50px;
+    float: right;
+  }
+
+  ion-searchbar{
+    margin-left: 0px !important;
+   // padding: 0px !important;
+    width: 100%;
+  }
+  .row-seperator-align{
+    padding: 0px !important;
+  }
+  .validationForms .list
+  {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 2px;
+  }
+
+//media query starts here.............................................................................................
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .cal {
+      margin-top: -5%;
+    }
+  }
+  //media query ends here...............................................................................................
+}
+.platform-ios page-tafilter  .scroll-content
+{
+  margin-top: 15px !important;
+  padding-left: 0px!important;
+}
+.platform-ios page-tafilter  .reset-button-container
+{
+  margin-left: 20px;
+}
+.platform-ios page-tafilter ion-searchbar {
+  //margin-left: 15px !important;
+  //padding: 10px !important;
+  //width: calc(100% - 15px) !important;
+
+  //padding: 10px !important;
+  padding-left: 0px;
+  margin-left: 0px !important;
+  width: 100%;
+  //margin-bottom:10px;
+}
+.platform-android page-tafilter ion-searchbar,
+.platform-ios page-tafilter ion-searchbar {
+  margin-bottom: 0px !important;
+  padding:0px !important;
+}
+.platform-ios page-tafilter .valerror-search,
+.platform-android page-tafilter .valerror-search{
+  margin-right: 0px !important;
+  margin-top: 11px !important;
+}
+.platform-ios page-tafilter ion-header .toolbar-ios ion-title{
+  left: 0px !important;
+}
+page-tafilter .item {
+  padding-left: 5px !important;
+  padding-right: 20px !important;
+  margin: 10px 0px 10px 10px !important;
+}
+.platform-android page-tafilter .cal{
+  margin-right: 30px !important;
+}
+.platform-ios  page-tafilter  ion-datetime,
+.platform-android  page-tafilter  ion-datetime
+{
+  Margin-top:10px;
+}
+.platform-ios  page-tafilter  ion-datetime .datetime-text,
+.platform-android  page-tafilter  ion-datetime .datetime-text
+{
+  padding-bottom: 10px;
+}
+.platform-tablet page-tafilter  .cal,
+.platform-ipad page-tafilter .cal
+{
+  margin-top: -46px;
+}
+.platform-ios  page-tafilter .list-ios .item-block:first-child{
+  border-top: 0px solid #c8c7cc!important;
+}
+
+.platform-ios  page-tafilter .list-ios .item-block:last-child{
+  border-bottom: 0px solid #c8c7cc!important;
+}
+page-tafilter .item-ios.item-label-stacked .text-input,
+page-tafilter .item-label-stacked .select-ios{
+  margin-left: 0;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  width: calc(100% - 8px);
+}
+page-tafilter .item-label-stacked .select-ios {
+  Padding-bottom:0px!important;
+  Padding-top:0px!important;
+}
+.platform-android  page-tafilter  ion-datetime
+{
+  padding-bottom: 0px !important;
+}
+
+.platform-android  page-tafilter .filer-from-date{
+
+  margin-top:0px!important;
+  margin-bottom:0px!important;
+}
+.platform-android  page-tafilter .item-block .label{
+  margin-top:0px;
+  margin-bottom:5px;
+}
+.platform-android  page-tafilter .filter-row .label{
+  margin-top:0px!important;
+  margin-bottom:5px!important;
+}
+.platform-android  page-tafilter  .filter-date-margin{
+  margin-top:0px;
+}
+
+.platform-ios page-tafilter .filer-from-date{
+  margin-top:0px!important;
+  margin-bottom:15px!important;
+}
+.platform-ios  page-tafilter .item-block .label{
+  margin-top:0px;
+  margin-bottom:5px;
+}
+.platform-ios  page-tafilter .filter-row .label{
+  margin-top:0px!important;
+  margin-bottom:5px!important;
+}
+.platform-ios  page-tafilter  .filter-date-margin{
+  margin-top:0px;
+}
+.searchbar-ios{
+  Margin-bottom:0px !important;
+}

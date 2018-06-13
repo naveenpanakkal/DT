@@ -1,0 +1,186 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">{{ 'container_acceptance_summary' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="detailcontent" id="caSearchSummaryContent">
+
+  <div id="divv">
+    <img class="approvedicon" [src]="statusIcon"/>
+  </div>
+  <h6 class="status" [style.color]="getStyle()">{{status}}</h6>
+
+  <ion-item text-wrap *ngIf="isfromCreateorAmend" margin-top="15dp">
+    <h2 class="cacreatetitle">{{notificationMessage}} </h2>
+  </ion-item>
+
+  <ion-grid class="details">
+    <ion-row class="firstrow">
+      <ion-col text-wrap col-6>
+        <ion-label *ngIf="!fromCaSearch"><h4 class="labels">{{ 'container_acceptance_no' | translate }}</h4>
+        </ion-label>
+        <ion-label *ngIf="fromCaSearch"><h4 class="labels">{{ 'acceptance_no' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{responseModel.acceptanceNo}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'liner_booking_number' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{responseModel.linerBookingNumber}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'ca_no_of_containers' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{this.responseModel.caContainerDetailsSOs?.length}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'vessal_cutoff_date' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{this.responseModel.vesselCutOffTime}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'ca_vesselName' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{vessalName}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'port_of_discharge' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{this.responseModel.portOfDischarge}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'ca_rotation_number' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{responseModel.rotationNumber}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'ca_acceptance_type' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{responseModel.acceptanceType}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'shipper' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{shipperForwarder}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'cha' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{chaForwarder}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'empty_yard' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{emptyYard}}</h4>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="fromCaSearch">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">{{ 'cfs' | translate }}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{cfs}}</h4>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+  <ion-fab right bottom *ngIf="!this.isfromCreateorAmend">
+    <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewCA()" tappable>
+        <ion-icon name ="custom-view"></ion-icon>
+      </button>
+      <ion-label [hidden]="hideEditOption" class="fabedit"></ion-label>
+      <button [hidden]="hideEditOption" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="editCA()" tappable>
+        <ion-icon name ="custom-Edit"></ion-icon>
+      </button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seehistory()" tappable>
+        <ion-icon name ="custom-history"></ion-icon>
+      </button>
+      <ion-label [hidden]="hideCancelOption" class="fabedit"></ion-label>
+      <button [hidden]="hideCancelOption" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="cancelCA()" tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+      <ion-label [hidden]="hidePrintOption" class="fabedit"></ion-label>
+      <button [hidden]="hidePrintOption" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewDoDoc()" tappable>
+        <ion-icon name="custom-print"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-fab right bottom *ngIf="this.isfromCreateorAmend && !hidePrintOption">
+    <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus" tappable>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewDoDoc()" tappable>
+        <ion-icon name="custom-print"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

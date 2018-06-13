@@ -1,0 +1,16 @@
+
+<ion-content no-bounce has-bounsing="false" padding>
+
+<ion-tabs color="header" #myTabs [ngClass]="{'remove-tabs': keyboardCheck()}" (ionChange)="tabSelected($event)" tappable>
+  <ion-tab tabTitle="Home" tabIcon="custom-Home" [root]="tab1Root" [rootParams]="tabParams" tappable></ion-tab>
+  <!--ion-tab tabTitle="Search" tabIcon="search" [root]="tab2Root"></ion-tab-->
+  <!--ios_change-start-request icon enabled-->
+  <ion-tab tabTitle="Requests" tabIcon="custom-request" [root]="tab3Root" tappable></ion-tab>
+  <!--ios_change-end-->
+  <ion-tab tabTitle="Notifications" tabIcon="custom-Notification" [root]="tab4Root" tappable></ion-tab>
+  <!-- <ion-tab tabTitle="Notifications" tabIcon="notifications" [root]="tab4Root" tabBadge="5" tabBadgeStyle="danger"></ion-tab> -->
+<ion-tab tabTitle="More" tabIcon="custom-More" [root]="tab5Root" tappable></ion-tab>
+
+</ion-tabs>
+
+</ion-content>

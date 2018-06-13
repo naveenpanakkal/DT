@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" class="workflowHistoryTitle-ios">{{ 'workFlowHistory' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" id="workFlowContent">
+<ion-row>
+  <ion-col>
+    {{ 'requestIDworkflow' | translate }}
+  </ion-col>
+<ion-col>
+   {{requestid}}
+</ion-col>
+</ion-row>
+
+  <ion-list class="approver" *ngFor="let list of workflowdetails">
+    <ion-item>
+      <div item-left [ngClass]="getStatusStyle(list)"></div>
+      <h6 class="approver">{{list.name}}
+        <p (click)="presentpopover($event,list)" tappable>{{ 'clickhere' | translate }}</p>
+      </h6>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

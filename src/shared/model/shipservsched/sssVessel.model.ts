@@ -1,0 +1,19 @@
+export class ShipServSchedVesselResultModel {
+  vesselRegistrationId:string;
+  vesselName:string;
+  vesselType:string;
+  imoNo:string;
+  vesselRegistrationStatus:string;
+  requestNo:string;
+  createdDate:string;
+  length:number;
+  grossTonnage:string;
+  expiryDate:string;
+  vesselOperatorName:string;
+  vesselOperatorType:string;
+  expired:string;
+  canAmend:string;
+  canApprove:string;
+  vesselCapacity:string;
+  vesselRegRequestId:string;
+}

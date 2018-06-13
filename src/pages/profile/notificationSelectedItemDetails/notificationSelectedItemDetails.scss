@@ -1,0 +1,115 @@
+page-notificationSelectedItemDetails {
+
+ .popover-content{
+    top:0 !important;
+    border-radius: 20px !important;
+  }
+
+  .mainText{
+    color: #555!important;
+  }
+
+  //.header-style-colordiff{
+  //  background: rgba(230, 239, 238, 0.84)!important;
+  //}
+
+}
+
+.notification-details-popover.color1  .popover-arrow::after{
+  background-color: rgba(103, 211, 244, 0.68)!important;
+}
+
+.notification-details-popover.color1 page-notificationSelectedItemDetails ion-content{
+  background-color: rgba(103, 211, 244, 0.4);
+}
+
+.notification-details-popover.color2  .popover-arrow::after{
+  background-color: rgba(255, 165, 0, 0.35) !important;
+}
+
+.notification-details-popover.color2 page-notificationSelectedItemDetails ion-content{
+  background-color: rgba(255, 165, 0, 0.15)!important;
+}
+
+.notification-details-popover.color3   .popover-arrow::after{
+  background-color: rgba(42, 115, 155, 0.58)!important;
+}
+
+.notification-details-popover.color3 page-notificationSelectedItemDetails ion-content{
+  background-color: rgba(42, 115, 155, 0.33)!important;
+}
+
+.notification-details-popover.color4   .popover-arrow::after{
+  background-color: rgba(23, 60, 94, 0.79)!important;
+}
+
+.notification-details-popover.color4 page-notificationSelectedItemDetails ion-content{
+  background-color: rgba(23, 60, 94, 0.39)!important;
+}
+
+.notification-details-popover .color5   .popover-arrow::after{
+  background-color:  #f5fffd!important;
+}
+
+.notification-details-popover .color5 page-notificationSelectedItemDetails ion-content{
+  background-color:  #eaf4f2!important;
+}
+.notification-details-popover  .popover-content {
+  border-radius: 0px !important;
+}
+page-notificationselecteditemdetails ion-grid {
+  padding: 0px!important;
+}
+page-notificationselecteditemdetails ion-grid  .row{
+  padding: 0px!important;
+  margin: 0px!important;
+}
+
+ .notification-details-popover  .popover-content {
+  border-radius: 0px !important;
+}
+
+page-notificationselecteditemdetails ion-grid {
+  padding: 0px!important;
+  //background-color: rgba(167, 166, 160, 0.29);
+  background-color: rgba(3, 167, 46, 0.25);
+}
+
+page-notificationselecteditemdetails ion-grid  .row{
+  padding: 0px!important;
+  margin: 0px!important;
+}
+
+page-notificationSelectedItemDetails ion-grid  .mainText.header-style-colordiff[col-12]{
+  text-align: center;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(206, 205, 198, 0.55);
+}
+page-notificationSelectedItemDetails ion-grid .mainText[col-12]
+{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+page-notificationSelectedItemDetails ion-grid .mainText[col-6],
+page-notificationSelectedItemDetails ion-grid .mainText.header-style-colordiff [col-6]
+{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.notification-details-popover.color5 .popover-arrow::after
+{
+  background-color: transparent!important;
+}
+
+.notification-details-popover.color5 .popover-content {
+  border-radius: 10px !important;
+  top: 40% !important;
+  left: calc((100% - 80%) / 2) !important;
+  margin: 0px auto !important;
+}
+
+.notification-details-popover.color5   .popover-content {
+  border-radius: 10px !important;
+}

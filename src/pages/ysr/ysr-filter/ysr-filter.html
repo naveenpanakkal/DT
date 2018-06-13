@@ -1,0 +1,122 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="gigofilter" >
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'location' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select' | translate}}"
+                [(ngModel)] = "location" (ionChange)="spLocSelected()" tappable>
+      <ion-option *ngFor="let locatn of locations" value={{locatn}}>{{locatn}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Line-Code' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select'| translate}}" multiple="true" [(ngModel)]="lineCode" tappable>
+      <ion-option *ngFor="let linecode of lineCodeList" value={{linecode}}>{{linecode}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Trade-Type' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select'| translate}}" multiple="true" [(ngModel)]="tradeType"
+                (ionChange)="tradeTypeSelected()" tappable>
+      <ion-option *ngFor="let type of tradetypeList" value={{type.definedSetValueCode}}>{{type.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-SP-Type' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select' | translate}}"
+                [(ngModel)] = "spType" (ionChange)="spTypeSelected()" tappable>
+      <ion-option *ngFor="let sptype of sptypes" value={{sptype}}>{{sptype}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Terminal-Yard' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select' | translate}}"
+                [(ngModel)] = "terminal" multiple="true" tappable>
+      <ion-option *ngFor="let trminal of terminalList" value={{trminal}}>{{trminal}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Container-No' | translate }}</ion-label>
+    <ion-row col-12>
+    <ion-searchbar class="label-left"  tappable>
+    </ion-searchbar>
+    </ion-row>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-ISO-Code' | translate }}</ion-label>
+    <ion-input class="label-left" placeholder="{{'ysr-ISO-Code' | translate}}" [(ngModel)]="isoCode" tappable>
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Load-Category' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select'| translate}}" multiple="true" [(ngModel)]="loadCategory" tappable>
+      <ion-option *ngFor="let load of loadCategoryList" value={{load.definedSetValueCode}}>{{load.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Days-From' | translate }}</ion-label>
+    <ion-input class="label-left" placeholder="{{'ysr-Days-From'| translate}}" [(ngModel)]="dayStoredFrom" tappable>
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Days-Stored-To' | translate }}</ion-label>
+    <ion-input class="label-left" placeholder="{{'ysr-Days-Stored-To'| translate}}" [(ngModel)]="dayStoredTo" tappable>
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Is-Hold' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select'| translate}}" [(ngModel)]="isHold" tappable>
+      <ion-option *ngFor="let ishold of boolList" value={{ishold.definedSetValueCode}}>{{ishold.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Damaged' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select'| translate}}" [(ngModel)]="isDamage" tappable>
+      <ion-option *ngFor="let damage of boolList" value={{damage.definedSetValueCode}}>{{damage.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'ysr-Search-By' | translate }}</ion-label>
+    <ion-select class="label-left" placeholder="{{'rb_select' | translate}}"
+                [(ngModel)] = "searchby" tappable>
+      <ion-option *ngFor="let serach of searchbyList" value={{serach}}>{{serach}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-row style="margin-top: 30px;margin-left:20px;">
+    <ion-col col-6>
+      <button full color="submit" ion-button (click) = "reset()"
+              class="buttonCenterAlign button-apply-general"
+               tappable>{{ 'rese-b' | translate }}</button>
+    </ion-col>
+    <ion-col  col-6>
+      <button full color="submit" ion-button (click) = "search()"
+              class="buttonCenterAlign button-apply-general"
+               tappable>{{ 'SEARCH' | translate }}</button>
+    </ion-col>
+  </ion-row>
+  <!--</form>-->
+
+</ion-content>

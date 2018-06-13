@@ -1,0 +1,185 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" class="truckSearchResult-ios">Truck Registration</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="presentSortPopover($event)">
+          <img class="filterImg" src="assets/img/sort.svg" tappable/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="presentFilterPopover($event)">
+          <img class="filterImg" src="assets/img/filter.svg" tappable/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-toolbar color="milkygrey" class="countrow countresult">
+        <div>  {{searchResult?.length}} out of {{searchResult?.length}} results </div>
+  </ion-toolbar>
+ </ion-header>
+<ion-content no-bounce has-bounsing="false" class="searchcontent truckcontent" id="truckSearchResultContent" >
+  <ion-list class="search-list">
+    <div class="gridclass" *ngFor="let selTruck of searchResult">
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(selTruck)" tappable>
+          <ion-row class="truckName">
+            <ion-col col text-wrap col-10>
+              <h4 class="headers"> {{selTruck.name}} </h4>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col col-4>
+              <h6 class="subheader1">Reg ID</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="subheader2">{{selTruck.truckRegistrationId}}</h6>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-4>
+              <h6 class="subheader1">Date</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="subheader2">{{selTruck.createdDate}}</h6>
+            </ion-col>
+            <ion-col col-3 class="statusStyle" text-wrap>
+              <img center class="approvedicon" [src]="getStatusIcon(selTruck)"/>
+              <h6 center class="truckResult_Status" [style.color]="getStyle(selTruck)">{{selTruck.status}}</h6>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="plateName">
+            <ion-col col-4>
+              <h6 class="subheader1">Lic Plt No</h6>
+            </ion-col>
+            <ion-col col-8 text-wrap >
+              <h6 class="subheader2">{{selTruck.licensePlateNo}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+
+          <button ion-button color="secondary" [hidden]="hideApproveButton(selTruck)" (click)="gotoapprove(selTruck)"
+                  style=" border: 1px solid white;" tappable>
+            <ion-icon name="custom-action"></ion-icon>
+            Approve
+          </button>
+
+          <button ion-button color="secondary" [hidden]="editHidden(selTruck)" (click)="goedit(selTruck)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-Edit"></ion-icon>
+            Edit
+          </button>
+
+          <button ion-button color="secondary" (click)="goview(selTruck)" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            View
+          </button>
+
+          <button ion-button color="secondary" [hidden]="cancelHidden(selTruck)" (click)="goCancelTruck(selTruck)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            Cancel
+          </button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </div>
+
+  </ion-list>
+  <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf=!onlysort>
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+                                 loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+
+  <!--<ion-list>
+    <div *ngIf=onlysort>
+
+
+      <div class="gridclass" *ngFor="let myTruck of truckRegSearchResultList.list">
+
+        <ion-item-sliding>
+          <ion-item (click)="showdetails(myTruck)">
+
+            <ion-row>
+              <ion-col col>
+                <h4 class="headers"> {{myTruck.vesselname}} </h4>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col col-3>
+                <h6 class="subheader1">Reg ID</h6>
+              </ion-col>
+              <ion-col>
+                <h6 class="subheader3">{{myTruck.truckRegistrationId}}</h6>
+              </ion-col>
+              <ion-col>
+                <h6 class="status" [style.color]="getStyle(s)">{{s.status}}</h6>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col col-3>
+                <h6 class="subheader1">Created Date</h6>
+              </ion-col>
+              <ion-col>
+                <h6 class="subheader2">{{myTruck.createdDate}}</h6>
+              </ion-col>
+            </ion-row>
+
+          </ion-item>
+          <ion-item-options side="right">
+
+            <button ion-button color="secondary" style=" border: 1px solid white;">
+              <ion-icon name="checkmark"></ion-icon>
+              Approve
+            </button>
+
+            <button ion-button color="secondary" (click)="goedit(s)" style="border: 1px solid white;">
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+
+            <button ion-button color="secondary" style="border: 1px solid white;">
+              <ion-icon name="eye"></ion-icon>
+              View
+            </button>
+
+            <button ion-button color="secondary" style="border: 1px solid white;">
+              <ion-icon name="close"></ion-icon>
+              Cancel
+            </button>
+
+          </ion-item-options>
+        </ion-item-sliding>
+
+      </div>
+    </div>
+
+  </ion-list> -->
+
+
+   <ion-fab right bottom>
+    <button ion-fab style="background-color: #F2B011;" [hidden] = "canCreate()" (click)="opentrucknew()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <!--ion-infinite-scroll (ionInfinite)="doInfinitee($event)" *ngIf=onlysort>
+   <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="Loading more data..."></ion-infinite-scroll-content>
+ </ion-infinite-scroll-->
+
+
+</ion-content>

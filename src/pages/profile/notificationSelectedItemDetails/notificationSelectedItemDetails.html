@@ -1,0 +1,45 @@
+
+<ion-content no-bounce has-bounsing="false" id="notificationDetailsContent" >
+<ion-grid>
+  <ion-row>
+    <ion-col class="mainText header-style-colordiff" col-12>
+      <strong>{{notificationDatas.title}}</strong>
+    </ion-col>
+    <ion-col class="mainText" col-12>
+      {{notificationDatas.data}}
+    </ion-col>
+  </ion-row>
+    <ion-row class="mainText header-style-colordiff" >
+    <ion-col col-6>
+      <strong>Request ID:</strong>
+    </ion-col>
+    <ion-col class="mainText"  col-6>
+      {{notificationDatas.requestId}}
+    </ion-col>
+  </ion-row>
+    <ion-row class="mainText header-style-colordiff" >
+    <ion-col col-6>
+      <strong>Created Date:</strong>
+    </ion-col>
+    <ion-col class="mainText"  col-6>
+      {{notificationDatas.date}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="notificationDatas.modValue" class="mainText header-style-colordiff" >
+    <ion-col col-6 >
+      <strong>{{notificationDatas.modType}}:</strong>
+    </ion-col>
+    <ion-col class="mainText"  col-6>
+      {{notificationDatas.modValue}}
+    </ion-col>
+  </ion-row >
+  <ion-row *ngIf="notificationDatas.timeValue" class="mainText header-style-colordiff" >
+    <ion-col col-6>
+      <strong>{{notificationDatas.timeType}}:</strong>
+    </ion-col>
+    <ion-col class="mainText" col-6>
+      {{notificationDatas.timeValue}}
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

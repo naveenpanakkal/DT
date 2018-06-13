@@ -1,0 +1,7 @@
+buttons and top bar and bottom bar color code : #135e9e
+
+black : #4c4c4c
+
+dark grey : #757778
+
+light grey : #949494

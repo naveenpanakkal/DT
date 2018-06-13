@@ -1,0 +1,31 @@
+
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title>
+      <ion-icon name="menu" menuToggle id="men" tappable></ion-icon>
+      {{ 'more' | translate }}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" id="moreViewContent">
+  <ion-grid fixed class="grid">
+
+      <ion-row responsive-sm>
+        <ion-col>
+            <div class="image"><img src="assets/img/import_export_icon.png"/><br>{{ 'profile' | translate }}</div>
+        </ion-col>
+        <ion-col  >
+            <div class="image"><img src="assets/img/delivery_icon.png"/><br>{{ 'item2' | translate }}</div>
+        </ion-col>
+        <ion-col >
+              <div class="image"><img src="assets/img/export_status_icon.png"/><br>{{ 'item3' | translate }}</div>
+        </ion-col>
+
+      </ion-row>
+
+ </ion-grid>
+</ion-content>

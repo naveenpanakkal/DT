@@ -1,0 +1,62 @@
+page-berthsortpopover {
+.lab{
+    font-weight: bold;
+    margin-left: 6%;
+    font-size: 2.0rem;
+
+}
+
+
+.options{
+        position: relative;
+     top: 8px;
+}
+
+.scroll-content{
+    overflow: hidden;
+}
+
+ #clearsubmit{
+    color: white;
+    background-color : #113B5F;
+    //width: 108%;
+    //margin-left: -5%;
+  }
+ .sort{
+    float:right;
+ }
+//---ios_change--start
+.topcol{
+    border-right: 3px solid #FFF;
+  }
+
+  buttonStyle {
+    background-color : #113B5F;
+  }
+  //---ios_change--end
+}
+
+page-berthsortpopover .ionContent
+{
+  overflow: hidden !important;
+}
+//.popover-content {top: 120px;
+//  border-radius: 28px !important;
+//}
+page-berthsortpopover .scroll-content{
+  overflow: hidden !important;
+}
+page-berthsortpopover popover-viewport
+{
+  overflow: hidden !important;
+}
+
+page-berthsortpopover .item-cover {
+  left: 0 !important;
+  top: 0 !important;
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}

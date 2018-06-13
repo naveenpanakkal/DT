@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title">{{'hc_history' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" class="rbHistoryContainer">
+  <div class="attach" (click)="showHistory(history)" *ngFor="let history of historyResponseList; let i = index">
+    {{'rbHistory'|translate}}{{historyResponseList.length-i}}
+    <ion-icon [name]="geticon(history)" class="image" tappable></ion-icon>
+    <div *ngIf="history.showdetails" class="subheader">
+      <ion-grid (click)="openView(history.requestNo)" tappable>
+        <ion-row>
+          <ion-col>
+            {{'hcHistoryRequestId'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.requestNo}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'hcHistoryActionName'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.actionName}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'hcHistoryStatus'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.status}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'hcHistoryCreatedDate'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.createdDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'hcHistoryLastModifiedDate'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.lastModifiedDate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+

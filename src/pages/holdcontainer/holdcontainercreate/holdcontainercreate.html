@@ -1,0 +1,570 @@
+<!--
+  Generated template for the TacreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title">{{headTitle}}
+    </ion-title>
+
+  </ion-navbar>
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding id="taCreate">
+  <!--General Information-->
+  <div *ngIf="showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <form [formGroup]="groupOne" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_location' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_location' | translate }}</ion-label>
+              <ion-select formControlName="location" placeholder="{{ 'hold_location' | translate }}" (ionChange)="onLocationChanged()"
+                          [(ngModel)]="selectedModel.location" tappable>
+                <ion-option *ngFor="let loc of locationList" value={{loc.spLocationCode}}>{{loc.spLocationName}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="(isError || isErrorContainer) && !groupOne.controls.location.valid" style="color:red;">
+              {{ 'hold_location_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_spname' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_spname' | translate }}</ion-label>
+              <ion-select formControlName="spName" placeholder="{{ 'hold_spname' | translate }}" (ionChange)="onspNameChanged()"
+                          [(ngModel)]="selectedModel.spName" tappable>
+                <ion-option *ngFor="let spName of spNameList" value={{spName.spSubLocationCode}}>
+                  {{spName.spSubLocationName}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="(isError || isErrorContainer) && !groupOne.controls.spName.valid" style="color:red;">
+              {{ 'hold_spname_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupTwo" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hc-ref-no' | translate }}<span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-input placeholder="{{ 'hc-ref-no' | translate }}" [(ngModel)]="selectedModel.referenceNo"
+                         (ionBlur)="onReferenceNoFocusChange()" formControlName="referenceNo" type="text"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','referenceNo')" maxlength="30"
+                         spellcheck="false" tappable></ion-input>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupTwo.controls.referenceNo.valid &&
+             ((selectedModel.referenceNo&& selectedModel.referenceNo.length==0) || (!selectedModel.referenceNo))">
+              {{ 'hc-ref-no_mand' | translate }}
+            </div>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupTwo.controls.referenceNo.valid &&
+             selectedModel.referenceNo && selectedModel.referenceNo.length >0">
+              {{ 'enter_3_char' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupThree" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_startdatetime' | translate }}<span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-datetime placeholder={{dateTimePlaceHolder}} displayFormat={{dateTimeFormat}}
+                            (ionChange)="onStartDateChanged()" formControlName="startDateTime"
+                            [(ngModel)]="startDateTime" class="appointment-date-time paddingStyle"
+                            max="2050-01-01" min={{minStartDateTime}} tappable></ion-datetime>
+            </ion-item>
+            <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+            <div class="error1" style="color:red" *ngIf="isError && !groupThree.controls.startDateTime.valid">
+              {{ 'hold_startdatetime_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_enddatetime' | translate }}<span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-datetime placeholder={{dateTimePlaceHolder}} displayFormat={{dateTimeFormat}}
+                            (ionChange)="onEndDateChanged()" formControlName="endDateTime"
+                            [(ngModel)]="endDateTime" class="appointment-date-time paddingStyle"
+                            min={{minEndDateTime}} max="2050-01-01" tappable></ion-datetime>
+            </ion-item>
+            <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+            <div class="error1" style="color:red" *ngIf="isError && (!groupThree.controls.endDateTime.valid)">
+              {{ 'hold_enddatetime_mand' | translate }}
+            </div>
+            <div class="error1" style="color:red" *ngIf="maxDateinvalid">
+              {{ 'hold_enddatetime_invalid' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_autorelease' | translate }}
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_autorelease' | translate }}</ion-label>
+              <ion-select placeholder="{{ 'hold_autorelease' | translate }}" [(ngModel)]="selectedModel.autoRelease"
+                          (ionChange)="onAutoReleaseChanged()" tappable formControlName="autoRelease">
+                <ion-option *ngFor="let autoRelease of autoReleaseList" value={{autoRelease.definedSetValueCode}}>
+                  {{autoRelease.definedSetValueIntMessage}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupFour" noValidate style="height:auto;width:100%;">
+      <ion-row *ngIf="autoRelease()" col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_autoreleasedatetime' | translate }}<span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-datetime placeholder={{dateTimePlaceHolder}} displayFormat={{dateTimeFormat}}
+                            (ionChange)="onAutoReleaseDateChanged()" formControlName="autoReleaseDateTime"
+                            [(ngModel)]="autoReleaseDateTime" class="appointment-date-time paddingStyle"
+                            min={{minAutoReleaseDateTime}} max="2050-01-01" tappable></ion-datetime>
+            </ion-item>
+            <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+            <div class="error1" style="color:red" *ngIf="isError && !groupFour.controls.autoReleaseDateTime.valid">
+              {{ 'hold_autoreleasedatetime_mand' | translate }}
+            </div>
+            <div class="error1" style="color:red" *ngIf="maxDateinvalid">
+              {{ 'hold_enddatetime_invalid' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupFive" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_linecode' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_linecode' | translate }}</ion-label>
+              <ion-select formControlName="lineCode" placeholder="{{ 'hold_linecode' | translate }}"
+                          (ionChange)="onLineCodeChanged()" [(ngModel)]="selectedLineCodes" multiple="true" tappable>
+                <ion-option *ngFor="let lineCode of lineCodeList" value={{lineCode}}>{{lineCode}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="(isError || isErrorContainer) && !groupFive.controls.lineCode.valid" style="color:red;">
+              {{ 'hold_linecode_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+      <!--      <ion-row col-12>
+              <ion-label class="bold labelmargin" stacked color="label" style="margin-top: 20px;
+                       margin-bottom: 10px;font-size: 1.4rem;">
+                {{ 'hold_linecode' | translate }}<span style="color:red" class="span">*</span>
+              </ion-label>
+              <div class="error1" style="color:red;" *ngIf="(isError || isErrorContainer) && !validateLineCode()">
+                {{ 'hold_linecode_mand' | translate }}
+              </div>
+
+              <ion-list class="contanerlist" style="width: 100%;">
+                <ion-item *ngFor="let lineCode of lineCodeList; let i = index;">
+                  <ion-label>{{lineCode}}</ion-label>
+                  <ion-checkbox [checked]="lineCodeStatus[i]" [(ngModel)]="lineCodeStatus[i]"
+                                [ngModelOptions]="{standalone: true}"
+                                (click)="onLineCodeSelected(i)" class="checkbox_cont" tappable></ion-checkbox>
+                </ion-item>
+              </ion-list>
+              <ion-item class="item-with-button">
+                <button ion-button class="terminalButtonStyle" (click)="selectAndEnableLineCode()"
+                        tappable>{{ 'ch_Select_all' | translate }}
+                </button>
+                <button ion-button class="terminalButtonStyle" (click)="deselectAllAndClearLineCode()"
+                        tappable>{{'ch_deselect_all'|translate }}
+                </button>
+              </ion-item>
+        </ion-row>-->
+
+
+    <form [formGroup]="groupSix" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_designation' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_designation' | translate }}</ion-label>
+              <ion-select placeholder="{{ 'hold_designation' | translate }}" [(ngModel)]="selectedModel.designation"
+                          formControlName="designation" tappable>
+                <ion-option *ngFor="let designationType of designationTypeList"
+                            value={{designationType.definedSetValueCode}}>
+                  {{designationType.definedSetValueIntMessage}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupSeven" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_contcategory' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_contcategory' | translate }}</ion-label>
+              <ion-select formControlName="containerCategory" placeholder="{{ 'hold_contcategory' | translate }}"
+                          (ionChange)="onContainerCategoryChanged()" [(ngModel)]="selectedContainerCategories" multiple="true" tappable>
+                <ion-option *ngFor="let containerCategory of containerCategoryList" value={{containerCategory.definedSetValueCode}}>
+                  {{containerCategory.definedSetValueIntMessage}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="(isError || isErrorContainer) && !groupSeven.controls.containerCategory.valid" style="color:red;">
+              {{ 'hold_contcategory_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+
+
+<!--      <ion-row col-12>
+        <ion-label class="bold labelmargin" stacked color="label" style="margin-top: 20px;
+       margin-bottom: 10px;font-size: 1.4rem;">
+          {{ 'hold_contcategory' | translate }} <span style="color:red" class="span">*</span>
+        </ion-label>
+        <div class="error1" style="color:red;" *ngIf="(isError || isErrorContainer) && !validateContainerCategory()">
+          {{ 'hold_contcategory_mand' | translate }}
+        </div>
+        <ion-list class="contanerlist" style="width: 100%;">
+          <ion-item style="margin-top: 1px;" *ngFor="let containerCategory of containerCategoryList; let i = index;">
+            <ion-label>{{containerCategory.definedSetValueIntMessage}}</ion-label>
+            <ion-checkbox [checked]="containerCategoryStatus[i]" [(ngModel)]="containerCategoryStatus[i]"
+                          [ngModelOptions]="{standalone: true}"
+                          (click)="onContainerCategorySelected(i)" class="checkbox_cont" tappable></ion-checkbox>
+          </ion-item>
+        </ion-list>
+        <ion-item class="item-with-button">
+          <button ion-button class="terminalButtonStyle" (click)="selectAndEnableAllFeild()"
+                  tappable>{{ 'ch_Select_all' | translate }}
+          </button>
+          <button ion-button class="terminalButtonStyle" (click)="deselectAllAndClearValues()"
+                  tappable>{{'ch_deselect_all'|translate }}
+          </button>
+        </ion-item>
+      </ion-row>-->
+    </form>
+
+    <form [formGroup]="groupEight" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_action' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_action' | translate }}</ion-label>
+              <ion-select formControlName="holdAction" [(ngModel)]="selectedModel.holdAction" placeholder="{{ 'hold_action' | translate }}"
+                          tappable>
+                <ion-option *ngFor="let holdAction of holdActionViewList" value={{holdAction.definedSetValueCode}}>
+                  {{holdAction.definedSetValueIntMessage}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red" *ngIf="isError && !groupEight.controls.holdAction.valid">
+              {{ 'hold_action_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_holdreason' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_holdreason' | translate }}</ion-label>
+              <ion-select formControlName="holdReason" (ionChange)="holdReasonChange()" [(ngModel)]="selectedModel.holdReason" placeholder="{{ 'hold_holdreason' | translate }}"
+                          tappable>
+                <ion-option *ngFor="let holdReasons of holdReasonList" value={{holdReasons.definedSetValueCode}}>
+                  {{holdReasons.definedSetValueIntMessage}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red" *ngIf="isError && !groupEight.controls.holdReason.valid">
+              {{ 'hold_holdreason_mand' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupNine" noValidate style="height:auto;width:100%;">
+      <ion-row *ngIf="showOtherReasons()" col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_otherreasons' | translate }} <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-input placeholder="Other Reason" [(ngModel)]="selectedModel.otherReason" spellcheck="false" type="text" minlength="3" maxlength="255"
+                         formControlName="otherReason" (ionBlur)="otherReasonFocusChange()"(keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','Other Reason')"
+                         onpaste="return true;" tappable></ion-input>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupNine.controls.otherReason.valid
+            && ((selectedModel.otherReason && selectedModel.otherReason.length ==0) || (!selectedModel.otherReason))">
+              {{ 'other_reason_mandatory' | translate }}
+            </div>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupNine.controls.otherReason.valid
+            && selectedModel.otherReason && selectedModel.otherReason.length >0">
+              {{ 'enter_3_char' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupTen" noValidate style="height:auto;width:100%;">
+    <ion-row  col-12>
+      <div class="removePadding rowSeperator" col-12>
+        <ion-col col-12 color="label" stacked
+                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+          {{ 'hold_holdbasedon' | translate }}
+        </ion-col>
+        <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+          <ion-label class=" boldStyle">{{holdBasedOn}}</ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+    </form>
+
+    <form [formGroup]="groupEleven" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_remarks' | translate }}
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-textarea formControlName="remarks" placeholder="{{ 'hold_remarks' | translate }}" [(ngModel)]="selectedModel.remarks"
+                            spellcheck="false" type="text" maxlength="255" (ionBlur)="onRemarkFocusChange()" tappable></ion-textarea>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupEleven.controls.remarks.valid && selectedModel.remarks
+            && selectedModel.remarks.length>0">
+              {{ 'enter_3_char' | translate }}
+            </div>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupEleven.controls.remarks.valid
+            && ((selectedModel.remarks && selectedModel.remarks.length==0) ||(!selectedModel.remarks))">
+              {{ 'remarks_mandatory' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="groupTwelve" noValidate style="height:auto;width:100%;">
+      <ion-row col-12 *ngIf="showSilentHold()">
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'hold_silenthold' | translate }}
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'hold_silenthold' | translate }}</ion-label>
+              <ion-select formControlName="silentHold" [(ngModel)]="selectedModel.silentHold"
+                          placeholder="Silent Hold" tappable>
+                <ion-option *ngFor="let silentHold of silentHoldList" value={{silentHold}}>
+                  {{silentHold}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+  </div>
+  <!--General Information Tab end-->
+
+  <!--Hold Specification Tab-->
+  <div *ngIf="showTabs[1]" style="height:100%;">
+    <div *ngFor="let container of holdSpecificationDetails; let selectedTabIndex = index;"
+         class="inner-scroll-container csh-attachment">
+      <div>
+        <div class="attach-headder">
+          <div col-11 style="display: inline-block;float: left;" class="attachopen-increase-clickable-area"
+               (click)="openSelecedTab(selectedTabIndex)" tappable>
+            <div class="rotateIconHolder rotateIcon" tappable>
+              <div style="width:20px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright">
+                </ion-icon>
+              </div>
+            </div>
+            <ion-label class="attachStyle"> Container {{selectedTabIndex+1}}
+            </ion-label>
+          </div>
+          <div col-1 style="display: inline-block;float: right;">
+            <ion-icon name="trash" class="iconGeneral pullRightToContainer"
+                      tappable style="right:10px;position:absolute;"
+                      (click)="deleteContainer(selectedTabIndex)"></ion-icon>
+          </div>
+        </div>
+        <div style="min-width:360px;"
+             [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{ 'hold_containerNo' | translate }}
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding">
+              <ion-label class="labelStyle boldStyle">{{container.containerNo}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{ 'hold_ISOCode' | translate }}
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding">
+              <ion-label class="labelStyle boldStyle">{{container.iSOCodeContainerNo}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{ 'hold_line' | translate }}
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding">
+              <ion-label class="labelStyle boldStyle">{{container.lineHold}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{ 'hold_location' | translate }}
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding">
+              <ion-label class="labelStyle boldStyle">{{container.locationHold}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{ 'hold_status' | translate }}
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding">
+              <ion-label class="labelStyle boldStyle">{{container.statusHold}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+    <ion-row>
+      <ion-col class="imoitem" col-12>
+        <div class="row responsive-sm">
+          <button ion-button class="add-button margin-forPhotoButton" (click)="addContainer()" tappable>
+            Add Container
+          </button>
+        </div>
+        <button full color="submit" ion-button id="buttonsearch"
+                (click)="submit()" class="button-apply-general align-button-center-of-container"
+                tappable>{{'sub-b' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <!--Hold Specification Tab-->
+
+  <!--Container Details-->
+
+  <!--slider-->
+  <ion-col ion-fixed class="slider-bottom-navigation-col-left" (click)="slideSelectedPrev()" *ngIf="hidePreviousButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-back"  tappable></ion-icon>
+  </ion-col>
+
+  <ion-col ion-fixed   class="slider-bottom-navigation-col-right" (click)="slideSelectedNext()" *ngIf="hideNextButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-forward" tappable></ion-icon>
+  </ion-col>
+  <!--slider-->
+
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">
+      <ion-icon name="menu" menuToggle id="men" tappable></ion-icon>
+      {{'NOTIFICATIONS' | translate}}</ion-title>
+
+
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" style="background: #113B5F!important;" id="sortId" full ion-button (click)="navigateToSort()" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" style="background: #113B5F!important;" id="filterId" full ion-button (click)="navigateToFilter()" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="profileContent">
+
+  <ion-list>
+    <div *ngFor="let notificationDatas of notificationData.notifications; let inx = index">
+
+    <ion-item-sliding #item>
+      <ion-item (click)="openPopupView($event,notificationDatas)">
+        <ion-row class="notifi-icon-text">
+          <ion-col class="notif-icon-container" col-2>
+            <div style="margin-top: 0px;" [ngClass]="getNotificationIconClass(notificationDatas.theme)" >{{setField(notificationDatas.module)}}</div>
+          </ion-col>
+          <ion-col class="information-continer" >
+            <div  class="side-headder">
+              <!--<div class="maintext-Header mainText">New Vessel registration request</div>-->
+              <!--<div class="subText subtext-content">Vessel Registration request VR5701 has been raised.</div>-->
+              <!--<div class="subText subText date-time" >10/09/2017 22:56</div>-->
+              <div class="maintext-Header mainText">{{notificationDatas.title}}</div>
+              <div class="subText subtext-content">{{notificationDatas.data}}</div>
+              <div class="subText  date-time" >{{notificationDatas.date}}</div>
+              <div class="status-icon-bottom-line"  style="float:right;">
+                <ion-icon style="color:green;" [name]="getStatusIcon()"></ion-icon>
+              </div>
+            </div>
+            <!--<div class="notifi-icon-text">-->
+              <!--<span class="subText"><strong>Request ID: </strong>VR5701</span>-->
+              <!--<span class="subText"><strong>Created Date: </strong>10/09/2017 22:56</span>-->
+              <!--<span class="subText"><strong>Vessel: </strong>Anders Maersk</span>-->
+              <!--<span class="subText"><strong>ETA: </strong>25/12/2017</span>-->
+            <!--</div>-->
+          </ion-col>
+          <!--<ion-col col="3">-->
+            <!--<div class="notifi-icon-time">-->
+              <!--<i class="fa fa-long-arrow-down" aria-hidden="true"></i>-->
+              <!--<i class="fa fa-exclamation" aria-hidden="true"></i>-->
+              <!--<span class="subText dateSpan">10/09/2017 22:56</span>-->
+            <!--</div>-->
+          <!--</ion-col>-->
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button style="border: 1px solid white;max-width: 60px;width: 60px;margin-left: 20px;"(click)="gotoSelectedItemPage(notificationDatas.url)">
+          <div style="float: left;display: inline-block;width: 30px;position: absolute;margin-top: 0px;margin-left: 0px;">Go</div>
+          <ion-icon style="float: right;display: inline-block;position: absolute;margin-left: 15px;margin-top: 5px;" name="arrow-forward"></ion-icon>
+        </button>
+        <button ion-button color="danger" style="border: 1px solid white;">
+          <ion-icon name="eye-off"></ion-icon>
+          <div>Archive</div>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    </div>
+  </ion-list>
+
+</ion-content>

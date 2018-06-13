@@ -1,0 +1,1003 @@
+<!--
+  Generated template for the TacreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title">{{title}}
+    </ion-title>
+
+  </ion-navbar>
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding id="taCreate">
+  <!--General Information-->
+  <div *ngIf="showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <form [formGroup]="groupOne" noValidate style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{'rb_requesttype' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">Request Type</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          [disabled]="isDisabled()" tappable placeholder="--Select--"
+                          (ionChange)="setRequestType()"
+                          [(ngModel)]="saveUpdateReqModal.requestType"
+                          formControlName="requestType">
+                <ion-option *ngFor="let type of requestTypes" value={{type}}>{{type}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="isError && !groupOne.controls.requestType.valid" style="color:red;">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+    <form [formGroup]="groupSeven" noValidatestyle="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{'rb_customerref' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-input [disabled]="isCusRefEditable()" placeholder="Customer Ref No" spellcheck="false" maxlength="30"
+                         minlength="3" onpaste="return true;" (ionBlur)="onCusRefNoFocusChange()"
+                         (keyup.enter)="keyboardClose()" tappable
+                         (keyup)="keyUpValidate($event,'^([a-zA-Z0-9]{1,30})*$','cusReferenceNo')"
+                         [(ngModel)]="saveUpdateReqModal.cusReferenceNo" formControlName="cusReferenceNo"></ion-input>
+            </ion-item>
+            <div class="error2" style="color:red;" *ngIf="isError && !groupSeven.controls.cusReferenceNo.valid">
+              {{'rb_refno_mandatory' | translate}}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      </form>
+      <form [formGroup]="groupEight" noValidatestyle="height:auto;width:100%;">
+      <ion-row col-12 [hidden]="!isEditMode()">
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{'rb_requestno' | translate}}
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label class="label-span-alignment labelStyle rblabelstyle">{{saveUpdateReqModal.requestNo}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12 [hidden]="!isEditMode()">
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{'rb_requeststatus' | translate}}
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label class="label-span-alignment labelStyle rblabelstyle">{{saveUpdateReqModal.resourceBookingStatus}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12 hidden="true">
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{'rb_cancellationremarks' | translate}}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col text-wrap col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label class="label-span-alignment"></ion-label>
+            </ion-item>
+            <div class="error1" style="color:red;visibility: hidden;">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12 [hidden]="!isApproveredit">
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{'rb_servicestatus' | translate}}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{'rb_servicestatus' | translate}}
+              </ion-label>
+              <ion-select (ionChange)="spSSSelected()" formControlName="serviceStatus"
+                          [(ngModel)]="saveUpdateReqModal.serviceStatus"
+                          placeholder="{{'rb_servicestatus' | translate}}" tappable>
+              <ion-option *ngFor="let service of servicestatus" value={{service}}>{{service}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupEight.controls.serviceStatus.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12 [hidden]="!isServiceProviderOn">
+        <ion-col col-12 color="label" stacked
+                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+          {{'rb_serviceprovidedon' | translate}}
+          <span style="color:red" class="span">*</span>
+        </ion-col>
+        <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+          <ion-item style="padding-left: 0px;">
+            <ion-datetime displayFormat={{dateTimeFormat}} tappable
+                          max={{maxsprovider}}
+                          min={{minsprovider}}
+                          [(ngModel)]="rbSprovider"
+                          formControlName="serviceProvidedOn" class="appointment-date-time paddingStyle"></ion-datetime>
+          </ion-item>
+          <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+          <div class="error1" style="color:red" *ngIf="isError && !groupEight.controls.serviceProvidedOn.valid">
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row col-12 [hidden]="!isSpRemarks">
+        <ion-col col-12 color="label" stacked
+                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+          {{'rb_remarks' | translate}}
+           <span style="color:red" [hidden]="isServiceProviderOn" class="span">*</span>
+        </ion-col>
+        <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+          <ion-item style="padding-left: 0px;">
+            <ion-input tappable
+                       formControlName="remarksSP" [(ngModel)]="saveUpdateReqModal.remarksSP"
+                       placeholder="{{'rb_remarks' | translate}}" spellcheck="false"></ion-input>
+          </ion-item>
+          <div class="error1" style="color:red;" *ngIf="isError && !groupEight.controls.remarksSP.valid">
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <!--General Information Tab end-->
+
+  <!--Vessel Information Tab-->
+  <div *ngIf="showTabs[2]" style="height:100%;">
+    <form [formGroup]="groupTwo" noValidate style="height:auto;width:100%;">
+      <ion-row class=" padding-left-row" [hidden]="isDisabled()" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'rotationno' | translate}}<span style="color:red" [hidden]="isDisabled()" class="span">*</span>
+        </ion-col>
+        <ion-col  col-12 class="rowSeperator ion-col-minheight-nopadding">
+            <div [ngClass]="isDisabled() ? 'disableDiv' : '' ">
+          <ion-searchbar type="tel" formControlName="rotationNo"
+                         [ngClass]="(isSuccess)?'search-bar-style-after-icon':'search-bar-style-before-icon'"
+                         (ionInput)="getRotationNo($event)"
+                         [(ngModel)]="saveUpdateReqModal.rotationNo"
+                         (keyup)="keyUpValidate($event,'^[0-9]{1,18}$','rotationno')"
+                         (keyup.enter)="keyboardClose()" tappable
+                         onpaste="return true;"
+                         [disabled]="isDisabled()"
+                         (ionChange)="checkRotation()" spellcheck="false"
+                         (ionBlur)="selectRotationNo(rotationno)"
+                         maxlength="30"
+                         minlength="1"></ion-searchbar>
+          <ion-list *ngIf="showRotationNo" style="width:95%;margin-top: 5px;" tappable>
+            <ion-item *ngFor="let item of filterRotationArray" (mousedown)="setRotationNumber(item)" tappable>
+              {{ item.rotationNoSrch }}
+            </ion-item>
+          </ion-list>
+          <div class="searchbar-error" *ngIf="isError && !groupTwo.controls.rotationNo.valid">
+            {{'rb_roationno_mandatory' | translate}}
+          </div>
+            </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class=" padding-left-row" [hidden]="!isDisabled()" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'rotationno' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.rotationNo}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'vesselName' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.vesselName}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'VLDS_vesselstatus' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.vesselStatus}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'location' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.locationVessel}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col style="display:inline-block; float:left;" color="label" stacked col-12
+                   class="bold ion-col-left-color boldStyle">
+            {{'terminal' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class="rowSeperator removePadding " col-12>
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">Terminal</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          [disabled]="isDisabled()" tappable placeholder="--Select--" style="max-width:100%;"
+                          [(ngModel)]="saveUpdateReqModal.terminal"
+                          formControlName="terminal" (ionChange)="terminalChange($event)">
+
+                <ion-option *ngFor="let terminal of terminals" value={{terminal}}>{{terminal}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="isError && !groupTwo.controls.terminal.valid" style="color:red;">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+
+
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'terminalOperator' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.terminalOperator}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'preferredBerth' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.prefBerth}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'eta' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.eta}}</ion-label>
+          <span class="label-span-alignment boldStyle gstStyle" [style.opacity]="isEditMode()?'0.4':'1'" *ngIf="saveUpdateReqModal.eta"> GST</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'sssCutoffTime' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.cutOffTime}}</ion-label>
+          <span class="label-span-alignment boldStyle gstStyle" [style.opacity]="isEditMode()?'0.4':'1'" *ngIf="saveUpdateReqModal.eta"> GST</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked class="bold ion-col-left-color boldStyle">
+          {{'remarks' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo" [hidden] ="!isAdmin()">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.remarksVessel}}</ion-label>
+        </ion-col>
+        <ion-col col-12 class="remarksInput" [hidden] ="isAdmin()">
+          <ion-item style="padding-left: 0px;font-size: 1.4rem" [hidden] ="isAdmin()">
+            <ion-input class="label-span-alignment boldStyle"
+                       maxlength="255" minlength="1" placeholder="Remarks"
+                       [(ngModel)]="saveUpdateReqModal.remarksVessel" spellcheck="false"
+                       (keyup.enter)="keyboardClose()" tappable
+                       formControlName="remarksVessel" style="padding-left: 5px;"></ion-input>
+          </ion-item>
+          <div class="error1" *ngIf="isError && !groupTwo.controls.remarksVessel.valid" style="color:red;">
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <!--Vessel Information Tab-->
+
+  <!--Container Details-->
+  <div *ngIf="showTabs[1]" style="height:100%;">
+    <form [formGroup]="groupThree" noValidatestyle="height:auto;width:100%;">
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label"  style="display:inline-block; float:left;" stacked class="bold ion-col-left-color boldStyle">
+            {{'rb_sptype' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" col-12 class="removePadding">
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{'rb_sptype' | translate}}</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          [disabled]="isDisabled()" placeholder="{{'rb_sptype' | translate}}"
+                          (ionChange)="spTypeSelected(true)" formControlName="serviceProviderType"
+                          [(ngModel)]="saveUpdateReqModal.serviceProviderType" tappable>
+                <ion-option *ngFor="let sptype of sptypes" value={{sptype}}>{{sptype}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupThree.controls.serviceProviderType.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col color="label" stacked style="display:inline-block; float:left;" col-12
+                   class="bold ion-col-left-color boldStyle">
+            {{'location' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class="removePadding " col-12>
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility"> {{'location' | translate}}</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          [disabled]="isDisabled()" placeholder="{{'location' | translate}}"
+                          formControlName="locationContainer"
+                          tappable (ionChange)="spLocSelected(true)" [(ngModel)]="saveUpdateReqModal.locationContainer">
+                <ion-option *ngFor="let location of locations" value={{location}}>{{location}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupThree.controls.locationContainer.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col color="label" stacked style="display:inline-block; float:left;" col-12
+                   class="bold ion-col-left-color boldStyle">
+            {{'rb_spname' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class="removePadding " col-12>
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{'rb_spname' | translate}}</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          [disabled]="isDisabled()" placeholder="{{'rb_spname' | translate}}" formControlName="spName"
+                          tappable
+                          (ionChange)="spNameSelected(true)" [(ngModel)]="saveUpdateReqModal.spName">
+                <ion-option *ngFor="let spname of spnames" value={{spname}}>{{spname}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupThree.controls.spName.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col color="label" stacked style="display:inline-block; float:left;" col-12
+                   class="bold ion-col-left-color boldStyle">
+            {{'terminal' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class=" removePadding " col-12>
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{'terminal' | translate}}</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          [disabled]="isDisabled()" placeholder=" {{'terminal' | translate}}"
+                          formControlName="terminalContainer" tappable
+                          (ionChange)="onChangeofTerminal()" [(ngModel)]="saveUpdateReqModal.terminalContainer"
+                          style="max-width:100%;">
+                <ion-option *ngFor="let terminal of spTerminals" value={{terminal}}>
+                  {{terminal}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupThree.controls.terminalContainer.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col color="label" stacked style="display:inline-block; float:left;" col-12
+                   class=" bold ion-col-left-color boldStyle">
+            {{'rb_tradetype' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class="removePadding " col-12>
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility"> {{'rb_tradetype' | translate}}
+              </ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          tappable [disabled]="!isterminalselected" placeholder="{{'rb_tradetype' | translate}}"
+                          formControlName="tradeTypeContainer"
+                          (ionChange)="setSearchBy(true)" [(ngModel)]="saveUpdateReqModal.tradeTypeContainer">
+                <ion-option *ngFor="let tdtype of tradetypes.keys()" value={{tdtype}}>
+                  {{tradetypes.get(tdtype).tdtype}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupThree.controls.tradeTypeContainer.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col color="label" stacked style="display:inline-block; float:left;" col-12
+                   class="bold ion-col-left-color boldStyle">
+            {{'rb_searchby' | translate}}
+            <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class="removePadding " col-12>
+            <ion-item style="padding:0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{'rb_searchby' | translate}}</ion-label>
+              <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                          tappable [disabled]="!isterminalselected" placeholder="{{'rb_searchby' | translate}}"
+                          formControlName="searchByContainer"
+                          (ionChange)="changeSearchBy(true)" [(ngModel)]="saveUpdateReqModal.searchByContainer">
+                <ion-option *ngFor="let search of searchby.keys()" value={{search}}>{{searchby.get(search)}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" style="color:red;" *ngIf="isError && !groupThree.controls.searchByContainer.valid">
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+    <form [formGroup]="groupSix" noValidatestyle="height:auto;width:100%;">
+      <ion-row *ngIf="!caNo" class=" padding-left-row" col-12>
+        <ion-col color="label" stacked col-12 class="bold ion-col-left-color boldStyle">
+          {{'rb_cano' | translate}}
+          <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding">
+           <div [ngClass]="isDisabled() ? 'disableDiv' : '' ">
+          <ion-searchbar formControlName="caNo" spellcheck="false"
+                         [(ngModel)]="saveUpdateReqModal.caNo"
+                         style="margin-bottom: 2px;"
+                         (ionInput)="getCANo($event)"
+                         (ionFocus)="searchCAMaster()"
+                         (keyup.enter)="keyboardClose()"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]*$','caNo')"
+                         (ionBlur)="searchCA()"
+                         [disabled]="isDisabled()"
+                         (ionChange)="checkCA()" tappable>
+          </ion-searchbar>
+          <ion-list *ngIf="showCANo">
+            <ion-item *ngFor="let item of filterCAArray" (mousedown)="setCANumber(item)"> {{ item.caNo }}</ion-item>
+          </ion-list>
+          <div class="error1" style="color:red;" *ngIf="isError && !groupSix.controls.caNo.valid">
+          </div></div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!daNo" class=" padding-left-row" col-12>
+        <ion-col color="label" stacked col-12 class=" bold ion-col-left-color boldStyle">
+          {{'rb_dono' | translate}}
+          <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding">
+           <div [ngClass]="isDisabled() ? 'disableDiv' : '' ">
+          <ion-searchbar class = "input-color" formControlName="doNo" spellcheck="false"
+                         [(ngModel)]="saveUpdateReqModal.doNo" style="margin-bottom: 2px;"
+                         (ionInput)="getDONo($event)"
+                         (keyup.enter)="keyboardClose()"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]*$','doNo')"
+                         (ionFocus)="searchDOMaster()"
+                         (ionBlur)="searchDO()"
+                         [disabled]="isDisabled()"
+                         (ionChange)="checkDO()" tappable>
+          </ion-searchbar>
+          <ion-list *ngIf="showDONo">
+            <ion-item *ngFor="let item of filterDOArray" (mousedown)="setDONumber(item)"> {{ item.doNo }}
+            </ion-item>
+          </ion-list>
+          <div class="error1" style="color:red;" *ngIf="isError && !groupSix.controls.doNo.valid">
+          </div></div>
+        </ion-col>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col color="label" stacked col-12 class=" bold ion-col-left-color boldStyle">
+          {{'remarks' | translate}}
+        </ion-col>
+        <ion-col col-12 class="rowSeperator ion-col-minheight-nopadding paddingVesselInfo" [hidden] ="!isAdmin()">
+          <ion-label class="label-span-alignment boldStyle" [style.opacity]="isEditMode()?'0.4':'1'">{{saveUpdateReqModal.remarksContainer}}</ion-label>
+        </ion-col>
+        <ion-col col-12 class="remarksInput" [hidden] ="isAdmin()">
+          <ion-item style="padding-left: 0px;" [hidden] ="isAdmin()">
+            <ion-input tappable maxlength="255" minlength="1" placeholder="{{'remarks' | translate}}"
+                       formControlName="remarksContainer" [(ngModel)]="saveUpdateReqModal.remarksContainer"
+                       spellcheck="false" style="padding-left: 5px;">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <div [hidden]="!containeradded" style="height:auto;">
+      <div class="inner-scroll-container" *ngFor="let container of containers;let selectedTabIndex = index">
+        <div class="attach-headder" style="padding-top:10px;" (click)="openSelecedTab(selectedTabIndex)" tappable>
+          <div col-12 style="float:left; display:inline-block;">
+            <div class="rotateIconHolder"
+                 style="width: 20px !important;height: 20px !important;" tappable>
+              <div style="width:20px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright">
+                </ion-icon>
+              </div>
+            </div>
+            <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+              {{ container.containerNo}} - {{container.isoType.substring(0,4)}}
+            </ion-label>
+            <ion-icon [hidden]="deleteDisabled()" name="trash" class="iconGeneral" (click)="deleteContainer(selectedTabIndex)"
+                      style="float: right;"></ion-icon>
+          </div>
+        </div>
+        <div style="min-width:360px;"
+             [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-left-color">
+              <ion-label class="boldStyle">{{ 'cshContainerNo' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label class="boldStyle">{{container.containerNo}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-left-color">
+              <ion-label class=" boldStyle">{{ 'rb_isotype' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6 class="boldStyle" text-wrap>
+              <ion-label>{{container.isoType}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-left-color">
+              <ion-label class="boldStyle">{{ 'VLDS_designation' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6 text-wrap>
+              <ion-label class="boldStyle">{{container.designation}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" col-12>
+            <ion-col col-6 class="ion-col-left-color">
+              <ion-label class="boldStyle">{{ 'rb_tradetype' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label class="boldStyle">{{container.tradeType}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+    <ion-row [hidden]="selectContainer" class=" padding-left-row" col-12>
+      <ion-col class=" photo-button-col removePadding removeMargin" col-12>
+        <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+                style="margin-left: calc((100% - 118px) / 2)"
+                block (click)="openSelectContainer()" tappable>
+          {{'rb_select_container' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row [hidden]="addContainer" class=" padding-left-row" col-12>
+      <ion-col class=" photo-button-col removePadding removeMargin" col-12>
+        <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+                style="margin-left: calc((100% - 118px) / 2)"
+                block (click)="openRBAddContainer()" tappable>
+          {{'rb_addcontainer' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <!--Container Details-->
+
+  <!--Resource Booking  -->
+  <div *ngIf="showTabs[3]" style="height:auto;min-height: 100%;">
+    <form style="height:auto;width:100%;" [formGroup]="groupFour" noValidatestyle>
+      <div style="height:auto;" formArrayName="resourceFormArray"
+           *ngFor="let resourceCategory of groupFour.get('resourceFormArray').controls; let selectedTabIndex = index;">
+        <div [formGroupName]="selectedTabIndex">
+          <div class="inner-scroll-container">
+            <div>
+              <div class="attach-headder" style="padding-top:10px;" tappable>
+                <div col-8 style="float:left; display:inline-block;" (click)="openSelecedTab(selectedTabIndex)">
+                  <div class="rotateIconHolder" style="width: 20px !important;height: 20px !important;" tappable>
+                    <div style="width:20px;"
+                         [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                      <ion-icon name="arrow-dropright">
+                      </ion-icon>
+                    </div>
+                  </div>
+                  <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+                    Booking {{selectedTabIndex+1}}
+                  </ion-label>
+                </div>
+                <div col-2 style="display:inline-block; float:right;" [hidden]="trashIconHidden()">
+                  <ion-icon name="trash" class="iconGeneral" style="margin-left: 20px;"
+                            (click)="removeRbList(selectedTabIndex)"></ion-icon>
+                </div>
+                <div col-2 style="display:inline-block; float:right;" [hidden]="isDisabled()">
+                  <ion-icon name="add"  class="iconGeneral" style="margin-left: 20px;" (click)="addRbList(selectedTabIndex+1)"></ion-icon>
+                </div>
+              </div>
+              <div style="min-width:360px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    {{'rb_resourcetype' | translate}}
+                    <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+                  </ion-col>
+                  <ion-col col-6 style="padding: 0px;">
+                    <ion-item style="padding:0px;">
+                      <ion-label hidden color="dark" stacked class="headerVisibility">{{'rb_resourcetype' |
+                        translate}}
+                      </ion-label>
+                      <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                                  class="resourceselctStyle" [disabled]="isDisabled()" tappable placeholder="--Select--"
+                                  (ionChange)="resourceTypeSelected($event,selectedTabIndex,resourceMap)"
+                                  [(ngModel)]="resourceMap[selectedTabIndex].resourceType"
+                                  formControlName="resourceType">
+                        <ion-option *ngFor="let resource of resourceTypeList[selectedTabIndex]" value={{resource}}>{{resource}}
+                        </ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && !groupFour.controls.resourceFormArray.controls[selectedTabIndex].controls.resourceType.valid">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    Category
+                    <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+                  </ion-col>
+                  <ion-col class="removePadding " col-6>
+                    <ion-item style="padding:0px;">
+                      <ion-label hidden color="dark" stacked class="headerVisibility">{{'rb_category' | translate}}
+                      </ion-label>
+                      <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                                  class="resourceselctStyle" [disabled]="isDisabled()" tappable placeholder="--Select--"
+                                  (ionChange)="categorySelected($event,selectedTabIndex,resourceMap)"
+                                  [(ngModel)]="resourceMap[selectedTabIndex].category" formControlName="category">
+                        <ion-option value={{category}} *ngFor="let category of categoryTypeList[selectedTabIndex]; let iCounter = index">
+                          {{category}}
+                        </ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && !groupFour.controls.resourceFormArray.controls[selectedTabIndex].controls.category.valid">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    Unit Of Measure
+                    <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+                  </ion-col>
+                  <ion-col class="removePadding" col-6="">
+                    <ion-item style="padding:0px;">
+                      <ion-label hidden color="dark" stacked class="headerVisibility">Unit Of Measure</ion-label>
+                      <ion-select [ngClass]="(isDisabled()==true)?'disable-caretsign':''"
+                                  class="resourceselctStyle" [disabled]="isDisabled()" tappable placeholder="--Select--"
+                                  (ionChange)="unitSelected($event,selectedTabIndex,resourceMap)"
+                                  [(ngModel)]="resourceMap[selectedTabIndex].unitOfMeasure"
+                                  formControlName="unitOfMeasure">
+                        <ion-option *ngFor="let measures of unitOfMeasure[selectedTabIndex]" value={{measures}}>{{measures}}
+                        </ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && !groupFour.controls.resourceFormArray.controls[selectedTabIndex].controls.unitOfMeasure.valid">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-label-toppadding ion-col-left-color boldStyle">
+                    Quantity
+                    <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-item style="padding:0px;">
+                      <ion-input [disabled]="isDisabled()" class="label-span-alignment" maxlength="6"
+                                 minlength="1" type="tel" (keyup.enter)="keyboardClose()" spellcheck="false"
+                                 onpaste="return true;" (ionBlur)="onQuantityFocusChange(selectedTabIndex)"
+                                 (keyup)="keyUpValidate($event,'^[1-9][0-9]*$','quantity',selectedTabIndex)" tappable
+                                 (ionChange)="calculateCharges(resourceMap,selectedTabIndex)"
+                                 formControlName="quantity"
+                                 [(ngModel)]="resourceMap[selectedTabIndex].quantity"></ion-input>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && !groupFour.controls.resourceFormArray.controls[selectedTabIndex].controls.quantity.valid">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-label-toppadding ion-col-left-color boldStyle">
+                    Duration
+                    <span style="color:red"  [hidden]="!showMandatory" class="span">*</span>
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-item style="padding:0px;">
+                      <ion-input [disabled]="isDisabled()" class="label-span-alignment" maxlength="6"
+                                 (keyup.enter)="keyboardClose()"
+                                 (keyup)="keyUpValidate($event,'^[1-9][0-9]*$','duration',selectedTabIndex)" tappable
+                                 onpaste="return true;" (ionBlur)="onDurationFocusChange(selectedTabIndex)"
+                                 spellcheck="false"
+                                 minlength="0" type="tel" formControlName="duration"
+                                 (ionChange)="calculateCharges(resourceMap,selectedTabIndex)"
+                                 [(ngModel)]="resourceMap[selectedTabIndex].duration"></ion-input>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && !groupFour.controls.resourceFormArray.controls[selectedTabIndex].controls.duration.valid">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row [hidden]="isAdminEditMode()" class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-label-toppadding ion-col-left-color boldStyle">
+                    Actual quantity
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-item style="padding:0px;">
+                      <ion-input [disabled]="isAdminEditMode()" class="label-span-alignment boldStyle" maxlength="6"
+                                 (keyup.enter)="keyboardClose()"
+                                 onpaste="return true;" (ionBlur)="onDurationFocusChange(selectedTabIndex)"
+                                 spellcheck="false"
+                                 min="1"
+                                 (keyup)="keyUpValidate($event,'^[1-9][0-9]*$','actualQuantity',selectedTabIndex)"
+                                 minlength="0" type="tel" formControlName="actualQuantity"
+                                 (ionChange)="calculateCharges(resourceMap,selectedTabIndex)"
+                                 [(ngModel)]="resourceMap[selectedTabIndex].actualQuantity"></ion-input>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && isActualRequired(resourceMap[selectedTabIndex].actualQuantity)">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row [hidden]="isAdminEditMode()" class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-label-toppadding ion-col-left-color boldStyle">
+                    Actual Duration
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-item style="padding:0px;">
+                      <ion-input [disabled]="isAdminEditMode()" class="label-span-alignment boldStyle" maxlength="6"
+                                 (keyup.enter)="keyboardClose()"
+                                 onpaste="return true;" (ionBlur)="onDurationFocusChange(selectedTabIndex)"
+                                 spellcheck="false"
+                                 min="1"
+                                 (keyup)="keyUpValidate($event,'^[1-9][0-9]*$','actualDuration',selectedTabIndex)"
+                                 minlength="0" type="tel" formControlName="actualDuration"
+                                 (ionChange)="calculateCharges(resourceMap,selectedTabIndex)"
+                                 [(ngModel)]="resourceMap[selectedTabIndex].actualDuration"></ion-input>
+                    </ion-item>
+                    <div class="error1" style="color:red"
+                         *ngIf="isError && isActualRequired(resourceMap[selectedTabIndex].actualDuration)">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-label-toppadding ion-col-left-color boldStyle">
+                    Charges
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap>
+                    <ion-item style="padding:0px;">
+                    <ion-label (click)="openChargeDetails(selectedTabIndex)"
+                               class="label-span-alignment boldStyle rblabelstyle"><a href="#">{{resourceMap[selectedTabIndex].sumCharges}}</a>
+                    </ion-label>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <ion-row class="rowSeperator padding-left-row headder-color-light" style="color:white" col-12>
+          <ion-col col-4 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+            Per Request
+          </ion-col>
+          <ion-col col-2 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+            Tax
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding headder-color-light boldStyle">
+            Total
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row custom-list" co
+                 l-12>
+          <ion-col col-4 class="ion-col-minheight-nopadding">
+            <ion-label class=" boldStyle">{{perRequestValue}}</ion-label>
+          </ion-col>
+          <ion-col col-2 class="ion-col-minheight-nopadding">
+            <ion-label class=" boldStyle">{{taxValue}}</ion-label>
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class=" boldStyle">{{totalChargeValue}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </form>
+  </div>
+  <!--RB  Tab end -->
+
+  <!--Attachement Tab -->
+  <div *ngIf="showTabs[4]" style="height:100%;">
+    <form [formGroup]="groupFive" novalidate>
+      <div class="inner-scroll-container csh-attachment" formArrayName="attachmentsFormArray"
+           *ngFor="let attachment of groupFive.get('attachmentsFormArray').controls;let selectedTabIndex = index;">
+        <div [formGroupName]="selectedTabIndex">
+          <div class="attach-headder">
+            <div col-11 style="display: inline-block;float: left;" class="attachopen-increase-clickable-area"
+                 (click)="openSelecedTab(selectedTabIndex)" tappable>
+              <div class="rotateIconHolder rotateIcon" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright">
+                  </ion-icon>
+                </div>
+              </div>
+              <ion-label class="attachStyle"> Attachment {{selectedTabIndex+1}}
+              </ion-label>
+            </div>
+            <div col-1 style="display: inline-block;float: right;">
+              <ion-icon [hidden]="deleteDisabled()" name="trash"
+                        class="iconGeneral pullRightToContainer"
+                        tappable style="right:10px;position:absolute;"
+                        (click)="closeAttachment(selectedTabIndex)"></ion-icon>
+            </div>
+          </div>
+          <div style="min-width:360px;"
+               [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle paddingAttach ">
+                {{'documentType' | translate}}
+                <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+              </ion-col>
+              <ion-col col-7>
+                <ion-item class="attchItemStyle">
+                  <ion-input [disabled]="isDisabled()" placeholder="Document Type" tappable
+                             [(ngModel)]="attachments[selectedTabIndex].docType" onpaste="return true;"
+                             (ionBlur)="onDocumentTypeFocusChange(selectedTabIndex)"
+                             formControlName="docType"
+                             (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]*$','docType',selectedTabIndex)"
+                             spellcheck="false"></ion-input>
+                </ion-item>
+                <div class="error1" style="color:red"
+                     *ngIf="isError && !groupFive.controls.attachmentsFormArray.controls[selectedTabIndex].controls.docType.valid">
+                  {{'rb_doctype_mandatory' | translate}}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle paddingAttach">
+                {{'documentNo' | translate}}
+                <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+              </ion-col>
+              <ion-col col-7>
+                <ion-item class="attchItemStyle">
+                  <ion-input [disabled]="isDisabled()" placeholder="Document Number" tappable
+                             [(ngModel)]="attachments[selectedTabIndex].docNum"
+                             onpaste="return true;" (ionBlur)="onDocumentNoFocusChange(selectedTabIndex)"
+                             (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]*$','docNum',selectedTabIndex)"
+                             formControlName="docNum" spellcheck="false"></ion-input>
+                </ion-item>
+                <div class="error1" style="color:red"
+                     *ngIf="isError && !groupFive.controls.attachmentsFormArray.controls[selectedTabIndex].controls.docNum.valid">
+                  {{'rb_doctype_mandatory' | translate}}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle paddingAttach">
+                {{'document_IssueDate' | translate}}
+                <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+              </ion-col>
+              <ion-col col-7>
+                <ion-item class="attchItemStyle">
+                  <ion-datetime displayFormat={{dateFormat}} formControlName="docIssueDate" tappable
+                                placeholder="Document Issue Date" max={{currdate}} [disabled]="isDisabled()"
+                                [(ngModel)]="attachments[selectedTabIndex].docIssueDate"
+                                class="appointment-date-time paddingStyle"></ion-datetime>
+                </ion-item>
+                <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+                <div class="error1" style="color:red"
+                     *ngIf="isError && !groupFive.controls.attachmentsFormArray.controls[selectedTabIndex].controls.docIssueDate.valid">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle paddingAttach">
+                {{'doc_exp_date' | translate}}
+                <span style="color:red" [hidden]="!showMandatory" class="span">*</span>
+              </ion-col>
+              <ion-col col-7>
+                <ion-item class="attchItemStyle">
+                  <ion-datetime displayFormat={{dateFormat}} formControlName="docExpDate" tappable
+                                placeholder="Document Expiry Date" required min={{currdate}} max={{maxdate}}
+                                [disabled]="isDisabled()"
+                                [(ngModel)]="attachments[selectedTabIndex].docExpDate"
+                                class="appointment-date-time paddingStyle"></ion-datetime>
+                </ion-item>
+                <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+                <div class="error1" style="color:red"
+                     *ngIf="isError && !groupFive.controls.attachmentsFormArray.controls[selectedTabIndex].controls.docExpDate.valid">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col *ngIf="!isDisabled()" style="max-width: 125px;" class=" photo-button-col removePadding removeMargin" col-5>
+                <button [hidden]="isDisabled()" (click)="uploadDocs(attachments[selectedTabIndex])"
+                        class="button-apply-general photobutton-common margin-forPhotoButton"
+                        ion-button color="submit" block tappable>
+                  {{'upload-b' | translate}}
+                  <ion-icon name="clipboard" class="photoicon">
+                  </ion-icon>
+                </button>
+              </ion-col>
+
+              <ion-col style="width: 35px;max-width: 35px;"
+                       class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                <img src="assets/img/image-icon.png" class="photoSelectedIcon"
+                     *ngIf="(attachments[selectedTabIndex].fileName != null && attachments[selectedTabIndex].fileName != EMPTY && attachments[selectedTabIndex].fileName.length >0)">
+              </ion-col>
+
+              <ion-col class="ion-col-minheight-nopadding">
+                <ion-label (click)="openDocs(attachments[selectedTabIndex])" class="attachmentLabelAlignment boldStyle"
+                           stacked text-wrap><a href="#">{{attachments[selectedTabIndex].fileName}}</a></ion-label>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+      <ion-row>
+        <ion-col class="imoitem" col-12>
+          <div class="row responsive-sm">
+            <button [hidden]="isDisabled()" ion-button class="add-button margin-forPhotoButton" (click)="addAttachment()" tappable>
+              <ion-icon ios="ios-add" md="md-add" class="photo-button-icon"></ion-icon>
+            </button>
+          </div>
+          <button full color="submit" ion-button id="buttonsearch"
+                  (click)="createEditRB()" class="button-apply-general align-button-center-of-container"
+                  tappable>{{'sub-b' | translate}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+  <!--Attachement Tab end-->
+
+</ion-content>

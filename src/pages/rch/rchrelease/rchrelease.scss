@@ -1,0 +1,307 @@
+page-rchreleaseview {
+  .rbcreatetitle{
+    color :green;
+    text-align: center;
+  }
+  .gstStyle{
+    padding-left: 6px;
+  }
+  .approvedicon {
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    position: absolute;
+  }
+
+  .attachDiv{
+    width: 100%;
+  }
+  .filename{
+    margin-top: 10px !important;
+  }
+  .fileIconStyle{
+    margin-top: 8px !important;
+    margin-bottom: 8px;
+  }
+  .ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+  .detailsheader {
+    height:70px;
+  }
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  .filters {
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+      ion-icon {
+        color: #ccc;
+      }
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  ion-label .span {
+    color: red;
+  }
+  .valerror{
+    border-bottom:2px solid red;
+    margin-left: 9px;
+    margin-right: 7px;
+  }
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+  }
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+  }
+  .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  .padding-left-row
+  {
+    padding-left: 10px;
+  }
+  .alingn-elemnts-inline-left
+  {
+    padding: 0px;
+    display:inline-block;
+    float:left;
+  }
+  .error1{
+    border-top: 1px solid red;
+    position: relative;
+    margin-top: -1px;
+    // width:calc(100% - 16px) ;
+    // margin-left: 16px;
+    width:100%;
+  }
+  .searchbar-error
+  {
+    border-top: 1px solid red;
+    color:red;
+    position: relative;
+    width: 97%;
+    margin-top: 0px;
+    margin-left: 3px;
+  }
+  .rotateIconDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  .rotateIconUp {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .boldStyle
+  {
+    font-weight: 500;
+  }
+  .footer-submit {
+    //font-size: 2rem;
+    margin-left: calc((100% - 118px) / 2) !important
+  }
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    background-color: white;
+  }
+  .appointment-date-time{
+    width: 100%;height: 100%;
+  }
+  .appointment-date-time .datetime-text
+  {
+    padding-top: 15px;
+    padding-left: 10px;
+  }
+  .appointment-slot-select{
+    padding-top: 15px;
+  }
+  .appointment-slot-select .select-text{
+    padding-left: 10px;
+  }
+  .taFileicon{
+    width: 20px;
+    padding-top: 13px;
+  }
+  .ionrow {
+    background: white;
+    width: 100%;
+    margin: 5px 0px;
+
+  }
+  ion-textarea textarea
+  {
+    margin-top: 5px;
+  }
+  .toggleButtonCenterAlign {
+    margin-left: calc((100% - 65px)/2);
+  }
+  .item-block:first-child {
+    border-top: none !important;
+  }
+  .item-block:last-child {
+    border-bottom: none!important;
+  }
+  .item-block:first-child .item-inner {
+    border-top: none!important;
+    margin-top: 0px!important;
+  }
+  .item-block:last-child .item-inner {
+    border-top: none!important;
+    margin-top: 0px!important;
+  }
+  .item-ios.item-block .select-ios .select-icon {
+    width: 25px !important;
+  }
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    margin-right: 10px;
+  }
+  .checkbox_cont{
+    position: absolute !important;
+    width: calc(100% - 40px);
+    margin: 0px 11px 8px 8px !important;
+  }
+
+  .label{
+    font-weight : bold;
+    position : relative;
+    left : 7px !important;
+    font-size: 1.4rem !important;
+
+  }
+  .list-ios > .item-block:last-child .item-inner {
+    border-bottom: 0px solid #c8c7cc !important;
+    margin-bottom: 0px;
+  }
+  .radio-ios .radio-icon{
+    float:right;
+  }
+  .uploadbutton-label
+  {
+    width: calc(100% - 120px) !important;
+    float: left;
+    display: inline-block;
+    min-height: 60px !important;
+  }
+  .uploadbutton-label-withoutbutton
+  {
+    width: calc(100% - 250px) !important;
+    float: left;
+    display: inline-block;
+  }
+  .contanerlist  .label-md {
+    margin-left: 20px !important;
+  }
+  ion-textarea textarea.text-input{
+    margin: 0px;
+    margin-bottom: 2px;
+    margin-left: 0px !important;
+    width: calc(100% - 0px);
+    min-height: 100px;
+    border: .5px solid #dedede;
+    border-radius: 2px;
+  }
+  //media query starts here.............................................................................................
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .cal {
+      margin-top: -5%;
+    }
+  }
+}
+page-rchreleaseview .make-no-data-labels-center
+{
+  color: green !important;
+  border-bottom: 1px solid #dedede;
+  margin-bottom: 5px;
+}
+.platform-android page-rchreleaseview .attachrowSeperator{
+border-bottom: 1px solid #dedede;
+//border-bottom: 1px solid #efefef;
+}
+.platform-ios page-rchreleaseview  .attachrowSeperator{
+border-bottom: 0.55px solid #c8c7cc;
+//border-bottom: 1px solid #efefef;
+}
+.platform-ios page-rchreleaseview .scroll-content {
+  margin-top: 14px !important;
+  margin-bottom: 49px;
+padding-left:0px!important;
+padding-right:0px!important;
+}
+page-rchreleaseview ion-col ion-label
+{
+margin: 0px !important;
+}
+page-rchreleaseview .checkbox {
+  position: absolute;
+  height:100%;
+  width: 100%;z-index:10;
+  margin:0px !important;
+  margin-left:10px !important
+}
+page-rchreleaseview  ion-list .checkbox {
+  width: 100%;
+  max-width: 100%;
+  position: absolute !important;
+  z-index: 10;
+  margin: 0!important;
+}
+.error-validation{
+  border-top: 1px solid red;
+  margin-left: 16px;
+  position: relative;
+  bottom: 2px;
+  color: red;
+}

@@ -1,0 +1,45 @@
+page-maintabs {
+
+    #tabs{
+        position: fixed;
+    }
+
+.ion-md-customicon {
+content: url(../assets/img/Request.svg);
+    height: 35px;
+    margin-bottom: -10px;
+    opacity: 0.9;
+    position: relative;
+    bottom: 5px;
+}
+
+ion-tabs.hidden div.tabbar {
+    display: none
+}
+
+.has-tabs-top {
+  top: 49px !important; /*  height of the tabs */
+}
+
+//   .remove-tabs .tabbar {
+//     bottom: 0 !important;
+//     position: initial !important;
+//      transition: all .2s ease-out 0s;
+//     -webkit-transition: all .2s ease-out 0s;
+//     transform: translateY(-20%);
+//     -webkit-transform: translateY(-20%);
+// }
+
+/*.remove-tabs .tabbar{
+   .tabs-top > .tabs, .tabs.tabs-top {
+    top: 0 !important;
+}
+
+.has-tabs-top {
+    top: 54px !important;
+}
+}*/
+    .badge-md{
+        border-radius: 2em !important;
+    }
+}

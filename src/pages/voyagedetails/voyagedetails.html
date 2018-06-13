@@ -1,0 +1,393 @@
+<ion-header>
+  <ion-navbar #navbar color="header" id="header" no-line>
+    <ion-title class="title" class="VoyageDetailTitle-ios">{{ 'voyage_details' | translate }}
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <!--      <button ion-button id="deliveryordertypebutton" color="light" clear [style.border-bottom]="getfirstStyle()" (click)="firstpage()"> Delivery Order Type</button>
+          <button ion-button id="attachmentbutton" color="light" clear [style.border-bottom]="getsecondStyle()" (click)="secondpage()">
+            Attachments</button>-->
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="showData(tab)"  [class.selected]="selectedTab == tab" *ngFor="let tab of tabs" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}</button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow right_arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+<!--  <ion-toolbar color="header" style="margin-top:-1%;" id="tool">
+    <button ion-button id="agentbutton" color="light" clear [style.border-bottom]="getfirstStyle()"
+            (click)="firstpage()"> Agent Information
+    </button>
+    <button ion-button id="vesselbutton" color="light" clear [style.border-bottom]="getsecondStyle()"
+            (click)="secondpage()">
+      Vessel Information
+    </button>
+    <button ion-button id="voyagebutton" color="light" clear [style.border-bottom]="getthirdStyle()"
+            (click)="thirdpage()">Voyage Details
+    </button>
+    <button ion-button id="otherbutton" color="light" clear [style.border-bottom]="getfourthStyle()"
+            (click)="fourthpage()">
+      Other Details
+    </button>
+    <button ion-button id="otherbutton" color="light" clear [style.border-bottom]="getfifthStyle()"
+            (click)="fifthpage()">
+      Uploaded Doc Status
+    </button>
+  </ion-toolbar>-->
+</ion-header>
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="voyageDetailsContent">
+  <div [hidden]="!agentdetails">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'shipping_line' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'shipping_line_code' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.shippingLine}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.shippingLineCode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'shipping_agent' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'shipping_agent_code' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.shippingAgent}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.agentNameCode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div [hidden]="!vesseldetails">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col col-6 class="ioncol">
+          {{ 'vessel_name' | translate }}
+        </ion-col>
+        <ion-col col-6 class="ioncol">
+          {{ 'vessel_type' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col col-6 >
+          {{voyageEnquiryDetailsModel.vesselName}}
+        </ion-col>
+        <ion-col col-6 >
+          {{voyageEnquiryDetailsModel.vesselType}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div [hidden]="!voyagedetails">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'rotation_number' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'arrived_from' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.rotationNumber}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.portOfArrival}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'sail_to' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'terminal' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.sailTo}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.firstTerminal}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'eta' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'etb' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.eta}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.etb}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'etd' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'ata' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.etd}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.ata}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'atb' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'atd' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.atb}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.atd}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'inbound_voyage_number' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'Outbound_voyage_number' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.inboundVoyageNumber}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.outboundVoyageNumber}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'voyage_type' | translate }}
+        </ion-col>
+        <ion-col>
+          {{voyageEnquiryDetailsModel.voyageType}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div [hidden]="!otherdetails">
+    <ion-grid *ngIf="hideFieldsForOpenService()" class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'arrival_draft_meters' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'sailing_draft_meters' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.arrivalDraft}}
+        </ion-col>
+        <ion-col>
+          {{voyageEnquiryDetailsModel.sailingDraft}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid *ngIf="hideFieldsForOpenService()" class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'air_draft_meters' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'call_description' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.airDraft}}
+        </ion-col>
+        <ion-col>
+          {{voyageEnquiryDetailsModel.callDescription}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="hideFieldsForOpenService()" class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'call_reason' | translate }}
+        </ion-col>
+        <ion-col  class="ioncol">
+          {{ 'tonnage' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.callReason}}
+        </ion-col>
+        <ion-col>
+          {{voyageEnquiryDetailsModel.tonnage}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'delay_reason' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'cargo_cutoff_datetime' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.delayReason}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.cargoCutoffDatetime}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'ready_to_sail' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'route_details' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          {{voyageEnquiryDetailsModel.readyToSail}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.routeDetails}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid *ngIf="hideFieldsForOpenService()" class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{ 'container_move_type' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'container_size' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.containerMoveType}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.containerSize}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col *ngIf="hideFieldsForOpenService()" class="ioncol">
+          {{ 'container_type' | translate }}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{ 'operational_status' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col *ngIf="hideFieldsForOpenService()" >
+          {{voyageEnquiryDetailsModel.containerType}}
+        </ion-col>
+        <ion-col >
+          {{voyageEnquiryDetailsModel.operationalStatus}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div [hidden]="hideUploadDocsTab()" >
+    <ion-grid class="container">
+      <ion-row class = "subContainer">
+        <ion-col >
+          {{ 'document_type' | translate }}
+        </ion-col>
+        <ion-col class="code">
+          {{ 'date_of_submission_gst' | translate }}
+        </ion-col>
+        <ion-col  >
+          Status
+        </ion-col>
+      </ion-row>
+      <ion-row class="subContainer2" *ngFor="let doc of voyageEnquiryDetailsModel.docDetails;">
+        <ion-col>
+          {{doc.documentType}}
+        </ion-col>
+        <ion-col>
+          {{doc.dateOfSubmission}}
+        </ion-col>
+        <ion-col>
+          {{doc.status}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+

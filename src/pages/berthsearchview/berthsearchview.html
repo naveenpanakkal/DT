@@ -1,0 +1,96 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" class="berthsearchResultTitle-ios">Berth Search</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="optput" full ion-button (click)="presentSortPopover($event)" tappable>
+          <img class="sortimg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="optput" full ion-button (click)="presentFilterPopover($event)" tappable>
+          <img class="sortimg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <!-- <ion-toolbar color="milkygrey" class="countrow countresult">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult">  {{searchdetails?.length}} out of {{searchdetails?.length}} results </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar> -->
+
+<ion-toolbar color="milkygrey" class="countrow countresult">
+    <div>  {{searchdetails?.length}} out of {{searchdetails?.length}} results  </div>
+</ion-toolbar>
+
+</ion-header>
+<ion-content no-bounce has-bounsing="false" class="berthcontent" id="berthSearchViewContainer">
+
+  <ion-list>
+
+    <div class="gridclass" *ngFor="let s of searchdetails">
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(s)" tappable>
+          <ion-row class="berthName">
+            <ion-col col text-wrap col-10>
+              <h4 class="headers"> {{s.vesselNameSearch}} </h4>
+            </ion-col>
+            <ion-col col-2 class = "statusIcon">
+              <img class="approvedicon" [src]="getStatusIcon(s)"/>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col col-3>
+              <h6 class="subheader1">Rotation No</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="subheader3">{{s.rotationNumberSearch}}</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="status" [style.color]="getStyle()" >{{s.berthBookingStatusSearch}}</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-3>
+              <h6 class="subheader1">ETA(GST)</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="subheader2">{{s.etaSearch}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+
+           <button ion-button color="secondary" [hidden]="hideApproveButton(s)" (click)="gotoapprove(s)"
+                  style=" border: 1px solid white;" tappable>
+            <ion-icon name="custom-action"></ion-icon>
+            Approve
+          </button>
+
+          <button ion-button color="secondary" (click)="goview(s)" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            View
+          </button>
+
+          <button ion-button color="secondary" [hidden]="cancelHidden(s)" (click)="deleteberth(s)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            Cancel
+          </button>
+
+        </ion-item-options>
+    </ion-item-sliding>
+    </div>
+
+  </ion-list>

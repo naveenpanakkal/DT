@@ -1,0 +1,40 @@
+<ion-menu *ngFor="let p of pages" [content]="content" id="menu1" (ionClose)="menuClosed(p)">
+  <ion-header>
+    <ion-toolbar color="custom" class="menuside">
+      <ion-title>
+        <ion-icon id="closebutton" ios="ios-arrow-round-back" md="md-arrow-round-back" menuClose></ion-icon>
+        Menu
+
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content no-bounce has-bounsing="false" class="app-content">
+    <ion-list no-lines>
+      <div *ngFor="let p of pages">
+        <button class="menu" ion-item (click)="toggleDetails(p)" [style.background-color]="getStyle(p)">
+          <span><ion-icon [name]="p.image" class="menuimage" item-left></ion-icon></span>
+          <span class="menutitle">{{p.title}}</span>
+          <span><ion-icon class="dropdown" *ngIf="p.title=='About Us'" [name]="getIcon(p)"
+                          float-right></ion-icon></span>
+        </button>
+
+        <div class="submenutitle" *ngIf="p.title=='About Us' && p.showDetails" color="collapse" menuClose>
+          <ul class="listsubmenu">
+            <li><h6>xxxxxxxxxxx</h6></li>
+            <li><h6>xxxxx</h6></li>
+            <li><h6>xxxxxxxxx</h6></li>
+            <li><h6>xxxxxx</h6></li>
+          </ul>
+        </div>
+
+      </div>
+    </ion-list>
+    <img class="whitelogo" src="assets/img/White-Mawani-logo.png"/>
+    <p class="trade">&copy; 2017 Mawani India PCS LLP. All rights reserved.
+      Terms & Conditions | Privacy Policy</p>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

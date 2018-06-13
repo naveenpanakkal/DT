@@ -1,0 +1,965 @@
+<!--
+  Generated template for the CasearchdetailviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <!--<ion-title class="title" *ngIf="!editMode">{{ 'ca_view' | translate }}-->
+    <ion-title class="title" >{{'VLDS_view_title' | translate}}
+    </ion-title>
+
+  </ion-navbar>
+
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1  tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce padding id="vesselloaddischargesummarydetails" (ionScroll)="scrollHandler($event)" no-bounce>
+
+  <div *ngIf="showTabs[0]" style="height:100%;padding-top: 3px;padding-left:5px;padding-right:5px;background-color:#E8E6E6">
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'rotationNumber' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding" >-->
+        <!--<ion-label class="removeMargin underline boldStyle" (click)="showInfoPopup()">{{vldsSearchResult.rotationNoSrch}}</ion-label>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'vesselNameSuccess' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col text-wrap col-6 class="ion-col-minheight-nopadding" >-->
+        <!--<ion-label class="removeMargin boldStyle">{{vldsSearchResult.vesselName}}</ion-label>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'VLDS_operationstatus' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+        <!--<ion-label class="removeMargin boldStyle">{{getStatus(vldsSearchResult.status)}}</ion-label>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'eta' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+        <!--<ion-label class="label-span-alignment boldStyle">{{vldsSearchResult.eta}}</ion-label>-->
+        <!--&lt;!&ndash;<span *ngif="!vldsSearchResult.eta" class="label-span-alignment">GST</span>&ndash;&gt;-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'etd' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+        <!--<ion-label class="label-span-alignment boldStyle">{{vldsSearchResult.etd}}</ion-label>-->
+        <!--&lt;!&ndash;<span *ngif="vldsSearchResult.etd !== null" class="label-span-alignment">GST</span>&ndash;&gt;-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+
+
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'ata' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+        <!--<ion-label class="label-span-alignment boldStyle">{{vldsSearchResult.ata}}</ion-label>-->
+        <!--&lt;!&ndash;<span *ngIf="vldsSearchResult.etd !== null" class="label-span-alignment"></span>&ndash;&gt;-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'atb' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+        <!--<ion-label class="label-span-alignment boldStyle">{{vldsSearchResult.atb}}</ion-label>-->
+        <!--&lt;!&ndash;<span *ngIf="vldsSearchResult.ata !== null" class="label-span-alignment"></span>&ndash;&gt;-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+        <!--{{'workstartdatetime' | translate}}-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+        <!--<ion-label class="label-span-alignment boldStyle">{{vldsSearchResult.workStartDateTime}}</ion-label>-->
+        <!--&lt;!&ndash;<span *ngif="vldsSearchResult.workStartDateTime !=null" class="label-span-alignment">GST</span>&ndash;&gt;-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+    <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+    <!--{{'workenddatetime' | translate}}-->
+    <!--</ion-col>-->
+    <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+    <!--<ion-label class="label-span-alignment boldStyle">{{vldsSearchResult.workEndDateTime}}</ion-label>-->
+    <!--&lt;!&ndash;<span *ngif="vldsSearchResult.workEndDateTime != null" class="label-span-alignment">GST</span>&ndash;&gt;-->
+    <!--</ion-col>-->
+    <!--</ion-row>-->
+    <!--<ion-row class="rowSeperator padding-left-row" >-->
+    <!--<ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">-->
+    <!--{{'atd' | translate}}-->
+    <!--</ion-col>-->
+    <!--<ion-col col-6 class="ion-col-minheight-nopadding">-->
+    <!--<ion-label class="removeMargin boldStyle">{{vldsSearchResult.atd}}</ion-label>-->
+    <!--&lt;!&ndash;<span *ngif="vldsSearchResult.atd != null" class="label-span-alignment">GST</span>&ndash;&gt;-->
+    <!--</ion-col>-->
+    <!--</ion-row>-->
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol boldStyle">
+          {{'rotationNumber' | translate}}
+        </ion-col>
+        <ion-col class="ioncol boldStyle">
+          {{'vesselNameSuccess' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col class="underline boldStyle" (click)="showInfoPopup()">
+          {{vldsSearchResult.rotationNoSrch}}
+        </ion-col>
+        <ion-col col-6 text-wrap="" class="boldStyle">
+          {{vldsSearchResult.vesselName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol boldStyle">
+          {{'VLDS_operationstatus' | translate}}
+        </ion-col>
+        <ion-col class="ioncol boldStyle">
+          {{'eta' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col class="boldStyle">
+          {{getStatus(vldsSearchResult.status)}}
+        </ion-col>
+        <ion-col >
+          <label style="display: inline-block;float: left;" class="boldStyle" >{{vldsSearchResult.eta}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.eta)" class="label-span-alignment">GST</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol boldStyle">
+          {{'etd' | translate}}
+        </ion-col>
+        <ion-col class="ioncol boldStyle">
+          {{'ata' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <label style="display: inline-block;float: left;" class="boldStyle">{{vldsSearchResult.etd}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.etd)" class="label-span-alignment">GST</span>
+        </ion-col>
+        <ion-col >
+          <label style="display: inline-block;float: left;" class="boldStyle">{{vldsSearchResult.ata}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.ata)" class="label-span-alignment">GST</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol boldStyle">
+          {{'atb' | translate}}
+        </ion-col>
+        <ion-col class="ioncol boldStyle">
+          {{'workstartdatetime' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <label style="display: inline-block;float: left;" class="boldStyle">{{vldsSearchResult.atb}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.atb)" class="label-span-alignment">GST</span>
+        </ion-col>
+        <ion-col >
+          <label style="display: inline-block;float: left;" class="boldStyle">{{vldsSearchResult.workStartDateTime}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.workStartDateTime)" class="label-span-alignment">GST</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol boldStyle">
+          {{'workenddatetime' | translate}}
+        </ion-col>
+        <ion-col class="ioncol boldStyle">
+          {{'atd' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col>
+          <label style="display: inline-block;float: left;" class="boldStyle">{{vldsSearchResult.workEndDateTime}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.workEndDateTime)" class="label-span-alignment">GST</span>
+        </ion-col>
+        <ion-col >
+          <label style="display: inline-block;float: left;" class="boldStyle">{{vldsSearchResult.atd}}</label>
+          <span *ngIf="containsValue(vldsSearchResult.atd)" class="label-span-alignment">GST</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <!----------- Container for Summary Details ----------------->
+  <div *ngIf="showTabs[1]" style="height: 98%;background: #F4F4F4;">
+    <ion-label *ngIf="checkListIsNotEmpty(vldsSummaryList)" class="make-no-data-labels-center">No Summary Details Available</ion-label>
+
+    <ion-row class="rowSeperator-top-bottom " *ngFor="let summarys of vldsSummaryList; let summaryIndex = index;"
+             style="margin-top:5px;margin-bottom:5px;background: #Ffffff;" (click)="openSummaryDetailsSlideNav(summaryIndex)">
+      <div style="width:100%;">
+      <ion-row col-12 class="reduce-padding">
+        <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+          {{'VLDS_boxagent' | translate}}
+        </ion-col>
+        <ion-col col-5 class="reduce-padding">
+          <ion-label class="removeMargin boldStyle">{{summarys.boxAgentSum}}</ion-label>
+        </ion-col>
+        <ion-col col-1 class="reduce-padding">
+        </ion-col>
+      </ion-row>
+      <ion-row col-12 class="reduce-padding" >
+        <ion-col  col-6 class="reduce-padding  reduce-padding-textpadding ion-col-left-color boldStyle">
+          {{'line' | translate}}
+        </ion-col>
+        <ion-col col-5 class="reduce-padding">
+          <ion-label class="removeMargin boldStyle">{{summarys.lineCodeSum}}</ion-label>
+        </ion-col>
+        <ion-col col-1 class="reduce-padding">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(summaryIndex==selectedSummaryIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright" style="color:#113B5F;">
+              </ion-icon>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row col-12 class="reduce-padding">
+        <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+          {{'terminal' | translate}}
+        </ion-col>
+        <ion-col col-5 class="reduce-padding">
+          <ion-label class="removeMargin boldStyle">{{summarys.terminalSum}}</ion-label>
+        </ion-col>
+        <ion-col col-1 class="reduce-padding">
+        </ion-col>
+      </ion-row>
+      </div>
+
+    <div style=""
+         [ngClass]="(summaryIndex==selectedSummaryIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+      <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+        <ion-col col-4 style="color: white">
+          {{'VLDS_list_type' | translate}}
+        </ion-col>
+        <ion-col col-4 class="align-text-center" style="color: white">
+          {{'VLDS_planned' | translate}}
+        </ion-col>
+        <ion-col col-4 class="align-text-center" style="color: white">
+          {{'VLDS_actual' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+        <ion-col col-4>
+          {{'VLDS_load' | translate}}
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.plannedLoadSum}}</ion-label>
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.actualLoadSum}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+        <ion-col col-4 >
+          {{'VLDS_restow' | translate}}
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.plannedResSum}}</ion-label>
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.actualResSum}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+        <ion-col col-4>
+          {{'VLDS_discharg' | translate}}
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.plannedDiscSum}}</ion-label>
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.actualDiscSum}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator  padding-left-row custom-list" col-12>
+        <ion-col col-4>
+          {{'VLDS_total' | translate}}
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.plannedTotSum}}</ion-label>
+        </ion-col>
+        <ion-col col-4 class="align-text-center">
+          <ion-label class="removeMargin">{{selectedSummarylist.actualTotSum}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    </ion-row>
+    </div>
+  <!----------- End of Container for Summary Details ----------------->
+  <!----------- Slider Container for Summary Details ----------------->
+  <div  [ngClass]="(openSlider[0]==true)? 'left-side-nav open-side-nav' : 'left-side-nav close-side-nav'">
+    <div  style="height:48px; width:100%;  background-color: #174a77;border-bottom: 1px solid #244f63; " (click)="closeSideNav(0,'')">
+      <!--<ion-label class="slider-headder-label">Summary Details : {{summaryTerminalSlider}}</ion-label>-->
+      <ion-label class="slider-headder-label">Summary Details </ion-label>
+      <ion-icon name="close" class="close-button-slider"></ion-icon>
+    </div>
+    <div class="calculate-height scollable-contanier">
+
+
+    </div>
+  </div>
+  <!----------- End of Slider Container for Summary Details ----------------->
+  <!----------- Container for Discharge Details ----------------->
+  <div *ngIf="showTabs[2]" style="height:100%;background: #F4F4F4;">
+    <ion-label *ngIf="checkListIsNotEmpty(dischargeList)" class="make-no-data-labels-center">No Discharge Details Available</ion-label>
+<!-----------------------___________ Old View With Slider ____________------------------------>
+    <!--<div  *ngFor="let lsDischarge of dischargeList; let dischargeIndex = index;">-->
+      <!--<ion-row class="rowSeperator-top-bottom "  *ngIf="checkDischargeList(dischargeIndex)" style="background: #Ffffff;margin-top:5px;margin-bottom:5px;padding-left:5px;" (click)="openDischargeSlideNav(dischargeIndex)">-->
+      <!--<ion-row col-12 class="reduce-padding">-->
+        <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+          <!--Box Agent-->
+        <!--</ion-col>-->
+        <!--<ion-col col-5 class="reduce-padding">-->
+          <!--<ion-label class="removeMargin">{{lsDischarge.boxAgentDis}}</ion-label>-->
+        <!--</ion-col>-->
+        <!--<ion-col col-1 class="reduce-padding">-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+      <!--<ion-row col-12 class="reduce-padding">-->
+        <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+          <!--Line-->
+        <!--</ion-col>-->
+        <!--<ion-col col-5 class="reduce-padding">-->
+          <!--<ion-label class="removeMargin">{{lsDischarge.lineCodeDis}}</ion-label>-->
+        <!--</ion-col>-->
+        <!--<ion-col col-1 class="reduce-padding">-->
+          <!--<ion-icon ios="ios-arrow-forward" md="md-arrow-forward" style="color:grey; float: right;-->
+<!--margin-right: 15px;"></ion-icon>-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+      <!--<ion-row col-12 class="reduce-padding">-->
+        <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+          <!--Terminal-->
+        <!--</ion-col>-->
+        <!--<ion-col col-5 class="reduce-padding">-->
+          <!--<ion-label class="removeMargin">{{lsDischarge.terminalDis}}</ion-label>-->
+        <!--</ion-col>-->
+        <!--<ion-col col-1 class="reduce-padding">-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+    <!--</ion-row>-->
+    <!--</div>-->
+    <!-----------------------___________ End of Old View With Slider ____________------------------------>
+    <div style="width:100%"  *ngFor="let vldsDischargeData of dischargeListPopDown;  let vldsDischargeListsIndex = index;">
+      <ion-row class="rowSeperator-top-bottom " style="margin-top:5px;margin-bottom:5px;background: #Ffffff;">
+        <div style="width:100%;" (click)="openDischargeDetailsSlideNav(vldsDischargeListsIndex)">
+          <ion-row col-12 class="reduce-padding">
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'VLDS_boxagent' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsDischargeData.boxAgent}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+            </ion-col>
+          </ion-row>
+          <ion-row col-12 class="reduce-padding" >
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'line' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsDischargeData.lineCode}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+              <div class="rotateIconHolder"
+                   style="width: 20px !important;height: 20px !important;" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(vldsDischargeListsIndex==currentopenDischargeListindex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright" style="color:#113B5F;">
+                  </ion-icon>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row col-12 class="reduce-padding">
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'terminal' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsDischargeData.terminal}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+            </ion-col>
+          </ion-row>
+        </div>
+        <div [ngClass]="(vldsDischargeListsIndex==currentopenDischargeListindex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+          <div style="margin-top: 0px;width: 100%;min-height: 100%;top: 0px;transition: none !important;">
+            <div class = "inner-scroll-container"  *ngFor="let currentDischargeList of vldsDischargeData.currentDischargeList; let selectedTabIndex = index;" >
+              <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+                <div class="rotateIconHolder"
+                     style="width: 20px !important;height: 20px !important;" tappable>
+                  <div style="width:20px;"
+                       [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                    <ion-icon name="arrow-dropright">
+                    </ion-icon>
+                  </div>
+                </div>
+                <ion-label style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > {{currentDischargeList.desigDis}}
+                </ion-label>
+              </div>
+              <div style="min-width:360px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+                <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+                  <ion-col col-4 style="color: white">
+                    {{'container_size' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center" style="color: white">
+                    {{'VLDS_planned' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center" style="color: white">
+                    {{'VLDS_actual' | translate}}
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_20ft' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.planned20ftDis}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.actual20ftDis}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_40ft' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.planned40ftDis}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.actual40ftDis}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_40ft+' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.planned40ftPlusDis}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.actual40ftPlusDis}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_total' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.plannedTotalDis}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentDischargeList.actualTotalDis}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+
+    </div>
+  </div>
+  <!-----------  End of Container of Discharge Details ----------------->
+  <!---------- Content for Load Details -------------->
+  <div *ngIf="showTabs[3]"style="height:100%;background: #F4F4F4;">
+    <ion-label *ngIf="checkListIsNotEmpty(loadList)" class="make-no-data-labels-center">No Load Details  Available</ion-label>
+    <!-----------------------___________ Old View With Slider ____________------------------------>
+
+    <!--<div  *ngFor="let lsLoad of loadList; let dischargeIndex = index;">-->
+      <!--<ion-row class="rowSeperator-top-bottom "-->
+               <!--*ngIf="checkLoadList(dischargeIndex)" style="background: #Ffffff;margin-top:5px;margin-bottom:5px;padding-left:5px;"-->
+               <!--(click)="openLoadDetailsSlideNav(dischargeIndex)">-->
+        <!--<ion-row col-12 class="reduce-padding">-->
+          <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+            <!--Box Agent-->
+          <!--</ion-col>-->
+          <!--<ion-col col-5 class="reduce-padding">-->
+            <!--<ion-label class="removeMargin">{{lsLoad.boxAgentLd}}</ion-label>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-1 class="reduce-padding">-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+        <!--<ion-row col-12 class="reduce-padding">-->
+          <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+            <!--Line-->
+          <!--</ion-col>-->
+          <!--<ion-col col-5 class="reduce-padding">-->
+            <!--<ion-label class="removeMargin">{{lsLoad.lineCodeLd}}</ion-label>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-1 class="reduce-padding">-->
+            <!--<ion-icon ios="ios-arrow-forward" md="md-arrow-forward" style="float: right;-->
+<!--margin-right: 15px;color:grey "></ion-icon>-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+        <!--<ion-row col-12 class="reduce-padding">-->
+          <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+            <!--Terminal-->
+          <!--</ion-col>-->
+          <!--<ion-col col-5 class="reduce-padding">-->
+            <!--<ion-label class="removeMargin">{{lsLoad.terminalLd}}</ion-label>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-1 class="reduce-padding">-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+      <!--</ion-row>-->
+    <!--</div>-->
+    <!-----------------------___________ End of Old View With Slider ____________------------------------>
+    <div style="width:100%"  *ngFor="let vldsLoadData of loadListPopDown;  let vldsLoadListsIndex = index;">
+      <ion-row class="rowSeperator-top-bottom " style="margin-top:5px;margin-bottom:5px;background: #Ffffff;">
+        <div style="width:100%;" (click)="openLoadDetailsSlide(vldsLoadListsIndex)">
+          <ion-row col-12 class="reduce-padding">
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'VLDS_boxagent' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsLoadData.boxAgent}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+            </ion-col>
+          </ion-row>
+          <ion-row col-12 class="reduce-padding" >
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'line' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsLoadData.lineCode}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+              <div class="rotateIconHolder"
+                   style="width: 20px !important;height: 20px !important;" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(vldsLoadListsIndex==currentopenLoadListindex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright" style="color:#113B5F;">
+                  </ion-icon>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row col-12 class="reduce-padding">
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'terminal' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsLoadData.terminal}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+            </ion-col>
+          </ion-row>
+        </div>
+        <div [ngClass]="(vldsLoadListsIndex==currentopenLoadListindex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+          <div style="margin-top: 0px;width: 100%;min-height: 100%;top: 0px;transition: none !important;">
+            <div class = "inner-scroll-container"  *ngFor="let currentList of vldsLoadData.currentLoadList; let selectedTabIndex = index;" >
+              <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+                <div class="rotateIconHolder"
+                     style="width: 20px !important;height: 20px !important;" tappable>
+                  <div style="width:20px;"
+                       [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                    <ion-icon name="arrow-dropright">
+                    </ion-icon>
+                  </div>
+                </div>
+                <ion-label style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > {{currentList.desigLd}}
+                </ion-label>
+              </div>
+              <div style="min-width:360px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+                <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+                  <ion-col col-4 style="color: white">
+                    {{'container_size' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center" style="color: white">
+                    {{'VLDS_planned' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center" style="color: white">
+                    {{'VLDS_actual' | translate}}
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_20ft' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.planned20ftLd}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actual20ftLd}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_40ft' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.planned40ftLd}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actual40ftLd}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_40ft+' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.planned40ftPlusLd}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actual40ftPlusLd}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_total' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.plannedTotalLd}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actualTotalLd}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+    </div>
+  </div>
+  <!---------- End of Content for Load Details -------------->
+  <!---------- Content for Restow Details -------------->
+  <div *ngIf="showTabs[4]" style="height:100%;background: #F4F4F4;">
+    <ion-label *ngIf="checkListIsNotEmpty(restowList)" class="make-no-data-labels-center">No Restow Details Available</ion-label>
+    <!-----------------------___________ Old View With Slider ____________------------------------>
+    <!--<div *ngFor="let lsRestow of restowList; let restowIndex = index;">-->
+      <!--<ion-row class="rowSeperator-top-bottom "  *ngIf="checkrestowList(restowIndex)"-->
+               <!--style="background: #Ffffff;margin-top:5px;margin-bottom:5px;padding-left:5px;" (click)="openRestowDetailsSlideNav(restowIndex)">-->
+        <!--<ion-row col-12 class="reduce-padding">-->
+          <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+            <!--Box Agent-->
+          <!--</ion-col>-->
+          <!--<ion-col col-5 class="reduce-padding">-->
+            <!--<ion-label class="removeMargin">{{lsRestow.boxagentRes}}</ion-label>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-1 class="reduce-padding">-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+        <!--<ion-row col-12 class="reduce-padding">-->
+          <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+            <!--Line-->
+          <!--</ion-col>-->
+          <!--<ion-col col-5 class="reduce-padding">-->
+            <!--<ion-label class="removeMargin">{{lsRestow.lineCodeRes}}</ion-label>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-1 class="reduce-padding">-->
+            <!--<ion-icon ios="ios-arrow-forward" md="md-arrow-forward" style="color:grey; float: right;-->
+<!--margin-right: 15px;"></ion-icon>-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+        <!--<ion-row col-12 class="reduce-padding">-->
+          <!--<ion-col  col-6 class="reduce-padding ion-col-left-color">-->
+            <!--Terminal-->
+          <!--</ion-col>-->
+          <!--<ion-col col-5 class="reduce-padding">-->
+            <!--<ion-label class="removeMargin">{{lsRestow.terminalRes}}</ion-label>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-1 class="reduce-padding">-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+      <!--</ion-row>-->
+    <!--</div>-->
+    <!-----------------------___________ End of Old View With Slider ____________------------------------>
+    <div style="width:100%"  *ngFor="let vldsRestowData of restowListPopDown;  let vldsRestowListsIndex = index;">
+      <ion-row class="rowSeperator-top-bottom " style="margin-top:5px;margin-bottom:5px;background: #Ffffff;">
+        <div style="width:100%;" (click)="openRestowDetailsSlide(vldsRestowListsIndex)">
+          <ion-row col-12 class="reduce-padding">
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'VLDS_boxagent' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsRestowData.boxAgent}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+            </ion-col>
+          </ion-row>
+          <ion-row col-12 class="reduce-padding" >
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'line' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsRestowData.lineCode}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+              <div class="rotateIconHolder"
+                   style="width: 20px !important;height: 20px !important;" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(vldsRestowListsIndex==currentopenRestowListindex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright" style="color:#113B5F;">
+                  </ion-icon>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row col-12 class="reduce-padding">
+            <ion-col  col-6 class="reduce-padding reduce-padding-textpadding ion-col-left-color boldStyle">
+              {{'terminal' | translate}}
+            </ion-col>
+            <ion-col col-5 class="reduce-padding">
+              <ion-label class="removeMargin boldStyle">{{vldsRestowData.terminal}}</ion-label>
+            </ion-col>
+            <ion-col col-1 class="reduce-padding">
+            </ion-col>
+          </ion-row>
+        </div>
+        <div [ngClass]="(vldsRestowListsIndex==currentopenRestowListindex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+          <div style="margin-top: 0px;width: 100%;min-height: 100%;top: 0px;transition: none !important;">
+            <div class = "inner-scroll-container"  *ngFor="let currentList of vldsRestowData.currentRestowList; let selectedTabIndex = index;" >
+              <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+                <div class="rotateIconHolder"
+                     style="width: 20px !important;height: 20px !important;" tappable>
+                  <div style="width:20px;"
+                       [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                    <ion-icon name="arrow-dropright">
+                    </ion-icon>
+                  </div>
+                </div>
+                <ion-label style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > {{currentList.designRes}}
+                </ion-label>
+              </div>
+              <div style="min-width:360px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+                <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+                  <ion-col col-4 style="color: white">
+                    {{'container_size' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center" style="color: white">
+                    {{'VLDS_planned' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center" style="color: white">
+                    {{'VLDS_actual' | translate}}
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_20ft' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.planned20ftRes}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actual20ftRes}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_40ft' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.planned40ftRes}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actual40ftRes}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_40ft+' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.planned40ftPlusRes}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actual40ftPlusRes}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+                  <ion-col col-4>
+                    {{'VLDS_total' | translate}}
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.plannedTotalRes}}</ion-label>
+                  </ion-col>
+                  <ion-col col-4 class="align-text-center">
+                    <ion-label class="removeMargin">{{currentList.actualTotalRes}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-row>
+    </div>
+  </div>
+  <!---------- End of Content for Restow Details -------------->
+  <!----------Slider Content for Other Details -------------->
+  <!--<div no-bounce [ngClass]="(openSlider[1]==true)? 'left-side-nav open-side-nav' : 'left-side-nav close-side-nav'">-->
+    <!--<div  style="height:48px; width:100%;  background-color: #174a77; border-bottom: 1px solid #244f63;" (click)="closeSideNav(1,'')">-->
+      <!--<ion-label class="slider-headder-label">{{selectedTab}} </ion-label>-->
+      <!--<ion-icon name="close" class="close-button-slider"></ion-icon>-->
+    <!--</div>-->
+    <!--<div class="calculate-height scollable-contanier" (ionScroll)="scrollHandler($event)">-->
+
+
+      <!--<div style="position:absolute;margin-bottom: 1px;-->
+<!--margin-top: 0px;-->
+<!--width: 100%;-->
+<!--min-height: 100%;-->
+<!--top: 0px;-->
+<!--transition: none !important;">-->
+        <!--<div class = "inner-scroll-container"  *ngFor="let detailsArray of selectedDataForSlider; let selectedTabIndex = index;" >-->
+        <!--<div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>-->
+        <!--<div class="rotateIconHolder"-->
+             <!--style="width: 20px !important;height: 20px !important;" tappable>-->
+          <!--<div style="width:20px;"-->
+               <!--[ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">-->
+            <!--<ion-icon name="arrow-dropright">-->
+            <!--</ion-icon>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<ion-label-->
+          <!--style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > {{detailsArray.desig}}-->
+        <!--</ion-label>-->
+      <!--</div>-->
+        <!--<div style="min-width:360px;"-->
+        <!--[ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">-->
+          <!--<ion-row class="rowSeperator padding-left-row headder-color-light" col-12>-->
+            <!--<ion-col col-4 style="color: white">-->
+              <!--Container Size-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center" style="color: white">-->
+              <!--Planned-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center" style="color: white">-->
+              <!--Actual-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+          <!--<ion-row class="rowSeperator padding-left-row custom-list" col-12>-->
+            <!--<ion-col col-4>-->
+              <!--20ft-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.actual20ft}}</ion-label>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.actual20ft}}</ion-label>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+          <!--<ion-row class="rowSeperator padding-left-row custom-list" col-12>-->
+            <!--<ion-col col-4>-->
+              <!--40ft-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.planned40ft}}</ion-label>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.actual40ft}}</ion-label>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+          <!--<ion-row class="rowSeperator padding-left-row custom-list" col-12>-->
+            <!--<ion-col col-4>-->
+              <!--40ft+-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.planned40ftPlus}}</ion-label>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.actual40ftPlus}}</ion-label>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+          <!--<ion-row class="rowSeperator padding-left-row custom-list" col-12>-->
+            <!--<ion-col col-4>-->
+              <!--Total-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.plannedTotal}}</ion-label>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 class="align-text-center">-->
+              <!--<ion-label class="removeMargin">{{detailsArray.actualTotal}}</ion-label>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+      <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!----------End of Slider Content for Other Details -------------->
+
+
+  <ion-fab [hidden]="false" right bottom>
+    <button tappable class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+      <ion-label class="fabedit" ></ion-label>
+      <button  class="edit" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="navigateToMail()" tappable>
+        <ion-icon name ="custom-mail"></ion-icon>
+      </button>
+      <ion-label class="fabedit" ></ion-label>
+      <button  class="edit" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="navigateToDownload(csv)" tappable>
+        <ion-icon name="custom-csv"></ion-icon>
+      </button>
+      <ion-label class="fabedit" ></ion-label>
+      <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus"
+               (click)="navigateToDownload(pdf)" tappable>
+        <ion-icon name="custom-pdf"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

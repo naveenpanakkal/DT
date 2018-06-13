@@ -1,0 +1,777 @@
+<!--
+  Generated template for the CacreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header" no-line>
+    <ion-title>{{ 'ca_create' | translate }}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style" style="margin-top:-1%;" id="tool">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}</button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding class="paddingforContainerDetails" id="caCreateContainer" scroll="true" >
+
+  <!--AcceptanceDetails-->
+  <div [hidden]="!showTabs[0]">
+    <form [formGroup]="acceptanceDetailsForm" class="validationForms" noValidate>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms ion-col-left-color bold">{{ 'ca_location' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'ca_location' | translate }}</ion-label>
+            <ion-select class="camargin" placeholder="{{ 'ca_location' | translate }}" formControlName="location" tappable
+                        (ionChange)="onLocationChanged()" [(ngModel)]="selectedModel.location">
+              <ion-option *ngFor="let loc of locationList" value={{loc}}>{{loc}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !acceptanceDetailsForm.controls.location.valid">{{ 'ca_location_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms ion-col-left-color bold">{{ 'service_provider_name' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'service_provider_name' | translate }}</ion-label>
+            <ion-select class="camargin" placeholder="{{ 'service_provider_name' | translate }}" formControlName="serviceProvider"
+                        (ionChange)="onspNameChanged()" [(ngModel)]="selectedModel.serviceProvider" tappable>
+              <ion-option *ngFor="let spName of spNameList" value={{spName}}>{{spName}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !acceptanceDetailsForm.controls.serviceProvider.valid">{{ 'ca_service_provider_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms ion-col-left-color bold">{{ 'ca_acceptance_type' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'ca_acceptance_type' | translate }}</ion-label>
+            <ion-select class="camargin" placeholder="{{ 'ca_acceptance_type' | translate }}" formControlName="acceptanceType"
+                        (ionChange)="onAcceptanceTypeChanged(selectedModel.acceptanceType)"
+                        [(ngModel)]="selectedModel.acceptanceType" tappable>
+              <ion-option *ngFor="let accType of acceptanceTypeList" value={{accType.definedSetValueCode}}>
+                {{accType.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !acceptanceDetailsForm.controls.acceptanceType.valid">{{ 'ca_acceptance_type_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'ca_trade_type' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'ca_trade_type' | translate }}</ion-label>
+            <ion-select class="camargin" placeholder="{{ 'ca_trade_type' | translate }}" formControlName="tradeType"
+                        [(ngModel)]="selectedModel.tradeType" tappable>
+              <ion-option *ngFor="let trdType of tradeTypeList" value={{trdType.definedSetValueCode}}>
+                {{trdType.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !acceptanceDetailsForm.controls.tradeType.valid">{{ 'ca_trade_type_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+    </form>
+  </div>
+
+  <!--BookingDetails-->
+  <div [hidden]="!showTabs[1]">
+    <form [formGroup]="bookingDetailsForm" class="validationForms" noValidate>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'liner_code' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'liner_code' | translate }}</ion-label>
+            <ion-select class="camargin" placeholder="{{ 'liner_code' | translate }}" formControlName="linerCode"
+                        [(ngModel)]="selectedModel.linerCode" tappable>
+              <ion-option *ngFor="let bm of boxOperatorModel.boxOperatorMaster" value={{bm}}>{{bm}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.linerCode.valid">{{ 'ca_liner_code_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-12 *ngIf="isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <div class="left">
+            <ion-label color="dark" stacked class="bold ion-col-left-color">{{ 'ca_rotation_number' | translate }}
+              <span class="span">*</span>
+            </ion-label>
+          </div>
+          <!--<ion-item class="left">-->
+          <div [ngClass]="(disableRotationNo) ? 'disableDiv' : '' ">
+            <ion-searchbar class="align-left-validationForms" [ngClass]="(!hideRotationNoInfo)?'rtnNumber':'rtnNumberFull'"
+                           type="tel"
+                           (ionInput)="getRotationNo($event)"
+                           formControlName="rotationNo"
+                           [(ngModel)]="selectedModel.rotationNumber" tappable
+                           (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','rotateNumber')"
+                           onpaste="return true;"
+                           (ionFocus)="getRotationNumberMaster()" (ionBlur)="hideRotation()"></ion-searchbar>
+
+            <ion-icon [hidden]="hideRotationNoInfo"
+                      class="voyageButton iconGeneral icon icon-md ion-md-information-circle"
+                      ios="ios-information-circle" md="md-information-circle" role="img" tappable
+                      aria-label="information circle" ng-reflect-ios="ios-information-circle"
+                      ng-reflect-md="md-information-circle" (click)="showInfoPopup()" >
+            </ion-icon>
+          </div>
+          <!--<div class="smartSearchListContainer"  *ngIf="showRotationNo">-->
+            <!--<ion-list *ngIf="showRotationNo" style="overflow: hidden">-->
+            <ion-list *ngIf="showRotationNo" >
+              <ion-item *ngFor="let item of filterRotationArray" (mousedown)="selectRotation(item)" tappable>
+                {{ item.rotationNo }}
+              </ion-item>
+            </ion-list>
+          <!--</div>-->
+          <div class="rotationSearchmandatory" *ngIf="error && !bookingDetailsForm.controls.rotationNo.valid">{{ 'ca_rotation_number_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'vessel_cut_time' | translate }}
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-label>{{selectedModel.vesselCutOffTime}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'cargo_cut_time' | translate }}
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-label>{{selectedModel.cargoCutOffTime}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="!isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'storage_from' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-datetime displayFormat={{dateFormat}} min={{currDate}} max="2050-01-01" formControlName="storageFrom"
+                          tappable
+                          (ionChange)="onStorageDateChanged(false)" placeholder={{dateFormat}}
+                          [(ngModel)]="storageFrom"></ion-datetime>
+          </ion-item>
+          <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+          <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.storageFrom.valid">{{ 'ca_storage_from_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="!isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'storage_to' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-datetime displayFormat={{dateFormat}} min={{currDate}} max="2050-01-01" formControlName="storageTo"
+                          tappable
+                          (ionChange)="onStorageDateChanged(true)" placeholder={{dateFormat}}
+                          [(ngModel)]="storageTo"></ion-datetime>
+          </ion-item>
+          <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+          <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.storageTo.valid">{{ 'ca_storage_to_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="!isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class=" align-left-validationForms bold ion-col-left-color">{{ 'total_days' | translate }}
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-label>{{selectedModel.totalNoOfDays}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'val_date' | translate }}
+          </ion-label>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 class="left rowSeperatorLine">
+        <ion-col col-9 col-sm>
+            <div class="col_GST">GST</div>
+            <ion-datetime class="val_date" displayFormat={{dateTimeFormat}} placeholder={{dateTimeFormatplaceHolder}} tappable
+                          (ionChange)="onValidityDateChanged()" formControlName="validityDate"
+                          [(ngModel)]="validityDate" min={{currDate}} max="2050-01-01"
+                          [disabled]="disableValidityDate"></ion-datetime>
+        </ion-col>
+        <ion-col col-2 class="col_icon">
+          <ion-icon class="val_icon" name="calendar" color="header"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'liner_booking_number' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-input type="text" class="linerAlign" formControlName="linerBookingNumber" (ionBlur)="onFocusChangeLinerBooking()"
+                       (keyup.enter)="keyboardClose()" placeholder="{{ 'liner_booking_number' | translate }}"
+                       (keyup)="keyUpValidate($event,linerPattern,'linerbookingnumber',0)"
+                       onpaste="return true;" spellcheck="false" maxlength="30"
+                       [(ngModel)]="selectedModel.linerBookingNumber" tappable></ion-input>
+          </ion-item>
+          <div>
+            <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.linerBookingNumber.valid">
+              {{ 'enter_3_char' | translate }}
+            </div>
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport && isAccTypeFull">
+        <div class="col" col-12 col-sm>
+          <div class="left">
+            <ion-label color="dark" stacked class="bold ion-col-left-color">{{ 'place_receipt' | translate }}
+              <span class="span">*</span>
+            </ion-label>
+          </div>
+          <!--<ion-item class="left">-->
+          <ion-searchbar class="align-left-validationForms" type="text" (ionInput)="getPortName($event, true)"
+                         formControlName="placeOfReceipt"
+                         [(ngModel)]="selectedModel.placeOfReceipt" tappable
+                         (ionFocus)="getPortTerminalMaster(true)" (ionBlur)="hidePlaceOfReceipt()"></ion-searchbar>
+          <!--<div  [ngClass]="(showPlaceOfReceipt)?'smartSearchListContainer':'hide-element'" *ngIf="showPlaceOfReceipt">-->
+          <!--<div class="smartSearchListContainer" *ngIf="showPlaceOfReceipt">-->
+            <!--<ion-list style="overflow: hidden;">-->
+            <ion-list *ngIf="showPlaceOfReceipt">
+              <ion-item *ngFor="let item of filterPortNameArray" (mousedown)="selectPlaceOfReceipt(item)" tappable>
+                {{ item.portName }}
+              </ion-item>
+            </ion-list>
+          <!--</div>-->
+          <!--</ion-item>-->
+          <div class="searchmandatory" *ngIf="error && !bookingDetailsForm.controls.placeOfReceipt.valid">{{ 'place_receipt_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport">
+        <div class="col" col-12 col-sm>
+
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'port_loading' | translate }}
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left">
+            <ion-label>{{selectedModel.portOfLoading}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport">
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'port_discharge' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'port_discharge' | translate }}</ion-label>
+            <ion-select class="camargin" placeholder="Port Of Discharge" formControlName="portOfDischarge"
+                        [(ngModel)]="selectedModel.portOfDischarge" tappable>
+              <ion-option *ngFor="let portOfDis of portOfDischargeList" value={{portOfDis.definedSetValueCode}}>
+                {{portOfDis.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.portOfDischarge.valid">{{ 'port_discharge_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport && isAccTypeFull">
+        <div class="col" col-12 col-sm>
+          <div class="left">
+            <ion-label color="dark" stacked class="bold ion-col-left-color">{{ 'final_port_dest' | translate }}
+              <span class="span">*</span>
+            </ion-label>
+          </div>
+          <!--<ion-item class="left">-->
+          <ion-searchbar class="align-left-validationForms" type="text" (ionInput)="getPortName($event, false)"
+                         formControlName="finalPortOfDestination"
+                         [(ngModel)]="selectedModel.finalPortOfDestination"
+                         (ionFocus)="getPortTerminalMaster(false)" tappable
+                         (ionBlur)="hideFinalPortOfDestination()"></ion-searchbar>
+          <!--<div class="smartSearchListContainer" *ngIf="showFinalPortOfDestination">-->
+            <!--<ion-list style="overflow: hidden">-->
+            <ion-list *ngIf="showFinalPortOfDestination">
+              <ion-item *ngFor="let item of filterPortNameArray" (mousedown)="selectFinalPortOfDestination(item)"
+                        tappable>
+                {{ item.portName }}
+              </ion-item>
+            </ion-list>
+          <!--</div>-->
+          <!--</ion-item>-->
+          <div class="searchmandatory" *ngIf="error && !bookingDetailsForm.controls.finalPortOfDestination.valid">{{ 'final_port_dest_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'md_transport' | translate }}
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'md_transport' | translate }}</ion-label>
+            <ion-select class="camargin" formControlName="modeOfTransport" [(ngModel)]="selectedModel.modeOfTransport"
+                        placeholder="{{ 'md_transport' | translate }}" tappable>
+              <ion-option *ngFor="let modeOfTrans of modeOfTransportList" value={{modeOfTrans.definedSetValueCode}}>
+                {{modeOfTrans.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'ca_no_available' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'ca_no_available' | translate }}</ion-label>
+            <ion-select class="camargin" formControlName="containerNoAvailable" (ionChange)="onContainerNoAvailable()"
+                        [(ngModel)]="selectedModel.containerNumberAvailable" placeholder="{{ 'ca_no_available' | translate }}"
+                        tappable>
+              <ion-option *ngFor="let contNoAvail of containerNoAvailableList"
+                          value={{contNoAvail.definedSetValueCode}}>{{contNoAvail.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.containerNoAvailable.valid">{{ 'ca_no_available_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isAccTypeExport && isAccTypeFull">
+        <div class="col" col-12 col-sm>
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'vgm_req' | translate }}
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'vgm_req' | translate }}</ion-label>
+            <ion-select class="camargin" formControlName="vgmRequired" tappable
+                        [(ngModel)]="selectedModel.vgmRequired" placeholder="{{ 'vgm_req' | translate }}">
+              <ion-option *ngFor="let vgmReq of vgmRequiredList" value={{vgmReq.definedSetValueCode}}>
+                {{vgmReq.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !bookingDetailsForm.controls.vgmRequired.valid">{{ 'vgm_req_mandatory' | translate }}</div>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="informationForm" class="validationForms" noValidate>
+      <ion-row col-11>
+        <div class="col removePadding" col-12 col-sm>
+          <!--<ion-item class="left">-->
+          <ion-label color="dark" stacked class="align-left-validationForms bold ion-col-left-color">{{ 'instructions' | translate }}
+          </ion-label>
+          <!--</ion-item>-->
+          <ion-item class="left instructionStyle">
+            <ion-textarea placeholder="{{ 'instructions' | translate }}" formControlName="instructions" maxlength="255"
+                          [(ngModel)]="selectedModel.instructions" spellcheck="false" tappable></ion-textarea>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !informationForm.controls.instructions.valid">{{ 'enter_3_char' | translate }}</div>
+        </div>
+      </ion-row>
+      <ion-row col-11>
+        <div class="col min-height-Css removePadding" col-12 col-sm>
+        </div>
+      </ion-row>
+    </form>
+  </div>
+
+  <!--ContainerDetails-->
+  <div [hidden]="!showTabs[2]" id="caContaninerDtailsTab" class="cont_details">
+    <form [formGroup]="containerDetailsForm" noValidate>
+      <ion-grid class="mainContainer-ContainerDetails">
+        <div class="attach-container-details" formArrayName="containerDetailsFormArray"
+             *ngFor="let containerDetailItem of containerDetailsForm.get('containerDetailsFormArray').controls;
+             let i = index;">
+          <div [formGroupName]="i">
+            <div class="attach-headder">
+              <div class="cont_head" tappable
+                   (click)="(containerDetails[i].dropDown=='true')? containerDetails[i].dropDown='false':containerDetails[i].dropDown='true'">
+                <div [ngClass]="(containerDetails[i].dropDown=='true')? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright">
+                  </ion-icon>
+                </div>
+              </div>
+              <ion-label class="cont_label" tappable (click)="(containerDetails[i].dropDown=='true')? containerDetails[i].dropDown='false':containerDetails[i].dropDown='true'">
+                {{ 'ca_details' | translate }} {{i+1}}
+              </ion-label>
+              <ion-icon ios="ios-add" md="md-add" class="iconGeneral pullRightToContainer"
+                        (click)="addContainerDetails()" tappable>
+              </ion-icon>
+              <ion-icon *ngIf="hideRemoveOptionforContainer()" name="trash" class="iconGeneral"
+                        (click)="removeContainerDetails(i)" tappable>
+              </ion-icon>
+            </div>
+            <div [ngClass]="(containerDetails[i].dropDown=='true') ? 'subheaderContianerDetails_1': 'hideSubheaderContianerDetails_1'">
+              <ion-grid>
+                <ion-row class="rowSeperator">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold"
+                               *ngIf="(selectedModel.containerNumberAvailable=='Yes')">
+                      {{ 'ca_no' | translate }}
+                      <span class="span">*</span>
+                    </ion-label>
+                    <ion-label class="ion-col-left-color bold"
+                               *ngIf="(selectedModel.containerNumberAvailable=='No')">
+                      {{ 'ca_quantity' | translate }}
+                      <span class="span">*</span>
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-6>
+                    <ion-item class="removePadding">
+                      <ion-input type="text" placeholder="{{ 'ca_no' | translate }}"
+                                 (ionBlur)="onFocusChangeContainerNo(i, containerDetails[i])"
+                                 *ngIf="(selectedModel.containerNumberAvailable=='Yes')"
+                                 [(ngModel)]="containerDetails[i].containerNumber"
+                                 (keyup.enter)="keyboardClose()" formControlName="containerNumber"
+                                 (keyup)="keyUpValidate($event,'^[A-Za-z0-9]{0,11}$','containernumber',i)"
+                                  maxlength="11"  (paste)="onPaste($event,i,containerDetails[i])"
+                                 onpaste="return true;" tappable></ion-input>
+                      <ion-input type="tel" placeholder="{{ 'ca_quantity' | translate }}"
+                                 *ngIf="(selectedModel.containerNumberAvailable=='No')"
+                                 (ionBlur)="onFocusChangeContainerQuantity(containerDetails[i])"
+                                 [(ngModel)]="containerDetails[i].containerQuantity"
+                                 (keyup.enter)="keyboardClose()" formControlName="containerQuantity"
+                                 (keyup)="keyUpValidate($event,'^[0-9]{0,3}$','containerquantity',i)"
+                                 onpaste="return true;" spellcheck="false" tappable></ion-input>
+                    </ion-item>
+                    <div class="mandatory_1" *ngIf="(selectedModel.containerNumberAvailable=='Yes') && error &&
+                                !containerDetailsForm.controls.containerDetailsFormArray.controls[i].controls.containerNumber.valid">
+                      {{ 'enter_10_char' | translate }}
+                    </div>
+                    <div class="mandatory_1" *ngIf="(selectedModel.containerNumberAvailable=='No') && error &&
+                                !containerDetailsForm.controls.containerDetailsFormArray.controls[i].controls.containerQuantity.valid">
+                      {{ 'container_quantity_mandatory' | translate }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold">
+                      {{ 'iso_code' | translate }}
+                      <span class="span">*</span>
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-6>
+                    <ion-item class="removePadding set-min-margin">
+                      <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'iso_code' | translate }}
+                      </ion-label>
+                      <ion-select class="ca-margin fit-toContent-Alignment" placeholder="{{ 'iso_code' | translate }}"
+                                  (ionChange)="onISOCodeChanged(containerDetails[i].isoCode, i)"
+                                  [(ngModel)]="containerDetails[i].isoCode" formControlName="isoCode" tappable>
+                        <ion-option *ngFor="let isoModel of isoCodeMasterList" value={{isoModel.isoCode}}>
+                          {{isoModel.isoCode}}
+                        </ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <div class="mandatory_2"
+                         *ngIf="error && !containerDetailsForm.controls.containerDetailsFormArray.controls[i].controls.isoCode.valid">
+                      {{ 'iso_code_mandatory' | translate }}
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator" *ngIf="isAccTypeFull">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold">
+                      {{ 'imdg' | translate }}
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-3>
+                    <div class="ios-toggleContainer">
+                      <ion-toggle [(ngModel)]="containerDetails[i].imdg"
+                                  (ionChange)="reInitializeIMDG(i)"
+                                  [ngModelOptions]="{standalone: true}" tappable>
+                      </ion-toggle>
+                    </div>
+                  </ion-col>
+                  <ion-col col-3>
+                    <ion-icon ios="ios-information-circle" md="md-information-circle"
+                              *ngIf="(containerDetails[i].imdg!=null && containerDetails[i].imdg!='' && containerDetails[i].imdg!='false')?true:false"
+                              (click)="openModalIMDG(i)" tappable
+                              class="infoIcon pullRightToContainer iconGeneral" tappable></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator" *ngIf="isAccTypeFull">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold">
+                      {{ 'reefer' | translate }}
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-3>
+                    <div class="ios-toggleContainer">
+                      <ion-toggle [(ngModel)]="containerDetails[i].reefer"
+                                  (ionChange)="reInitializeReefer(i)"
+                                  [disabled]="disableReeferToogle(containerDetails[i].isoCode)"
+                                  [ngModelOptions]="{standalone: true}" tappable>
+                      </ion-toggle>
+                    </div>
+                  </ion-col>
+                  <ion-col col-3>
+                    <ion-icon ios="ios-information-circle" md="md-information-circle"
+                              *ngIf="(containerDetails[i].reefer!=null && containerDetails[i].reefer!='' && containerDetails[i].reefer!='false')?true:false"
+                              (click)="openModalReefer(i)"
+                              class="infoIcon pullRightToContainer iconGeneral" tappable></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator" *ngIf="isAccTypeFull">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold">
+                      {{ 'oog' | translate }}
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-3>
+                    <div class="ios-toggleContainer">
+                      <ion-toggle [(ngModel)]="containerDetails[i].oog"
+                                  (ionChange)="reInitializeOOG(i)"
+                                  [disabled]="disableOOGToggle(containerDetails[i].isoCode)"
+                                  [ngModelOptions]="{standalone: true}" tappable></ion-toggle>
+                    </div>
+                  </ion-col>
+                  <ion-col col-3>
+                    <ion-icon ios="ios-information-circle" md="md-information-circle"
+                              *ngIf="(containerDetails[i].oog!=null && containerDetails[i].oog!='' && containerDetails[i].oog!='false')?true:false"
+                              (click)="openModalOOG(i)"
+                              class="infoIcon pullRightToContainer iconGeneral" tappable></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator" *ngIf="isAccTypeExport">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold fit-toContent-Alignment-less wrap-content">
+                      {{ 'sstwg_instrn' | translate }}
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-6>
+                    <ion-item class="removePadding" style="margin-bottom:5px;">
+                      <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'sstwg_instrn' | translate }}
+                      </ion-label>
+                      <ion-select class="ca-margin fit-toContent-Alignment"
+                                  placeholder="{{ 'sstwg_instrn' | translate }}"
+                                  [(ngModel)]="containerDetails[i].specialStowageInstructions"
+                                  [ngModelOptions]="{standalone: true}" tappable>
+                        <ion-option *ngFor="let spStwgModel of specialStowageList"
+                                    value={{spStwgModel.definedSetValueCode}}>
+                          {{spStwgModel.definedSetValueIntMessage}}
+                        </ion-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator">
+                  <ion-col col-6 class="min-height-Css">
+                    <ion-label class="ion-col-left-color bold">
+                      {{ 'damage' | translate }}
+                    </ion-label>
+                  </ion-col>
+                  <ion-col col-3>
+                    <div class="ios-toggleContainer">
+                      <ion-toggle
+                        (ionChange)="reInitializeDamage(i)"
+                        [(ngModel)]="containerDetails[i].containerDamageStatus"
+                        [ngModelOptions]="{standalone: true}" tappable></ion-toggle>
+                    </div>
+                  </ion-col>
+                  <ion-col col-3>
+                    <ion-icon ios="ios-information-circle" md="md-information-circle"
+                              *ngIf="(containerDetails[i].containerDamageStatus!=null && containerDetails[i].containerDamageStatus!='' && containerDetails[i].containerDamageStatus!='false')?true:false"
+                              (click)="openModalDamage(i)"
+                              class="infoIcon pullRightToContainer iconGeneral" tappable></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </div>
+      </ion-grid>
+    </form>
+  </div>
+
+  <!--Nominations-->
+  <div [hidden]="!showTabs[3]">
+    <ion-grid class="ionrow nominationtab ionrow-fitToPage">
+      <div *ngFor="let nominationElement of nominationsReceived; let i = index;">
+        <div class="attach-headder">
+          <div class="cont_head"
+               (click)="(nominationElement.dropDown=='true')? nominationElement.dropDown='false':nominationElement.dropDown='true'"
+               tappable>
+            <div [ngClass]="(nominationElement.dropDown=='true')? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label class="cont_label"
+            (click)="(nominationElement.dropDown=='true')? nominationElement.dropDown='false':nominationElement.dropDown='true'"
+            tappable> {{ 'nomination' | translate }} {{i+1}}
+          </ion-label>
+
+          <ion-icon ios="ios-add" md="md-add" class="iconGeneral pullRightToContainer"
+                    (click)="addNominationEntry()" tappable></ion-icon>
+          <ion-icon *ngIf="hideRemoveOptionforNomination()" name="trash" class="iconGeneral pullRightToContainer"
+                    (click)="removeNominationEntry(i)" tappable></ion-icon>
+
+        </div>
+        <div
+          [ngClass]="(nominationElement.dropDown=='true') ? 'subheaderContianerDetails_1': 'hideSubheaderContianerDetails_1'">
+          <ion-grid>
+            <ion-row class="rowSeperator">
+              <ion-col class="ioncolrightwithcolor min-height-Css" col-4>
+                <ion-label class="ion-col-left-color bold">{{ 'clientType' | translate }}</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-item class="removePadding">
+                  <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'clientType' | translate }}</ion-label>
+                  <ion-select [(ngModel)]="nominationElement.clientType" placeholder="{{ 'clientType' | translate }}"
+                              (ionChange)="onNominationTypeChange(i, nominationElement)" class="selectBarStyle" tappable>
+                    <ion-option *ngFor="let clientType of clientList" value={{clientType.definedSetValueCode}}>
+                      {{clientType.definedSetValueIntMessage}}
+                    </ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator">
+              <ion-col class="ioncolrightwithcolor  min-height-Css" col-4>
+                <ion-label class="ion-col-left-color bold">{{ 'ca_code' | translate }}</ion-label>
+              </ion-col>
+              <ion-col>
+                <div [ngClass] ="disableNominationSearch(nominationElement.clientType) ? 'disableDiv' : '' ">
+                  <ion-searchbar (ionInput)="onNominationCharchange($event, i)" tappable
+                                 type="text"
+                                 (ionFocus)="onNominationFocus(nominationElement.clientType, i)"
+                                 (ionBlur)="hideNominationSuggestion(i, nominationElement)"
+                                 (keyup.enter)="keyboardClose()"
+                                 (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,255}$','clientcode',i)"
+                                 onpaste="return true;"
+                                 [(ngModel)]="nominationElement.code" class="ignore-padding-left">
+                  </ion-searchbar></div>
+                <ion-list *ngIf="nominationElement.showNominationSug" >
+                  <ion-item *ngFor="let filterItem of filterNominationArray"
+                            (mousedown)="onSelectNominationCode(filterItem,i)" tappable>
+                    {{ filterItem.companyCode }}
+                  </ion-item>
+                </ion-list>
+                <div class="Codemandatory" *ngIf="error && isNominationValid(i)">{{ 'ca_code_mandatory' | translate }}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator">
+              <ion-col class="ioncolrightwithcolor min-height-Css" col-4>
+                <ion-label class="ion-col-left-color bold">{{ 'ca_name' | translate }}</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label> {{nominationElement.name}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-grid>
+  </div>
+
+  <!--Attachments-->
+  <div [hidden]="!showTabs[4]">
+    <ion-row *ngFor="let attachment of attachments" class="attachrowSeperator min-height-Css">
+      <div class="col photo-button-col" style="width: 125px !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+float: left;
+display: inline-block;">
+        <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block
+                (click)="uploadDocs(attachment)" tappable>{{ 'ca_upload' | translate }}
+          <ion-icon name="clipboard" class="photoicon"></ion-icon>
+        </button>
+      </div>
+      <div class="removePadding" style="width: calc(100% - 185px) !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+float: left;
+display: inline-block;" (click)="displayAttachment(attachment)" tappable>
+        <img src="assets/img/image-icon.png" class="photoSelectedIcon" style="margin-top: 12px !important;"
+             *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+        <ion-label class="wrap-content removeMargin photSelectedIconLabel filename">
+          {{attachment.fileName}}
+        </ion-label>
+      </div>
+      <div class="removePadding removeMargin" style="width: 60px !important;
+float: left;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+display: inline-block;">
+        <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+          <ion-icon ios="ios-close" md="md-close"></ion-icon>
+        </button>
+      </div>
+    </ion-row>
+    <div class="row responsive-sm">
+      <button ion-button class="add-button margin-forPhotoButton" (click)="addAttachment()" tappable>
+        <ion-icon ios="ios-add" md="md-add" class="photo-button-icon"></ion-icon>
+      </button>
+    </div>
+    <button class="button-apply-general footer-submit" ion-button full type="submit" color="submit" [disabled]="disableSubmit" (click)="submit()" tappable>
+      {{ 'ca_submit' | translate }}
+    </button>
+  </div>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header" >
+    <ion-title class="compareTitle" class="berthCompareTitle-ios">Comparison Result</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="berthComparison">
+  <div class="subheader">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Field Name</ion-col>
+        <ion-col >Last Approved</ion-col>
+        <ion-col >Amended</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="item" *ngFor="let berthObj of cmpdiffModelArray">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            {{berthObj.diffattribute}}
+          </ion-col>
+          <ion-col col-4>
+            {{berthObj.newValue}}
+          </ion-col>
+          <ion-col col-4>
+            {{berthObj.oldValue}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+  <div style="text-align:center; padding-top:4%" *ngIf="empty">
+    No data is available
+  </div>
+</ion-content>

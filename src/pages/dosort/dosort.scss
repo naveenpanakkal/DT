@@ -1,0 +1,43 @@
+page-dosortpage {
+  .toggle-md.toggle-checked .toggle-icon {
+    background-color: #c8dcff;
+  }
+  .toggle-md.toggle-checked .toggle-inner {
+    background-color: #488aff;
+  }
+  .toggle-md .toggle-icon {
+    background-color: #c8dcff;
+  }
+  .toggle-md .toggle-inner {
+    background-color: #488aff;
+  }
+  .subclear ion-item {
+    padding: 0px !important;
+  }
+  .buttonsearch {
+    height: 40px;
+    color: white;
+    background-color: #113B5F;
+    align-items: center;
+  }
+  .listStyle ion-item .input-wrapper{
+    position: absolute;
+    z-index: 0;
+  }
+  .listStyle ion-radio {
+    position: absolute;
+    z-index: 1;
+    width:95%;
+  }
+  .listStyle ion-radio .radio-icon{
+    float: right;
+  }
+}
+.platform-ios page-dosortpage .toggle-ios .toggle-icon::before {
+  left: 0%;
+  right: 1px;
+  top: 0px;
+  bottom: 0px;
+  border-radius: 16px;
+  background-color: #488aff !important;
+}

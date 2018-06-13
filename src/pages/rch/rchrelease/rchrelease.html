@@ -1,0 +1,112 @@
+
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title" >{{'rch_edit_title' | translate}}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding id="taView" style="background-color:#E8E6E6">
+  <ion-label class="make-no-data-labels-center" style="font-size: 1.2rem !important;left: 0px !important;">
+    Only Containers Placed On Hold By You Will Be Released</ion-label>
+
+  <ion-list radio-group [(ngModel)]="releaseEventSelected" (ionChange)="releaseEventChanged()"  class="contanerlist" style="width: 100%;margin-bottom:5px;">
+    <ion-item>
+      <ion-label>Release Now</ion-label>
+      <ion-radio value="ReleaseNow" class="checkbox_cont" tappable></ion-radio>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label>Release Later</ion-label>
+      <ion-radio value="ReleaseLater" class="checkbox_cont" tappable></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="releaseEventSelected == 'ReleaseLater'">
+    <ion-item styel="padding-bottom: 2px;padding-right: 5px;">
+      <ion-label color="label" style="left: 0px !important;margin-bottom: 10px;" stacked> Date & Time
+        <span class="span">*</span>
+      </ion-label>
+      <ion-datetime placeholder="DD/MM/YYYY HH:MM" [(ngModel)]="releaseDateTime"
+                    (ionChange)="onEndDateChanged()" min={{minEndDateTime}} max="2050-01-01"
+                    displayFormat="{{dateFormat}}" class="label-left dateTimeStyle"
+                    tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+    <div class="error-validation" *ngIf="isReleaseSubmit && isReleaseDtEmpty">
+      {{validationMessage}}
+    </div>
+  </div>
+
+  <div style="height: auto;margin: 5px 0px;background-color: white;  " >
+    <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;" *ngIf="uploadAttachment()">
+      <div class="col photo-button-col" style="width: 200px !important;float: left;display: inline-block;">
+        <button style="margin: 5px !important;padding: 5px !important;width:150px!important;max-width:150px!important;"
+                 class="button-apply-general photobutton-common margin-forPhotoButton"
+                (click)="initializeAttachment()"
+                ion-button color="submit" block tappable>Add Attachments
+          <ion-icon name="clipboard" class="photoicon"></ion-icon>
+        </button>
+      </div>
+    </ion-row>
+
+    <ion-row *ngFor="let attachment of attachments" class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;">
+      <div class="col photo-button-col"  *ngIf="attachment.hideUploadButton" style="width: 125px !important;float: left;display: inline-block;">
+        <button class="button-apply-general photobutton-common margin-forPhotoButton"
+                ion-button color="submit" block  (click)="uploadDocs(attachment)" tappable>Upload
+          <ion-icon name="clipboard" class="photoicon"></ion-icon>
+        </button>
+      </div>
+      <div [ngClass]="(attachment.hideUploadButton==false || attachment.fileName != null || attachment.fileName != EMPTY)?'removePadding uploadbutton-label':'removePadding uploadbutton-label-withoutbutton'"
+      (click)="displayAttachment(attachment)" tappable>
+        <img src="assets/img/image-icon.png" class="photoSelectedIcon" style="margin-left: 10px !important;margin-top: 20px !important;width:20px;height:20px;" *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+        <ion-label class="wrap-content removeMargin photSelectedIconLabel filename underline " style="width: 85%;margin-top: 20px !important;padding-bottom: 10px;">
+            {{attachment.fileName}}
+        </ion-label>
+      </div>
+      <div class="removePadding removeMargin"
+           style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+        <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+          <ion-icon ios="ios-close" md="md-close"></ion-icon>
+        </button>
+      </div>
+      <div class="removePadding removeMargin"
+           style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+        <button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()" tappable>
+          <ion-icon ios="ios-add" md="md-add" style="font-size: 24px;"></ion-icon>
+        </button>
+      </div>
+    </ion-row>
+  </div>
+
+  <ion-row class="padding-left-row" style="background-color: white;margin-top: 5px;" col-12>
+    <ion-col col-12 color="label" stacked style="margin-left: 10px;
+    margin-top: 10px;"
+             class="bold removePadding ion-col-left-color alingn-elemnts-inline-left">
+      Remarks
+    </ion-col>
+    <ion-col col-12 class=" ion-col-minheight-nopadding" style="padding-top: 0px !important;">
+      <ion-item style="padding:0px;padding-left: 8px;">
+        <ion-textarea [(ngModel)]="releaseRemarks" style="padding-left:0px;padding-top:10px;margin: 2px 0px;" maxlength="255"
+                       placeholder="Remarks" spellcheck="false"
+                      tappable></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 10px;margin-left: 20px;margin-bottom: 10px;">
+    <ion-col  col-6>
+      <button full color="submit" ion-button
+              class="buttonCenterAlign button-apply-general"
+              (click)="cancel()"
+              tappable>Cancel</button>
+    </ion-col>
+    <ion-col col-6>
+      <button full color="submit" ion-button (click)="releaseContainerHold()"
+              class="buttonCenterAlign button-apply-general"
+               tappable>Release</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

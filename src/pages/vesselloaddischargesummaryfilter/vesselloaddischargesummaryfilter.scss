@@ -1,0 +1,159 @@
+page-vesselloaddischargesummaryfilter{
+.create{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+  }
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+
+.error1{
+    border-top:1px solid red;
+    position: relative;
+    margin-top: -1px;
+    margin-left:16px;
+    color: red;
+  }
+
+  .title{
+    position: relative;
+    left: -10px;
+  }
+
+  .label{
+    font-weight : bold;
+    position : relative;
+    left : 7px !important;
+    font-size: 1.6rem !important;
+
+  }
+
+  .valerror{
+    border-bottom:2px solid red;
+    margin-left: 9px;
+    margin-right: 7px;
+  }
+
+  .reportError {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    margin-right: 9px;
+    margin-left: 12px;
+    margin-top: -1px !important;
+  }
+
+  .label-left{
+    margin-left: 5%;
+  }
+
+  .item-label-stacked .select-md, .item-label-floating .select-md {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 8px;
+  }
+
+  .style{
+    border: none;
+    margin-left: 5%;
+    margin-top: 5%;
+
+  }
+  .span
+  {
+    color:red;
+  }
+  .button-right {
+    float: right;
+    margin-top: 10px;
+  }
+
+  #imoitem{
+    padding-top: 30%;
+  }
+  #buttonsearch{
+    height: 40px;
+    width: 95px;
+  }
+  #buttongo{
+    height: 50px;
+    float: right;
+
+  }
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    margin-right: 3%;
+    }
+    .searchbar_disabled{
+      height: 0%;
+      position: relative;
+      margin-top: 2%;
+      border: 1px solid darkgray;
+      text-decoration: none;
+      width: 95%;
+      left: 3%;
+      text-align: left;
+    }
+  .searchbaricon{
+    font-size: 21px;
+    color:#595959;
+    padding-top: 2%;
+  }
+    //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    #searchbutton{
+      margin-left: 65%;
+    }
+    .label-left{
+      margin-left: 2%;
+    }
+    .cal{
+      margin-top: -5%;
+    }
+  }
+  .item-md ion-icon[item-left] + .item-inner,
+  .item-md ion-icon[item-left] + .item-input,
+  .item-md ion-icon[item-start] + .item-inner,
+  .item-md ion-icon[item-start] + .item-input {
+    margin-left: 0px;
+  }
+
+  item-input-disabled ion-label {
+    opacity: 0.99 !important;
+  }
+  .item-select-disabled ion-label {
+    opacity: 0.99 !important;
+  }
+  .item-datetime-disabled ion-label {
+    opacity: 0.99 !important;
+  }
+.labelmargin {
+    margin-left: -2px;
+  }
+}
+.platform-ipad page-vesselloaddischargesummaryfilter .cal {
+  margin-top: -4%;
+}
+.platform-iphone page-vesselloaddischargesummaryfilter .vesselStatus{
+  margin-left: 2.5%;
+}
+.platform-ipad page-vesselloaddischargesummaryfilter .vesselStatus{
+  margin-left: 1%;
+}
+.platform-iphone page-vesselloaddischargesummaryfilter .dateTimeStyle{
+  margin-bottom: 3%;
+  margin-top: 2%;
+}
+.platform-ipad page-vesselloaddischargesummaryfilter .dateTimeStyle{
+  margin-bottom: 1.5%;
+  margin-top: 1%;
+}

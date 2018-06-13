@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title">{{'sssHistoryPageTitle' | translate}} </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="sssHistoryContainer">
+  <div class="attach" (click)="show(history)" *ngFor="let history of sssHistoryList;let i = index">
+    {{'sssHistory'|translate}} {{sssHistoryList.length-i}}
+      <ion-icon [name]="geticon(history)" class="image" tappable></ion-icon>
+    <div *ngIf="history.showDetails" class="subheader">
+      <ion-grid (click)="openview(history.requestNo)" tappable>
+        <ion-row>
+          <ion-col>
+            {{'sssHistoryRequestNo'|translate}}
+          </ion-col>
+          <ion-col >
+            {{history.requestNo}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'sssHistoryActionName'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.actionName}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'sssHistoryStatus'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.status}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'sssHistoryCreatedDate'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.createdDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'sssHistoryLastModifiedDate'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.lastModifiedDate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" class="truckCreate-ios">Truck Registration
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false" id="truckSearchContent">
+  <form [formGroup]="formOne" noValidate class="searchvessel">
+    <ion-label color="label" class="newtrucksearch">Country of Registration<span class="span">*</span>
+    </ion-label>
+     <ion-item class="item-search-container">
+        <ion-searchbar type="text"
+                       (ionInput)="getCountryNames($event)"
+                       (ionFocus)="isFocused()"
+                       (ionClear)="clear_country()"
+                       (ionBlur)="hideCountryChange()"
+                       (keyup.enter)="dismissKeyboard($event)"
+                       formControlName="seacou"
+                       [(ngModel)]="truckSearchForReqModel.countryOfRegistration"
+                       class="stateSearch" tappable></ion-searchbar>
+        <ion-list *ngIf="showCountryField" class="truckSearch_countryListHeight" tappable>
+          <ion-item *ngFor="let item of countryarray" (mousedown)="selectCountry(item)" tappable>
+            {{ item }}
+          </ion-item>
+        </ion-list>
+      </ion-item>
+    <div class="valerror" *ngIf="submit && !formOne.controls.seacou.valid">Country of Registration is mandatory
+    </div>
+    <ion-label color="label" class="newtrucksearch state_margin">State/Emirates<span class="span">*</span>
+    </ion-label>
+    <ion-item class="item-search-container">
+      <ion-searchbar  type="text"
+                      (ionInput)="getStateNames($event)"
+                      (ionBlur)="hideStateChange()"
+                      formControlName="seasta"
+                      (ionClear)="clear_state()"
+                      (keyup.enter)="dismissKeyboard($event)"
+                      [(ngModel)]="truckSearchForReqModel.state" tappable
+                      class="stateSearch"></ion-searchbar>
+      <ion-list *ngIf="showStateField" class="truckSearch_stateListHeight" tappable>
+        <ion-item *ngFor="let item of statearray" (mousedown)="selectState(item)" tappable>
+          {{ item.stateName }}
+        </ion-item>
+      </ion-list>
+    </ion-item>
+    <div class="valerror" *ngIf="submit && !formOne.controls.seasta.valid">State/Emirates is mandatory</div>
+  </form>
+  <form [formGroup]="formTwo">
+    <ion-item>
+      <ion-label stacked color="label" class="bold">Plate Type<span class="span">*</span>
+      </ion-label>
+      <ion-select formControlName="plateType" [(ngModel)]="this.truckSearchForReqModel.plateType"
+                  placeholder="Plate Type"
+                  tappable>
+        <ion-option value="ConstructionEquipment">Construction Equipment</ion-option>
+        <ion-option value="Commercial">Commercial</ion-option>
+        <ion-option value="ActiveDutyMilitary">Active Duty Military</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="valerror" *ngIf="submit && !formTwo.controls.plateType.valid">Plate Type is mandatory</div>
+    <ion-item>
+      <ion-label stacked color="label" class="bold">Plate Code<span class="span">*</span>
+      </ion-label>
+      , Validators.compose([Validators.required])
+      <ion-select formControlName="plateCode" [(ngModel)]="this.truckSearchForReqModel.plateCode"
+                  placeholder="Plate Code"
+                  tappable>
+        <ion-option value="PlateCode1">Plate Code 1</ion-option>
+        <ion-option value="PlateCode2">Plate Code 2</ion-option>
+        <ion-option value="PlateCode3">Plate Code 3</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="valerror" *ngIf="submit && !formTwo.controls.plateCode.valid">Plate Code is mandatory</div>
+  </form>
+  <form [formGroup]="formThree">
+    <ion-label color="label" class="lpn">License Plate Number<span class="span">*</span>
+    </ion-label>
+    <ion-item class="licplate">
+      <ion-input type="text" class="inputlic" formControlName="licplatenum"
+                 placeholder="License Plate Number"
+                 [(ngModel)]="this.truckSearchForReqModel.licensePlateNo"
+                 (keyup)="keyUpChecker($event)" spellcheck="false"
+                 onpaste="return true;" tappable
+      ></ion-input>
+    </ion-item>
+    <div class="valerror" *ngIf="submit && !formThree.controls.licplatenum.valid">
+      Please enter 3 to 255 valid characters
+    </div>
+
+  </form>
+  <ion-row>
+    <ion-col class="imoitem">
+      <ion-item id="searchbutton" no-lines>
+        <button full color="submit" ion-button id="buttonsearch" class="button-apply-general" (click)="searchtruck()" tappable>Go</button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-content>

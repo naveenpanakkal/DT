@@ -1,0 +1,198 @@
+page-executeaction {
+
+  .scroll-content {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+  }
+
+  .toolbar-title {
+    font-weight: 500 !important;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+
+  .title {
+    position: relative;
+    left: -10px;
+  }
+
+  .ionrow {
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+
+  #ioncol {
+    color: WHITE;
+  }
+
+  .scroll-content {
+    padding-bottom: 15% !important;
+  }
+
+  #caption {
+    color: black !important;
+  }
+
+  h6 {
+    line-height: 0.2 !important;
+  }
+
+  #ioncolrightwithcolor {
+
+  }
+
+  .attach {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+  }
+  .okbutton {
+    background-color: #22739B;
+
+  }
+  .canbutton {
+
+    background-color: #22739B;
+  }
+  .button-md {
+    //border-radius: 2px;
+    overflow: hidden;
+    height: 3.6rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: none;
+    color: #fff;
+    background-color: #113B5F;
+    right: 4%;
+  }
+  .image {
+    float: right;
+  }
+  .subheader {
+    background-color: white;
+    margin-top: -2%;
+    width: 98%;
+    margin-left: 1%;
+    color: darkgrey;
+    height: 12%;
+    font-family: calibri;
+  }
+  .comment {
+    margin-top: -2%;
+    width: 98%;
+    margin-left: 1%;
+    color: darkgrey;
+
+    font-family: calibri;
+    border: 5px solid white;
+  }
+
+  .approve {
+    color: green;
+
+  }
+  .reject {
+
+    color: red;
+  }
+  .option {
+    text-align: center;
+    color: #22739B;
+    font-weight: Bold;
+    font-size: 1.2em;
+    margin-bottom: 6%;
+    margin-top: 20%;
+  }
+
+  .filterImg {
+    height: 25px;
+    position: relative;
+    right: -37%;
+  }
+  .filcap {
+
+    position: relative;
+    left: 36%;
+    top: 2%;
+
+  }
+  #notifybadge {
+    float: right;
+  }
+  .header {
+    color: #22739B;
+    font-weight: bold;
+  }
+  .bold {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 3% !important;
+    text-align: right;
+
+  }
+  .topcol {
+    padding: 0 !important;
+    border-right: 1px solid #FFF;
+  }
+  .toprow {
+    position: relative;
+    top: -2.5%;
+    width: 110%;
+    left: -4%;
+  }
+  .toprow {
+    position: relative;
+    top: -2.5%;
+    width: 110%;
+    left: -4%;
+  }
+  //---ios_change--start
+  //---title alignment
+  div.toolbar-title.toolbar-title-ios {
+    overflow: visible;
+    margin-left: -18%;
+    margin-top: -15%;
+  }
+  .toolbar-title {
+    font-weight: 500 !important;
+    text-align: center;
+    font-size: 2rem;
+  }
+  //---ios_change--end
+  //media query starts here
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .option {
+      margin-top: 10%;
+    }
+  }
+}
+
+.platform-iphone page-executeaction div.toolbar-title.toolbar-title-ios {
+  margin-left: 60px !important;
+  margin-top: -5px !important;
+}
+
+.platform-iphone page-executeaction ion-header .toolbar-ios ion-title {
+  top: 0px !important;
+  margin-top: 0px !important;
+  left: 0px !important;
+}
+
+.platform-iphone page-executeaction .option {
+  margin-top: 7%;
+}
+
+.platform-ipad page-executeaction .option {
+  margin-top: 4%;
+}

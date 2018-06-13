@@ -1,0 +1,175 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" class="doSearchSummaryTitle-ios">{{ 'do_order_summary' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="detailcontent" id="doSearchSummaryContent">
+  <div id="divv">
+    <img class="approvedicon" [src]="DOStatusIcon"/>
+  </div>
+  <h6 class="status" [style.color]="getStyle()">{{DOstatus}}</h6>
+
+  <ion-item text-wrap *ngIf="isFromCreate || isFromAmend" margin-top="15dp">
+    <h2 class="donotificationtitle">{{notificationMessage}} </h2>
+  </ion-item>
+
+  <ion-grid class="details">
+    <ion-row class="firstrow">
+      <ion-col text-wrap col-6>
+        <ion-label *ngIf="!(isFromCreate || isFromAmend)">
+          <h4 class="labels">DO Request No</h4>
+        </ion-label>
+        <ion-label *ngIf="(isFromCreate || isFromAmend)">
+          <h4 class="labels">Delivery Order No</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{DOrequestno}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">Agent Reference No</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{deliveryorderreqmodel.agentDoNumber}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">Rotation No (VIA No)</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{deliveryorderreqmodel.rotationNo}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">Total No of Containers</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{DOtotalContainers}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label>
+          <h4 class="labels">DO Validity Date</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{DOvaliditydate}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-wrap col-6>
+        <ion-label *ngIf="!(isFromCreate || isFromAmend)">
+          <h4 class="labels">BoL No</h4>
+        </ion-label>
+        <ion-label *ngIf="(isFromCreate || isFromAmend) && showBillOfLading()">
+          <h4 class="labels">Bill Of Lading No</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{DObolno}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(isFromCreate || isFromAmend) && showHouseBillOfLading()">
+      <ion-col text-wrap col-6>
+        <ion-label>
+          <h4 class="labels">House Bill Of Lading No</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{DOhbillofLadingNo}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">MRN/IGM No</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{DOmrnno}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">DO Type</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{deliveryorderreqmodel.doType}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label><h4 class="labels">Created Date</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{deliveryorderreqmodel.createdDate}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!(isFromCreate || isFromAmend)">
+      <ion-col text-wrap col-6>
+        <ion-label>
+          <h4 class="labels">Validity Date</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col text-wrap col-6>
+        <h4 class="labels">{{deliveryorderreqmodel.dOValidityDate}}</h4>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab *ngIf="!(isFromCreate || isFromAmend)" #fab right bottom>
+    <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus" tappable>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label [hidden]="hideEditOption" class="fabedit"></ion-label>
+      <button [hidden]="hideEditOption" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="editDO(fab)" tappable>
+        <ion-icon name="custom-Edit"></ion-icon>
+      </button>
+      <ion-label [hidden]="hideCancelOption" class="fabedit"></ion-label>
+      <button [hidden]="hideCancelOption" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="cancelDO()"
+              tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewDO(fab)" tappable>
+        <ion-icon name="custom-view"></ion-icon>
+      </button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seehistory()" tappable>
+        <ion-icon name="custom-history"></ion-icon>
+      </button>
+      <ion-label [hidden]="hidePrintOption" class="fabedit"></ion-label>
+      <button [hidden]="hidePrintOption" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewDoDoc()"
+              tappable>
+        <ion-icon name="custom-print"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-fab *ngIf="isFromCreate || isFromAmend" right bottom>
+    <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus" tappable>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewDoDoc()" tappable>
+        <ion-icon name="custom-print"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+

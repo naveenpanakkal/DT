@@ -1,0 +1,134 @@
+page-loaddischargedownload {
+  .terminalButtonStyle {
+    background-color : #113B5F;
+    width: 46%;
+  }
+  .dropdown{
+    color:black;
+  }
+  //.inputs{
+  //  padding-left: 8.5%;
+  //}
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+  }
+.mailTitle {
+  font-size: 1.6rem !important;
+  text-decoration: solid;
+  font-weight: bold;
+  margin-left: 5%;
+  background-color: #fff;
+  position: relative;
+}
+  .toggleButtonCenterAlign {
+    margin-left: calc((100% - 65px)/2);
+  }
+  .sortOption {
+    margin-top: 20px;
+  }
+  .sortOrderStyle {
+    margin-top: 30px;
+    padding-left: 15px !important;
+  }
+  .inputReport {
+    color: #000000 !important;
+    font-size: 1.6rem !important;
+    text-decoration: solid;
+    font-weight: bold;
+    background-color: #fff;
+    position: relative;
+  }
+  .reportInput {
+    border: 1px solid #dedede;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 5px;
+  }
+
+  .label-left{
+    margin-left: 0% ;
+  }
+
+  .select-md .select-icon .select-md  {
+    position: relative;
+    width: 12px;
+    height: 19px;
+    margin-right: -3%;
+    color: black !important;
+  }
+
+
+  .title{
+    position: relative;
+  }
+
+  .filterHeight {
+    margin-bottom: 0%;
+  }
+
+  .reportSelect {
+    margin-top: -20%;
+  }
+  .emailError {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+
+  .removePadding item-inner{
+    padding: 0px !important;
+  }
+}
+page-loaddischargedownload .list_ldd{
+  margin-bottom: 0px;
+}
+page-loaddischargedownload ion-list .checkbox {
+  width: 100%;
+  max-width: 100%;
+  position: absolute !important;
+  margin: 0!important;
+}
+page-loaddischargedownload .item_1 ion-label{
+  margin: 0;
+  margin-left: 35px !important;
+}
+.platform-ios page-loaddischargedownload .item_1 ion-label{
+  margin-left: 35px !important;
+}
+.platform-ios page-loaddischargedownload .list_ldd{
+  margin-bottom: 30px;
+}
+.platform-iphone page-loaddischargedownload ion-list .checkbox {
+  margin-top: 0% !important;
+}
+.platform-ipad page-loaddischargedownload .toggleStyle{
+  margin-bottom: 3%;
+  margin-top: -3%;
+}
+.platform-iphone page-loaddischargedownload .toggleStyle{
+  margin-bottom: 5%;
+  margin-top: -3%;
+}
+.platform-iphone page-loaddischargedownload .title{
+margin-left: -13% !important;
+}
+.platform-ipad page-loaddischargedownload .title{
+  margin-left: -9% !important;
+}

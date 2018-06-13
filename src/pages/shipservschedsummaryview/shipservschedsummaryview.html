@@ -1,0 +1,115 @@
+<!--
+  Generated template for the ShipServSchedSummaryViewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{'SHIP_SERV_SCHED_SUMMARY'|translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" class="detailcontent" id="sssSummaryDetails">
+    <div id="divv">
+      <img class="approvedicon" [src]="getStatusIcon(sssSummary)" tappable/>
+    </div>
+    <h6 class="status" [style.color]="getStyle()">{{sssSummary.statusSummary}}</h6>
+
+    <ion-grid class="details">
+      <ion-row class="firstrow">
+        <ion-col col-6>
+          <ion-label text-wrap> <h4 class="labels">{{ 'sssNumber' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.sssNoSummary}}</h4>  </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssAgentRefNumber' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.agentReferenceNoSummary}}</h4></ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssSchedCode' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.shippingServiceCodeSummary}}</h4></ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssSchedName' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.shippingServiceNameSummary}}</h4>  </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssRole' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.role}}</h4>  </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssLeaderLineCode' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.leaderLine}}</h4>  </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssValidityDate' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels" value="cdate">{{sssSummary.validityDateSummary}}</h4>  </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row text-wrap>
+        <ion-col col-6>
+          <ion-label text-wrap><h4 class="labels">{{ 'sssVesselName' | translate }}</h4>
+          </ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-label text-wrap>
+            <h4 class="labels">{{sssSummary.vesselName}}</h4> </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="blnk_div"> </div>
+    <ion-fab right bottom>
+      <button class ="edit"ion-fab color="$icon-highlight-bg-color-onfocus" tappable><ion-icon ios="ios-menu" md="md-menu"></ion-icon></button>
+      <ion-fab-list side="top">
+        <ion-label class="fabedit"></ion-label>
+        <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewInfo()" tappable>
+          <ion-icon name ="custom-view"></ion-icon>
+        </button>
+        <ion-label class="fabedit"></ion-label>
+        <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showHistory()" tappable>
+          <ion-icon name ="custom-history"></ion-icon>
+        </button>
+      </ion-fab-list>
+    </ion-fab>
+</ion-content>

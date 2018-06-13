@@ -1,0 +1,191 @@
+<!-- Generated template for the imdgModelComponent component -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ 'imdg' | translate }}
+    </ion-title>
+    <ion-buttons start tappable>
+      <button ion-button (click)="close()" tappable style="color: white;">
+        <span ion-text showWhen="ios"> {{ 'ca_cancel_small' | translate }}</span>
+        <ion-icon name="md-close" style="color: white;width:40px;" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" padding id="caImgdModel">
+  <ion-row class="mainContainer-caImgdModel">
+
+
+    <div class="attach-caImgdModel" *ngFor="let imdgElement of imdgDetailArray;let  imdgIndex = index;">
+
+
+      <ion-row>
+        <ion-col>
+          <div class="attach-headder">
+            <div class="rotateIconHolder"
+                 (click)="(imdgElement.dropDown=='true')? imdgElement.dropDown='false':imdgElement.dropDown='true'"
+                 tappable>
+              <div style="width:20px;height:20px;display: inline-block;float: left;"
+                   [ngClass]="(imdgElement.dropDown=='true')? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright">
+                </ion-icon>
+              </div>
+              <ion-label class="label-Attachment-headder" tappable>
+                {{ 'imdg_attachment' | translate }} {{imdgIndex + 1}}
+              </ion-label>
+            </div>
+            <ion-icon name="trash" class="iconGeneral" *ngIf="enableInput(imdgIndex) && hideRemoveOptiomforIMDG()"
+                      (click)="removeIMDGEntry(imdgIndex)" tappable>
+            </ion-icon>
+            <ion-icon ios="ios-add" md="md-add" class="iconGeneral pullRightToContainer"
+                      *ngIf="enableInput(imdgIndex)" (click)="addIMDGEntry()" tappable>
+            </ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+
+
+
+      <div [ngClass]="(imdgElement.dropDown=='true') ? 'subheadercaimdgmodel': 'hideSubheadercaimdgmodel'" style = "width:100%;">
+
+        <!--attach-caImgdModel-->
+        <ion-grid>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-6>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'imdg_class' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col col-6 *ngIf="enableInput(imdgIndex)">
+                <ion-item>
+                  <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'imdg_class' | translate }}
+                  </ion-label>
+                  <ion-select class="ca-margin wrap-content" [(ngModel)]="imdgElement.imdgClass" tappable>
+                    <ion-option *ngFor="let imdgItem of imdgType" value={{imdgItem.definedSetValueCode}}>
+                      {{imdgItem.definedSetValueIntMessage}}
+                    </ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput(imdgIndex)">
+                {{imdgElement.imdgClass}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-6>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'un_number' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col col-6 *ngIf="enableInput(imdgIndex)">
+                <ion-item>
+                  <ion-input class="imdg_tab_input" type="text" placeholder="{{ 'un_number' | translate }}"
+                             [(ngModel)]="imdgElement.unNumber"
+                             (keyup.enter)="keyboardClose()"  maxlength="4"
+                             (ionBlur)="onFocusFields('unnumber',imdgElement.unNumber, '^[0-9]{0,4}$', imdgIndex)"
+                             (keyup)="keyUpValidate($event,'^[0-9]{0,4}$','unnumber',imdgIndex)"
+                             onpaste="return true;" spellcheck="false" tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput(imdgIndex)">
+                {{imdgElement.unNumber}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-6>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'imdg_pageno' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col col-6 *ngIf="enableInput(imdgIndex)">
+                <ion-item>
+                  <ion-input class="imdg_tab_input" type="text" placeholder="{{ 'imdg_pageno' | translate }}"
+                             [(ngModel)]="imdgElement.imdgPageNo"
+                             (keyup.enter)="keyboardClose()" maxlength="30"
+                             (ionBlur)="onFocusFields('imdpageno',imdgElement.imdgPageNo, inputPattern, imdgIndex)"
+                             (keyup)="keyUpValidate($event,inputPattern,'imdpageno',imdgIndex)"
+                             onpaste="return true;" spellcheck="false" tappable>
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-6 text-wrap="" class="fit-toContent-Alignment" *ngIf="!enableInput(imdgIndex)">
+                {{imdgElement.imdgPageNo}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-6>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'flash_point' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col col-6 *ngIf="enableInput(imdgIndex)">
+                <ion-item>
+                  <ion-input class="imdg_tab_input" type="text" placeholder="{{ 'flash_point' | translate }}"
+                             [(ngModel)]="imdgElement.flashPoint"
+                             (keyup.enter)="keyboardClose()" maxlength="3"
+                             (ionBlur)="onFocusFields('imdflashpoint',imdgElement.flashPoint, '^[0-9]{0,3}$', imdgIndex)"
+                             (keyup)="keyUpValidate($event,'^[0-9]{0,3}$','imdflashpoint',imdgIndex)"
+                             onpaste="return true;" spellcheck="false" tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput(imdgIndex)">
+                {{imdgElement.flashPoint}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-6>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'packing_group' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col col-6 *ngIf="enableInput(imdgIndex)">
+                <ion-item>
+                  <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'packing_group' | translate }}
+                  </ion-label>
+                  <ion-select class="ca-margin wrap-content" [(ngModel)]="imdgElement.packingGroup" tappable>
+                    <ion-option *ngFor="let packageElement of packagingList" value={{packageElement.definedSetValueCode}}>
+                      {{packageElement.definedSetValueIntMessage}}
+                    </ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput(imdgIndex)">
+                {{imdgElement.packingGroup}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-6>
+                <ion-label class="label ion-col-left-color wrap-content">
+                  {{ 'subsidiary_risk_label' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col col-6 *ngIf="enableInput(imdgIndex)">
+                <ion-item>
+                  <ion-input class="imdg_tab_input" type="text" placeholder="{{ 'subsidiary_risk_label' | translate }}"
+                             [(ngModel)]="imdgElement.subsidiaryRiskLabel"
+                             (keyup.enter)="keyboardClose()" maxlength="30"
+                             (ionBlur)="onFocusFields('risklabel',imdgElement.subsidiaryRiskLabel, inputPattern,imdgIndex)"
+                             (keyup)="keyUpValidate($event,inputPattern,'risklabel',imdgIndex)"
+                             onpaste="return true;" spellcheck="false"
+                             tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput(imdgIndex)">
+                {{imdgElement.subsidiaryRiskLabel}}
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <ion-row class="ok-button-container">
+      <ion-col>
+        <ion-row class="closeButton">
+          <button ion-button color="submit" block (click)="onOKClick()" tappable>{{ 'ok_text_small' | translate }}
+          </button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-row>
+</ion-content>

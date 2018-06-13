@@ -1,0 +1,641 @@
+<!--
+  Generated template for the GiGoViewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title" *ngIf="!editMode">{{ 'gigo_view' | translate }}
+    </ion-title>
+    <ion-title class="title" *ngIf="editMode">{{ 'gigo_edit' | translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  id="gigodetailsview">
+  <div *ngIf = "editMode">
+  <div  style="padding-top: 3px;padding-left:5px;padding-right:5px;background-color:#E8E6E6;height:auto">
+    <div class="mainFieldContainer">
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+            <ion-col class="ioncolrightwithcolor" col-12>
+              {{'gigo_loacation' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row col-12>
+            <ion-col col-12>
+              {{gigoSearchResult.locationName}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid class="ionrow">
+        <ion-row col-12>
+            <ion-col col-12 class="ioncolrightwithcolor">
+              {{'gigo_SP_Name' | translate}}
+            </ion-col>
+        </ion-row>
+          <ion-row col-12>
+            <ion-col col-12>
+              {{gigoSearchResult.spLocationName}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+            <ion-col class="ioncolrightwithcolor">
+              {{'gigo_movetype' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row col-12>
+            <ion-col>
+              {{gigoSearchResult.moveType}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <form [formGroup]="groupOne" noValidate>
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+            <ion-col col-12 class="ioncolrightwithcolor">
+              {{'gigo_truck_num' | translate}}<span class="span star-color">*</span>
+            </ion-col>
+          </ion-row>
+          <ion-row col-12>
+            <ion-col col-12>
+              <ion-item style="padding:0px;min-height: auto;">
+                <ion-input placeholder="{{'gigo_truck_num' | translate}}" [(ngModel)]="gigoSearchResult.truckNumber"
+                           spellcheck="false" minlength="1" maxlength="18" (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','truckNumber')" formControlName="truckNumber"
+                           (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z]{1,18}$',gigoSearchResult.truckNumber)" tappable></ion-input>
+              </ion-item>
+              <div class="error1" *ngIf="error && !groupOne.controls.truckNumber.valid"
+                   style="color:red;margin-top:-1px">
+                {{ 'gigo_mandatory' | translate }}
+              </div>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+            <ion-col class="ioncolrightwithcolor" col-12>
+              {{'gigo_driver_Name' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row col-12>
+            <ion-col col-12>
+              <ion-item style="padding:0px;min-height: auto;">
+                <ion-input placeholder="{{'gigo_driver_Name' | translate}}" [(ngModel)]="gigoSearchResult.driverName"
+                           spellcheck="false" minlength="1" maxlength="255" (keyup.enter)="keyboardClose()" type="text"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','driverName')" formControlName="driverName"
+                           (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z ]{0,255}$',gigoSearchResult.driverName)" tappable></ion-input>
+              </ion-item>
+              <div class="error1" *ngIf="error && !groupOne.controls.driverName.valid"
+                   style="color:red;margin-top:-1px">
+                {{ 'gigo-driver-mandatory' | translate }}
+              </div>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+        </form>
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+              <ion-col class="ioncolrightwithcolor" col-12>
+                {{'gigo_reference_no' | translate}}
+              </ion-col>
+            </ion-row>
+          <ion-row col-12>
+            <ion-col col-12>
+              {{gigoSearchResult.referenceNo}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <form [formGroup]="groupTwo" noValidate>
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+            <ion-col class="ioncolrightwithcolor" col-12>
+              {{'gigoDate_Time' | translate}}<span class="span star-color">*</span>
+            </ion-col>
+          </ion-row>
+          <ion-row col-12>
+              <ion-col *ngIf="editMode" col-12>
+                <ion-item style="padding:0px;min-height: auto;">
+                  <ion-datetime  class="appointment-date-time" displayFormat={{dateTimeFormat}}
+                                 [(ngModel)]="validityDate" max={{maxvalue}}
+                                 tappable formControlName="selectDays"></ion-datetime>
+                </ion-item>
+                <ion-icon class="dateiconstyle" name="calendar" color="header" tappable></ion-icon>
+                <div class="error1" *ngIf="error && !groupTwo.controls.selectDays.valid"
+                     style="color:red;margin-top:-1px">
+                  {{ 'gigo_mandatory' | translate }}
+                </div>
+              </ion-col>
+            </ion-row>
+
+        </ion-grid>
+        </form>
+        <ion-grid class="ionrow">
+            <ion-row col-12>
+              <ion-col col-12 class="ioncolrightwithcolor">
+                {{'gigo_no' | translate}}
+              </ion-col>
+            </ion-row>
+            <ion-row col-12>
+             <ion-col col-12>
+              {{gigoSearchResult.gigoNo}}
+             </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid class="ionrow">
+          <ion-row col-12>
+            <ion-col class="ioncolrightwithcolor" col-12>
+              {{'gigo_status' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row col-12>
+            <ion-col col-12>
+              {{gigoSearchResult.status}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </div>
+    <div style="height:auto;" *ngFor="let gigoDetails of gigoSearchResult.gigoContainerDetailsSO;let selectedTabIndex = index;">
+      <div class = "inner-scroll-container"  >
+        <div >
+          <div class="attach-headder" style="margin-top: 10px;margin-left: 3px;width: 100%;"
+               (click)="openSelecedTab(selectedTabIndex)" tappable>
+            <div col-12 style="display: inline-block;float: left;">
+              <div class="rotateIconHolder"
+                   style="width: 20px !important;height: 20px !important;" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright">
+                  </ion-icon>
+                </div>
+              </div>
+              <ion-label
+                style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+                {{gigoTabheader}} {{selectedTabIndex+1}}
+              </ion-label>
+            </div>
+
+          </div>
+          <div style="min-width:325px;background-color: white;margin-left: 3px;width: calc(100% - 9px);border: 0.55px solid #c8c7cc;"
+               [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_chassis_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.chassisNo}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_container_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.containerNo}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding">
+                {{'gigo_requesttype'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.requestType}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12 >
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding">
+                {{'gigo_request_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.requestNo}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_iso_code'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.isoCode}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding">
+                {{'gigo_laden_status'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.ladenStatus}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_damage_details'| translate}}
+              </ion-col>
+              <ion-col col-6 style="padding: 0px;margin: 0px !important;">
+                <button color="option" ion-button  class="button-apply-general" (click)="showDamageDetails(selectedTabIndex)" value="en" tappable>Damage Details</button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_seal_details'| translate}}
+              </ion-col>
+              <ion-col col-6 style="padding: 0px;margin: 0px !important;">
+                <button *ngIf="showSealButton(selectedTabIndex)" color="option" ion-button  class="button-apply-general"
+                        (click)="showSealDetails(selectedTabIndex)" value="en" tappable>Seal Details</button>
+              </ion-col>
+            </ion-row>
+            <ion-row class=" padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_eir_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.eirNumber}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ionrow" *ngIf="!editMode">
+      <div class="attachrow"  *ngFor="let attachment of gigoSearchResult?.gigoAttachmentSO" style="background-color: white;">
+        <ion-row class="attachMargin view_atch">
+          <ion-col style="padding-top:0px;" col-1 *ngIf="attachment.fileName">
+            <ion-icon class="gigoFileicon" item-start tappable>
+              <img src="assets/img/image-icon.png"/>
+            </ion-icon>
+          </ion-col>
+          <ion-col style="padding-top:0px;" class="gigoFilename_1" (click)="displayattach(attachment)" tappable>
+            <ion-label class="underline" text-wrap>
+              {{attachment.fileName}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <button class="button-apply-general footer-submit disable-hover button button-md button-default button-default-md button-full button-full-md button-md-submit"
+                  color="submit" full="" ion-button="" tappable="" type="submit" ng-reflect-color="submit"
+                  ng-reflect-full=""><span class="button-inner">
+      Submit
+     </span><div class="button-effect"></div></button>
+        </ion-row>
+      </div>
+    </div>
+    <div class="ionrow" *ngIf="editMode">
+      <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;"
+               *ngIf="uploadAttachment()">
+        <div class="col photo-button-col" style="width: 125px !important;float: left;display: inline-block;">
+          <button
+            style="margin: 5px !important;padding: 5px !important;width:150px!important;max-width:150px!important;"
+            (click)="initializeAttachment()"
+            class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+            block
+            tappable>Add Attachments
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <ion-row *ngFor="let attachment of gigoSearchResult?.gigoAttachmentSO" class="attachrowSeperator min-height-Css"
+               style="border-top: 0.55px solid #c8c7cc;">
+        <div class="col photo-button-col" *ngIf="attachment.hideUploadButton"
+             style="width: 125px !important;float: left;display: inline-block;">
+          <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+                  block
+                  (click)="uploadDocs(attachment)" tappable>Upload
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+        <div
+          [ngClass]="(attachment.hideUploadButton==false || attachment.fileName != null || attachment.fileName != EMPTY)?'removePadding uploadbutton-label ':'removePadding uploadbutton-label-withoutbutton'"
+          (click)="displayAttachment(attachment)" tappable>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon"
+               style="margin-top: 20px !important;width:20px;height:20px;"
+               *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+          <ion-label class="wrap-content removeMargin photSelectedIconLabel filename  underline"
+                     style="margin-top: 20px !important;padding-bottom: 10px;">
+            {{attachment.fileName}}
+          </ion-label>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+            <ion-icon ios="ios-close" md="md-close"></ion-icon>
+          </button>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()" tappable>
+            <ion-icon ios="ios-add" md="md-add" style="font-size: 24px;"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <ion-row>
+        <button class="button-apply-general footer-submit disable-hover button button-md button-default button-default-md button-full button-full-md button-md-submit"
+                color="submit" full="" ion-button="" tappable="" type="submit" ng-reflect-color="submit" (click)="onSubmit()"
+                ng-reflect-full=""><span class="button-inner">
+      Submit
+     </span><div class="button-effect"></div></button>
+      </ion-row>
+    </div>
+  </div>
+  </div>
+
+  <div *ngIf = "!editMode">
+  <div  style="padding-top: 3px;padding-left:5px;padding-right:5px;background-color:#E8E6E6;height:auto">
+    <div class="mainFieldContainer">
+      <ion-grid class="ionrow">
+        <ion-row col-12>
+          <ion-col class="ioncolrightwithcolor">
+            {{'gigo_loacation' | translate}}
+          </ion-col>
+          <ion-col class="ioncolrightwithcolor">
+            {{'gigo_SP_Name' | translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row col-12>
+          <ion-col>
+            {{gigoSearchResult.locationName}}
+          </ion-col>
+          <ion-col>
+            {{gigoSearchResult.spLocationName}}
+                      </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row col-12>
+          <ion-col class="ioncolrightwithcolor">
+            {{'gigo_movetype' | translate}}
+          </ion-col>
+          <ion-col class="ioncolrightwithcolor">
+            {{'gigo_truck_num' | translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row col-12>
+          <ion-col>
+            {{gigoSearchResult.moveType}}
+          </ion-col>
+          <ion-col>
+            {{gigoSearchResult.truckNumber}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row col-12>
+          <ion-col class="ioncolrightwithcolor" col-6>
+            {{'gigo_driver_Name' | translate}}
+          </ion-col>
+          <ion-col class="ioncolrightwithcolor" col-6>
+            {{'gigo_reference_no' | translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row col-12>
+          <ion-col col-6>
+            {{gigoSearchResult.driverName}}
+          </ion-col>
+          <ion-col col-6>
+            {{gigoSearchResult.referenceNo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row col-12>
+          <ion-col class="ioncolrightwithcolor">
+            {{'gigoDate_Time' | translate}}
+          </ion-col>
+          <ion-col class="ioncolrightwithcolor">
+            {{'gigo_no' | translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row col-12>
+          <ion-col col-6>
+            <label style="display: inline-block;float: left;" >{{gigoSearchResult.selectDays}} GST</label>
+          </ion-col>
+          <ion-col col-6>
+            {{gigoSearchResult.gigoNo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row col-12>
+        <ion-col class="ioncolrightwithcolor" col-6>
+          {{'gigo_status' | translate}}
+        </ion-col>
+          <ion-col col-6>
+
+          </ion-col>
+        </ion-row>
+        <ion-row col-12>
+        <ion-col col-6>
+          {{gigoSearchResult.status}}
+        </ion-col>
+          <ion-col col-6>
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+    <div style="height:auto;" *ngFor="let gigoDetails of gigoSearchResult.gigoContainerDetailsSO;let selectedTabIndex = index;">
+      <div class = "inner-scroll-container"  >
+        <div >
+          <div class="attach-headder" style="margin-top: 10px;margin-left: 3px;width:100%" (click)="openSelecedTab(selectedTabIndex)" tappable>
+            <div col-12 style="display: inline-block;float: left;">
+        <div class="rotateIconHolder"
+             style="width: 20px !important;height: 20px !important;" tappable>
+          <div style="width:20px;"
+               [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+            <ion-icon name="arrow-dropright">
+            </ion-icon>
+          </div>
+        </div>
+        <ion-label
+          style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+          {{gigoTabheader}} {{selectedTabIndex+1}}
+        </ion-label>
+      </div>
+
+    </div>
+
+            <div style="min-width:325px;background-color: white;margin-left: 3px;width: calc(100% - 9px);border: 0.55px solid #c8c7cc;"
+         [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ioncolrightwithcolor" >
+                {{'gigo-chasis-no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.chassisNo}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding " >
+                {{'gigo_container_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.containerNo}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding ">
+                {{'gigo_requesttype'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.requestType}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12 >
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding ">
+                {{'gigo_request_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.requestNo}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col class="ioncolrightwithcolor ion-col-minheight-nopadding " >
+                {{'gigo_iso_code'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.isoCode}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding">
+                {{'gigo_laden_status'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.ladenStatus}}</ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding " >
+                {{'gigo_damage_details'| translate}}
+              </ion-col>
+              <ion-col col-6 style="padding: 0px;margin: 0px !important;">
+                <button color="option" ion-button  class="button-apply-general" (click)="showDamageDetails(selectedTabIndex)" value="en" tappable>Damage Details</button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding" >
+                {{'gigo_seal_details'| translate}}
+              </ion-col>
+              <ion-col col-6 style="padding: 0px;margin: 0px !important;">
+                <button *ngIf="showSealButton(selectedTabIndex)" color="option" ion-button  class="button-apply-general"
+                        (click)="showSealDetails(selectedTabIndex)" value="en" tappable>Seal Details</button>
+              </ion-col>
+            </ion-row>
+            <ion-row class=" padding-left-row" col-12>
+              <ion-col col-6 class="ioncolrightwithcolor ion-col-minheight-nopadding " >
+                {{'gigo_eir_no'| translate}}
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" >
+                <ion-label class="label-span-alignment boldStyle" text-wrap>{{gigoDetails.eirNumber}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ionrow" *ngIf="!editMode && gigoSearchResult?.gigoAttachmentSO && gigoSearchResult.gigoAttachmentSO.length">
+      <div class="attachrow"  *ngFor="let attachment of gigoSearchResult?.gigoAttachmentSO" style="background-color: white;height: 55px;">
+        <ion-row class="attachMargin view_atch">
+          <ion-col style="padding-top:0px;" class="attachmentItem iconWidth" col-1 *ngIf="attachment.fileName">
+            <ion-icon class="gigoFileicon  marginTZero padTopZero" item-start tappable>
+              <img src="assets/img/image-icon.png"/>
+            </ion-icon>
+          </ion-col>
+          <ion-col style="padding-top:0px;" class="gigoFilename_1 attachmentItem attachmentNameWidth" (click)="displayattach(attachment)" tappable>
+            <ion-label class="underline marginTZero padTopZero marginBZero" text-wrap>
+              {{attachment.fileName}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="ionrow" *ngIf="editMode">
+      <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;"
+               *ngIf="uploadAttachment()">
+        <div class="col photo-button-col" style="width: 125px !important;float: left;display: inline-block;">
+          <button
+            style="margin: 5px !important;padding: 5px !important;width:150px!important;max-width:150px!important;"
+            (click)="initializeAttachment()"
+            class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+            block
+            tappable>Add Attachments
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <ion-row *ngFor="let attachment of gigoSearchResult?.gigoAttachmentSO" class="attachrowSeperator min-height-Css"
+               style="border-top: 0.55px solid #c8c7cc;">
+        <div class="col photo-button-col" *ngIf="attachment.hideUploadButton"
+             style="width: 125px !important;float: left;display: inline-block;">
+          <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+                  block
+                  (click)="uploadDocs(attachment)" tappable>Upload
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+        <div
+          [ngClass]="(attachment.hideUploadButton==false || attachment.fileName != null || attachment.fileName != EMPTY)?'removePadding uploadbutton-label ':'removePadding uploadbutton-label-withoutbutton'"
+          (click)="displayAttachment(attachment)" tappable>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon"
+               style="margin-top: 20px !important;width:20px;height:20px;"
+               *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+          <ion-label class="wrap-content removeMargin photSelectedIconLabel filename  underline"
+                     style="margin-top: 20px !important;padding-bottom: 10px;">
+            {{attachment.fileName}}
+          </ion-label>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+            <ion-icon ios="ios-close" md="md-close"></ion-icon>
+          </button>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()" tappable>
+            <ion-icon ios="ios-add" md="md-add" style="font-size: 24px;"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+    </div>
+  </div>
+  </div>
+
+  <ion-fab [hidden]="!fromHistory" right bottom>
+    <button tappable class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+      <ion-label class="fabedit" [hidden]="editHiddenStatus"></ion-label>
+      <button [hidden]="editHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="editGigo()" tappable><ion-icon name ="custom-Edit" ></ion-icon></button>
+
+      <ion-label class="fabedit" [hidden]="cancelHiddenStatus" ></ion-label>
+      <button class="edit" [hidden]="cancelHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="cancelGigo()"   tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>
+

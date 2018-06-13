@@ -1,0 +1,109 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title change-title-label">{{ 'SHIP_SERV_SCHED_SEARCH' | translate }}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" class="optput" full ion-button (click)="navigateToSort($event)" tappable>
+          <img class="sortimg" src="assets/img/sort.svg"/>
+          {{ 'Sort' | translate }}
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" class="optput" full ion-button (click)="navigateToFilter($event) "tappable>
+          <img class="filterimg" src="assets/img/filter.svg"/>
+          {{ 'Filter' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-toolbar color="milkygrey" class="countrow countresult">
+    <div>  {{searchResults?.length}} out of {{searchResults?.length}} results  </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="searchcontent">
+  <ion-list>
+    <div class="gridclass" *ngFor="let s of searchResults">
+      <ion-item-sliding>
+        <ion-item (click)="navigateToSummary(s)" tappable>
+          <ion-row>
+            <ion-col text-wrap>
+              <h4 class="headers"> {{s.shippingServiceNameSummary}} </h4>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9>
+              <ion-row class="subtitle">
+                <ion-col text-wrap col-5>
+                  <h6 class="subheader1">{{ 'sssNumber' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap col-5>
+                  <h6 class="subheader2">{{s.sssNoSummary}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="subtitle">
+                <ion-col text-wrap col-5>
+                  <h6 class="subheader1">{{ 'sssSchedCode' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap col-5>
+                  <h6 class="subheader2">{{s.shippingServiceCodeSummary}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="subtitle">
+                <ion-col text-wrap col-5>
+                  <h6 class="subheader1">{{ 'sssValidityDate' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap col-5>
+                  <h6 class="subheader2">{{s.validityDateSummary}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col>
+              <ion-row>
+                <ion-col class="statusStyle" text-wrap>
+                  <img class="approvedicon" [src]="getStatusIcon(s)"/>
+                  <h6 [style.color]="getStyle(s)">{{s.statusSummary}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary" [hidden]="hideApproveButton(s)" (click)="goToApprove(s)"
+                  style=" border: 1px solid white;" tappable>
+            <ion-icon name="custom-action"></ion-icon>
+            {{'sssApprove'|translate}}
+          </button>
+
+          <button ion-button color="secondary" (click)="navigateToDetails(s)" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            {{'sssView'|translate}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+  <ion-fab right bottom>
+    <button tappable class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit" ></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus"
+               (click)="navigateToDownload('csv')" tappable>
+        <ion-icon name="custom-csv"></ion-icon>
+      </button>
+      <ion-label class="fabedit" ></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="navigateToDownload('pdf')" tappable>
+        <ion-icon name="custom-pdf"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+'

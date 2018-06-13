@@ -1,0 +1,54 @@
+<!--
+  Generated template for the ExecuteactionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" class="actionTitle-ios">{{header}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" padding>
+  <!--<div class="option"> Select an option</div>-->
+<!--  <ion-grid class="subheader">
+    <ion-list radio-group [(ngModel)]="status" no-lines>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="approve">Approve</ion-label>
+            <ion-radio value="Approve" checked></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label class="reject">Reject</ion-label>
+            <ion-radio value="Reject"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-grid>-->
+
+  <div class="option"> {{ 'enter_comments' | translate }}</div>
+  <ion-grid class="comment">
+    <ion-item>
+      <ion-textarea placeholder="{{ 'description_txt' | translate }}" [(ngModel)]="comments" spellcheck="false" tappable></ion-textarea>
+    </ion-item>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button full (click)="approve()"  tappable> {{ 'approve_caps' | translate }} </button>
+      </ion-col>
+      <ion-col>
+        <button (click)="reject()" ion-button full  tappable> {{ 'reject_caps' | translate }} </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

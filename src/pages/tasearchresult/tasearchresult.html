@@ -1,0 +1,132 @@
+<!--
+  Generated template for the TasearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">{{ 'truck_appointment_search' | translate }}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="presentSortPopover()" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="presentFilterPopover()" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-toolbar color="milkygrey">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{searchResults?.length}} {{ 'ca_out_of' | translate }} {{searchResults?.length}} {{
+          'ca_results' | translate }} </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="searchcontent" no-bounce has-bounsing="false">
+
+  <ion-list style="overflow: hidden;">
+
+    <div class="gridclass" *ngFor="let selContainer of searchResults">
+
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(selContainer)" tappable>
+          <ion-row>
+            <ion-col col-9>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'appointment_no' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h4 class="subheader2">{{selContainer.appoinmentNo}}</h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'agent-reference-number' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selContainer.agentReferenceNoResult}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'truck-number' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selContainer.truckNo}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">Appointment Date</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selContainer.appointmentDateSlot.split("&")[0]}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">Appointment Slot</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selContainer.appointmentDateSlot.split("&")[1]}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-3 class="statusCenter">
+              <img class="myttClass" [src]="getStatusIcon(selContainer.status)"/>
+              <h6 class="statusLabelStyle"  [style.color]="getStyle()">{{selContainer.status}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item-options side="right">
+
+          <button [hidden]="hideEditOption(selContainer)" (click)="editTA(selContainer.appoinmentNo)"
+                  ion-button color="secondary" class="button-style" style="border: 1px solid white;"
+                  tappable>
+            <ion-icon name="custom-Edit"></ion-icon>
+            Edit
+          </button>
+          <button ion-button color="secondary" class="button-style" (click)="viewTA(selContainer.appoinmentNo)"
+                  style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-view"></ion-icon>
+            View
+          </button>
+          <button ion-button color="secondary" [hidden]="hideCancelButton(selContainer.status)"
+                  (click)="cancelTA(selContainer.appoinmentNo)" class="button-style"
+                  style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            Cancel
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+
+
+  <ion-fab right bottom>
+    <button ion-fab style="background-color: #F2B011;" (click)="openTACreate()" tappable>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

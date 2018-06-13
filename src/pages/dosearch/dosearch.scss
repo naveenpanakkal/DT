@@ -1,0 +1,222 @@
+page-dosearch {
+  .create{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+  }
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+      }
+
+
+  .title{
+    position: relative;
+    left: -10px;
+  }
+  .disabledLabel{
+    opacity: .4;
+
+  }
+  .enabledLabel{
+    opacity: 1.4;
+  }
+
+  .cal
+  {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    background-color: white;
+    margin-right: 3%;
+  }
+
+  .label{
+    position : relative;
+    left : 0px !important;
+    font-size: 1.6rem !important;
+
+  }
+
+  .valerror{
+    border-bottom:2px solid red;
+    margin-left: 9px;
+    margin-right: 7px;
+  }
+
+  .label-left{
+    margin-left: 0%;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .style{
+    border: none;
+    margin-left: 5%;
+    margin-top: 5%;
+
+  }
+  .span
+  {
+    color:red;
+  }
+  .button-right {
+    float: right;
+    margin-top: 10px;
+  }
+
+  #imoitem{
+    padding-top: 30%;
+  }
+  #buttonsearch{
+    height: 40px;
+    //border-radius: 0.5em;
+    align-items: center;
+  }
+  #buttongo{
+    height: 50px;
+    //border-radius: 0.5em;
+    float: right;
+
+  }
+  .itemSuggetions .label{
+    font-weight: normal;
+  }
+  .error{
+    border-bottom:1px solid red;
+    position: relative;
+    bottom: 1px;
+    width: 96%;
+    margin-left: 4%;
+  }
+  .searchbarStyle{
+    margin-left: 16px;
+    width: 98%;
+  }
+  .list .item-block:last-child .item-inner{
+    border-bottom: 1px solid #dedede !important;
+  }
+
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .cal {
+      margin-top: -5%;
+    }
+  }
+}
+.platform-ios page-dosearch .datetimeStyle{
+  margin-bottom: 1.5%;
+  margin-top: 1.5%;
+  margin-left: 0%;
+}
+.platform-ipad page-dosearch .searchbarStyle{
+  margin-left: 15px;
+  padding-left:0px;
+  width: calc(100% - 28px);
+}
+.platform-iphone page-dosearch .searchbarStyle{
+  margin-left: 5%;
+  width: 95%;
+}
+.platform-ios page-dosearch   .scroll-content
+{
+  margin-top: 15px !important;
+  padding-left: 0px!important;
+}
+.platform-ios page-dosearch ion-item
+{
+  padding-right: 10px!important;
+}
+.platform-ios page-dosearch searchbarStyle
+{
+  margin-left: 10px!important;
+}
+.platform-ios page-dosearch .rowSeperator
+{
+  width: calc(100% - 20px) !important;
+}
+
+.platform-iphone page-dosearch .searchbarStyle {
+  margin-left: 15px;
+  width: calc(100% - 10px);
+  padding-left:0px;
+}
+  .platform-ios page-dosearch .label[stacked]{
+  min-height: 30px!important;
+  margin-top:10px !important;
+}
+
+
+.platform-ios ion-alert,
+.platform-ios ion-picker-cmp{
+  background-color: transparent !important
+}
+.platform-ios .scroll-content::before * ,
+.platform-ios .scroll-content::after *
+{
+  background-color: transparent !important;
+}
+//.platform-ios .ion-page .show-page ~ .nav-decor,
+//.platform-ios .menu-content *{
+
+.platform-ios page-maintabs .ion-content{
+  transform: translate3d(1000, 0, 0);
+  background-color: transparent !important;
+}
+.platform-ios page-maintabs > ion-content > .scroll-content{
+  -webkit-overflow-scrolling: auto !important;
+}
+.platform-android page-dosearch   .scroll-content
+{
+  padding-left: 0px!important;
+}
+.platform-android page-dosearch ion-item
+{
+  padding-right: 10px!important;
+}
+
+.platform-android  page-dosearch .rowSeperator
+{
+  width: calc(100% - 20px) !important;
+}
+.platform-android  page-dosearch .searchbarStyle {
+  margin-left: 15px;
+  width: calc(100% - 28px);
+  padding-left:0px;
+}
+
+.platform-android  page-dosearch .label[stacked]{
+  min-height: 30px!important;
+  margin-top:10px !important;
+}
+
+.platform-android  page-dosearch .searchbarStyle
+{
+  padding: 0px!important;
+}
+
+.platform-android  page-dosearch .searchbar-input
+{
+  padding: 0px!important;
+}
+
+.platform-ios page-dosearch textarea::-webkit-input-placeholder,
+.platform-android page-dosearch textarea::-webkit-input-placeholder {
+  padding-left: 0px !important;
+}
+
+.platform-ios page-dosearch textarea:-ms-input-placeholder,
+.platform-android page-dosearch textarea:-ms-input-placeholder {
+  padding-left: 0px !important;
+}
+
+.platform-android page-dosearch textarea::placeholder,
+.platform-android page-dosearch textarea::placeholder {
+  padding-left: 0px !important;
+}

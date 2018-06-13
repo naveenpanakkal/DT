@@ -1,0 +1,28 @@
+<!-- Generated template for the InformationmodalComponent component -->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title">Information</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" padding>
+
+  <ion-row class="rowheight" *ngFor="let modal of modalData">
+    <ion-col class="firstcol" col-5>
+      {{modal.label}}
+    </ion-col>
+    <ion-col col-1>
+      :
+    </ion-col>
+    <ion-col class="secondcol">
+      {{modal.value}}
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="closeButton">
+  <button ion-button color="submit" block (click)="close()">Ok</button>
+  </ion-row>
+
+</ion-content>

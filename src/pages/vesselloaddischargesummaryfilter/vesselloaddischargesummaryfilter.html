@@ -1,0 +1,129 @@
+<!--
+  Generated template for the vesselloaddischargesummaryfilter page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="vesselloaddischargesummarysearch" >
+
+ <form [formGroup]="groupOne" noValidate style="padding-right: 10px;">
+  <ion-item>
+    <ion-label stacked color="label" style="margin-left: 0%">{{ 'rotationno' | translate }}
+    </ion-label>
+    <ion-input class="label-left" (keyup)="keyUpValidate($event,'^((?!(0))[0-9]{0,5})$','rotationNumber')"
+              formControlName="rotationnumber" spellcheck="false"
+               type="tel" [(ngModel)]="vldsrotationnumber"
+               (ionChange)="rotationChange()" tappable
+               placeholder="Enter rotation number" [disabled]="false"
+               maxlength="6" (keyup.enter)="keyboardClose()">
+    </ion-input>
+  </ion-item>
+    <div class="error1" *ngIf="!groupOne.controls.rotationnumber.valid">
+    </div>
+   <div class="reportError" *ngIf="!groupOne.controls.rotationnumber.valid">
+     {{ 'invalid_characters' | translate }}
+   </div>
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'vesselName' | translate }}
+    </ion-label>
+     <ion-input class="label-left" (keyup.enter)="keyboardClose()" spellcheck="false"
+                formControlName="vesselname"
+                (keyup)="keyUpValidate($event,vesselNamePattern,'vesselname')"
+                placeholder="Enter vessel name"
+               [disabled]="disableControls" type="text" [(ngModel)]="vldsvesselname" tappable></ion-input>
+  </ion-item>
+   <div class="error1" *ngIf="!groupOne.controls.vesselname.valid">
+   </div>
+   <div class="reportError" *ngIf="!groupOne.controls.vesselname.valid">
+     {{ 'invalid_characters' | translate }}
+   </div>
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'VLDS_vesselstatus' | translate }}
+    </ion-label>
+    <ion-select (ionChange)="valueselected()" class="label-left vesselStatus" formControlName="vldsstatus" [(ngModel)]="vldsstatus" [disabled]="disableControls" tappable>
+       <ion-option value="--select--">--select--</ion-option>
+      <ion-option value="Yettoarrive">Yet to arrive</ion-option>
+      <ion-option value="Berthed">Berthed</ion-option>
+      <ion-option value="Sailed">Sailed</ion-option>
+     </ion-select>
+  </ion-item>
+  <div *ngIf="isStatus1">
+    <ion-item >
+      <ion-label color="label" stacked>{{ 'ETAfromdate' | translate }}
+      <span class="span">*</span></ion-label>
+      <ion-datetime placeholder="ETA From"class="label-left dateTimeStyle" [disabled]="disableControls" displayFormat={{dateFormat}}
+      [(ngModel)]="vldsetafrom"
+                    formControlName="vldsetafrom"
+                    tappable></ion-datetime>
+    </ion-item>
+     <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+  <div class="error1" *ngIf="etaValidate && !groupOne.controls.vldsetafrom.valid"></div>
+   <div class="reportError" *ngIf="etaValidate && !groupOne.controls.vldsetafrom.valid">
+     {{ 'VLDS_mandatory' | translate }}
+   </div>
+ <div *ngIf="isStatus1">
+    <ion-item>
+      <ion-label color="label" stacked>{{ 'ETAtodate' | translate }}
+      <span class="span">*</span></ion-label>
+      <ion-datetime placeholder="ETA To" class="label-left dateTimeStyle" [disabled]="disableControls"
+      displayFormat={{dateFormat}} [(ngModel)]="vldsetato"
+                    formControlName="vldsetato"
+                    tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+<div class="error1" *ngIf="etaValidate && !groupOne.controls.vldsetato.valid"></div>
+   <div class="reportError" *ngIf="etaValidate && !groupOne.controls.vldsetato.valid">
+     {{ 'VLDS_mandatory' | translate }}
+   </div>
+  <div *ngIf="isStatus3">
+    <ion-item >
+      <ion-label color="label" stacked>{{ 'ATDfromdate' | translate }}
+      <span class="span">*</span></ion-label>
+      <ion-datetime placeholder="ATD From" [disabled]="disableControls" class="label-left dateTimeStyle"
+                    formControlName="vldsatdfrom"
+                    displayFormat={{dateFormat}}
+                    [(ngModel)]="vldsatdfrom" tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+<div class="error1" *ngIf="atdValidate && !groupOne.controls.vldsatdfrom.valid"></div>
+   <div class="reportError" *ngIf="atdValidate && !groupOne.controls.vldsatdfrom.valid">
+     {{ 'VLDS_mandatory' | translate }}
+   </div>
+  <div *ngIf="isStatus3">
+    <ion-item>
+      <ion-label color="label" stacked>{{ 'ATDtodate' | translate }}
+      <span class="span">*</span></ion-label>
+      <ion-datetime placeholder="ATD To" [disabled]="disableControls" class="label-left dateTimeStyle"
+                  displayFormat={{dateFormat}}
+                    formControlName="vldsatdto" [(ngModel)]="vldsatdto" tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+<div class="error1" *ngIf="atdValidate && !groupOne.controls.vldsatdto.valid"></div>
+   <div class="reportError" *ngIf="atdValidate && !groupOne.controls.vldsatdto.valid">
+     {{ 'VLDS_mandatory' | translate }}
+   </div>
+  <ion-row style="margin-top: 30px">
+    <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign button-apply-general"(click)="reset()" tappable>{{ 'rese-b' | translate }}</button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign button-apply-general" (click)="showVLDSresults()" tappable>{{ 'SEARCH' | translate }}</button>
+    </ion-col>
+  </ion-row>
+  </form>
+
+</ion-content>

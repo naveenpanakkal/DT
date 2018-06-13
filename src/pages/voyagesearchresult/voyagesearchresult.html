@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar  #navbar color="header" id="header">
+    <ion-title class="title" class="VoyageEnqTitle-ios">Voyage Enquiry</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="presentSortPopover($event)" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="presentFilterPopover($event)" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <!-- <ion-toolbar color="milkygrey">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{searchResult?.length}} out of {{searchResult?.length}} results </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar> -->
+  <ion-toolbar color="milkygrey" class="countrow countresult">
+    <div>  {{searchResult?.length}} out of {{searchResult?.length}} results </div>
+</ion-toolbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false" class="searchcontent voyagecontent" id="voyageSearchResultContent">
+  <ion-list>
+    <div class="gridclass" *ngFor="let selVoyage of searchResult">
+      <ion-item-sliding #item>
+        <ion-item (click)="showdetails(selVoyage)" tappable>
+          <ion-row>
+            <ion-col col text-wrap col-10>
+              <h4 class="headers"> {{selVoyage.vesselName}} </h4>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 text-wrap>
+              <h6 class="subheader1">Rotation Number</h6>
+            </ion-col>
+            <ion-col col-6>
+              <h6 class="subheader2">{{selVoyage.rotationNumber}}</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row >
+            <ion-col col-6>
+              <h6 class="subheader1">Terminals</h6>
+            </ion-col>
+            <ion-col col-6 text-wrap>
+              <h6 class="subheader2">{{selVoyage.terminals}}</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <h6 class="subheader1">Operational Status</h6>
+            </ion-col>
+            <ion-col col-6 text-wrap>
+              <h6 class="subheader2">{{selVoyage.operationStatus}}</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <h6 class="subheader1">ETA(GST)</h6>
+            </ion-col>
+            <ion-col col-6>
+              <h6 class="subheader2">{{selVoyage.eta}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+            <button ion-button color="secondary" style="background-color: #F2B011;border: 1px solid white;" (click)="viewVoyage(item,selVoyage)" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            View
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+</ion-content>

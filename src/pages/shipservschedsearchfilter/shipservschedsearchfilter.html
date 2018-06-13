@@ -1,0 +1,184 @@
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title">{{ 'Filter' | translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false" id="shipservschedfilter"  scroll="true">
+  <div>
+  <div>
+  <ion-item>
+    <ion-label stacked class="bold" color="label">{{ 'sssNumber' | translate }}
+    </ion-label>
+    <ion-input (keyup)="keyUpValidate($event,'^[1-9][0-9]*$', 'sssnumber')"
+               spellcheck="false" (ionChange)="sssNumberChanged()"
+               type="tel" [(ngModel)]="shippingServiceScheduleNoSearch" tappable
+               maxlength="18" (keyup.enter)="keyboardClose()" placeholder="{{'sssGuideInfo_Number'|translate}}">
+    </ion-input>
+  </ion-item>
+  </div>
+    <div>
+  <div class="valError" *ngIf="error && validate(shippingServiceScheduleNoSearch,'^[1-9][0-9]*$')">
+    {{ 'invalid_characters' | translate }}
+    </div>
+    </div>
+  <div>
+    <ion-item>
+      <ion-label class="bold" color="label" stacked>{{ 'sssCDF' | translate }}
+      </ion-label>
+      <ion-datetime  [disabled]="disableControls" displayFormat={{dateFormat}}
+                    [(ngModel)]="startDateSearch" placeholder={{dateFormat}} max={{maxValue}}
+                    tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+  <div>
+    <ion-item>
+      <ion-label class="bold" color="label" stacked>{{ 'sssCDT' | translate }}
+      </ion-label>
+      <ion-datetime  [disabled]="disableControls" displayFormat={{dateFormat}}
+                    [(ngModel)]="endDateSearch" placeholder={{dateFormat}} max={{maxValue}}
+                    tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+
+  <!--<div class="div-margin"(click)="showAdvSearch()">-->
+    <!--<ion-grid>-->
+      <!--<ion-row>-->
+        <!--<ion-col>-->
+          <!--<ion-label class="bold" color="label" stacked [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')">-->
+            <!--{{'sssAddCriteria'|translate}}</ion-label>-->
+        <!--</ion-col>-->
+        <!--<ion-col>-->
+          <!--<ion-icon [name]="getIcon()" class="image removePadding icon-margin"></ion-icon>-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+    <!--</ion-grid>-->
+  <!--</div>-->
+  <div *ngIf="advSrchLocation">
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssLocation' | translate }}
+      </ion-label>
+      <ion-select [disabled]="disableControls" [(ngModel)]="locationSearch" (ionChange)="onLocationChanged()"
+                  tappable>
+        <ion-option *ngFor="let location of locationList" value={{location.locationCode}}>{{location.locationName|translate}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssSPName' | translate }}
+      </ion-label>
+      <ion-select [disabled]="disableControls" [(ngModel)]="spNameSearch"
+                  tappable>
+        <ion-option *ngFor="let spname of spNameList" value={{spname}}>{{spname|translate}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div *ngIf="advSrchAgentRef">
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssAgentRefNumber' | translate }}
+      </ion-label>
+      <ion-input [disabled]="disableControls" (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$', 'sssAgentRefNumber')"
+                 (keyup.enter)="keyboardClose()" spellcheck="false"
+                 maxlength="30" minlength="3"
+                 type="text" [(ngModel)]="agentReferenceNoSearch"
+                 tappable placeholder="{{'sssGuideInfo_AgentNumber'|translate}}">
+      </ion-input>
+    </ion-item>
+    <div>
+    <div class="valError" *ngIf="errorValidate(agentReferenceNoSearch,'^[a-zA-Z0-9 ]*$')">
+      {{ errormsg }}
+    </div>
+  </div>
+  </div>
+  <div *ngIf="advSrchSchedCode">
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssSchedCode' | translate }}
+      </ion-label>
+      <ion-input [disabled]="disableControls"  (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$', 'sssSchedCode')"
+                 (keyup.enter)="keyboardClose()" spellcheck="false"
+                 maxlength="30" minlength="3" type="text" [(ngModel)]="shippingServiceCodeSearch"
+                 tappable placeholder="{{'sssGuideInfo_SchedCode'|translate}}" >
+      </ion-input>
+    </ion-item>
+    <div>
+    <div class="valError" *ngIf="errorValidate(shippingServiceCodeSearch,'^[a-zA-Z0-9 ]*$')">
+      {{ errormsg }}
+    </div>
+  </div>
+  </div>
+  <div *ngIf="advSrchSchedName">
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssSchedName' | translate }}
+      </ion-label>
+      <ion-input [disabled]="disableControls" (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$', 'sssSchedName')"
+                 (keyup.enter)="keyboardClose()" spellcheck="false"
+                 maxlength="255" minlength="3"
+                 type="text" [(ngModel)]="shippingServiceNameSearch"
+                 tappable  placeholder="{{'sssGuideInfo_SchedName'|translate}}">
+      </ion-input>
+    </ion-item>
+    <div>
+    <div class="valError" *ngIf="errorValidate(shippingServiceNameSearch,'^[a-zA-Z0-9 ]*$')">
+      {{ errormsg }}
+    </div>
+  </div>
+  </div>
+  <div *ngIf="advSrchRole">
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssRole' | translate }}
+      </ion-label>
+      <ion-select [disabled]="disableControls" [(ngModel)]="role" tappable>
+        <ion-option *ngFor="let rol of roleList" value={{rol.definedSetValueCode}}>{{rol.definedSetValueIntMessage}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div *ngIf="advSrchVesselName">
+
+      <ion-label class="bold" style = "margin-left:15px" stacked color="label" [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')">
+        {{ 'sssVesselName' | translate }}
+      </ion-label>
+
+    <ion-row class="rowSeperator searchbarStyle">
+      <ion-searchbar [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')" (ionInput)="getVesselName($event)"
+                     (ionFocus)="searchVesselName()" (ionBlur)="hideVesselNameList()"
+                     (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$', 'sssVesselName')"
+                     (keyup.enter)="keyboardClose()" spellcheck="false"
+                     maxlength="255" minlength="3" class = "row-seperator-align"
+                     type="text" [(ngModel)]="vesselNameSearch" tappable></ion-searchbar>
+    </ion-row>
+    <ion-list *ngIf="showVesselNameList">
+      <ion-item class="itemSuggestions" *ngFor="let item of filterVesselArray" (mousedown)="selectVesselName(item)" tappable>
+        {{ item.vesselName }}
+      </ion-item>
+    </ion-list>
+    <div class="searchError" style = "bottom:1px;" *ngIf="error && validate(vesselNameSearch,'^[a-zA-Z0-9 ]*$')">
+      {{ 'invalid_characters' | translate }}
+    </div>
+  </div>
+  <div *ngIf="advSrchStatus">
+    <ion-item>
+      <ion-label class="bold" stacked color="label">{{ 'sssStatus' | translate }}
+      </ion-label>
+      <ion-select [disabled]="disableControls"
+                  [(ngModel)]="status" tappable>
+        <ion-option *ngFor="let stat of statusList" value={{stat.definedSetValueCode}}>{{stat.definedSetValueIntMessage}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <ion-row style="margin-top: 30px">
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button class="buttonCenterAlign button-apply-general" (click)="reset()" tappable>
+        {{ 'sssReset' | translate }}
+      </button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button class="buttonCenterAlign button-apply-general"
+              (click)="showSearchResults()" tappable>{{ 'sssSearch' | translate }}
+      </button>
+    </ion-col>
+  </ion-row>
+  </div>
+</ion-content>

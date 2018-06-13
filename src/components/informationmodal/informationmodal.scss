@@ -1,0 +1,39 @@
+informationmodal {
+
+
+  .toolbar-title{
+    font-weight: 500 !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+  .firstcol {
+    font-weight: bold;
+    font-size: 1.4rem !important;
+  }
+
+  .closeButton{
+    width: 50%;
+    margin-top: 20px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block;
+  }
+
+ .secondcol {
+    font-size: 1.5rem !important;
+  }
+
+ .rowheight {
+    height:8%;
+  }
+
+  .title{
+    position: relative;
+  }
+  .scroll-content{
+    padding: 5px !important;
+    padding-top: 10px !important;
+  }
+}
+

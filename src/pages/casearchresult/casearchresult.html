@@ -1,0 +1,116 @@
+<!--
+  Generated template for the CasearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">{{ 'container_acceptance_search' | translate }}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="presentSortPopover($event)" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="presentFilterPopover($event)" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-toolbar color="milkygrey">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{searchresults?.length}} {{ 'ca_out_of' | translate }} {{searchresults?.length}} {{ 'ca_results' | translate }} </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="searchcontent" no-bounce has-bounsing="false" id="caSearchResultContent">
+
+  <ion-list style="overflow: hidden;">
+
+    <div class="gridclass" *ngFor="let selContainer of searchresults">
+
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(selContainer)" tappable>
+          <ion-row>
+            <ion-col col-9>
+              <ion-row>
+                <ion-col col-6>
+                  <h6 class="subheader1">{{ 'acceptance_no' | translate }}</h6>
+                </ion-col>
+                <ion-col>
+                  <h4 class="subheader2"> {{selContainer.acceptanceNo}} </h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  <h6 class="subheader1">{{ 'type' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selContainer.acceptanceType}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'liner_booking_number' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selContainer.linerBookingNo}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-3 class="statusCenter">
+                <img class="myttClass" [src]="getStatusIcon(selContainer)"/>
+                <h6 class="statusLabelStyle" [style.color]="getStyle(selContainer)">{{selContainer.status}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+
+          <button [hidden]="hideEditOption(selContainer)"  ion-button color="secondary" style="border: 1px solid white;"
+                  (click)="gotoEdit(selContainer)" tappable>
+            <ion-icon name="custom-Edit"></ion-icon>
+            Edit
+          </button>
+
+          <button ion-button color="secondary" style="border: 1px solid white;"  (click)="gotoView(selContainer)" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            View
+          </button>
+
+          <button [hidden]="hideCancelButton(selContainer)" ion-button color="secondary"
+                  style="border: 1px solid white;" (click)="cancelCA(selContainer)" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            Cancel
+          </button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </div>
+
+  </ion-list>
+
+
+
+  <ion-fab right bottom>
+    <button ion-fab style="background-color: #F2B011;" *ngIf="hideCreate()" (click)="openCACreate()" tappable>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,252 @@
+page-shipservschedsearchfilter {
+  .item-md{
+    padding-right:10px;
+  }
+  .disabledLabel{
+    opacity: .4;
+  }
+  .enabledLabel{
+    opacity: 1.4;
+  }
+  .create {
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom: 20%;
+    margin-right: 15%;
+  }
+  .toolbar-title {
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+  #header {
+    height: 70px;
+  }
+  .valError {
+    border-top: 1px solid red;
+    position: relative;
+    bottom: 2px;
+    margin-left: 16px;
+    margin-right: 10px;
+    color: red;
+  }
+  .searchError {
+    border-top: 1px solid red;
+    position: relative;
+    bottom: 8px;
+    margin-left: 16px;
+    margin-right: 10px;
+    color: red;
+  }
+  .title {
+    position: relative;
+    left: -10px;
+  }
+
+  .image {
+    float: right;
+  }
+
+  .icon-margin {
+    margin-top: 12px;
+    margin-left: 0px;
+  }
+  .div-margin {
+    margin-left: 2%;
+  }
+
+  .criteria-checkbox {
+    margin-left: 2% !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    z-index: 1;
+    position: absolute !important;
+    width: 100%;
+    height: 44px;
+  }
+  .criteria-checkbox .checkbox-icon {
+    margin-top: 14px;
+  }
+
+  .criteria-checkbox-label {
+    margin: 0px;
+    z-index: 0;
+    position: absolute !important;
+    margin-left: 40px !important;
+  }
+
+  .label {
+    position: relative;
+    font-size: 1.6rem !important;
+
+  }
+  .bold{
+    font-weight: bold;
+  }
+  .style {
+    border: none;
+    margin-left: 5%;
+    margin-top: 5%;
+
+  }
+  .span {
+    color: red;
+  }
+  .button-right {
+    float: right;
+    margin-top: 10px;
+  }
+
+  #imoitem {
+    padding-top: 30%;
+  }
+  #buttonsearch {
+    height: 40px;
+    width: 95px;
+  }
+  #buttongo {
+    height: 50px;
+    float: right;
+
+  }
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    margin-right: 3%;
+  }
+  .searchbar_disabled {
+    height: 0%;
+    position: relative;
+    margin-top: 2%;
+    border: 1px solid darkgray;
+    text-decoration: none;
+    width: 95%;
+    left: 3%;
+    text-align: left;
+  }
+  .searchbaricon {
+    font-size: 21px;
+    color: #595959;
+    padding-top: 2%;
+  }
+
+  .itemSuggestions .label{
+    font-weight: normal;
+  }
+
+  .searchbarStyle{
+    margin-left:15px !important;
+    margin-right: 15px !important;
+  }
+  ion-searchbar{
+    margin-left: 0px !important;
+    // padding: 0px !important;
+    width: 100%;
+  }
+  .row-seperator-align{
+
+    //margin-bottom: 10px;
+    padding-left:0px;
+  }
+  //media query starts here
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    #searchbutton {
+      margin-left: 65%;
+    }
+    .cal{
+      margin-top: -5%;
+    }
+    .div-margin{
+      margin-left:1%;
+    }
+    .searchError{
+      margin-left: 23px;
+      margin-right: 8px;
+    }
+  }
+  .item-md ion-icon[item-left] + .item-inner,
+  .item-md ion-icon[item-left] + .item-input,
+  .item-md ion-icon[item-start] + .item-inner,
+  .item-md ion-icon[item-start] + .item-input {
+    margin-left: 0px;
+  }
+
+  .item-input-disabled ion-label {
+    opacity: 0.4 !important;
+  }
+  .item-select-disabled ion-label {
+    opacity: 0.4 !important;
+  }
+  .item-datetime-disabled ion-label {
+    opacity: 0.4 !important;
+  }
+
+}
+.platform-iphone page-shipservschedsearchfilter .valError {
+  bottom: 1px;
+  margin-left: 16px;
+  margin-right: 0px;
+  width:96%;
+}
+.platform-ipad page-shipservschedsearchfilter .valError {
+  bottom: 1px;
+  margin-left: 15px;
+  margin-right: 0px;
+}
+.platform-iphone page-shipservschedsearchfilter .searchError {
+  bottom: 1px;
+  margin-left: 8px;
+  margin-right: 0px;
+  width: 98%;
+}
+.platform-ipad page-shipservschedsearchfilter .searchError {
+  bottom: 1px;
+  margin-left: 15px;
+  margin-right: 0px;
+}
+.platform-ipad page-shipservschedsearchfilter .toggleStyle {
+  margin-bottom: 3%;
+  margin-top: 0%;
+}
+
+.platform-iphone page-shipservschedsearchfilter .toggleStyle {
+  margin-bottom: 5%;
+  margin-top: 0%;
+}
+
+.platform-ios page-shipservschedsearchfilter .scroll-content {
+  margin-top: 25px !important;
+}
+
+.platform-ios page-shipservschedsearchfilter .label-left {
+  font-size: 1.5rem;
+}
+
+.platform-ipad page-shipservschedsearchfilter .criteria-checkbox {
+  margin-left: .5% !important;
+  margin-top: 1.5% !important;
+}
+
+.platform-ipad page-shipservschedsearchfilter .criteria-checkbox .checkbox-icon {
+  margin-top: 1px;
+}
+
+.platform-iphone page-shipservschedsearchfilter .criteria-checkbox {
+  margin-left: 1% !important;
+}
+
+.platform-iphone page-shipservschedsearchfilter .criteria-checkbox-label {
+  margin-top: 1% !important;
+}
+.platform-iphone  page-shipservschedsearchfilter div.toolbar-title.toolbar-title-ios{
+  margin-left: -4% !important;
+}
+.platform-ios page-shipservschedsearchfilter ion-datetime
+{
+  height: 40px;
+}
+.platform-ios page-shipservschedsearchfilter .datetime-text {
+  padding-top: 10px;
+}

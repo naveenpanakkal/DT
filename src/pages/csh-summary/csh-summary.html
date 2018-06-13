@@ -1,0 +1,171 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title cshTitle truckSummary-ios">{{'cshSummary' | translate}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" class="detailcontent" id="cshDetailsContent">
+  <div id="divv" [hidden] = "isFromCshDetails()">
+    <img class="approvedicon" [src]="getStatusIcon(cshStatus)" />
+  </div>
+  <h6 class="status" [style.color]="getStyle()" [hidden] = "isFromCshDetails()">{{cshStatus}}</h6>
+<ion-item text-wrap *ngIf="fromCreate" margin-top="15dp">
+    <h2 class="cshcreatetitle">{{notificationMessage}} </h2>
+  </ion-item>
+  <ion-grid class="details" [hidden] = "isFromCshDetails()">
+    <ion-row class="firstrow">
+      <ion-col col-6>
+        <ion-label> <h4 class="labels">{{'cshRequestNo' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label><h4 class="labels">{{cshReqNo}}</h4>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="secondrow">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'rotationno' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-4 text-wrap>
+        <ion-label ><h4 class="labels">{{rotationNo}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-2>
+        <ion-icon [hidden]="!fromCreate" ios="ios-information-circle" md="md-information-circle"
+            (click)="showInfoPopup()" class=" iconGeneral iconStyle" tappable>
+          </ion-icon>
+      </ion-col>
+    </ion-row>
+     <ion-row>
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'vesselName' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{vesselName}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'eta' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{cshEtaDate}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!fromCreate">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'cshRequestCutOffTime' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{cshReqCutTime}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+     <ion-row *ngIf="!fromCreate">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'createdDate' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{cshCreatedDate}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+     <ion-row *ngIf="!fromCreate">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'createdBy' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{cshCreatedBy}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCreate">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'hazardousContainer' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{hazardousContainerlength}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCreate">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'OOGContainer' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{oogContainerlength}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!fromCreate">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{'SHContainer' | translate}}</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{shContainerlength}}</h4>
+        </ion-label >
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-grid>
+
+  <div [hidden] = "!fromCreate" width-50 text-wrap style="padding-left: 3px;">
+     <ion-row class="rowSeperator padding-left-row headder-color-light"  col-12>
+      <ion-col col-4 style="color: white">
+        {{'cshType' | translate}}
+      </ion-col>
+      <ion-col col-4 class="align-text-center" style="color: white">
+        {{'container_count' | translate}}
+      </ion-col>
+      <ion-col col-4 class="align-text-center" style="color: white">
+        {{'status' | translate}}
+      </ion-col>
+    </ion-row>
+    <div class = "inner-scroll-container" *ngFor="let containerCount of cshCountDetailsModel; let selectedTabIndex = index;">
+    <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+      <ion-col col-4>
+        <ion-label class="removeMargin">{{containerCount.cshType}}</ion-label>
+      </ion-col>
+      <ion-col col-4 class="removeMargin">
+        <ion-label class="removeMargin align-text-center">{{containerCount.containerCount}}</ion-label>
+      </ion-col>
+      <ion-col col-4 class="removeMargin">
+        <ion-label class="removeMargin align-text-center">{{containerCount.confirmStatus}}</ion-label>
+      </ion-col>
+    </ion-row>
+    </div>
+  </div>
+
+  <ion-fab [hidden] = "fromCreate" right bottom>
+    <button class ="edit"ion-fab color="$icon-highlight-bg-color-onfocus"><ion-icon ios="ios-menu" md="md-menu" tappable></ion-icon></button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit" [hidden]="editHiddenStatus"></ion-label>
+      <button [hidden]="editHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="editCsh()" tappable><ion-icon name ="custom-Edit" ></ion-icon></button>
+      <ion-label class="fabedit" [hidden]="cancelHiddenStatus"></ion-label>
+      <button [hidden]="cancelHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="cancelCsh()" tappable><ion-icon name="custom-cancel"></ion-icon></button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewCsh()"><ion-icon name ="custom-view" tappable></ion-icon></button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seehistory()"><ion-icon name ="custom-history" tappable></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

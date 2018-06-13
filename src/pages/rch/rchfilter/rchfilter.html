@@ -1,0 +1,258 @@
+<!--
+  Generated template for the gigofilter page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="gigosearch" >
+
+  <ion-item >
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_holdaction' | translate }}
+    </ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="Release_HoldAction" tappable >
+      <ion-option *ngFor="let ha of holdActionDataLst" value="{{ha.definedSetValueCode}}">{{ha.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- CONTAINER CATEGORY -->
+  <ion-label class="labelmargin" stacked color="label" style="margin-left:15px;margin-top: 20px;margin-bottom:10px;">{{ 'ch_container_category' | translate }}</ion-label>
+  <ion-list class="contanerlist" style="padding-left: 25px;" >
+    <ion-item *ngFor="let category of containerCategoryDataLst">
+      <ion-label  style="font-weight: normal;">{{category.definedSetValueIntMessage}}</ion-label>
+      <ion-checkbox (ionChange)="checkUncheck($event,category,3)" class="checkbox_cont" [(ngModel)]="category.checked"   tappable></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-item class="item-with-button">
+    <button ion-button class= "terminalButtonStyle" (click)="checkUncheck($event,[],1)" tappable>{{ 'ch_Select_all' | translate }}</button>
+    <button ion-button  class= "terminalButtonStyle" (click)="checkUncheck($event,[],2)" tappable>{{'ch_deselect_all'|translate }}</button>
+  </ion-item>
+
+  <!-- CONTAINER NO -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_container_no' | translate }}</ion-label>
+    <ion-input class="label-left" spellcheck="false" placeholder="{{ 'ch_container_no' | translate }}" type="text"
+               [(ngModel)]="Release_ContainerNo"
+               (keyup)="keyUpValidate($event,'alphaNumeric','Release_ContainerNo')"
+               onpaste="return true;"
+               minlength="10" maxlength="11"
+               tappable></ion-input>
+  </ion-item>
+
+  <div class="valerror-search" *ngIf="submit && validateFields('Release_ContainerNo','ErrorMsg_ContainerNo','alphaNumeric',[10,11,'enter_10_char','enter_11_char'])">
+    {{ErrorMsg_ContainerNo}}
+  </div>
+
+  <!-- LOCATION -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_Location' | translate }}</ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="Release_Location" (ionChange)="getSubLocNameLst()"  tappable>
+      <ion-option value="">--Select--</ion-option>
+      <ion-option *ngFor="let lc of locationDataLst" value="{{lc.spLocationCode}}">{{lc.spLocationName}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- SUB LOCATION NAME -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_spname' | translate }}</ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="Release_SpName" tappable>
+      <ion-option value="">--Select--</ion-option>
+      <ion-option *ngFor="let sp of spNameDataLst" value="{{sp.spSubLocationCode}}">{{sp.spSubLocationName}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- REFERENCE NO -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_reference_no' | translate }}</ion-label>
+    <ion-input class="label-left" spellcheck="false" placeholder="{{ 'ch_reference_no' | translate }}"
+               type="text" [(ngModel)]="Release_ReferenceNo"
+               (keyup)="keyUpValidate($event,'allowAll','Release_ReferenceNo')"
+               onpaste="return true;"
+               minlength="3" maxlength="30"
+               tappable></ion-input>
+  </ion-item>
+
+  <div class="valerror-search" *ngIf="submit && validateFields('Release_ReferenceNo','ErrorMsg_ReferenceNo','allowAll',[3,30,'enter_10_char','enter_30_char'])">
+    {{ErrorMsg_ReferenceNo}}
+  </div>
+
+  <!-- REQUEST NO -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_hold_request_no' | translate }}</ion-label>
+    <ion-input class="label-left" spellcheck="false"  placeholder="{{ 'ch_hold_request_no' | translate }}"
+               type="tel" [(ngModel)]="Release_HoldRequestNo"
+               (keyup)="keyUpValidate($event,'number','Release_HoldRequestNo')"
+               minlength="1" maxlength="18"
+               onpaste="return true;"
+               tappable></ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validateFields('Release_HoldRequestNo','ErrorMsg_HoldRequestNo','number',[1,18,'enter_1_char','enter_18_char'])">
+    {{ErrorMsg_HoldRequestNo}}
+  </div>
+
+  <ion-item >
+    <ion-label color="label" stacked>{{'ch_hold_period_from_date' | translate }}</ion-label>
+    <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max={{maxDate}} displayFormat={{dateFormat}}
+                  [(ngModel)]="Release_HoldPeriodFromDate"
+                  tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+  <ion-item >
+    <ion-label color="label" stacked>{{'ch_hold_period_to_date' | translate }}</ion-label>
+    <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max={{maxDate}} displayFormat={{dateFormat}}
+                  [(ngModel)]="Release_HoldPeriodToDate"
+                  tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+  <ion-item >
+    <ion-label color="label" stacked>{{'ch_Auto_release_from_date' | translate }}</ion-label>
+    <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max={{maxDate}} displayFormat={{dateFormat}}
+                  [(ngModel)]="Release_AutoReleaseFromDate"
+                  tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+  <ion-item >
+    <ion-label color="label" stacked>{{'ch_Auto_release_to_date' | translate }}</ion-label>
+    <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max={{maxDate}} displayFormat={{dateFormat}}
+                  [(ngModel)]="Release_AutoReleaseToDate"  tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+  <ion-item >
+    <ion-label color="label" stacked>{{'ch_released_date_from' | translate }}</ion-label>
+    <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max={{maxDate}} displayFormat={{dateFormat}}
+                  [(ngModel)]="Release_ReleasedFromDate"  tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+  <ion-item >
+    <ion-label color="label" stacked>{{'ch_released_date_to' | translate }}</ion-label>
+    <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max={{maxDate}} displayFormat={{dateFormat}}
+                  [(ngModel)]="Release_ReleasedToDate"  tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+  <!-- DESIGNATION -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_designation' | translate }}
+    </ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="Release_Designation" tappable>
+      <ion-option *ngFor="let des of designationTypeDataLst" value="{{des.definedSetValueCode}}">{{des.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item >
+    <ion-label class="labelmargin" stacked color="label">{{'ch_delivery_order_no' | translate}}
+    </ion-label>
+    <ion-input class="label-left" spellcheck="false"
+               placeholder="Delivery Order No"
+               [(ngModel)]="Release_DeliveryOrderNo"
+               (keyup)="keyUpValidate($event,'number','Release_DeliveryOrderNo')"
+               type="tel" tappable></ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validateFields('Release_DeliveryOrderNo','ErrorMsg_DeliveryOrderNo','number')">
+    {{ErrorMsg_DeliveryOrderNo}}
+  </div>
+
+  <ion-row class = "filter-row" style="padding-left: 15px;">
+    <ion-label stacked color="label" class="bold">{{ 'ta_rotation_number' | translate }}
+    </ion-label>
+  </ion-row>
+
+  <ion-row class="rowSeperator searchbarStyle">
+    <ion-searchbar class = "row-seperator-align marginLeft10" type="tel" (ionInput)="getRotationNumber($event)" tappable
+                   [(ngModel)]="Release_RotationNo"
+                   (ionFocus)="getRotationNumberMaster()"
+                   (ionBlur)="hideRotationNumber()"
+                   (keyup)="keyUpValidate($event,'number','Release_RotationNo')"
+                   onpaste="return true;"
+
+                   minlength="1" maxlength="18">
+
+    </ion-searchbar>
+    <div class="valerror-search" *ngIf="submit && validateFields('Release_RotationNo','ErrorMsg_RotationalNo','number')">
+      {{ErrorMsg_RotationalNo}}
+    </div>
+  </ion-row>
+
+  <ion-list *ngIf="showrotationNumber">
+    <ion-item *ngFor="let item of filterRotationNumberArray" (mousedown)="selectRotation(item)" tappable>
+      {{ item.rotationNo }}
+    </ion-item>
+  </ion-list>
+
+  <ion-item >
+    <ion-label class="labelmargin" stacked color="label">{{'ch_container_acceptance_no' | translate}}
+    </ion-label>
+    <ion-input class="label-left" spellcheck="false"
+               placeholder="Container Acceptance No"
+               [(ngModel)]="Release_ContainerAcceptanceNo"
+               minlength="1" maxlength="18"
+               (keyup)="keyUpValidate($event,'number','Release_ContainerAcceptanceNo')"
+               type="tel" tappable></ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validateFields('Release_ContainerAcceptanceNo','ErrorMsg_ContainerAcceptanceNo','number')">
+    {{ErrorMsg_ContainerAcceptanceNo}}
+  </div>
+
+  <ion-item >
+    <ion-label class="labelmargin" stacked color="label">{{'ch_container_release_no' | translate}}
+    </ion-label>
+    <ion-input class="label-left" spellcheck="false"
+               placeholder="Container Release No"
+               [(ngModel)]="Release_ContainerReleaseNo"
+               minlength="1" maxlength="18"
+               (keyup)="keyUpValidate($event,'number','Release_ContainerReleaseNo')"
+               type="tel" tappable></ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validateFields('Release_ContainerReleaseNo','ErrorMsg_ContainerReleaseNo','number')">
+    {{ErrorMsg_ContainerReleaseNo}}
+  </div>
+
+  <!-- STATUS -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_status' | translate }}
+    </ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="Release_Status" tappable>
+      <ion-option *ngFor="let st of statusDataLst" value="{{st.definedSetValueCode}}">{{st.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- RELEASE BY STATUS -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_release_by' | translate }}
+    </ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="Release_ReleasedBy" tappable>
+      <ion-option *ngFor="let rb of releaseDataLst" value="{{rb.definedSetValueCode}}">{{rb.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-row style="margin-top: 10px;margin-left: 20px;margin-bottom: 10px;">
+    <ion-col col-6>
+      <button full color="submit" ion-button
+              class="buttonCenterAlign button-apply-general"
+              (click)="resetRCH()" tappable>{{ 'rese-b' | translate }}</button>
+    </ion-col>
+    <ion-col  col-6>
+      <button full color="submit" ion-button
+              class="buttonCenterAlign button-apply-general"
+              (click)="filterRCH()"
+              tappable>{{ 'SEARCH' | translate }}</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+

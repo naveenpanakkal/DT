@@ -1,0 +1,42 @@
+import {ImdgDetailsModel} from "./imdgdetails.model";
+import {LocationMasterModel} from "./locationmaster.model";
+
+export class ContainerDetailsModel {
+  caContainerDetailsId: number;
+  caId: number;
+  containerDamageStatus: string;
+  containerNoFlag: string;
+  containerNumber: string;
+  containerQuantity: number;
+  containerStatus: string;
+  damageCondition: string;
+  damageCount: number;
+  damageHeight: string;
+  damageItem: string;
+  damageLength: string;
+  damageLocation: string;
+  damageRemarks: string;
+  damageWidth: string;
+  humidity: string;
+  imdg: string;
+  imdgDetailsSOs: ImdgDetailsModel[];
+  imdgFlag: string;
+  isDeleted: string;
+  isoCode: string;
+  maxTemp: string;
+  minTemp: string;
+  oog: string;
+  oogBack: string;
+  oogFlag: string;
+  oogFront: string;
+  oogHeight: string;
+  oogLeft: string;
+  oogRight: string;
+  reefer: string;
+  reeferFlag: string;
+  specialStowageInstructions: string;
+  tempScale: string;
+  ventOpen: string;
+  dropDown='false';
+  containerEditMode : boolean;
+}

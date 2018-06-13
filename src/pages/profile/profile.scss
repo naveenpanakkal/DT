@@ -1,0 +1,208 @@
+page-profile {
+.toolbar-title{
+        font-weight: $header-title-font-weight !important;
+        text-align: center;
+		font-size: 2.1rem;
+    }
+
+  #notifybadge{
+        float:right;
+    }
+
+  #men{
+        float: left;
+        position: absolute;
+        left: 2%;
+    }
+
+    .main{
+        color :#828282;
+    }
+   #notifications-badge {
+        background-color: red;
+        position: absolute;
+        bottom: 60%;
+        right: 0;
+        border-radius: 50%;
+            height: 85%;
+        }
+  .details{
+        color: $footer-font-color;
+  }
+
+  .notifi-icon{
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: #ffffff;
+    float:left;
+    font-size: 14px;
+    margin: 0px 0px 0;
+    text-align: center;
+    border-radius:50%
+  }
+
+  .notifi-icon.color1{
+    background: #67d3f4;
+  }
+
+  .notifi-icon.color2{
+    background: #f2b111;
+  }
+
+  .notifi-icon.color3{
+    background: #2a739b;
+  }
+
+  .notifi-icon.color4{
+    background: #173c5e;
+  }
+  .notifi-icon-text .mainText {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 700;
+    position: relative;
+    padding: 6px 0;
+    display: block;
+  }
+  .notifi-icon-text .subText {
+    font-size: 10px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-bottom: 10px;
+  }
+  .notifi-icon-time {
+    width: 134px;
+    padding: 18px 0;
+    font-size: 14px;
+    text-align: right;
+  }
+  .fa-long-arrow-down {
+    display: none;
+    color: #2a739b;
+  }
+  .fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .fa-exclamation {
+    display: none;
+    color: red;
+  }
+ .fa-long-arrow-down {
+    display:none;
+    color:#2a739b
+  }
+  .priorityHigh .fa-exclamation,.priorityLow .fa-long-arrow-down{
+    display:inline-block !important
+  }
+  .input-wrapper > .label {
+    margin: 0px!important;
+    margin-top:10px!important;
+  }
+  .button-default {
+    height: 2.8em;
+    font-size: 1.6rem;
+    color: #fff;
+    /*   background-color: rgba(28, 98, 158, 0.92); */
+    background-color: #F2B011 !important;
+    padding: 0 1em;
+  }
+
+  .notif-icon-container{
+    padding: 0px!important;
+    max-width: 36px!important;
+  }
+  .information-continer{
+    padding: 0px!important;
+    max-width: calc(100% - 36px) !important;
+    width: calc(100% - 36px) !important;
+
+  }
+  .maintext-Header{
+    margin: 0px 0px 0!important;
+    margin-left: 10px!important;
+    width: 100%!important;
+    padding: 0px!important;
+    font-size: 1.6rem !important;
+    color: #707070!important;
+  }
+  .subtext-content{
+    font-size: 1.4rem!important;
+    margin-left: 10px!important;
+    color: rgb(109, 109, 109)!important;
+    padding: 0px 5px!important;
+    margin: 5px!important;
+    display: block!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    white-space: normal!important;
+  }
+  .date-time{
+    margin-left: 10px !important;
+    font-size: 1.3rem !important;
+    float: left !important;
+    color: #555555 !important;
+    padding-bottom: 10px !important;
+    padding-top: 3px !important;
+  }
+  .status-icon-bottom-line{
+    margin-right: 10px !important;
+    font-size: 2.6rem !important;
+    float: right !important;
+    color: #555555 !important;
+    padding-top: 0px !important;
+  }
+  .toprow{
+    position: relative;
+    top: -2.5%;
+    width: 110%;
+    left: -4%;
+  }
+  .topcol{
+    padding: 0 !important;
+    border-right: 1px solid #FFF;
+  }
+  .toprow{
+    position: relative;
+    top: -2.5%;
+    width: 110%;
+    left: -4%;
+  }
+  .filterImg{
+    height: 25px;
+    position: relative;
+    right: 20%;
+  }
+  .title{
+    position : relative;
+  }
+  #tool .button-md .toolbar-md {
+    padding:0 !important;
+    margin:0 !important;
+  }
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+  .toolbar-title-ios {
+    color: #fff;
+    position: relative;
+    bottom: 40px;
+  }
+
+}
+
+.platform-ios page-profile .scroll-content
+{
+  //padding-top: 0px !important;
+  margin-top: 45px !important;
+}

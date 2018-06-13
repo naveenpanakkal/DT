@@ -1,0 +1,274 @@
+<!--
+  Generated template for the DosearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" class="doSearchTitle-ios">{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="doSearchContent">
+
+
+
+    <ion-item>
+      <ion-label color="label" stacked class="bold">Location
+      </ion-label>
+      <ion-select [disabled] = "hiddenFields" class="label-left"  [(ngModel)]="loc" (ionChange)="valueselected()" tappable>
+        <ion-option *ngFor="let key of locations" value={{key}}>{{key}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label color="label" stacked class="bold">SP_Name
+      </ion-label>
+      <ion-select [disabled] = "hiddenFields" class="label-left"  [(ngModel)]="spname" tappable>
+        <ion-option *ngFor="let key of spnames" value={{key}}>{{key}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+
+  <ion-item>
+    <ion-label color="label" stacked class="bold">DO Type
+    </ion-label>
+    <ion-select [disabled] = "hiddenFields" class="label-left" (ionChange)="typeSelected()" [(ngModel)]="selectedDotype" tappable>
+      <ion-option *ngFor="let key of doTypeList"  value={{key.definedSetValueCode}}>{{key.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item [hidden]="tradeHidden">
+    <ion-label color="label" stacked class="bold">Trade Type
+    </ion-label>
+    <ion-select [disabled] = "hiddenFields" class="label-left" (ionChange)="tradeSelected()" [(ngModel)]="selectedTradetype" tappable>
+      <ion-option *ngFor="let key of tradeTypeList"  value={{key.definedSetValueCode}}>{{key.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="label" stacked class="bold">DO Request No</ion-label>
+    <ion-input type="tel"
+               placeholder="Enter DO Request No"
+               [(ngModel)]="dORequestNo"
+               (keyup.enter)="keyboardClose()"
+               (ionChange) = "requestNochange()"
+                maxlength="18"
+               (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','dorequestno')"
+               spellcheck="false" tappable
+    ></ion-input>
+  </ion-item>
+  <div class="error" *ngIf="mandatory && validate(dORequestNo,'^[0-9]{0,18}$')"></div>
+
+  <ion-item>
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Agent Reference No</ion-label>
+    <ion-input [disabled] = "hiddenFields" type="text" [(ngModel)]="agentReferenceNo"
+               placeholder="Enter Agent Reference No"
+               (ionBlur)="onFocusChangeofAgentRequest()"
+               (keyup.enter)="keyboardClose()"
+               maxlength="30"
+               spellcheck="false" tappable
+    ></ion-input>
+  </ion-item>
+<!--  <div class="error" *ngIf="mandatory && validate(agentReferenceNo,'^[a-z0-9A-Z]{0,30}$')"></div>-->
+  <div>
+  <ion-item>
+    <ion-label color="label" stacked class="bold">From Date (DO Created Date)</ion-label>
+    <ion-datetime [disabled] = "hiddenFields" class="label-left" displayFormat={{dateFormat}} max={{maxvalue}}
+                  min="1960-01-01" [(ngModel)]="createdFromDate" tappable class="datetimeStyle" tappable></ion-datetime>
+  </ion-item>
+  <ion-icon class="cal" name="calendar" color="header" tappable></ion-icon>
+  </div>
+
+  <div>
+  <ion-item>
+    <ion-label color="label" stacked class="bold">To Date (DO Created Date)</ion-label>
+    <ion-datetime [disabled] = "hiddenFields" class="label-left" displayFormat={{dateFormat}} max={{maxvalue}}
+                  min="1960-01-01" [(ngModel)]="createdToDate" tappable class="datetimeStyle" tappable></ion-datetime>
+  </ion-item>
+    <ion-icon class="cal" name="calendar" color="header" tappable></ion-icon>
+  </div>
+
+
+    <ion-label style="padding-left:15px;" color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Rotation No (VIA No)
+    </ion-label>
+
+  <ion-row class="rowSeperator searchbarStyle">
+     <ion-searchbar style="margin-left: 0px;padding-left: 0px;" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')" type="tel" (ionInput)="getRotationNo($event)"
+                    [(ngModel)]="rotatenumber"
+                     (ionFocus)="searchrotatenumber()" (ionBlur)="hideRotation()"
+                     (keyup)="keyUpValidate($event,'^[0-9]{0,30}$','rotateNumber')"
+                     maxlength="30" class="searchbarStyle"
+                     tappable></ion-searchbar>
+  </ion-row>
+  <ion-list  styel="margin-top: 0px;" *ngIf="showRotationNo">
+    <ion-item styel="margin-top: 0px;" *ngFor="let item of filterRotationArray" (mousedown)="selectRotation(item)" tappable>
+      {{ item.rotationNo }}
+    </ion-item>
+  </ion-list>
+  <div class="error" *ngIf="validate(rotatenumber,'^[0-9]{0,30}$')"></div>
+  <ion-item *ngIf="mrnHidden">
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">MRN/IGM No</ion-label>
+
+    <ion-input [disabled] = "hiddenFields" type="text" [(ngModel)]="selectedigmMrnNo" (keyup.enter)="keyboardClose()"
+               placeholder="Enter MRN/IGM No"
+               (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','domrnno')"
+               (ionBlur)="onFocusChangeofMNR()"
+               maxlength="30"
+               spellcheck="false" tappable></ion-input>
+  </ion-item>
+  <div class="error" *ngIf="mandatory && validate(selectedigmMrnNo,'^[a-z0-9A-Z]{0,30}$')"></div>
+  <ion-item *ngIf="hbLoHidden">
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">House Bill Of Lading No</ion-label>
+    <ion-input [disabled] = "hiddenFields" type="text"  [(ngModel)]="selectedHouseBillNo" (keyup.enter)="keyboardClose()"
+               placeholder="Enter House Bill Of Lading No"
+               (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','dohousebillno')"
+               (ionBlur)="onFocusChangeofHouse()"
+               maxlength="30"
+               spellcheck="false" tappable></ion-input>
+
+  </ion-item>
+  <div class="error" *ngIf="mandatory && validate(selectedHouseBillNo,'^[a-z0-9A-Z]{0,30}$')"></div>
+  <ion-item *ngIf="bLoHidden">
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Bill Of Lading No</ion-label>
+    <ion-input [disabled] = "hiddenFields" type="text" [(ngModel)]="selectedBillNo" (keyup.enter)="keyboardClose()"
+               placeholder="Enter Bill Of Lading No"
+               (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','dobillno')"
+               (ionBlur)="onFocusChangeofBillNo()"
+               maxlength="30"
+               spellcheck="false" tappable
+    ></ion-input>
+  </ion-item>
+  <div class="error" *ngIf="mandatory && validate(selectedBillNo,'^[a-z0-9A-Z]{0,30}$')"></div>
+  <ion-item>
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Container No</ion-label>
+    <ion-input [disabled] = "hiddenFields" type="text"
+               placeholder="Enter Container No"
+               [(ngModel)]="selectedcontainerNo"
+               (ionBlur)="onFocusChangeofContainerNo()"
+               (keyup.enter)="keyboardClose()"
+               (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,11}$','docontainerno')"
+               maxlength="11"
+               spellcheck="false" tappable
+    ></ion-input>
+  </ion-item>
+  <div class="error" *ngIf="mandatory && validate(selectedcontainerNo,'^[a-z0-9A-Z]{0,11}$')"></div>
+  <ion-item>
+    <ion-label color="label" stacked class="bold">Delivery To
+    </ion-label>
+    <ion-select [disabled] = "hiddenFields"  class="label-left" [(ngModel)]="selectedDelivaryTo" (ionChange)="deliverytoselected()" tappable>
+      <ion-option *ngFor="let key of delivaryToList" value={{key.definedSetValueCode}}>{{key.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="showFrieght" no-lines>
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Freight Forwarder Company Code
+    </ion-label>
+  </ion-item>
+  <ion-searchbar style="border-bottom: .5px solid #c8c7cc !important;" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')" *ngIf="showFrieght" (ionInput)="getFrieghtItems($event)"
+                 (ionFocus)="getFrieghtFromService()"
+                 (ionBlur)="hideFrieghtSuggestion($event)"
+                 [(ngModel)]="frieghtForwarderCode"
+                 (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$','frieghtForwarderCode')"
+                  tappable class="searchbarStyle"
+  ></ion-searchbar>
+  <ion-list *ngIf="showFrieghtSug" no-lines>
+    <ion-item class="itemSuggetions" *ngFor="let item of filterFrieghtArray" (mousedown)="onSelectFrieght(item)" tappable>
+      {{ item.companyCode }} - {{ item.companyName }}
+    </ion-item>
+  </ion-list>
+
+  <div class="error" *ngIf="validate(frieghtForwarderCode,'^[a-zA-Z0-9 ]*$')"></div>
+  <ion-item *ngIf="showConsignee" no-lines>
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Consignee Company Code
+    </ion-label>
+  </ion-item>
+  <ion-searchbar style="border-bottom: .5px solid #c8c7cc !important;" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')" *ngIf="showConsignee" (ionInput)="getConsigneeItems($event)"
+                 (ionFocus)="getConsigneeFromService()"
+                 (ionBlur)="hideConsigneeSuggestion($event)"
+                 [(ngModel)]="consigneeCode"
+                 (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$','consigneeCode')"
+                  tappable class="searchbarStyle"
+  ></ion-searchbar>
+  <ion-list *ngIf="showConsigneeSug">
+    <ion-item class="itemSuggetions" *ngFor="let item of filterConsigneeArray" (mousedown)="onSelectConsignee(item)" tappable>
+      {{ item.companyCode }} - {{ item.companyName }}
+    </ion-item>
+  </ion-list>
+
+  <div class="error" *ngIf="validate(consigneeCode,'^[a-zA-Z0-9 ]*$')"></div>
+  <ion-item *ngIf="showCFS" no-lines>
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">CFS Company Code
+    </ion-label>
+  </ion-item>
+  <ion-searchbar  style="border-bottom: .5px solid #c8c7cc !important;" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')" *ngIf="showCFS" (ionInput)="getCFSItems($event)"
+                 (ionFocus)="getCFSFromService()"
+                 (ionBlur)="hideCFSSuggestion($event)"
+                 [(ngModel)]="cFSCode"
+                 (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$','cFSCode')"
+                  tappable class="searchbarStyle"
+  ></ion-searchbar>
+  <ion-list *ngIf="showCFSSug">
+    <ion-item class="itemSuggetions" *ngFor="let item of filterCFSArray" (mousedown)="onSelectCFS(item)" tappable>
+      {{ item.companyCode }} - {{ item.companyName }}
+    </ion-item>
+  </ion-list>
+  <div class="error" *ngIf="validate(cFSCode,'^[a-zA-Z0-9 ]*$')"></div>
+
+  <ion-item *ngIf="showEmpty" no-lines>
+    <ion-label color="label" stacked class="bold" [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')">Empty Yard Company Code
+    </ion-label>
+  </ion-item>
+  <ion-searchbar style="border-bottom: .5px solid #e0dee4 !important;"
+                 [ngClass]="(hiddenFields?'disabledLabel': 'enabledLabel')" *ngIf="showEmpty" (ionInput)="getEmptyItems($event)"
+                 (ionFocus)="getEmptyFromService()"
+                 (ionBlur)="hideEmptySuggestion($event)"
+                 [(ngModel)]="emptyYardCode"
+                 (keyup)="keyUpValidate($event,'^[a-zA-Z0-9 ]*$','emptyYardCode')"
+                  tappable class="searchbarStyle"
+  ></ion-searchbar>
+  <ion-list *ngIf="showEmptySSug">
+    <ion-item class="itemSuggetions" *ngFor="let item of filterEmptyArray" (mousedown)="onSelectEmpty(item)" tappable>
+      {{ item.companyCode }}  - {{ item.companyName }}
+    </ion-item>
+  </ion-list>
+  <div class="error" *ngIf="validate(emptyYardCode,'^[a-zA-Z0-9 ]*$')"></div>
+  <ion-item>
+    <ion-label color="label" stacked class="bold">Status
+    </ion-label>
+    <ion-select [disabled] = "hiddenFields" class="label-left" [(ngModel)]="selectedStatus" tappable>
+      <ion-option *ngFor="let key of statusList" value={{key.definedSetValueCode}}>{{key.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-row>
+    <ion-col class="imoitem" col-6>
+      <ion-item id="searchbutton" no-lines>
+        <button full color="submit" ion-button class="align-button-center-of-container button-apply-general"
+                id="buttonsearch" (click)="reset()" tappable>Reset</button>
+      </ion-item>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <ion-item id="searchbutton" no-lines>
+        <button full color="submit" ion-button id="buttonsearch" class="align-button-center-of-container button-apply-general"
+                (click)="showDOresults()" tappable>Search</button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <!--<ion-fab right bottom>-->
+    <!--<button ion-fab style="background-color: #F2B011;" (click)="openDOCreate()" tappable>-->
+      <!--<ion-icon name="add"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
+
+
+</ion-content>
+

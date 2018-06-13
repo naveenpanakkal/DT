@@ -1,0 +1,41 @@
+import {VldsRestowListModel} from './vldsrestowlist.model';
+import {VldsDischargeListModel} from './vldsdischargelist.model';
+import {VldsLoadListModel} from './vldsloadlist.model';
+import {VldsSummaryListModel} from './vldssummarylist.model';
+
+export class VldsSearchResultModel{
+aTDDateFrom:string;
+aTDDateTo:string;
+addMailIDs:string;
+agent:string;
+ata:string;
+atb:string;
+atd:string;
+discharge:boolean;
+dischargeList:VldsDischargeListModel[];
+eTADate:string;
+eTADateFrom:string;
+eTADateTo:string;
+eta:string;
+etd:string;
+exportType:string;
+filter:string;
+line:string;
+load:boolean;
+loadList:VldsLoadListModel[];
+location:string;
+mailId:string;
+reportFormat:string;
+restow:boolean;
+  restowList:VldsRestowListModel[];
+rotationNoSrch:string;
+size:string;
+status:string;
+summary:boolean;
+summaryList:VldsSummaryListModel[];
+terminal:string;
+vesselName:string;
+voyageNo:string;
+workEndDateTime:string;
+workStartDateTime:string;
+}

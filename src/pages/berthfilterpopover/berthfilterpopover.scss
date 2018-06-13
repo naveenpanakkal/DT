@@ -1,0 +1,97 @@
+page-berthfilterpopover {
+.dropdown{
+        color:black;
+    }
+    .approve{
+        width: 15%;
+        float: right;
+    }
+.titles{
+
+right : 13%;
+position : relative;
+}
+    .lab1 {
+    margin: 13px 8px 8px 12px !important;
+	color : green;
+}
+.lab2 {
+    margin: 13px 8px 8px 12px !important;
+	color : red;
+}
+.lab3 {
+    margin: 13px 8px 8px 12px !important;
+	color : gray;
+}
+
+
+  .greyStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : gray;
+  }
+    .error1{
+    border-top:1px solid red;
+    position: relative;
+    margin-top: 5px;
+    color: red;
+  }
+
+.options{
+        position: relative;
+     top: 8px;
+}
+
+.scroll-content{
+    overflow: hidden;
+  padding-bottom: 0 !important;
+}
+
+#clearsubmit{
+    color: white;
+    background-color : #113B5F;
+    //width: 110%;
+    //margin-left: -5%;
+}
+
+.mydp .selector {
+    position: relative ;
+    right: 13% ;
+}
+//---ios_change--start
+.topcol{
+    border-right: 3px solid #FFF;
+  }
+  .titlePadding {
+      padding: 0px !important;
+  }
+//---ios_change--end
+}
+
+page-berthfilterpopover .ionContent
+{
+  overflow: hidden !important;
+}
+//.popover-content {top: 120px;
+//  //border-radius: 28px !important;
+//}
+page-berthfilterpopover .scroll-content{
+  overflow: hidden !important;
+}
+page-berthfilterpopover popover-viewport
+{
+  overflow: hidden !important;
+}
+
+page-berthfilterpopover  .item-cover {
+  left: 0 !important;
+  top: 0 !important;;
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+page-berthfilterpopover .popover-content {
+  top: 118px !important;
+}

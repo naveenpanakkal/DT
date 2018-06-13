@@ -1,0 +1,61 @@
+
+<ion-header>
+
+<ion-navbar color="header" id="header">
+    <ion-title class="title">{{ 'amendmenthistory' | translate }} </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="vesselHistoryContent">
+
+  <div class="attach" (click)="show(selVessel)" *ngFor="let selVessel of vesselHistoryResponseArray;let i = index" tappable>
+    <div style="padding-top:7px">
+   {{ 'history' | translate }} {{i+1}}
+    <ion-icon [name]="geticon(selVessel)" class="image" tappable></ion-icon>
+    </div>
+    <div *ngIf="selVessel.showdetails" class="subheader">
+      <ion-grid (click)="openview(selVessel.requestNo)" tappable>
+        <ion-row>
+          <ion-col>
+           {{ 'reqNo' | translate }}
+          </ion-col>
+          <ion-col >
+            {{selVessel.requestNo}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+            {{ 'action' | translate }}
+           </ion-col>
+          <ion-col>
+            {{selVessel.actionName}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+          {{ 'statushistory' | translate }}
+          </ion-col>
+          <ion-col>
+            {{selVessel.status}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+           {{ 'createddate' | translate }}
+          </ion-col>
+          <ion-col>
+            {{selVessel.createdDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+           {{ 'lmd' | translate }}
+          </ion-col>
+          <ion-col>
+            {{selVessel.lastModifiedDate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

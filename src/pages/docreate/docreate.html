@@ -1,0 +1,1094 @@
+<!--
+  Generated template for the DocreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header" no-line>
+    <ion-title class="title" class="doCreateTitle-ios">{{ 'do_order_create' | translate }}
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterData(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}</button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" style="background-color: white;" padding id="doCreateContent">
+
+
+  <div class="style1" [hidden]="!deliveryOrderType">
+    <form [formGroup]="deliveryOrderTypeForm" noValidate>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="label" stacked class="bold label_cdo">Location
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">Location
+            </ion-label>
+            <ion-select class="deliverycreate" placeholder="Location" formControlName="doLocation"
+                        (ionChange)="onLocationChanged()" [(ngModel)]="selectedDoLocation" tappable>
+              <ion-option *ngFor="let pm of portMasterDOModel.portsMaster" value={{pm}}>{{pm}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderTypeForm.controls.doLocation.valid">
+            Location is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="label" stacked class="bold label_cdo">SP-Name
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">SP-Name
+            </ion-label>
+            <ion-select class="deliverycreate" placeholder="SP-Name" formControlName="doSpName"
+                        [(ngModel)]="selectedDoSpName" (ionChange)="onSpNameChanged()" tappable>
+              <ion-option *ngFor="let tm of terminalDOModel.terminalMaster" value={{tm}}>{{tm}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderTypeForm.controls.doSpName.valid">
+            SP-Name is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="label" stacked class="bold label_cdo">DO Type
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">DO Type
+            </ion-label>
+            <ion-select class="deliverycreate" (ionChange)="changeDoType(selectedDoType)" formControlName="doType"
+                        [(ngModel)]="selectedDoType" placeholder="DO Type" tappable>
+              <ion-option *ngFor="let doType of doTypeList" value={{doType.definedSetValueCode}}>
+                {{doType.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderTypeForm.controls.doType.valid">
+            DO Type is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="isDoTypeFcl">
+        <div class="col" col-12 col-sm>
+          <ion-label color="label" stacked class="bold label_cdo">Trade Type
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">Trade Type
+            </ion-label>
+            <ion-select class="deliverycreate" (ionChange)="changeTradeType(selectedTradeType)" formControlName="doTradeType"
+                        [(ngModel)]="selectedTradeType" placeholder="Trade Type" tappable>
+              <ion-option *ngFor="let tradeType of doTradeTypeList" value={{tradeType.definedSetValueCode}}>
+                {{tradeType.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderTypeForm.controls.doTradeType.valid">
+            Trade Type is mandatory
+          </div>
+        </div>
+      </ion-row>
+    </form>
+  </div>
+
+
+  <div class="style3" [hidden]="!billOfLadingDetails">
+    <form [formGroup]="doboxOperatorForm" noValidate>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm [ngClass]="(readOnlyFlag) ? 'disableDiv' : '' ">
+          <ion-label color="label" stacked class="bold label_cdo">Box Operator
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">Box Operator
+            </ion-label>
+            <ion-select class="deliverycreate" placeholder="Box Operator"
+                        formControlName="doBoxOperator"
+                        [(ngModel)]="selectedBoxOperator" tappable>
+              <ion-option *ngFor="let bm of boxOperatortDOModel.boxOperatorMaster" value={{bm}}>{{bm}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="retrieveMandatory && !doboxOperatorForm.controls.doBoxOperator.valid">
+            Box Operator is mandatory
+          </div>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="doRoatationnoForm" noValidate>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Rotation No (VIA No)
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-row class="row">
+              <ion-col class="col">
+                <div style="max-height: 40px !important;" [ngClass]="(readOnlyFlag) ? 'disableDiv' : '' ">
+                  <ion-searchbar type="tel"
+                                 (ionInput)="getRotationNo($event, false)"
+                                 formControlName="doRotationNo" [(ngModel)]="selectedRotationNo"
+                                 (ionFocus)="getRotationNumberMaster(false)"
+                                 (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','selectedRotationNo')"
+                                 [maxlength]="30" (ionBlur)="hideRotation()" tappable>
+                  </ion-searchbar>
+                  <div style="position:relative;bottom:32px;height:0px;float:right;" [hidden]="hideRotationNoInfo"
+                        (click)="showInfoPopup()" >
+                  <ion-icon
+                            class="voyageButton iconGeneral icon icon-md ion-md-information-circle"
+                            ios="ios-information-circle" md="md-information-circle" role="img" tappable
+                            aria-label="information circle" ng-reflect-ios="ios-information-circle"
+                            ng-reflect-md="md-information-circle" style="margin:0px!important" >
+                  </ion-icon>
+                  </div>
+
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <div class="mandatory" *ngIf="retrieveMandatory && !doRoatationnoForm.controls.doRotationNo.valid">
+            Rotation No is mandatory
+          </div>
+        </div>
+      </ion-row>
+      <ion-list *ngIf="showRotationNo" style="width:100%;">
+        <ion-item *ngFor="let item of filterRotationArray" (mousedown)="selectRotation(item)" tappable>
+          {{ item.rotationNo }}
+        </ion-item>
+      </ion-list>
+    </form>
+
+    <form [formGroup]="billOfLadingDetailsForm" noValidate>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm [ngClass]="(readOnlyFlag) ? 'disableDiv' : '' ">
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">IGM/MRN No
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar type="tel" (ionInput)="getIgmNos($event)" formControlName="doIgmMrnNo"
+                           [(ngModel)]="selectedigmMrnNo"
+                           (ionFocus)="getMrnNumberMaster()" (ionBlur)="hideIgmMrnNo()" tappable
+                           [maxlength]="30"
+                           (keyup)="keyUpValidate($event,'^[0-9]{0,30}$','selectedigmMrnNo')">
+            </ion-searchbar>
+            <ion-list *ngIf="showIgmMrnNo">
+              <ion-item *ngFor="let item of filterMrnArray" (mousedown)="selectIgmMrnNo(item)" tappable>
+                {{ item.iGMMRNNo }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory" *ngIf="retrieveMandatory && !billOfLadingDetailsForm.controls.doIgmMrnNo.valid">
+            IGM/MRN No is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="!showBillOfLading">
+        <div class="col" col-12 col-sm [ngClass]="(readOnlyFlag) ? 'disableDiv' : '' ">
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Bill of Lading No
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar type="text" (ionInput)="getBillOfLadingNos($event)" formControlName="doBillNo"
+                           [(ngModel)]="selectedBillNo"
+                           (ionFocus)="getbiolNumberMaster()" (ionBlur)="hideBillOfLadingNo()" tappable
+                           [maxlength]="30"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','selectedBillNo')">
+            </ion-searchbar>
+            <ion-list *ngIf="showBillOfLadingNo" class="billSearchHeight">
+              <ion-item *ngFor="let item of filterbiolNoArray" (mousedown)="selectBillOfLadingNo(item)" tappable>
+                {{ item.billofLadingNo }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory" *ngIf="retrieveMandatory && !billOfLadingDetailsForm.controls.doBillNo.valid">
+            Bill of Lading No is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 *ngIf="showBillOfLading">
+        <div class="col" col-12 col-sm [ngClass]="(readOnlyFlag) ? 'disableDiv' : '' ">
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">House Bill Of Lading No
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar type="text" (ionInput)="getHouseBillOfLadingNos($event)" formControlName="doHouseBillNo"
+                           [(ngModel)]="selectedHouseBillNo"
+                           (ionFocus)="gethbiolNumberMaster()" (ionBlur)="hideHouseBillOfLadingNo()" tappable
+                           [maxlength]="30"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','selectedHouseBillNo')">
+            </ion-searchbar>
+            <ion-list *ngIf="showHouseBillOfLadingNo">
+              <ion-item *ngFor="let item of filterHbiolNoArray" (mousedown)="selectHouseBillOfLadingNo(item)" tappable>
+                {{ item.houseBillofLadingNo }} - {{ item.billofLadingNo }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory" *ngIf="retrieveMandatory && !billOfLadingDetailsForm.controls.doHouseBillNo.valid">
+            House Bill Of Lading No is mandatory
+          </div>
+        </div>
+      </ion-row>
+    </form>
+
+    <div [ngClass]="(readOnlyFlag) ? 'disableDiv' : '' ">
+      <ion-row align-items-center>
+        <button color="submit" class="retrive button-apply-general" [disabled]="onRetriveStatus()" ion-button
+                type="submit" (click)="onRetrieve()" tappable> Retrieve
+        </button>
+      </ion-row>
+    </div>
+  </div>
+
+
+  <div class="style3" [hidden]="!importerDetails">
+
+    <ion-row col-11>
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Importer Name</ion-label>
+        </ion-item>
+        <ion-item text-wrap class="left">
+          <ion-label>{{importerName}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Importer Address</ion-label>
+        </ion-item>
+        <ion-item text-wrap class="left">
+          <ion-label>{{importerAddress}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Port Of Loading
+          </ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>{{portOfLoading}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Port Of Destination
+          </ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>{{portOfDestination}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">No Of Containers
+          </ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>{{noOfContainers}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+  </div>
+
+  <div class="style4" [hidden]="!deliveryOrderDetails">
+    <form [formGroup]="selectedDoBoxOperatorForm" noValidate>
+      <ion-row col-11 *ngIf="shouldShow">
+        <div class="col" col-12 col-sm [ngClass]="(readOnlyFlagEmpty) ? 'disableDiv' : '' ">
+          <ion-label color="label" stacked class="bold label_cdo">Box Operator
+            <span class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">Box Operator
+            </ion-label>
+            <ion-select style="margin-top: 5px;" class="deliverycreate" placeholder="Box Operator" formControlName="selectedDoBoxOperator"
+                        [(ngModel)]="selectedDoBoxOperator" tappable>
+              <ion-option *ngFor="let bm of boxOperatortDOModel.boxOperatorMaster" value={{bm}}>{{bm}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory"
+               *ngIf="mandatory && !selectedDoBoxOperatorForm.controls.selectedDoBoxOperator.valid">
+            Box Operator is mandatory
+          </div>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="selectedDoRotationNoForm" noValidate>
+      <ion-row col-11 *ngIf="shouldShow">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Rotation No (VIA No)
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-row class="row">
+              <ion-col class="col">
+                <div  style="max-height: 40px !important;" [ngClass]="(readOnlyFlagEmpty) ? 'disableDiv' : '' ">
+                  <ion-searchbar type="tel" (ionInput)="getRotationNo($event, true)" formControlName="selectedDoRotationNo"
+                                 [(ngModel)]="selectedDoRotationNo"
+                                 (ionFocus)="getRotationNumberMaster(true)" tappable [maxlength]="30"
+                                 (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','selectedDoRotationNo')"
+                                 (ionBlur)="hideDoRotation()"></ion-searchbar>
+
+                  <div style="position:relative;bottom:32px;height:0px;float:right;" [hidden]="hideRotationNoInfo"
+                       (click)="showInfoPopup()" >
+                    <ion-icon
+                      class="voyageButton iconGeneral icon icon-md ion-md-information-circle"
+                      ios="ios-information-circle" md="md-information-circle" role="img" tappable
+                      aria-label="information circle" ng-reflect-ios="ios-information-circle"
+                      ng-reflect-md="md-information-circle" style="margin:0px!important" >
+                    </ion-icon>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+          <div class="mandatory"
+               *ngIf="mandatory && !selectedDoRotationNoForm.controls.selectedDoRotationNo.valid">
+            Rotation No is mandatory
+          </div>
+        </div>
+      </ion-row>
+      <ion-list *ngIf="showRotationNo"  style="width:100%;">
+        <ion-item *ngFor="let item of filterRotationArray" (mousedown)="selectRotation(item)" tappable>
+          {{ item.rotationNo }}
+        </ion-item>
+      </ion-list>
+    </form>
+
+    <form [formGroup]="deliveryOrderDetailsForm1" noValidate>
+      <ion-row col-11>
+
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Agent Reference No
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-input type="text" (keyup.enter)="keyboardClose()" tappable
+                       formControlName="agentReferenceNo" onpaste="return true;" spellcheck="false"
+                       [(ngModel)]="agentReferenceNo" (ionBlur)="onFocusChangeofAgentRef()" maxlength="30"
+                       placeholder="Agent Reference No"></ion-input>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderDetailsForm1.controls.agentReferenceNo.valid">
+            Agent Reference No is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" >
+            <ion-label color="label" stacked class="bold">DO Validity Date
+              <span class="span">*</span>
+            </ion-label>
+            <ion-datetime displayFormat={{dateFormat}} min={{currDate}} max="2050-01-01"
+                          formControlName="dovalidityDate" placeholder="DD/MM/YYYY"
+                          [(ngModel)]="dovalidityDate" tappable class="datetimeStyle"></ion-datetime>
+          </ion-item>
+          <ion-icon class="cal" name="calendar" color="header" tappable></ion-icon>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderDetailsForm1.controls.dovalidityDate.valid">
+            DO Validity Date is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+    </form>
+
+    <form [formGroup]="doForExamForm" noValidate>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" >
+            <ion-label color="label" stacked class="bold">DO For Examination
+            </ion-label>
+            <ion-select class="deliverycreate" formControlName="doForExam" [(ngModel)]="doForExam"
+                        placeholder="DO For Examination" tappable>
+              <ion-option *ngFor="let doExam of doExamination" value={{doExam.definedSetValueCode}}>
+                {{doExam.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="deliveryOrderDetailsForm2" noValidate>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left">
+            <ion-label color="label" stacked class="bold">Departure Mode
+            </ion-label>
+            <ion-select class="deliverycreate" formControlName="departureMode" [(ngModel)]="departureMode"
+                        placeholder="Departure Mode" tappable>
+              <ion-option *ngFor="let deMode of departureModeOptions" value={{deMode.definedSetValueCode}}>
+                {{deMode.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-label color="label" stacked class="bold label_cdo">Delivery To
+            <span *ngIf="isDeliveryToMandatory" class="span">*</span>
+          </ion-label>
+          <ion-item class="left">
+            <ion-label hidden color="label" stacked class="bold headerVisibility">Delivery To
+            </ion-label>
+            <ion-select class="deliverycreate" (ionChange)="onSelectionchangeofDeliveryTo()"
+                        formControlName="deliveryTo"
+                        placeholder="Delivery To"
+                        [(ngModel)]="deliveryorderreqmodel.deliveryTo" tappable>
+              <ion-option *ngFor="let deTo of deliveryToList" value={{deTo.definedSetValueCode}}>
+                {{deTo.definedSetValueIntMessage}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderDetailsForm2.controls.deliveryTo.valid">
+            Delivery To is mandatory
+          </div>
+        </div>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="deliveryOrderDetailsForm3" noValidate>
+      <ion-row col-11 [hidden]="!getDeliveryType(1)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Freight Forwarder Company Code
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar type="text" (ionInput)="getFrieghtItems($event)" (ionFocus)="getFrieghtFromService()"
+                           tappable
+                           (ionBlur)="hideFrieghtSuggestion($event)" formControlName="frieghtForwarderCode"
+                           [(ngModel)]="deliveryorderreqmodel.frieghtForwarderCode"
+                           [maxlength]="255"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.frieghtForwarderCode')">
+            </ion-searchbar>
+            <ion-list *ngIf="showFrieghtSug">
+              <ion-item *ngFor="let item of filterFrieghtArray" (mousedown)="onSelectFrieght(item)" tappable>
+                {{ item.companyCode }} - {{ item.companyName }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory"
+               *ngIf="mandatory && !deliveryOrderDetailsForm3.controls.frieghtForwarderCode.valid">
+            Freight Forwarder Company Code is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(1)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines="">
+            <ion-label color="label" stacked class="bold">Freight Forwarder Company Name</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-label>{{deliveryorderreqmodel.frieghtForwarderName}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(2)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Consignee Company Code
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar (ionInput)="getConsigneeItems($event)" tappable
+                           (ionFocus)="getConsigneeFromService()"
+                           (ionBlur)="hideConsigneeSuggestion($event)"
+                           formControlName="consigneeCode" [(ngModel)]="deliveryorderreqmodel.consigneeCode"
+                            [maxlength]="255"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.consigneeCode')"
+            ></ion-searchbar>
+            <ion-list *ngIf="showConsigneeSug">
+              <ion-item *ngFor="let item of filterConsigneeArray" (mousedown)="onSelectConsignee(item)" tappable>
+                {{ item.companyCode }} - {{ item.companyName }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderDetailsForm3.controls.consigneeCode.valid">
+            Consignee Company Code is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(2)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Consignee Company Name</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-label>{{deliveryorderreqmodel.consigneeName}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(3)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">CFS Company Code
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar (ionInput)="getCFSItems($event)" (ionFocus)="getCFSFromService()" tappable
+                           (ionBlur)="hideCFSSuggestion($event)" formControlName="cFSCode"
+                           [(ngModel)]="deliveryorderreqmodel.cFSCode"
+                           [maxlength]="255"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.cFSCode')"
+            ></ion-searchbar>
+            <ion-list *ngIf="showCFSSug">
+              <ion-item *ngFor="let item of filterCFSArray" (mousedown)="onSelectCFS(item)" tappable>
+                {{ item.companyCode }} - {{ item.companyName }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderDetailsForm3.controls.cFSCode.valid">
+            CFS Company Code is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(3)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">CFS Company Name</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-label>{{deliveryorderreqmodel.cFSName}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(4)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Empty Yard Company Code
+              <span class="span">*</span>
+            </ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar (ionInput)="getEmptyItems($event)" tappable
+                           (ionFocus)="getEmptyFromService()"
+                           (ionBlur)="hideEmptySuggestion($event)"
+                           formControlName="emptyYardCode"
+                           [(ngModel)]="deliveryorderreqmodel.emptyYardCode"
+                           [maxlength]="255"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.emptyYardCode')"
+            ></ion-searchbar>
+            <ion-list *ngIf="showEmptySSug">
+              <ion-item *ngFor="let item of filterEmptyArray" (mousedown)="onSelectEmpty(item)" tappable>
+                {{ item.companyCode }} - {{ item.companyName }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+          <div class="mandatory" *ngIf="mandatory && !deliveryOrderDetailsForm3.controls.emptyYardCode.valid">
+            Empty Yard Company Code is mandatory
+          </div>
+        </div>
+      </ion-row>
+
+      <ion-row col-11 [hidden]="!getDeliveryType(4)">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Empty Yard Company Name</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-label>{{deliveryorderreqmodel.emptyYardName}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">CHA Company Code</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar (ionInput)="getCHAItems($event)" (ionFocus)="getCHAFromService()" tappable
+                           (ionBlur)="hideCHASuggestion($event)" formControlName="cHACode"
+                           [(ngModel)]="deliveryorderreqmodel.cHACode"
+                           [maxlength]="255"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.cHACode')"
+            ></ion-searchbar>
+            <ion-list *ngIf="showCHASug">
+              <ion-item *ngFor="let item of filterCHAArray" (mousedown)="onSelectCHA(item)" tappable>
+                {{ item.companyCode }} - {{ item.companyName }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">CHA Company Name</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-label>{{deliveryorderreqmodel.cHAName}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Haulier Company Code</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-searchbar (ionInput)="getHaulierItems($event)" (ionFocus)="getHaulierCode()" tappable
+                           (ionBlur)="hideHaulierSuggestion($event)" formControlName="haulierCode"
+                           [(ngModel)]="deliveryorderreqmodel.haulierCode"
+                           [maxlength]="255"
+                           (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.haulierCode')"
+            ></ion-searchbar>
+            <ion-list *ngIf="showHaulierSug">
+              <ion-item *ngFor="let item of filterHaulierArray" (mousedown)="onSelectHaulierCode(item)" tappable>
+                {{ item.companyCode }} - {{ item.companyName }}
+              </ion-item>
+            </ion-list>
+          </ion-item>
+        </div>
+      </ion-row>
+
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Haulier Company Name</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-label> {{deliveryorderreqmodel.haulierName}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-row>
+      <ion-row col-11 *ngIf="!shouldShow">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Container Permit No</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-input type="text" formControlName="containerPermitNo" [(ngModel)]="containerPermitNo" maxlength="255"
+                       tappable (ionBlur)="onContainerPermitNoBlur()" (keyup.enter)="keyboardClose()" placeholder="Container Permit No"
+                       onpaste="return true;" (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]*$','containerPermitNo')"
+                       spellcheck="false"></ion-input>
+          </ion-item>
+        </div>
+      </ion-row>
+      <ion-row col-11 *ngIf="!shouldShow">
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Container Permit Date</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-datetime displayFormat={{dateFormat}} min="1960-01-01" max={{currDate}} placeholder="DD/MM/YYYY"
+                          formControlName="containerPermitDate" [(ngModel)]="containerPermitDate"
+                          (ionChange)="onPermitDateSelection()" class="datetimeStyle" tappable></ion-datetime>
+          </ion-item>
+          <ion-icon class="cal" name="calendar" color="header" tappable></ion-icon>
+        </div>
+      </ion-row>
+      <ion-row col-11>
+        <div class="col" col-12 col-sm>
+          <ion-item class="left" no-lines>
+            <ion-label color="label" stacked class="bold">Instructions To Other Party</ion-label>
+          </ion-item>
+          <ion-item class="left">
+            <ion-textarea placeholder="Instructions" formControlName="instructionsToOtherParty"  maxlength="255"
+                          [(ngModel)]="instructionsToOtherParty" tappable
+                          (ionBlur)="oninstructionsToOtherPartyBlur($event)" spellcheck="false">
+            </ion-textarea>
+          </ion-item>
+        </div>
+      </ion-row>
+    </form>
+  </div>
+
+
+  <div class="style5 container" [hidden]="!containerTable">
+    <div [hidden]="!showContainerTable()">
+
+      <ion-searchbar (ionInput)="getContainerList($event)" tappable type="text"  (ionBlur)="validateContainer($event)"
+                     (ionFocus)="getContainerDetails()" placeholder="Search Containers" [(ngModel)]="searchedContainer"
+                     onpaste="return true;" [maxlength]="30" style="margin-top:3%;border-bottom: 0.55px solid rgba(0, 0, 0, 0.35) !important"
+                     (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','searchedContainer')"
+      ></ion-searchbar>
+      <div *ngIf="containerCount(containerTableDetails.length)" class="containerCount">{{containerTableDetails.length}}
+        {{containerValue}} Added
+      </div>
+      <ion-list *ngIf="showContainer" class="contanerlist">
+        <ion-item *ngIf="filterContainerArray.length != 0">
+          <ion-label class="label_cont">All</ion-label>
+          <ion-checkbox class="checkbox_cont" (click)="selectAllContainer()" [(ngModel)]="allSelected"
+                        tappable></ion-checkbox>
+        </ion-item>
+        <ion-item *ngFor="let container of filterContainerArray">
+          <ion-label class="label_cont">{{ container.containerNo}}</ion-label>
+          <ion-checkbox class="checkbox_cont" (ionChange)="toggleSelected(container)" [(ngModel)]="container.selected"
+                        [checked]="allSelected?allSelected:container.selected" tappable></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      <ion-row style="margin-top: 3px;">
+        <ion-col>
+          <button class="doneButton button-apply-general" full color="submit" [disabled]="disableDone"
+                  ion-button (click)="submitContainerSelection()" tappable>Done
+          </button>
+        </ion-col>
+        <ion-col>
+          <button class="button-apply-general doneButton" full color="submit"
+                  ion-button (click)="cancelContainerSelection()" [disabled]="disableClear" tappable>Clear
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="container container-padding" *ngIf="containerDataTable">
+      <div [hidden]="(selectedDoBoxOperator !='' && selectedDoRotationNo != '')"
+           *ngIf="containerCount(containerTableDetails.length)" class="containerCount">{{containerTableDetails.length}}
+        {{containerValue}} Selected
+      </div>
+      <div class="attach-container" *ngFor="let container of containerTableDetails; let i = index; let cx = count; ">
+        <div class="container-details-headder">
+          <div class="expand-holder-left-side"
+               (click)="(container.hideval == true) ? container.hideval=false : container.hideval=true" tappable>
+            <div class="rotateIconHolder">
+              <div style="float:left;left:0px;text-align: left;"
+                   [ngClass]="(container.hideval)? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright" style="float:right;left:0px;" tappable>
+                </ion-icon>
+              </div>
+            </div>
+            <div class="container-details-headder-text"> {{container.containerNo}}</div>
+          </div>
+          <div class="icon-holder-right-side" *ngIf="trashIconStatus"
+               (click)="removeAttachContainerDetais(container)" tappable>
+            <ion-icon name="trash" class="iconGeneral pullRightToContainer" tappable></ion-icon>
+          </div>
+        </div>
+        <div [ngClass]="(container.hideval)? 'container-details-content-hide' : 'container-details-content' ">
+          <ion-row class="container-details-sub-content">
+            <ion-col col-5 class="greycolor">
+              Container No
+            </ion-col>
+            <ion-col col-7>
+              {{container.containerNo}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="container-details-sub-content">
+            <ion-col col-5 class="greycolor">
+
+              ISO Code
+
+            </ion-col>
+            <ion-col col-7>
+
+              {{container.iSOCode}}
+
+            </ion-col>
+          </ion-row>
+          <ion-row class="container-details-sub-content">
+            <ion-col col-5 class="greycolor">
+
+              Container Size
+
+            </ion-col>
+            <ion-col col-7>
+
+              {{container.containerSize}}
+
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="!doisEmpty" class="container-details-sub-content">
+            <ion-col col-5 class="greycolor">
+              Seal No
+            </ion-col>
+            <ion-col col-7>
+              {{container.sealNo}}
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="doisEmpty" class="container-details-sub-content">
+            <ion-col col-5 class="greycolor reeferLabel">
+              Reefer
+            </ion-col>
+            <ion-col *ngIf="!editReefer(container)" col-7>
+              {{container.reefer}}
+            </ion-col>
+            <ion-col *ngIf="editReefer(container)" class="reeferText removePadding removeMargin"
+                     style="margin-bottom: 1px !important;" col-7>
+              <ion-item style="padding-left: 3px !important;">
+                <ion-input type="text" maxlength="3" [(ngModel)]="container.reefer" (ionFocus)="checkReffer($event,'in')" (ionBlur)="checkReffer($event,'out');lstKeyUpValidateOnBlur(container)"
+                           spellcheck="false" (keyup.enter)="keyboardClose()"  (keyup)="lstKeyUpValidate($event,'^[0-9-.]{0,7}$','reefer',container)" tappable></ion-input>
+              </ion-item>
+              <div class="valerror-search-warning" *ngIf="isConfirmOpen == true">
+                {{WarningMsg_Refeer}}
+              </div>
+            </ion-col>
+
+
+
+          </ion-row>
+
+          <ion-row class="container-details-sub-content">
+            <ion-col col-5 class="greycolor">
+              Container Status
+            </ion-col>
+            <ion-col col-7>
+
+              {{container.containerStatus}}
+
+            </ion-col>
+          </ion-row>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="style6" [hidden]="!cargoDetails">
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Nature Of Cargo</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.natureOfCargo}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Unit Of Quantity</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.unitOfQuantity}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Package Detail</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.packageDetail}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Total No Of Packages</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.totalNoOfPackages}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Package Type</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.packageType}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Total Item No</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.totalItemNo}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Total Quantity</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.totalQuantity}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <ion-row col-11>
+
+      <div class="col" col-12 col-sm>
+        <ion-item class="left" no-lines>
+          <ion-label color="label" stacked class="bold greycolor">Total Weight</ion-label>
+        </ion-item>
+        <ion-item class="left">
+          <ion-label>
+            {{importRetrieveModel.totalWeight}}
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+    <div *ngIf="showCommoditytable">
+      <ion-item class="left" >
+        <ion-label color="label" stacked class="bold greycolor">Commodity Details</ion-label>
+      </ion-item>
+      <ion-grid class="ionrow gridstyle_1 removePadding">
+        <ion-row class="headderRowCommodity removePadding">
+          <ion-col text-wrap class="commodityTitleStyle border-right-colr2 headderColCommodity" col-4>
+            Commodity Code
+          </ion-col>
+          <ion-col class="commodityTitleStyle headderColCommodity" col-8>
+            Item Description
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow gridstyle_2" *ngFor="let commodity of commodityDetails">
+        <ion-row>
+          <ion-col col-4 class="col_style">
+            {{commodity.cargoCommodityCode}}
+          </ion-col>
+          <ion-col text-wrap col-8 class="col_style">
+            {{commodity.cargoItemDescription}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+  <div [hidden]="!(showAttachment)">
+    <ion-row *ngFor="let attachment of attachments" style="background-color: white;"class="attachrowSeperator min-height-Css">
+      <div class="col photo-button-col" style="width: 125px !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+float: left;
+display: inline-block;">
+        <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block
+                (click)="openDocs(attachment)" tappable>Upload
+          <ion-icon name="clipboard" class="photoicon"></ion-icon>
+        </button>
+      </div>
+      <div class="removePadding" style="width: calc(100% - 185px) !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+float: left;
+display: inline-block;" (click)="openattach(attachment)" tappable>
+        <img src="assets/img/image-icon.png" class="photoSelectedIcon" style="margin-top: 12px !important;"
+             *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+        <ion-label class="wrap-content removeMargin photSelectedIconLabel filename">
+          {{attachment.fileName}}
+        </ion-label>
+      </div>
+      <div class="removePadding removeMargin" style="width: 60px !important;
+float: left;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+display: inline-block;">
+        <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+          <ion-icon ios="ios-close" md="md-close"></ion-icon>
+        </button>
+      </div>
+    </ion-row>
+    <div class="row responsive-sm">
+      <button ion-button class="add-button margin-forPhotoButton" (click)="addAttachment()" tappable>
+        <ion-icon ios="ios-add" md="md-add" class="photo-button-icon"></ion-icon>
+      </button>
+    </div>
+    <button class="button-apply-general footer-submit" ion-button full type="submit" color="submit"
+             (click)="deliveryOrderSubmit()" tappable>
+      Submit
+    </button>
+  </div>
+</ion-content>
+
+
+
+

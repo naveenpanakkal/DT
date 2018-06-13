@@ -1,0 +1,1073 @@
+<ion-header>
+  <ion-navbar #navbar color="header" id="header" no-line>
+    <ion-title class="title">{{ 'VIEW_DETAILS' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+
+  <!--<ion-toolbar color="header" style="margin-top:-1%;" id="tool">-->
+    <!--<button ion-button id="vesselbutton" color="light" clear [style.border-bottom]="getfirstStyle()" tappable-->
+            <!--[style.color]="getfirsttextStyle()" (click)="firstpage()"> {{ 'VESSEL_DETAILS' | translate }}-->
+    <!--</button>-->
+    <!--<button ion-button id="truckbutton" color="light" clear [style.border-bottom]="getsecondStyle()" tappable-->
+            <!--[style.color]="getsecondtextStyle()" (click)="secondpage()"> {{ 'OWNER_DETAILS' | translate }}-->
+    <!--</button>-->
+    <!--<button ion-button id="berthbutton" color="light" clear [style.border-bottom]="getthirdStyle()" tappable-->
+            <!--[style.color]="getthirdtextStyle()" (click)="thirdpage()"> {{ 'VESSEL_SPECS' | translate }}-->
+    <!--</button>-->
+    <!--<button ion-button id="voyagebutton" color="light" clear [style.border-bottom]="getfourthStyle()" tappable-->
+            <!--[style.color]="getfourthtextStyle()" (click)="fourthpage()"> {{ 'ATTACHMENTS' | translate }}-->
+    <!--</button>-->
+  <!--</ion-toolbar>-->
+
+
+
+  <ion-toolbar class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+
+          <ion-slide (click)="filterData(category)" [class.selected]="selectedCategory== category.heading"
+                     *ngFor="let category of mainArray" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ category.heading }}</button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="vesselViewContent" >
+
+  <!--Vessel Details -->
+  <div *ngIf="vesseldetails">
+
+    <ion-grid [hidden]="!fromHistory" class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">{{ 'requestID' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.vesselRegRequestId}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'Current_status' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.vesselRegistrationStatus}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'imoNo' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.imoNo}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'vesselName' | translate }}
+        </ion-col>
+        <ion-col text-wrap>
+          {{vesselSearchbyidresultModel.vesselName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'vessel_type' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselType}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'vessel_flag' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.vesselFlag}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'mmsi_No' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.mmsiNo}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'call_Sign' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.callSign}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'vesselBuild_Date' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'active' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.vesselBuildDate}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.active}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'yearOf_Reg' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.yearOfRegistration}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'isps_Compliance' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.ispsCompliance}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'vesselReg_Id' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.vesselRegistrationId}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'firstTerm_Call' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.firstTerminalCall}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'portOfReg' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.portOfRegistration}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'portOf_Approval' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.portOfApproval}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'ispsType' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.isps}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'expiryDate' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.expiryDate}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!--Vessel Specifications -->
+  <div *ngIf="vesselspec">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'vesselClass' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.vesselClass}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'class_Society' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.classificationSociety}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'reg_CertificateNo' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.registryCertificateNo}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'reg_ValidityDate' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.registryValidityDate}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'smCertificate_No' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.smCertificateNo}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'smCertificateVal_Date' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.smCertificateValidityDate}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'capii_Certificate' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.capiiCertificate}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'cc_Class' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.ccc}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'ccc_Date' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.cccDate}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'vesselCode' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.vesselCode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'vesselDelivery_Date' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.vesselDeliveryDate}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'vesselBuild_Place' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.vesselBuildPlace}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'keelLaying_Date' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.keelLayingDate}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'previousVessel_Name' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.previousVesselName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'previousCall_Sign' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.previousCallSign}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'free_Board' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.freeBoard}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'length_overall' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'width_vessel' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.length}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.width}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'height_vessel' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'beam_vessel' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.height}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.beam}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'bowToManifold' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'lbp_vessel' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.bowToManifold}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.lbp}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'parallelBodyLength' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.parallelBodyLength}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'engineType' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.engineType}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'noOf_Engines' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.noOfEngines}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'propulsion_Type' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.propulsionType}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'noOf_Propellers' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'noOf_VesselGears' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.noOfPropellers}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.noOfVesselGears}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'engine_Power' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'noOf_Bays' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.enginePower}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.noOfBays}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'noOfDeck_Rows' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.noOfDeckRows}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'hatchCover_Type' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.hatchCoverType}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'maxManuringSpeed' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'bowThruster' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.maxManuringSpeed}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.bowThruster}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'noOfBow_Thrusters' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'bowThrusterPower' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.noOfBowThrusters}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.bowThrusterPower}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'noOfStern_Thrusters' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'sternThrusterPower' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.noOfSternThrusters}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.sternThrusterPower}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'bulbousBow' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'vesselCapacity' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.bulbousBow}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.vesselCapacity}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'grossTonnage' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'grt' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.grossTonnage}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.grt}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'netTonnage' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'sbt' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.netTonnage}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.sbt}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'deadWeight_Tonnage' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'summerDeadWeight' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.deadWeightTonnage}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.summerDeadWeight}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'local_CorrespondentOfPiClub' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.localCorrespondentOfPiClub}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'noOfVessels_AddedLimit' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.noOfVesselsAddedLimit}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'hullInsuranceCompanyValidity' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'piIns_ValidDate' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.hullInsuranceCompanyValidity}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.piInsuranceValidDate}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'document_IssueDate' | translate }}
+        </ion-col>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'documentExp_Date' | translate }}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{vesselSearchbyidresultModel.documentIssueDate}}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.documentExpirationDate}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'pIClub_Name' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.pIClubName}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'hullInsurance_CompanyName' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.hullInsuranceCompanyName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'agencyFunction_Code' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.agencyFunctionCode}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'agency_Code' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.agencyCode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!--Owner Details -->
+  <div *ngIf="vesselowner">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'regOwnerName' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.registeredOwnerName}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'ownerphone_No' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.ownerphoneNo}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'owneremail_Id' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.owneremailId}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'owner_Address1' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.ownerAddress1}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'owner_Address2' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.ownerAddress2}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+         {{ 'owner_city' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.ownerCity}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'owner_country' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.ownerCountry}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'owner_state' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.ownerState}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'owner_post' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.ownerPostCode}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'operator_Name' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.operatorName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'operator_PhoneNo' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.operatorPhoneNo}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'operator_EmailId' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.operatorEmailId}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'operator_Address1' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.operatorAddress1}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'operator_Address2' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.operatorAddress2}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'operator_Country' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.operatorCountry}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          {{ 'operator_State' | translate }}
+        </ion-col>
+        <ion-col>
+          {{vesselSearchbyidresultModel.operatorState}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col id="ioncolrightwithcolor">
+          {{ 'operator_PostCode' | translate }}
+        </ion-col>
+        <ion-col id="ioncolright">
+          {{vesselSearchbyidresultModel.operatorPostCode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+  <!--Attachment Details -->
+  <div *ngIf="vesselattach">
+    <div class="attach"  *ngFor="let attachment of attachments;let i = index">
+      <div (click)="show(attachment)">
+        {{ 'ATTACHMENTS' | translate }} {{i+1}}
+        <ion-icon [name]="geticon(attachment)" class="image"></ion-icon>
+      </div>
+      <div *ngIf="attachment.showdetails" class="subheader">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              {{ 'documentType' | translate }}:
+            </ion-col>
+            <ion-col>
+              {{attachment.docType}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{ 'document_no' | translate }}:
+            </ion-col>
+            <ion-col>
+              {{attachment.docNum}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{ 'document_IssueDate' | translate }}:
+            </ion-col>
+            <ion-col>
+              {{attachment.docIssueDate}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{ 'doc_exp_date' | translate }}:
+            </ion-col>
+            <ion-col>
+              {{attachment.docExpDate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="highlightrow">
+            <ion-col>
+              {{ 'doc_name' | translate }}:
+            </ion-col>
+            <ion-col ion-icon name="archive" class="underline" (click)="openattach(attachment)">
+              {{attachment.fileName}}
+            </ion-col>
+            <!--  <ion-col>
+                <ion-icon name="archive"></ion-icon>
+              </ion-col>-->
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </div>
+  <ion-fab right bottom>
+    <button [hidden]="buttonStatus()" class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label [hidden]="workflowStatus()" class="fabedit"></ion-label>
+      <button [hidden]="workflowStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showWorkflow()" tappable>
+        <ion-icon name="custom-workflow"></ion-icon>
+      </button>
+      <ion-label [hidden]="hideCompare()" class="fabedit"></ion-label>
+      <button [hidden]="hideCompare()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seecomparison()" tappable>
+        <ion-icon name="custom-comparison"></ion-icon>
+      </button>
+      <ion-label [hidden]="loadAction()" class="fabedit"></ion-label>
+      <button [hidden]="loadAction()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showExecuteAction()" tappable>
+        <ion-icon name="custom-action"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

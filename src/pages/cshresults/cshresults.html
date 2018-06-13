@@ -1,0 +1,127 @@
+<!--
+  Generated template for the VesselloaddischargesummarysearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <!--<img class="fields" src="assets/img/Vessel load_Dischang Summary.svg" >-->
+    <ion-title class="title change-title-label">{{'cshResult'| translate}}</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="navigateToSort($event)" tappable>
+          <img class="filterImg" src="assets/img/sort.svg" tappable/>
+          {{ 'Sort' | translate }}
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="navigateToFilter($event)" tappable>
+          <img class="filterImg" src="assets/img/filter.svg" tappable/>
+          {{ 'Filter' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-toolbar color="milkygrey" class="countrow countresult">
+    <div>  {{cshSearchResult?.length}} out of {{cshSearchResult?.length}} results </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" class="searchcontent" id="CSHresults">
+  <ion-list >
+    <div class="gridclass" *ngFor="let selSch of cshSearchResult; let i= index;">
+      <ion-item-sliding>
+        <ion-item style="padding-left: 0px;" (click)="showCshDetails(i)" tappable>
+          <ion-row>
+            <ion-col text-wrap>
+              <h4 class="headers"> {{selSch.vesselName}} </h4>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9>
+              <ion-row class="subtitle">
+                <ion-col col-5 style="margin-bottom: 10px">
+                  <h6 class="subheader1" text-wrap>CSH Request No</h6>
+                </ion-col>
+                <ion-col>
+                  <h6 class="subheader2">{{selSch.cshNo}}</h6>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="subtitle">
+                <ion-col col-5 style="margin-bottom: 10px">
+                  <h6 class="subheader1">Rotation No</h6>
+                </ion-col>
+                <ion-col text-wrap >
+                  <h6 class="subheader2">{{selSch.rotationNumber}}</h6>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="subtitle">
+                <ion-col col-5 style="margin-bottom: 10px">
+                  <h6 class="subheader1">ETA</h6>
+                </ion-col>
+                <ion-col text-wrap >
+                  <h6 class="subheader2">{{selSch.etaSearch}}</h6>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="subtitle">
+                <ion-col col-5 style="margin-bottom: 10px">
+                  <h6 class="subheader1" text-wrap>Request Cut Off Time</h6>
+                </ion-col>
+                <ion-col text-wrap >
+                  <h6 class="subheader2">{{selSch.requestCutOffTime}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col>
+              <ion-row>
+                <ion-col class="statusStyle" text-wrap>
+                  <img class="approvedicon" [src]="getStatusIcon(selSch)"/>
+                  <h6 [style.color]="getStyle(selSch)">{{getStatus(selSch.requestStatus)}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+
+          <button ion-button color="secondary" [hidden]="hideApproveButton(selSch)" (click)="gotoapprove(selSch)"
+                  style=" border: 1px solid white;" tappable>
+            <ion-icon name="custom-action"></ion-icon>
+            {{ 'approve' | translate }}
+          </button>
+
+          <button ion-button color="secondary" [hidden]="editHidden(selSch)" (click)="goedit(selSch)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-Edit"></ion-icon>
+            {{ 'edi-b' | translate }}
+          </button>
+
+          <button ion-button color="secondary" (click)="goview(selSch)" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            {{ 'view' | translate }}
+          </button>
+
+          <button ion-button color="secondary" [hidden]="cancelHidden(selSch)" (click)="goCancelCsh(selSch)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            {{ 'del-b' | translate }}
+          </button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </div>
+  </ion-list>
+<ion-fab right bottom>
+    <button ion-fab style="background-color: #F2B011;" *ngIf="hideCreate()" (click)="openCSHCreate()" tappable>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+
+</ion-content>

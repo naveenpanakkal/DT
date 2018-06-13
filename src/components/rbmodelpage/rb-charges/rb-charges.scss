@@ -1,0 +1,30 @@
+rb-charges-container {
+  .colStyle{
+    font-weight: 500;
+    padding: 4px 0 4px 0;
+    border-left: 1px solid #929292;
+    border-bottom: 1px solid #929292;
+    text-align: center;
+  }
+  ion-row{
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+  .firstRow{
+    border-top: 1px solid #929292;
+    background-color: #F2B011;
+  }
+  .lastRow{
+    background-color: #f6e8c4;
+  }
+}
+.platform-ios rb-charges-container .title-ios, rb-charges-container .toolbar-title-ios {
+  position: absolute;
+  padding-top: 10px !important;
+}
+
+.platform-iphone rb-charges-container ion-toolbar,
+.platform-ipad rb-charges-container ion-toolbar{
+  padding: 4px !important;
+  min-height: 44px!important;
+}

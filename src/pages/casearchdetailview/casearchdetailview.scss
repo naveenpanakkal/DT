@@ -1,0 +1,553 @@
+page-casearchdetailview {
+  .hideSubheaderContianerDetails_1 {
+    height: 0px;
+    opacity: 0;
+    overflow:hidden !important;
+    display:block !important;
+  }
+
+  .subheaderContianerDetails_1 {
+    height: auto;
+    width: 100%;
+    opacity: 1;
+  }
+  .upperCasefont{
+    text-transform: uppercase
+  }
+  .cont_details{
+    margin-bottom: 1px;
+    margin-top: 0px;position: relative;
+    width: 100%;
+    min-height: 100%;
+    top: 0px;
+    transition: none !important;
+  }
+  .cont_label{
+    float: left;
+    display:inline-block;
+    padding: 3px 0px 0px 30px;
+    margin: 0px;
+    color:white;
+    width: 63%;
+  }
+
+  .cont_head{
+    font-size: 18px;
+    color: white;
+    float:left;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  #vesselbutton {
+    display: inline-block;
+    width: auto !important;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid #519CDC;
+    position: relative;
+    top: 10px;
+    margin: 0 !important;
+  }
+
+  #pad {
+    padding: 22px;
+    color: #a0a0a0;
+  }
+  .fwd_arrow{
+    padding-left: 0px !important;
+  }
+
+ .sample .datetime-text
+  {
+    width: 100%;
+    font-size: 1.5rem !important;
+    overfloaw:visible !important;
+    text-overflow: initial !important;
+
+  }
+  .datetime-ios {
+    padding: 0px !important;
+  }
+
+  .cal {
+    float: right;
+    font-size: 1.8em;
+    position: relative;
+    margin-top: -20%;
+  }
+  .rotateIconHolder{
+    width:70%;
+    height:auto;
+    float: left;
+    font-size: 18px;
+    color: white;
+  }
+  .filters {
+
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+
+      ion-icon {
+        color: #ccc;
+      }
+
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  .edit {
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom: 20%;
+    margin-right: 15%;
+
+  }
+  .toolbar-title {
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .title {
+    position: relative;
+    right: 6%;
+  }
+
+  .tool {
+    margin-top: -1%;
+    width: 100% !important;
+  }
+
+  .box {
+    padding: 1%;
+    background-color: #135E9F;
+    margin: 5px;
+    color: white;
+  }
+
+  .iconposition {
+    float: right;
+  }
+
+  .ionrow {
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+  }
+
+  .span {
+    color: red;
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+
+  #ioncol {
+    padding-top: 5%;
+    color: #a0a0a0;
+  }
+  #ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+  .attach-container-details .col {
+    margin:0px !important;
+    padding:0px !important;
+  }
+
+  ion-select {
+    max-width: 100% !important;
+  }
+
+  .footer_submit {
+    font-size: 2rem;
+    position: relative;
+    top: 100%;
+  }
+  .code {
+    width: 10%;
+  }
+  .container .subContainer {
+    background-color: rgba(17, 62, 99, 0.95);
+    color: white;
+    font-size: 1rem !important;
+    height: 35px;
+  }
+
+  .container .subContainer2 {
+    background: gray;
+    color: white;
+    border: thin solid white;
+    font-size: 61%;
+    font-weight: lighter;
+  }
+  .subheader {
+    background: #CFCFCF;
+    margin-top: 10px;
+  }
+  .underline {
+    border-bottom: 1px solid darkblue;
+    color: darkblue;
+  }
+  #ioncolrightwithcolorblack {
+    color: black;
+  }
+  .attach {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+  }
+  .add_button {
+    background-color: #113B5F;
+    margin-bottom: 10%;
+    float: left;
+  }
+  .close_button {
+    margin-top: 30%;
+    float: right;
+    margin-left: 100%;
+    width: 40%;
+    color: #113B5F
+  }
+
+  #ioncol {
+    padding-top: 5%;
+    color: #a0a0a0;
+  }
+  #ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+
+  .mainContainer-ContainerDetails{
+    height:100%;
+    width:100%;
+    position:relative;
+    padding:0px !important;
+    margin:0px !important;
+  }
+
+  .add-button-container-details{
+    background-color: #1a3d7b;
+    margin-bottom : 10%;
+    border-radius: 0px !important;
+    float: left;
+  }
+
+  .grid-seperator
+  {
+    border-bottom: 1px solid #dedede;
+    border-top: 1px solid #dedede;
+  }
+  .floatingButton
+  {
+    border-radius: 100%;
+    /* padding: 25px; */
+    height: 60px;
+    width: 60px;
+    bottom: 30px;
+    z-index: 100;
+    float: right;
+    right: 10px;
+    /* display: inline-block; */
+    position: fixed;
+  }
+  .attach-headder{
+    height: 52px;
+    width: 100%;
+    background-color: #275680;
+    padding: 15px;
+    border-bottom: 1px solid #244f63;
+  }
+
+  page-cacreate .paddingforContainerDetails {
+    padding: 0px !important;
+  }
+  .paddingforContainerDetails
+  {
+    padding: 0px !important;
+  }
+  page-cacreate .paddingforContainerDetails  .scroll-content {
+    padding: 0px !important;
+  }
+
+  .iconGeneral
+  {
+    color:white;
+    font-size:20px;
+
+    width: 30px;
+    text-align: center;
+  }
+  .pullRightToContainer{
+    float:right;
+    margin-right:5px;
+    display: inline-block;
+  }
+  .attach-container-details
+  {
+    width:100%;
+    overflow: hidden;
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  .subheaderContianerDetails{
+    height:auto;
+
+  }
+  //.rotateIconHolder{
+  //  width:20px;
+  //  height:20px;
+  //  float: left;
+  //  display: inline-block;
+  //  font-size: 18px;
+  //  color: white;
+  //}
+  .hideSubheaderContianerDetails{
+    height:0px;
+    display:none;
+    //-webkit-animation-name: closeContianerDetails;
+    //-webkit-animation-duration: 800ms;
+    //-webkit-animation-animation-iteration-count: 1;
+    //-webkit-animation-animation-timing-function: cubic-bezier(0, 0.9, 0.17, 1.23);
+    //-webkit-animation-transform:translateZ(0);
+    //animation-name: closeContianerDetails;
+    //animation-duration: 800ms;
+    //animation-iteration-count: 1;
+    //animation-timing-function: cubic-bezier(0, 0.9, 0.17, 1.23);
+    //transform:translateZ(0);
+  }
+  @-webkit-keyframes closeContianerDetails {
+    from {height: 385px;}
+    to {height: 0px;}
+  }
+  .subheaderContianerDetails {
+
+    //-webkit-animation-name: openContianerDetails;
+    //-webkit-animation-duration: 800ms;
+    //-webkit-animation-animation-iteration-count: 1;
+    //-webkit-animation-animation-timing-function: cubic-bezier(0, 0.9, 0.17, 1.23);
+    //-webkit-animation-transform:translate3D(0,0,0);
+    //animation-name: openContianerDetails;
+    //animation-duration: 800ms;
+    //animation-iteration-count: 1;
+    //animation-timing-function: cubic-bezier(0, 0.9, 0.17, 1.23);
+    //transform:translate3D(0,0,0);
+  }
+  @-webkit-keyframes openContianerDetails {
+    from {height: 0px;}
+    to {height: 385px;}
+  }
+  .rotateIconDown{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  .rotateIconUp{
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .attach-container-details .col{
+    padding: 0px !important;
+  }
+
+  .pullRightToContainer{
+    float:right;
+    margin-right:5px;
+  }
+  .min-height-Css
+  {
+    min-height:48px;
+  }
+  .set-min-margin{
+    margin-bottom: 5px;
+  }
+
+  .remove-margin-left{
+    margin-left: 0px !important;
+  }
+  .nominationtab .col{
+    padding:0px !important;
+
+  }
+  .mandatory {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    bottom: 1px;
+    left: 13px;
+  }
+
+  .mandatory_1 {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    bottom: 1px;
+  }
+  .mandatory_2 {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    bottom: 6px;
+  }
+  .codeMandatory {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    bottom: 3px;
+    margin-right: 3px;
+  }
+
+  .add-button{
+    background-color: #113B5F !important;
+    margin-bottom : 10%;
+    border-radius: 0px !important;
+    float: left;
+    width: 40px;
+    height: 3.8rem !important;
+  }
+  .mainContainer-ContainerDetails .text-input-md {
+    margin: 0px !important;
+    font-size: 14px !important;
+  }
+  .footer-submit{
+    //font-size: 2rem;
+    margin-left:calc((100% - 118px) / 2) !important
+  }
+  .close-button{
+    //margin-top: 10%;
+    //float: right;
+    //margin-right: 20px;
+    //width:23px;
+    //height:22px;
+    //background-color: #113B5F;
+    //color: white;
+    //border-radius:50%;
+    margin-top: 15%;
+    float: right;
+    margin-left: 100%;
+    margin-right: 20%;
+    border-radius: 0px !important;
+    width: 40px;
+    height: 3.8rem !important;
+    color: #FFFFFF;
+    background-color: #113B5F;
+  }
+  .photoIconLabel{
+    width: 30px;
+    height: 3rem;
+    margin: 11px;
+    vertical-align: middle;
+  }
+  .filename{
+    margin-left: 1px !important;
+    margin-top: 15px !important;
+  }
+  .attch_style{
+    width: 125px !important;
+    padding-top: 10px !important;
+    padding-bottom: 8px !important;
+    float: left;
+  }
+  .file_div{
+    width: calc(100% - 195px) !important;
+    padding-top: 10px !important;
+    padding-bottom: 8px !important;
+    float: left;
+    display: inline-block;
+  }
+  .nominationtab .select-md {
+    padding:0px !important;
+    padding-top: 15px !important;
+  }
+  .nominationtab  .searchbar-md{
+    padding:3px 3px 3px 0px !important;
+  }
+  .select-text {
+    overflow: initial !important;
+    white-space: initial !important;
+    font-size: 14px !important;
+  }
+  .size_ca {
+  font-size: 1.4rem;
+}
+  //Done for CaCreate container details tab
+  .text-input-ios,.item-ios.item-block .select-text,page-casearchdetailview .make-center,
+  .searchbar-ios .searchbar-input
+  {
+    font-size: 1.4rem;
+    font-weight: 500 !important;
+    font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif !important;
+  }
+
+  //..................................................................................................
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .cont_label {
+      width: 77%;
+    }
+    .cal{
+      font-size: 2em;
+    }
+    .filename{
+      margin-left: 6px !important;
+      margin-top: 22px !important;
+    }
+  }
+  //media query ends here
+  //...................................................................................................
+}
+
+//.....................End of page styles..............................................................
+page-casearchdetailview ion-app.md [padding], page-casearchdetailview  ion-app.md [padding] .scroll-content {
+  padding: 0px !important;
+}
+
+.platform-ios page-casearchdetailview .codeMandatory {
+  margin-right: 1px;
+  bottom: 1px;
+}
+
+.platform-ios page-casearchdetailview .scroll-content {
+  margin-top: 75px !important;
+  margin-bottom: 49px;
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+}
+.platform-ios page-casearchdetailview .alert-ios .alert-tappable{
+  z-index: 100;
+}
+.platform-ipad page-casearchdetailview .scroll-content {
+  margin-top: 72px !important;
+}
+.platform-ipad page-casearchdetailview .cont_label {
+  width: 77%;
+}
+.platform-ipad page-casearchdetailview .pullRightToContainer{
+  margin-right:20px;
+}
+.platform-iphone page-casearchdetailview .cont_label {
+  width: 66%;
+}

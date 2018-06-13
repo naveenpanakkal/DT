@@ -1,0 +1,820 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title">{{headTitle}}
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding id="taView" style="background-color:#E8E6E6">
+
+  <!--Hold Details Tab-->
+  <div *ngIf="showTabs[0]" style="height:auto;background-color:white;margin-bottom: 5px;">
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        Hold Request No
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding">
+        <a href="#" class="boldStyle" (click)="viewRelease(holdContainer.holdRequestNo)">{{holdContainer.holdRequestNo}}</a>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Status
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{holdContainer.holdStatus}}</ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_location' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding">
+        <ion-label class=" boldStyle">{{location}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_spname' | translate }}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{spName}}</ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+
+    <ion-row class="rowSeperator padding-left-row " col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle ">
+        {{ 'hc-ref-no' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding ">
+        <ion-label class=" boldStyle showFullWord">{{holdContainer.referenceNo}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_startdatetime' | translate }}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{holdContainer.startDateTime}} GST
+<!--            <span *ngIf="holdContainer.startDateTime" style="margin-left:3px;display: inline-block;"
+                  class="boldStyle">GST</span>-->
+          </ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+
+    <ion-row *ngIf="isView" class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_enddatetime' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding">
+        <ion-label class=" boldStyle">{{holdContainer.endDateTime}} GST
+<!--          <span *ngIf="holdContainer.endDateTime" style="margin-left:3px;display: inline-block;"
+                class="boldStyle">GST</span>-->
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="holderDetailsForm1" noValidate>
+
+      <ion-row *ngIf="!isView" class="rowSeperator padding-left-row" col-12>
+        <ion-col col-5 style="padding-right: 8px !important;"
+                 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_enddatetime' | translate }}<span style="color:red" class="span">*</span>
+        </ion-col>
+        <ion-col col-7 style=" min-height: 45px; padding: 0px !important;">
+          <ion-item style="padding-left: 0px;">
+            <ion-datetime displayFormat={{dateTimeFormat}} (ionChange)="onEndDateChanged()"
+                          formControlName="endDateTime" placeholder="{{ 'hold_enddatetime' | translate }}"
+                          [(ngModel)]="endDateTime" min={{minEndDateTime}} max="2050-01-01" tappable></ion-datetime>
+          </ion-item>
+<!--          <span *ngIf="holdContainer.endDateTime" style="margin-left:3px;display: inline-block;"
+                class="boldStyle">GST</span>-->
+          <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+          <div class="error1" style="color:red" *ngIf="maxDateinvalid">
+            {{ 'hold_enddatetime_invalid' | translate }}
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="isView" class="rowSeperator padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col style="display:inline-block; float:left;"
+                   col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{ 'hold_autorelease' | translate }}
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+            <ion-label class=" boldStyle">{{holdContainer.autoRelease}}</ion-label>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row *ngIf="!isView" class="rowSeperator padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col style="display:inline-block; float:left;"
+                   col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{ 'hold_autorelease' | translate }}
+          </ion-col>
+          <ion-col style="display:inline-block;float:left; min-height: 45px; padding: 0px !important;" col-7>
+            <ion-item style="padding: 0px;">
+              <ion-label class="headerVisibility">{{ 'hold_autorelease' | translate }}</ion-label>
+              <ion-select style="padding: 0px;" [(ngModel)]="holdContainer.autoRelease" formControlName="autoRelease"
+                          (ionChange)="onAutoReleaseChanged()" tappable>
+                <ion-option *ngFor="let autoRelease of autoReleaseList" value={{autoRelease.definedSetValueCode}}>
+                  {{autoRelease.definedSetValueIntMessage}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+    <ion-row *ngIf="isView && autoRelease()" class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;padding-right:8px;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_autoreleasedatetime' | translate }}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{holdContainer.autoReleaseDateTime}} GST</ion-label>
+<!--          <span *ngIf="holdContainer.autoRelease" style="margin-left:3px;display: inline-block;"
+                class="boldStyle">GST</span>-->
+        </ion-col>
+      </div>
+    </ion-row>
+
+    <form [formGroup]="holderDetailsForm2" noValidate>
+
+      <ion-row *ngIf="!isView && autoRelease()" class="rowSeperator padding-left-row" col-12>
+        <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_autoreleasedatetime' | translate }}<span style="color:red" class="span">*</span>
+        </ion-col>
+        <ion-col col-7 style=" min-height: 45px; padding: 0px !important;">
+          <ion-item style="padding: 0px;">
+            <ion-datetime displayFormat={{dateTimeFormat}} (ionChange)="onAutoReleaseDateChanged()"
+                          [(ngModel)]="autoReleaseDateTime" min={{minAutoReleaseDateTime}} max="2050-01-01"
+                          formControlName="autoReleaseDateTime" tappable></ion-datetime>
+          </ion-item>
+          <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+          <div class="error1" style="color:red" *ngIf="maxDateinvalid">
+            {{ 'hold_enddatetime_invalid' | translate }}
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_linecode' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding boldStyle scrollItem">
+        {{holdContainer.lineCode}}
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_designation' | translate }}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{holdContainer.designation}}</ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_contcategory' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+        <ion-label class=" boldStyle">{{containerCategory}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_action' | translate }}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{holdContainer.holdAction}}</ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_holdreason' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+        <ion-label class=" boldStyle">{{holdContainer.holdReason}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="holderDetailsForm3" noValidate>
+      <ion-row *ngIf="!isView && showOtherReasons()" class="rowSeperator padding-left-row" col-12>
+        <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_otherreasons' | translate }}<span style="color:red" class="span">*</span>
+        </ion-col>
+        <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+          <ion-item style="padding-left: 0px;">
+            <ion-input class ="otherReasons" [(ngModel)]="holdContainer.otherReason" formControlName="otherReason" type="text" maxlength="255"
+                       placeholder="{{ 'hold_otherreasons' | translate }}" spellcheck="false" (ionBlur)="otherReasonFocusChange()" tappable></ion-input>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !holderDetailsForm3.controls.otherReason.valid
+          &&((holdContainer.otherReason && holdContainer.otherReason.length == 0) || (!holdContainer.otherReason))">{{ 'other_reason_mandatory' |
+            translate }}
+          </div>
+          <div class="mandatory" *ngIf="error && !holderDetailsForm3.controls.otherReason.valid && holdContainer.otherReason && holdContainer.otherReason.length > 0">
+            {{ 'enter_3_char' | translate }}
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <ion-row *ngIf="isView && showOtherReasons()" class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_otherreasons' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+        <ion-label class=" boldStyle">{{holdContainer.otherReason}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+                 col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_holdbasedon' | translate }}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" ion-col-minheight-nopadding" col-7>
+          <ion-label class=" boldStyle">{{holdContainer.holdBasedOn}}</ion-label>
+        </ion-col>
+      </div>
+    </ion-row>
+
+    <ion-row *ngIf="isView" class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{ 'hold_remarks' | translate }}
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+        <ion-label class=" boldStyle">{{holdContainer.remarks}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="holderDetailsForm4" noValidate>
+      <ion-row *ngIf="!isView" class="rowSeperator padding-left-row" col-12>
+        <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{ 'hold_remarks' | translate }}
+        </ion-col>
+        <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+          <ion-item style="padding-left: 0px">
+            <ion-textarea [(ngModel)]="holdContainer.remarks" formControlName="remarks" type="text" maxlength="255" (ionBlur)="onRemarkFocusChange()" tappable></ion-textarea>
+          </ion-item>
+          <div class="mandatory" *ngIf="error && !holderDetailsForm4.controls.remarks.valid &&
+          ((holdContainer.remarks && holdContainer.remarks.length == 0) || (!holdContainer.remarks))">
+            {{ 'remarks_mandatory' | translate }}
+          </div>
+          <div class="mandatory" *ngIf="error && !holderDetailsForm4.controls.remarks.valid && holdContainer.remarks && holdContainer.remarks.length > 0">
+            {{ 'enter_3_char' | translate }}
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <form [formGroup]="holderDetailsForm5" noValidate>
+      <ion-row *ngIf="!isView && showSilentHold()" class="rowSeperator padding-left-row" col-12>
+        <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Silent Hold
+        </ion-col>
+        <ion-col style="display:inline-block;float:left; min-height: 45px; padding: 0px !important;" col-7>
+          <ion-item style="padding: 0px;">
+            <ion-label class="headerVisibility">Silent Hold</ion-label>
+            <ion-select style="padding: 0px;" [(ngModel)]="holdContainer.silentHold" formControlName="silentHold"
+                        tappable>
+              <ion-option *ngFor="let silentHold of silentHoldList" value={{silentHold}}>
+                {{silentHold}}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <ion-row *ngIf="isView && showSilentHold()" class="rowSeperator padding-left-row" col-12>
+      <ion-col col-5 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        Silent Hold
+      </ion-col>
+      <ion-col col-7 class="ion-col-minheight-nopadding" text-wrap="">
+        <ion-label class=" boldStyle">{{holdContainer.silentHold}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+  </div>
+  <!--Hold Details Tab end-->
+
+  <!--Hold Specification Tab-->
+  <div *ngIf="showTabs[1]" style="height:100%;">
+    <div *ngIf="holdContainer.holdBasedOn == 'Container No'">
+      <div style="height:auto;">
+        <div *ngFor="let containers of holdContainer.holdSpecDetails;let selectedTabIndex = index;">
+          <div class="inner-scroll-container">
+            <div>
+              <div class="attach-headder" style="padding-top:10px;" (click)="openSelecedTab(selectedTabIndex)" tappable>
+                <div col-12 style="float:left; display:inline-block;">
+                  <div class="rotateIconHolder"
+                       style="width: 20px !important;height: 20px !important;" tappable>
+                    <div style="width:20px;"
+                         [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                      <ion-icon name="arrow-dropright">
+                      </ion-icon>
+                    </div>
+                  </div>
+                  <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+                    Container {{selectedTabIndex+1}}
+                  </ion-label>
+                </div>
+
+              </div>
+              <div style="min-width:360px;background-color: white;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    {{ 'hold_containerNo' | translate }}
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-label class=" boldStyle">{{containers.containerNo}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    {{ 'hold_ISOCode' | translate }}
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-label class=" boldStyle">{{containers.iSOCodeContainerNo}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    {{ 'hold_line' | translate }}
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-label class=" boldStyle">{{containers.lineHold}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    {{ 'hold_location' | translate }}
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-label class=" boldStyle">{{containers.locationHold}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="rowSeperator padding-left-row" col-12>
+                  <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                    {{ 'hold_status' | translate }}
+                  </ion-col>
+                  <ion-col col-6 class="ion-col-minheight-nopadding">
+                    <ion-label class=" boldStyle">{{containers.statusHold}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Container Prefix'">
+      <div
+        style="min-width:350px;background-color: white;width:100%;border: 0.55px solid #c8c7cc;">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-12 style="color: white">
+            Container Prefix
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let containers of holdContainer.holdSpecDetails;"
+                 class="rowSeperator padding-left-row" col-12>
+          <ion-col class="ion-col-minheight-nopadding">
+            <ion-label class=" boldStyle">{{containers.containerPrefix}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Container Range'">
+      <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+        <ion-col col-6 style="color: white">
+          {{ 'hold_containerRangeFrom' | translate }}
+        </ion-col>
+        <ion-col col-6 style="color: white">
+          {{ 'hold_containerRangeTo' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let containers of holdContainer.holdSpecDetails;"
+               style="padding:0px;" class="rowSeperator padding-left-row custom-list" col-12>
+        <ion-col style="padding-left: 15px;" col-6>
+          <ion-label class="removeMargin">{{containers.containerRangeFrom}}</ion-label>
+        </ion-col>
+        <ion-col class="" col-6>
+          <ion-label class="removeMargin">{{containers.containerrangeTo}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Generic'">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol boldStyle">
+            Container Size
+          </ion-col>
+          <ion-col class="ioncol boldStyle">
+            ISO Code
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="boldStyle">
+            {{holdContainer.contSize}}
+          </ion-col>
+          <ion-col col-6 text-wrap="" class="boldStyle scrollItem">
+            {{isoCode}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!--Vessel Name Block-->
+
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(0)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==0)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Vessel Name
+          </ion-label>
+        </div>
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==0) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-12 style="color: white">
+            Vessel Name-IMO No
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let containers of holdContainer.holdSpecDetails;" style="padding:0px;"
+                 class="rowSeperator padding-left-row " col-12>
+          <ion-col class="custom-list" style="padding-left: 15px;" col-12>
+            <ion-label class="removeMargin">{{containers.imoNumber}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <!--Vessel Name Block Ends here-->
+
+      <!--Ports Block-->
+
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(1)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==1)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Port
+          </ion-label>
+        </div>
+
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==1) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-6 style="color: white">
+            Port (Operation)
+          </ion-col>
+          <ion-col col-6 style="color: white">
+            Port
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let ports of holdContainer.portHoldDetails;" style="padding:0px;"
+                 class="rowSeperator padding-left-row custom-list" col-12>
+          <ion-col style="padding-left: 15px;" col-6>
+            <ion-label class="removeMargin">{{ports.portType}}</ion-label>
+          </ion-col>
+          <ion-col class="" col-6>
+            <ion-label class="removeMargin">{{ports.portName}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <!--Port Block Ends here-->
+
+      <!--Country Block-->
+
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(2)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==2)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Country
+          </ion-label>
+        </div>
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==2) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-6 style="color: white">
+            Country (Operation)
+          </ion-col>
+          <ion-col col-6 style="color: white">
+            Country
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let countrys of holdContainer.countryHoldDetails;" style="padding:0px;"
+                 class="rowSeperator padding-left-row custom-list" col-12>
+          <ion-col style="padding-left: 15px;" col-6>
+            <ion-label class="removeMargin">{{countrys.holdBasedOncountry}}</ion-label>
+          </ion-col>
+          <ion-col class="" col-6>
+            <ion-label class="removeMargin showFullWord">{{countrys.countryName}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <!--Country Block Ends here-->
+
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Rotation No'">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol boldStyle">
+            Container Size
+          </ion-col>
+          <ion-col class="ioncol boldStyle">
+            ISO Code
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="boldStyle">
+            {{holdContainer.contSize}}
+          </ion-col>
+          <ion-col col-6 text-wrap="" class="boldStyle scrollItem">
+            {{isoCode}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(0)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==0)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Rotation No
+          </ion-label>
+        </div>
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==0) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row *ngFor="let rotations of holdContainer.holdSpecDetails;" style="padding:0px;"
+                 class="rowSeperator padding-left-row " col-12>
+          <ion-col class="custom-list" style="padding-left: 15px;" col-12>
+            <ion-label class="removeMargin">{{rotations.incrementRotationNumber}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <button *ngIf="!isView && holdContainer.holdBasedOn == 'Container No'" class="button-apply-general footer-submit" ion-button full type="submit" color="submit"
+            (click)="submit()" tappable>
+      {{ 'ca_submit' | translate }}
+    </button>
+  </div>
+  <!--Hold Specification Tab End-->
+
+  <!-- Exclude Criteria Tab-->
+  <div *ngIf="showTabs[2] && holdContainer.holdBasedOn != 'Container No'" style="height:100%;">
+    <div *ngIf="holdContainer.holdBasedOn == 'Container Prefix'">
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Container No
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle showFullWord">{{holdContainer.conatinerNoEC}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Container Range'">
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Container No
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle showFullWord">{{holdContainer.conatinerNoEC}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Generic'">
+      <!--Vessel Name Block-->
+
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(0)" tappable [hidden]="true">
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==0)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Vessel Name
+          </ion-label>
+        </div>
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==0) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'" [hidden]="true">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-12 style="color: white">
+            Vessel Name-IMO No
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let containers of holdContainer.exImoDtls;" style="padding:0px;"
+                 class="rowSeperator padding-left-row " col-12>
+          <ion-col class="custom-list" style="padding-left: 15px;" col-12>
+            <ion-label class="removeMargin">{{containers.imoNumber}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <!--Vessel Name Block Ends here-->
+
+      <!--Ports Block-->
+
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(1)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==1)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Port
+          </ion-label>
+        </div>
+
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==1) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-6 style="color: white">
+            Port (Operation)
+          </ion-col>
+          <ion-col col-6 style="color: white">
+            Port
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let ports of holdContainer.exPortDetails;" style="padding:0px;"
+                 class="rowSeperator padding-left-row custom-list" col-12>
+          <ion-col style="padding-left: 15px;" col-6>
+            <ion-label class="removeMargin">{{ports.portType}}</ion-label>
+          </ion-col>
+          <ion-col class="" col-6>
+            <ion-label class="removeMargin">{{ports.portName}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <!--Port Block Ends here-->
+
+      <!--Country Block-->
+
+      <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+           (click)="openSelecedTab(2)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==2)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+            Country
+          </ion-label>
+        </div>
+      </div>
+      <div
+        style="min-width:350px;background-color: white;margin-left: 4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+        [ngClass]="(selectedTabsIndex==2) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row headder-color-light" col-12>
+          <ion-col col-6 style="color: white">
+            Country (Operation)
+          </ion-col>
+          <ion-col col-6 style="color: white">
+            Country
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let countrys of holdContainer.exCountryDetails;" style="padding:0px;"
+                 class="rowSeperator padding-left-row custom-list" col-12>
+          <ion-col style="padding-left: 15px;" col-6>
+            <ion-label class="removeMargin">{{countrys.holdBasedOncountry}}</ion-label>
+          </ion-col>
+          <ion-col class="" col-6>
+            <ion-label class="removeMargin">{{countrys.countryName}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+      <!--Country Block Ends here-->
+    </div>
+    <div *ngIf="holdContainer.holdBasedOn == 'Rotation No'">
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Container No
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{holdContainer.conatinerNoEC}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    <button *ngIf="!isView && holdContainer.holdBasedOn != 'Container No'" class="button-apply-general footer-submit" ion-button full type="submit" color="submit"
+            (click)="submit()" tappable>
+      {{ 'ca_submit' | translate }}
+    </button>
+  </div>
+
+  <!--slider-->
+  <ion-col ion-fixed class="slider-bottom-navigation-col-left" (click)="slideSelectedPrev()" *ngIf="hidePreviousButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-back"  tappable></ion-icon>
+  </ion-col>
+
+  <ion-col ion-fixed   class="slider-bottom-navigation-col-right" (click)="slideSelectedNext()" *ngIf="hideNextButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-forward" tappable></ion-icon>
+  </ion-col>
+  <!--slider-->
+
+</ion-content>

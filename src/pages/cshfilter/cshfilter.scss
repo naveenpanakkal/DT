@@ -1,0 +1,185 @@
+page-cshfilter {
+  .error1{
+    border-top:1px solid red;
+    position: relative;
+    margin-top: -2px;
+    margin-left:16px;
+    color: red;
+  }
+  .item-input-disabled ion-label {
+    opacity: 0.4 !important;
+  }
+  .item-select-disabled ion-label {
+    opacity: 0.4 !important;
+  }
+  .item-datetime-disabled ion-label {
+    opacity: 0.4 !important;
+  }
+  .disabledLabel{
+    opacity: .4;
+  }
+  .enabledLabel{
+    opacity: 1.4;
+  }
+  .reportError {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    margin-right: 9px;
+    margin-left: 12px;
+    margin-top: -1px !important;
+  }
+
+  .item-label-stacked .select-md, .item-label-floating .select-md {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 8px;
+  }
+
+  .style{
+    border: none;
+    margin-left: 5%;
+    margin-top: 5%;
+
+  }
+  .label{
+    font-weight : bold;
+    position : relative;
+    font-size: 1.6rem !important;
+  }
+  .lastrow-android .label{
+    font-weight : normal;
+  }
+
+  .span
+  {
+    color:red;
+  }
+  .button-right {
+    float: right;
+    margin-top: 10px;
+  }
+ .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    margin-right: 3%;
+  }
+  .searchStyle{
+    margin-left: 5%;
+  }
+  .searchbar-error
+  {
+    border-top: 1px solid red;
+    color:red;
+    position: relative;
+    width: 97%;
+    margin-top: 0px;
+    margin-left: 3px;
+  }
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .cal {
+      margin-top: -5%;
+    }
+    .searchStyle{
+      margin-left: 2%;
+    }
+    .searchbar-error {
+      width: 98.5%;
+    }
+  }
+}
+
+page-cshfilter ion-textarea.inputs.input.input-ios.ng-touched.ng-dirty.ng-invalid
+{
+  pointer-events: inherit !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+}
+page-cshfilter ion-textarea.inputs.input.input-ios.ng-touched.ng-dirty.ng-invalid textarea
+{
+  opacity: 1 !important;
+  transform: inherit !important;
+}
+page-cshfilter  ion-input.inputs.input.input-ios.ng-touched.ng-dirty.ng-valid {
+  pointer-events: inherit !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+}
+
+page-cshfilter  ion-input.inputs.input.input-ios.ng-touched.ng-dirty.ng-valid  input{
+  opacity: 1 !important;
+  transform: inherit !important;
+
+}
+.platform-ios page-cshfilter .dateTimeStyle{
+  font-size: 1.4rem;
+  font-weight: 500 !important;
+  font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif !important;
+  height: 25px;
+  margin-top: 1%;
+}
+.platform-ios page-cshfilter .datetime-disabled, .item-datetime-disabled ion-label{
+  opacity: 0.3;
+}
+.platform-ios page-cshfilter .select-disabled, .item-select-disabled ion-label {
+  opacity: .3;
+}
+.platform-ios page-cshfilter .error1{
+  border-top:1px solid red;
+  position: relative;
+  margin-top: -1px;
+  margin-left:16px;
+  color: red;
+}
+.platform-ios page-cshfilter .searchbarborder{
+  border-bottom: 0.55px solid #c8c7cc;
+}
+.platform-ios page-cshfilter .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+  border-bottom: 0px;
+}
+.platform-ios page-cshfilter .list-ios {
+  margin: 0px 0 0px;
+}
+.platform-ios page-cshfilter .list-ios > .item-block:last-child .item-inner {
+  border-bottom: 0px !important;
+}
+.platform-ios page-cshfilter .searchbar-error {
+  border-top: 1px solid red;
+  color:red;
+  position: relative;
+  width: 100%;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.platform-android page-cshfilter .attachrowSeperator{
+  border-bottom: 1px solid #dedede !important;
+  padding-left:0px !important;
+}
+.platform-android page-cshfilter .list .item-block:last-child .item-inner {
+  border-bottom: 1px solid #dedede !important;
+}
+.platform-android page-cshfilter .lastrow-android {
+  width:100%!important;
+}
+.platform-android page-cshfilter .last-row-left {
+  padding-left:0px!important;
+}
+.platform-ios page-cshfilter .attachrowSeperator {
+   padding-left:0px !important;
+}
+
+.platform-ios page-cshfilter .lastrow-android .last-row-left {
+  padding-left:0px !important;
+}
+
+
+
+
+
+
+

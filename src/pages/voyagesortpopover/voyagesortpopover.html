@@ -1,0 +1,43 @@
+<ion-content no-bounce has-bounsing="false">
+  <ion-label class="lab">
+    Sort By
+    <button class="sort" (click)="changeorder()" tappable>
+      <ion-icon [name]="getordericon()">
+      </ion-icon>
+    </button>
+  </ion-label>
+  <ion-list radio-group [(ngModel)]="sortselect">
+    <ion-item>
+      <ion-label>Rotation Number</ion-label>
+      <ion-radio checked="rotationnoChecked" value="rotationNumber" tappable></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Vessel Name</ion-label>
+      <ion-radio checked="vesselnameChecked" value="vesselName" tappable></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>ETA(GST)</ion-label>
+      <ion-radio checked="etaChecked" value="eta" tappable></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Terminals</ion-label>
+      <ion-radio checked="terminalsChecked" value="terminals" tappable></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Operational Status</ion-label>
+      <ion-radio checked="operationStatusChecked" value="operationStatus" tappable></ion-radio>
+    </ion-item>
+    <!--<ion-item>
+      <ion-label>Client Code</ion-label>
+      <ion-radio checked="clientCodeChecked" value="clientCode"></ion-radio>
+    </ion-item>-->
+  </ion-list>
+  <ion-row class="options buttonHolder">
+    <ion-col col-6 class="topcol">
+      <button class="buttonStyle" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>Reset</button>
+    </ion-col>
+    <ion-col col-6 class="topcol">
+      <button class="buttonStyle" color="light" id="clearsubmit" full ion-button (click)="submit()" tappable>Done</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

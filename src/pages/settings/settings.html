@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <!--{{ 'SETTINGS' | translate }}-->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="SettingsContent">
+ <div>
+      <!--<h2>{{ 'HOME.TITLE' | translate }}</h2>-->
+      <label>
+        <!--{{ 'HOME.SELECT' | translate }}-->
+        <select (change)="abc()" [(ngModel)]="langselected" tappable>
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+        </select>
+      </label>
+      <button ion-button color="submit" full (click)="fix()" id="sub" tappable>Apply</button>
+    </div>
+</ion-content>

@@ -1,0 +1,667 @@
+page-dosearchdetailview {
+  .textarea_scroll{
+    overflow-y: scroll;
+  }
+  .view_atch{
+    margin-left: 20px;
+  }
+  .date_icon{
+    top: 0px;
+  }
+  .date_tappable{
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #vesselbutton {
+    display: inline-block;
+    width: auto !important;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid #519CDC;
+    position: relative;
+    top: 10px;
+    margin: 0 !important;
+  }
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+      }
+  #pad{
+    padding: 22px;
+  }
+  .mandatory {
+    border-top: 1px solid red;
+    position: relative;
+    bottom: 1px;
+    width:100%;
+    color: red;
+  }
+  .container-padding
+  {
+    padding-top: 13px;
+  }
+  .container-details-headder
+  {
+    color:white;
+    height: 48px;
+    padding: 15px;
+    padding-right: 0px;
+    background-color: #275680;
+    border-bottom: 1px solid #235179;
+    margin-bottom: 1%;
+  }
+  .headerVisibility{
+    visibility: hidden;
+  }
+  .container-details-content
+  {
+    width:100%;
+    height:auto;
+    background: white;
+    //margint-top:10px;
+    //padding: 10px;
+    //margin: 10px;
+  }
+  .container-details-content
+  {
+    width:100%;
+    height:0px;
+    background: white;
+   overflow: hidden;
+  }
+  .filters {
+
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+
+      ion-icon {
+        color: #ccc;
+      }
+
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+  .toolbar-title {
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .title {
+    position: relative;
+    right: 6%;
+  }
+
+  .greycolor {
+    color: gray;
+  }
+
+  .center{
+    text-align: center;
+  }
+
+  .tool {
+    margin-top: -1%;
+    width: 100% !important;
+  }
+
+  .box {
+    padding: 1%;
+    background-color: #135E9F;
+    margin: 5px;
+    color: white;
+  }
+
+  .iconposition {
+    float: right;
+  }
+
+  .ionrow {
+    background: white;
+    width: 98%;
+    margin-left:calc((100% - 98%) / 2) !important;
+    margin: 4px -5px -2px 3px;
+  }
+
+  .gridstyle_1{
+    margin-top: 7px;
+    border: 1px solid #929292;
+  }
+  .gridstyle_2{
+    border-bottom: 1px solid #929292;
+    border-right: 1px solid #929292;
+    border-left: 1px solid #929292;
+    margin-bottom: 0px;
+    padding-left: 2%;
+    text-align: left;
+  }
+  .span {
+    color: red;
+  }
+
+  .commodityTitleStyle {
+    background: #F2B111;
+    width: 98%;
+    margin: 2px -5px -2px 3px;
+    text-align: left;
+    color: white;
+    font-weight: bold !important;
+    /*border-right: 1px solid;
+    border-color: white;*/
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    //padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+
+  #ioncol {
+    padding-top: 5%;
+    color: #a0a0a0;
+  }
+  .ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+  .col_style{
+    padding: 0px!important;
+  }
+  .bringdownlabel{
+    color: #a0a0a0;
+    padding-top:15px;
+  }
+
+  ion-select {
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .footer_submit{
+    font-size: 2rem;
+    margin-left: calc((100% - 118px)/2) !important;
+    position: relative;
+    top: 100%;
+  }
+  .code {
+    width : 10%;
+  }
+  .container .subContainer {
+    background-color: rgba(17, 62, 99, 0.95);
+    color: white;
+    font-size: 61%;
+    height : 35px;
+  }
+
+  .container .subContainer2 {
+    background: gray;
+    color : white;
+    border: thin solid white;
+    font-size :61%;
+    font-weight : lighter;
+  }
+  .subheader{
+    background: #CFCFCF;
+    margin-top: 10px;
+
+  }
+  .underline{
+    text-decoration-line: underline;
+    color:darkblue;
+    white-space: normal;
+  }
+  .container-details-headder-text
+  {
+    float:left;
+    left:0px;
+    width:50%;
+    display: inline-block;
+    padding-top: 3px;
+  }
+  .container-details-sub-content
+  {
+    background-color: white;
+    color : black;
+    border-bottom: thin solid #ece7e7;
+    font-size : 14px;
+    font-weight : lighter;
+  }
+  .container-details-sub-content-last
+  {
+    background-color: white;
+    color : black;
+
+    font-size : 14px;
+    font-weight : lighter;
+  }
+  .attach {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+  }
+  .attach-container
+  {
+    background: white;
+    //margin-top: 10px;
+  }
+  .add_button{
+    background-color: #113B5F;
+    margin-bottom : 10%;
+    margin-top: 8%;
+    float: left;
+  }
+  .doValidityClass{
+   width:100%;
+  }
+  .ioncolrightwithcolor .item-md.item-block .item-inner {
+
+    border-bottom: none !important;
+  }
+ ion-select .ioncolrightwithcolor .input-wrapper {
+    border-bottom: 1px solid #dedede;
+  }
+
+   .ioncolrightwithcolor .select-md {
+    padding: 13px 8px 13px 2px;
+    width: 100%;
+  }
+
+  .ioncolrightwithcolorblack{
+    color:black;
+  }
+  .ioncolrightwithcolorblack  .item-md{
+    padding-left: 0px !important;
+  }
+  .ioncolrightwithcolorblack .datetime-md {
+    padding: 13px 8px 13px 2px;
+    width: 100%;
+  }
+  .ioncolrightwithcolorblack  .item-ios{
+    padding-left: 0px !important;
+  }
+  .ioncolrightwithcolorblack .datetime-ios{
+    padding: 13px 8px 13px 2px;
+    width: 100%;
+  }
+   .ioncolrightwithcolor .input-wrapper {
+    border-bottom: 1px solid #dedede;
+  }
+
+  .item-md
+  {
+    padding-left:22px !important
+  }
+  .bold {
+    font-size: 1.5rem !important
+  }
+  .commodity-header {
+    font-weight: bold;
+    margin-left: 2%;
+  }
+  .text-input-md {
+    margin: 10px 2px !important;
+  }
+  .chaNameStyle{
+    margin-top: 0%;
+  }
+
+  .doPhotobutton {
+    position: relative;
+    margin-top: 11%;
+    width: 85%;
+    max-height: 55% !important;
+    margin-left: 0%;
+    padding-left: 9%! important;
+  }
+
+  .photoicon{
+    position: relative;
+    right: 8%;
+    bottom: 3%;
+  }
+
+  .doFilename ion-label{
+    text-align: left;
+    margin-top: 7%;
+  }
+  .doFilename_1 ion-label{
+    text-align: left;
+    margin-top: 5%;
+  }
+  .doFileicon{
+    width: 20px;
+    padding-top: 13px;
+  }
+
+  .doClose_button{
+    max-height: 55%;
+    margin-top : 11%;
+    float: right;
+    margin-left:100%;
+    width: 75%;
+    color:#FFFFFF;
+    background-color: #113B5F;
+    font-size: 14px !important;
+  }
+
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -11%;
+  }
+  .ioncolrightwithcolor .col{
+    padding :0px !important;
+    paddig-top:5px !important;
+  }
+
+  .datetime-md{
+    padding: 0px 20px 0px 0px;
+  }
+  .ignore-padding-left
+  {
+    padding-left:0px !important;
+  }
+  .ignore-padding
+  {
+    padding-left:0px !important;
+  }
+
+  .add-button-align-right-bottom {
+    background-color: #1e5280 !important;
+    float: right !important;
+    position: fixed !important;
+    bottom: 100px  !important;
+    float: right  !important;
+    height: 54px !important;
+    width: 55px !important;
+    right: 20px !important;
+    border-radius: 100% !important;
+    z-index: 10;
+  }
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .doFilename_1 ion-label{
+      margin-top: 4%;
+    }
+    .doPhotobutton {
+      width: 50%;
+      right: 1%;
+      padding-left: 4%!important;
+    }
+    .cal{
+      margin-top: -5%;
+    }
+    .doClose_button{
+      width: 30%;
+    }
+    .doFileicon{
+      width: 27px;
+      margin-top: 13%;
+    }
+    .mandatory{
+      left: 0px !important;
+    }
+  }
+  //media query ends here
+  .headderRowCommodity
+  {
+    padding: 0px !important;
+    background: #F2B111;
+  }
+  .headderColCommodity
+  {
+    padding: 0px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 2px !important;
+    margin: 0px auto !important;
+  }
+  .containerCount {
+    text-align: center;
+    font-size: 1.5rem !important;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  .border-right-colr2{
+    border-right: 1px solid #FFF;
+
+  }
+
+  .attachrowSeperator{
+    border-bottom: 1px solid #dedede;
+  }
+  .close-button {
+    //margin-top: 10%;
+    //float: right;
+    //margin-right: 20px;
+    //width:23px;
+    //height:22px;
+    //background-color: #113B5F;
+    //color: white;
+    //border-radius:50%;
+
+    float: right;
+    margin-left: 100%;
+    margin-right: 20%;
+    border-radius: 0px !important;
+    width: 40px;
+    height: 3.8rem !important;
+    color: #FFFFFF;
+    background-color: #113B5F;
+  }
+
+  .add-button {
+    background-color: #113B5F !important;
+    margin-bottom: 10%;
+    border-radius: 0px !important;
+    float: left;
+    width: 40px;
+    height: 3.8rem !important;
+  }
+  .footer-submit {
+    //font-size: 2rem;
+    margin-left: calc((100% - 118px) / 2) !important
+  }
+}
+.platform-iphone page-dosearchdetailview .photoicon {
+  position: relative;
+  left: -3%;
+  bottom: 1%;
+}
+.platform-ios page-dosearchdetailview .attachMargin{
+  margin-top: 10px;
+  background-color: white;
+  margin-left: 10px;
+  width: calc(100% - 20px);
+  height: 50px;
+}
+
+.platform-iphone page-dosearchdetailview .attachMargin{
+  margin-top: -6%;
+}
+.platform-iphone page-dosearchdetailview .doFileicon{
+  width: 20px;
+  padding-top: 17.5px;
+  margin-left: 0%;
+}
+.platform-iphone page-dosearchdetailview .doFilename ion-label {
+  text-align: left;
+  margin-top: 14%;
+  margin-left: 15%;
+}
+.platform-ipad page-dosearchdetailview .doFilename ion-label {
+  text-align: left;
+  margin-top: 11%;
+  margin-left: 9%;
+}
+.platform-iphone page-dosearchdetailview .doClose_button{
+  margin-top : 30%;
+  float: right;
+  margin-left:100%;
+  width: 80%;
+  color:#FFFFFF;
+  background-color: #113B5F;
+  height: 2.0em;
+  font-size: 14px !important;
+  padding-bottom: 3% !important;
+  font-weight: 500 !important;
+}
+.platform-ipad page-dosearchdetailview .doClose_button {
+  font-weight: 500 !important;
+  margin-top : 20%;
+}
+.platform-iphone page-dosearchdetailview .doPhotobutton{
+  padding-bottom: 3% !important;
+  margin-bottom: 0%;
+  margin-top : 30%;
+}
+.platform-ipad page-dosearchdetailview .doPhotobutton {
+  margin-top : 20%;
+}
+.platform-iphone page-dosearchdetailview .doFilename_1 ion-label {
+  text-align: left;
+  margin-top: 7%;
+  margin-left: 1%;
+}
+.platform-ipad page-dosearchdetailview .doFilename_1 ion-label {
+  text-align: left;
+  margin-top: 5%;
+  margin-left: 3%;
+}
+.platform-ipad page-dosearchdetailview .doFileicon {
+  margin-left: 100%;
+  padding-top: 21px;
+}
+.platform-ipad page-dosearchdetailview .add_button{
+  margin-bottom: 0%;
+  margin-top: 5%;
+}
+.platform-ios page-dosearchdetailview .scroll-content {
+  margin-top: 42px !important;
+}
+page-dosearchdetailview .expand-holder-left-side
+{
+  height:100%;
+  width:calc(100% - 50px);
+  display:inline-block;
+}
+//.platform-mobile page-dosearchdetailview .pullRightToContainer{
+//margin-top: -40%;
+//}
+
+page-dosearchdetailview .icon-holder-right-side {
+  width: 10%;
+  position: absolute;
+  float: right;
+  right: 20px;
+  display: inline-block;
+}
+page-dosearchdetailview .reeferLabel{
+      padding-top: 10px;
+}
+page-dosearchdetailview .reeferText .text-input{
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-left: 5px;
+  font-weight: 500 !important;
+  font-size: 15px;
+}
+.platform-ios  page-dosearchdetailview .scroll-content {
+  margin-top: 40px !important;
+  margin-bottom: 49px;
+  padding-left:0px!important;
+  padding-right:0px!important;
+}
+.platform-ios page-dosearchdetailview ion-select {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.platform-ios page-dosearchdetailview  .searchbar
+{
+  padding: 0px;
+  border-bottom: .5px solid #c8c7cc !important;
+}
+
+.valerror-search-warning{
+  margin-left: 6px;
+  position: relative;
+  bottom: 2px;
+  color: gray;
+  margin-top: 5px;
+  margin-right: 1px;
+  font-size: 12px;
+}
+page-dosearchdetailview .instructiontoother ion-col.ioncolrightwithcolorblack.col{
+  padding: 0px;
+  margin: 0px !important;
+}
+
+page-dosearchdetailview .instructiontoother  textarea.text-input
+{
+  margin: 11px 8px 0px 0;
+}
+.platform-android page-dosearchdetailview .attachMargin,
+.platform-ios page-dosearchdetailview .attachMargin {
+  margin-top: 10px;
+  background-color: white;
+  margin-left: 10px;
+  width: calc(100% - 20px);
+  height: 50px;
+}
+.platform-android page-dosearchdetailview .doFileicon,
+.platform-ios page-dosearchdetailview .doFileicon {
+  margin-top: 0px !important;
+  text-align: left!important;
+  margin-top: 0px !important;
+  margin-left: 10px!important;
+  Padding-top: 5px !important;
+}
+.platform-android page-dosearchdetailview .doFilename_1 ion-label ,
+.platform-ios page-dosearchdetailview .doFilename_1 ion-label {
+  margin-left: 100%;
+  padding-top: 5px!important;
+  text-align: left;
+  margin-top: 0px !important;
+  margin-left:0px !important;
+}
+.platform-android page-dosearchdetailview .attachMargin [col-1],
+.platform-ios page-dosearchdetailview  .attachMargin [col-1]
+{
+  Padding-right: 0px !important;
+  max-width:35px ;
+}
+
+.platform-ios page-casearchresult .gridclass .col {
+  min-height: 25px;
+  margin-bottom: 5px;
+}

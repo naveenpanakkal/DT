@@ -1,0 +1,551 @@
+<!--
+  Generated template for the cshdetails page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title" >{{'csh_view_title' | translate}}
+    </ion-title>
+
+  </ion-navbar>
+
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1  tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cshdetailsview"  no-bounce>
+
+  <!-- ---------- Base info  ---------- -->
+  <ion-row *ngIf="showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <ion-label *ngIf="!issearchbyIDsuccess" class="make-no-data-labels-center">No Base Information Available</ion-label>
+
+    <div style="height:auto;    width: 100%;" *ngIf="!checkListIsNotEmpty(cshIdSearchResult)">
+
+      <ion-row class="rowSeperator padding-left-row" [hidden]="buttonStatus()">
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Request ID
+        </ion-col>
+        <ion-col col-4 class="ion-col-minheight-nopadding" >
+          <ion-label class="removeMargin  boldStyle">{{cshIdSearchResult.cshRequestNo}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" [hidden]="buttonStatus()">
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Current status
+        </ion-col>
+        <ion-col col-4 class="ion-col-minheight-nopadding" >
+          <ion-label class="removeMargin  boldStyle">{{cshIdSearchResult.amendRequestStatus}}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Rotation No
+        </ion-col>
+        <ion-col col-4 class="ion-col-minheight-nopadding" >
+          <ion-label class="removeMargin  boldStyle">{{cshIdSearchResult.rotationNumber}}</ion-label>
+        </ion-col>
+        <ion-col col-2 class="ion-col-minheight-nopadding" >
+          <ion-icon ios="ios-information-circle" md="md-information-circle" (click)="showInfoPopup()"
+                    class=" iconGeneral" style="color: #275680 !important;margin-left: 20px !important;"tappable>
+          </ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Shipping Line
+        </ion-col>
+        <ion-col text-wrap col-6 class="ion-col-minheight-nopadding" >
+          <ion-label class="removeMargin boldStyle">{{cshIdSearchResult.shippingLine}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          CSH Request No
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="removeMargin boldStyle">{{cshIdSearchResult.cshNo}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Vessel Name
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="removeMargin boldStyle">{{cshIdSearchResult.vesselName}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          ETA
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label style="float: left;display: inline-block;"  class="removeMargin boldStyle">{{cshIdSearchResult.eta}}</ion-label>
+          <span *ngIf="cshIdSearchResult.eta" style="margin-left:3px;"class="boldStyle">GST</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          ETD
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label style="float: left;display: inline-block;"  class="removeMargin boldStyle">{{cshIdSearchResult.etd}}</ion-label>
+          <span *ngIf="cshIdSearchResult.etd" style="margin-left:3px;" class="boldStyle">GST</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Request Cut Off Time
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label style="float: left;display: inline-block;"  class="removeMargin boldStyle">{{cshIdSearchResult.requestCutOffTime}}</ion-label>
+          <span *ngIf="cshIdSearchResult.requestCutOffTime" style="margin-left:3px;" class="boldStyle">GST</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        Request Status
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding">
+        <ion-label class="removeMargin boldStyle">{{cshIdSearchResult.requestStatus}}</ion-label>
+      </ion-col>
+    </ion-row>
+    </div>
+  </ion-row>
+  <!-- --------- End of Base info  --------------- -->
+
+  <!-- --------- Hazardous Container Details --------------- -->
+  <div *ngIf="showTabs[1]" style="height: 100%;">
+    <ion-label *ngIf="checkListIsNotEmpty(cshHazardousContainer)" class="make-no-data-labels-center">
+      No Hazardous Containers Found</ion-label>
+    <div style="height:auto;" *ngIf="!checkListIsNotEmpty(cshHazardousContainer)">
+       <ion-row class="rowSeperator padding-left-row" *ngIf="!checkListIsNotEmpty(cshHazardousContainer)" >
+      <!-- <ion-col col-3 class="ion-col-minheight-nopadding boldStyle selectStyle">
+        <ion-checkbox  [disabled]='true' [checked]="isHazardousContainerAllSelected"></ion-checkbox>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin underline boldStyle">Select All </ion-label>
+      </ion-col> -->
+
+
+      <ion-col class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin boldStyle">
+           {{counthazard}} out of {{cshHazardousContainer.length}} containers selected </ion-label>
+      </ion-col>
+
+
+    </ion-row>
+       <div class = "inner-scroll-container"  *ngFor="let detailsArray of cshHazardousContainer; let selectedTabIndex = index;" >
+    <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+      <div col-10 style="display: inline-block;float: left;">
+    <div class="rotateIconHolder"
+    style="width: 20px !important;height: 20px !important;" tappable>
+    <div style="width:20px;"
+    [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+    <ion-icon name="arrow-dropright">
+    </ion-icon>
+    </div>
+    </div>
+    <ion-label
+     style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" >
+      {{detailsArray.hazardousContainerNo}}
+    </ion-label>
+      </div>
+      <div col-2 style="display: inline-block;float: right;">
+        <ion-checkbox  [disabled]='true' style="float:right" [checked]="(detailsArray.isSelected == 'Y')?true:false"></ion-checkbox>
+      </div>
+    </div>
+    <div style="min-width:360px;"
+    [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         ISO Code
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.isoCode}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          IMCO Class
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.imcoCode}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          UN No
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.unNo}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         IMDG Page
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.imdgPage}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         Packing Group
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.packingGroup}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Flash Point
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.flashPoint}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          Risk Label
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle">{{detailsArray.riskLabel}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12 text-wrap="">
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         Remarks
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class="label-span-alignment boldStyle remarks">{{detailsArray.hazardousRemarks}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="(detailsArray.fileName != null && detailsArray.fileName.length >0)" class="rowSeperator padding-left-row" col-12>
+        <ion-col col-12 class="ion-col-minheight-nopadding" text-wrap>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon removeMargin imgStyle"/>
+           <ion-label (click)="getAttachment(detailsArray)" stacked class="underline label-span-alignment boldStyle filenameStyle" text-wrap>
+            {{detailsArray.fileName}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    </div>
+    </div>
+  </div>
+  <!-- --------- End of Hazardous Container Details --------------- -->
+
+  <!-- --------- OOG Container  Details --------------- -->
+  <div *ngIf="showTabs[2]" style="height:100%;">
+    <ion-label *ngIf="checkListIsNotEmpty(cshOOGContainer)" class="make-no-data-labels-center">
+      No OOG Containers Found</ion-label>
+    <div style="height:auto;" *ngIf="!checkListIsNotEmpty(cshOOGContainer)">
+        <ion-row class="rowSeperator padding-left-row" >
+      <!-- <ion-col col-3 class="ion-col-minheight-nopadding boldStyle selectStyle">
+        <ion-checkbox  [disabled]='true'[checked]="isOOGContainerAllSelected"></ion-checkbox>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin underline boldStyle">Select All </ion-label>
+      </ion-col> -->
+
+      <ion-col class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin boldStyle">
+           {{countOOG}} out of {{cshOOGContainer.length}} containers selected </ion-label>
+      </ion-col>
+
+
+    </ion-row>
+        <div class = "inner-scroll-container"  *ngFor="let detailsArray of cshOOGContainer; let selectedTabIndex = index;" >
+      <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+        <div col-10 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label
+            style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > {{detailsArray.oogContainerNo}}
+          </ion-label>
+        </div>
+        <div col-2 style="display: inline-block;float: right;">
+          <ion-checkbox  [disabled]='true' style="float:right" [checked]="(detailsArray.isSelected == 'Y')?true:false"></ion-checkbox>
+        </div>
+      </div>
+      <div style="min-width:360px;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            ISO Code
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.oogIso}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           Front
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.ofFront}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            Back
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.obBack}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           Left
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.olLeft}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           Right
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.orRight}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           Height
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.ohHeight}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            Remarks
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap="">
+            <ion-label class="label-span-alignment boldStyle remarks">{{detailsArray.oogRemarks}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="(detailsArray.fileName != null && detailsArray.fileName.length >0)" class="rowSeperator padding-left-row" col-12>
+           <ion-col col-12 class="ion-col-minheight-nopadding" text-wrap>
+           <img src="assets/img/image-icon.png" class="photoSelectedIcon removeMargin imgStyle"/>
+           <ion-label (click)="getAttachment(detailsArray)" stacked class="underline label-span-alignment boldStyle filenameStyle" text-wrap>
+            {{detailsArray.fileName}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    </div>
+  </div>
+  <!-----------  End of OOG Container  Details ----------------->
+
+  <!---------- Speacial Handling Details -------------->
+  <div *ngIf="showTabs[3]"style="height:100%;">
+    <ion-label *ngIf="checkListIsNotEmpty(cshSpecialHandling)" class="make-no-data-labels-center">
+      No Special Containers Found</ion-label>
+    <div style="height:auto;" *ngIf="!checkListIsNotEmpty(cshSpecialHandling)">
+    <ion-row class="rowSeperator padding-left-row">
+      <!-- <ion-col col-3 class="ion-col-minheight-nopadding boldStyle selectStyle">
+        <ion-checkbox  [disabled]='true' [checked]="isSpecialHandlingAllSelected"></ion-checkbox>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin underline boldStyle">Select All </ion-label>
+      </ion-col> -->
+
+
+    <ion-col class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin boldStyle">
+          {{countSH}} out of {{cshSpecialHandling.length}} containers selected </ion-label>
+    </ion-col>
+
+
+
+    </ion-row>
+    <div class = "inner-scroll-container"  *ngFor="let detailsArray of cshSpecialHandling; let selectedTabIndex = index;" >
+      <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+        <div col-10 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label
+            style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > {{detailsArray.containerNo}}
+          </ion-label>
+        </div>
+        <div col-2 style="display: inline-block;float: right;">
+          <ion-checkbox  [disabled]='true' style="float:right" [checked]="(detailsArray.isSelected == 'Y')?true:false"></ion-checkbox>
+        </div>
+      </div>
+      <div style="min-width:360px;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            ISO Code
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{detailsArray.isoCode}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            Category
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{cat_map.get(detailsArray.categorySh)}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           SubCategory
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{subcat_map.get(detailsArray.subCategorySh)}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            Remarks
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap="">
+            <ion-label class="label-span-alignment boldStyle remarks">{{detailsArray.remarksSh}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="(detailsArray.fileName != null && detailsArray.fileName != EMPTY && detailsArray.fileName.length >0)"class="rowSeperator padding-left-row" col-12>
+         <ion-col col-12 class="ion-col-minheight-nopadding" text-wrap>
+           <img src="assets/img/image-icon.png" class="photoSelectedIcon removeMargin imgStyle" />
+           <ion-label (click)="getAttachment(detailsArray)" stacked class="underline label-span-alignment boldStyle filenameStyle" text-wrap>
+            {{detailsArray.fileName}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    </div>
+  </div>
+  <!---------- End of Speacial Handling Details -------------->
+
+  <!---------- Attachments -------------->
+  <div *ngIf="showTabs[4]" style="height:100%;">
+    <ion-label *ngIf="checkListIsNotEmpty(cshBaseInfoAttach)" class="make-no-data-labels-center">
+      No Attachments Found</ion-label>
+    <div style="height:auto;" *ngIf="!checkListIsNotEmpty(cshBaseInfoAttach)">
+      <div class = "inner-scroll-container"  *ngFor="let detailsArray of cshBaseInfoAttach; let selectedTabIndex = index;" >
+      <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+        <div col-12 style="display: inline-block;float: left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label
+            style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > Attachment {{selectedTabIndex+1}}
+          </ion-label>
+        </div>
+      </div>
+      <div style="min-width:360px;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            Category
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle">{{cat_attachments.get(detailsArray.fileCategory)}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           Remarks
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap>
+            <ion-label class="label-span-alignment boldStyle remarks" text-wrap>{{detailsArray.fileRemarks}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator " col-12 tappable>
+          <ion-col col-12 class="ion-col-minheight-nopadding" text-wrap>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon removeMargin imgStyle"
+            *ngIf="(detailsArray.fileName != null && detailsArray.fileName != EMPTY && detailsArray.fileName.length >0)">
+           <ion-label (click)="getAttachment(detailsArray)" stacked class="underline label-span-alignment boldStyle filenameStyle" text-wrap>
+            {{detailsArray.fileName}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+      </div>
+    </div>
+    </div>
+  </div>
+  <!----------End of Attachments  -------------->
+
+  <ion-fab [hidden]="!fromHistory" right bottom>
+    <button tappable class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+      <ion-label class="fabedit" [hidden]="editHiddenStatus"></ion-label>
+      <button [hidden]="editHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="editCsh()" tappable><ion-icon name ="custom-Edit" ></ion-icon></button>
+
+      <ion-label class="fabedit" [hidden]="cancelHiddenStatus" ></ion-label>
+      <button class="edit" [hidden]="cancelHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="cshCancel()"   tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+
+      <ion-label class="fabedit" [hidden] ="workflowStatus()" ></ion-label>
+      <button  class="edit" [hidden] ="workflowStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seeWorkFlow()"
+                tappable>
+        <ion-icon name ="custom-workflow"></ion-icon>
+      </button>
+      <!--<ion-label class="fabedit" [hidden] = "hideCompare()"></ion-label>
+      <button  class="edit" [hidden] = "hideCompare()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seeComparison()"
+                tappable>
+        <ion-icon name="custom-comparison"></ion-icon>
+      </button>-->
+<!--
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seehistory()">
+        <ion-icon name ="custom-history" tappable>
+
+      </ion-icon></button>-->
+
+
+      <ion-label class="fabedit" [hidden]="loadAction()" ></ion-label>
+      <button  class="edit" [hidden]="loadAction()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seeAction()"
+                tappable>
+        <ion-icon name="custom-action"></ion-icon>
+      </button>
+
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

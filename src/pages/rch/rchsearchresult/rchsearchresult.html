@@ -1,0 +1,150 @@
+<!--
+  Generated template for the rchsearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">{{'rch_Header'| translate}}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="navigateToSort()" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="navigateToFilter()" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-toolbar color="milkygrey">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{currentResultCount}} {{ 'ca_out_of' | translate }} {{totalResultCount}} {{
+          'ca_results' | translate }} </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="searchcontent" no-bounce has-bounsing="false">
+
+  <ion-list style="overflow: hidden;">
+    <div *ngFor="let selResource of lazyItemList; let i= index;" style="border-bottom: #ccc solid 1px">
+      <ion-item-sliding>
+        <ion-item id="{{i}}"
+                  dt-events [onDtItreation]="selResource"
+                  (onDtCustomClick)="showdetails($event)"
+                  (onDtLongPress)="longPressHandle($event)">
+          <ion-row>
+            <ion-col col-9>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'rch_container_no' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap>
+                  <h4 class="subheader2">{{selResource.containerNo}}
+                  </h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'rch_hold_request_no' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.holdRequestNo}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'rch_status' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.holdStatus}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'rch_hold_reason' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.holdReason}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-3 class="statusCenter" style=" height: 100%;">
+              <img class="myttClass" [src]="getStatusIcon(selResource)"/>
+              <h6 class="statusLabelStyle" [style.color]="getStyle()">{{selResource.holdStatus}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button color="secondary" (click)="goToDownloadPDF(selResource)"
+                  style=" border: 1px solid white;" tappable>
+            <ion-icon name="custom-pdf"></ion-icon>
+            pdf
+          </button>
+
+          <button ion-button color="secondary" style="border: 1px solid white;"
+                  (click)="goToDownloadCSV(selResource)" tappable>
+            <ion-icon name="custom-csv"></ion-icon>
+            csv
+          </button>
+
+          <button ion-button color="secondary" style="border: 1px solid white;"
+                  (click)="goToViewRCH(selResource)" tappable>
+            <ion-icon name="custom-view"></ion-icon>
+            {{ 'view' | translate }}
+          </button>
+
+          <button ion-button color="secondary" style="border: 1px solid white;" *ngIf="showReleaseOption(selResource)"
+                  (click)="goToReleaseRCH(selResource)" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            Release
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="onScrollSearchOrFilterRCH($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab right bottom [hidden]="!isMultiSelect">
+    <button class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu" tappable></ion-icon>
+    </button>
+
+    <ion-fab-list side="top">
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="goToDownloadCSV()" tappable>
+        <ion-icon name="custom-csv"></ion-icon>
+      </button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="goToDownloadPDF()" tappable>
+        <ion-icon name="custom-pdf"></ion-icon>
+      </button>
+      <ion-label class="fabedit" ></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" [hidden]="!enableReleaseForUser"
+              (click)="goToReleaseRCH()" tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+
+    </ion-fab-list>
+
+  </ion-fab>
+
+</ion-content>

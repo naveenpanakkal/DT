@@ -1,0 +1,282 @@
+<!--
+  Generated template for the TafilterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="taSearchContent" class="">
+
+  <ion-item>
+    <ion-label stacked color="label" stacked class="bold">{{ 'location' | translate }}</ion-label>
+    <ion-select class="label-left" [(ngModel)]="loc"  (ionChange)="getServiceProviderName()" tappable>
+      <ion-option *ngFor="let key of locationList" value={{key}}>{{key}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked color="label" class="bold">{{ 'sp-name' | translate }}
+    </ion-label>
+    <ion-select class="label-left" [(ngModel)]="spname"   tappable>
+      <ion-option *ngFor="let key of spNameList" value={{key}}>{{key}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div>
+    <ion-item>
+      <ion-label color="label" stacked class="filer-from-date bold">{{ 'from_date' | translate }}</ion-label>
+      <ion-datetime class="filter-date-margin label-left" displayFormat={{dateFormat}} max={{maxvalue}}
+                    [(ngModel)]="createdFromDate" tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+
+  <div>
+    <ion-item>
+      <ion-label color="label" stacked class="filer-from-date bold">{{ 'to_date' | translate }}</ion-label>
+      <ion-datetime class="filter-date-margin label-left" displayFormat={{dateFormat}} max={{maxvalue}}
+                    [(ngModel)]="createdToDate" tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+
+
+  <div>
+    <ion-item>
+    <ion-label stacked color="label" class="bold">{{ 'ta_appointment_no' | translate }}
+    </ion-label>
+    <ion-input  type="tel" placeholder="{{'ta_appointment_no_placeholder'|translate}}" [(ngModel)]="appointmentNo"
+                (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','taappointmentno')"
+                minlength="1" maxlength="18"
+                onpaste="return true;" tappable>
+    </ion-input>
+    </ion-item>
+    <div class="valerror-search" *ngIf="submit && validate(appointmentNo,'^[0-9]{0,18}$')">
+      {{'invalid_characters'|translate}}
+    </div>
+
+    <ion-item>
+      <ion-label stacked color="label" class="bold">{{ 'ta_agentreference_no' | translate }}
+      </ion-label>
+      <ion-input type="text"  placeholder="{{'ta_agentreference_no_placeholder'|translate}}" [(ngModel)]="agentReferenceNo"
+                 (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','taagentreferenceno')"
+                 onpaste="return true;"
+                 minlength="3" maxlength="30" tappable>
+      </ion-input>
+    </ion-item>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(agentReferenceNo, '^[0-9a-zA-Z]{0,30}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+
+
+    <ion-row class = "filter-row" style=" padding-left: 15px;">
+      <ion-label stacked color="label" class="bold">{{ 'ta_transporter_company' | translate }}
+      </ion-label>
+    </ion-row>
+     <ion-row class="rowSeperator searchbarStyle">
+      <ion-searchbar class = "row-seperator-align" type="text" (ionInput)="getTransporterCompany($event)"
+                     [(ngModel)]="transporterCompany"
+                     (ionFocus)="getTransporterCompanyMaster()"
+                     (ionBlur)="hideTransporterCompany()"
+                     (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','tatransportercompany')"
+                     minlength="3" maxlength="255"
+                     onpaste="return true;">
+
+      </ion-searchbar>
+     </ion-row>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(transporterCompany, '^[0-9a-zA-Z ]{0,255}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+    <ion-list *ngIf="showTransporterCompany">
+        <ion-item *ngFor="let item of filterTransporterCompanyArray" (mousedown)="selectTransporterCompany(item)" tappable>
+          {{ item.companyName }}
+        </ion-item>
+      </ion-list>
+
+    <ion-row class = "filter-row" style=" padding-left: 15px;padding-top: 10px;">
+      <ion-label stacked color="label" class="bold">{{ 'ta_truck_number' | translate }}
+      </ion-label>
+    </ion-row>
+    <ion-row class="rowSeperator searchbarStyle">
+      <ion-searchbar class = "row-seperator-align" type="text" (ionInput)="getTruckNmber($event)" tappable
+                     [(ngModel)]="truckNumber"
+                     (ionFocus)="getTruckNmberMaster()"
+                     (ionBlur)="hideTruckNmber()"
+                     (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','tatruckno')"
+                      onpaste="return true;"
+                      minlength="3" maxlength="18">
+
+      </ion-searchbar>
+    </ion-row>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(truckNumber, '^[0-9a-zA-Z]{0,18}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+      <ion-list *ngIf="showTruckNumber">
+      <ion-item *ngFor="let item of filterTruckNumberArray" (mousedown)="selectTruckNumber(item)" tappable>
+        {{ item.licensePlateNumber }}
+      </ion-item>
+     </ion-list>
+
+    <ion-row class = "filter-row" style=" padding-left: 15px;padding-top: 10px;">
+      <ion-label stacked color="label" class="bold">{{ 'ta_driver_name' | translate }}
+      </ion-label>
+    </ion-row>
+   <ion-row class="rowSeperator searchbarStyle">
+    <ion-searchbar class = "row-seperator-align" type="text" (ionInput)="getDriverName($event)" tappable
+                   [(ngModel)]="driverName"
+                   (ionFocus)="getDriverNameMaster()"
+                   (ionBlur)="hideDriverName()"
+                   (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','tadrivername')"
+                   onpaste="return true;"
+                   minlength="3" maxlength="255">
+
+      </ion-searchbar>
+    </ion-row>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(driverName, '^[0-9a-zA-Z ]{0,255}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+    <ion-list *ngIf="showDriverName">
+      <ion-item *ngFor="let item of filterDriverNameArray" (mousedown)="selectDriverName(item)" tappable>
+        {{ item.name }}
+      </ion-item>
+    </ion-list>
+    <ion-item style="margin-top: 10px !important;">
+      <ion-label stacked color="label" class="bold">{{ 'ta_container_number' | translate }}
+      </ion-label>
+      <ion-input type="text" placeholder="{{'ta_container_number_placeholder'|translate}}" [(ngModel)]="containerNo"
+                 (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,11}$','tacontainernumber')"
+                 onpaste="return true;"
+                 minlength="10" maxlength="11" tappable>
+      </ion-input>
+    </ion-item>
+    <div class="valerror-search" *ngIf="submit && containerNoValid()">
+      {{containerNoErrormsg}}
+    </div>
+
+    <ion-row class = "filter-row" style=" padding-left: 15px;">
+      <ion-label stacked color="label" class="bold">{{ 'ta_shipping_line' | translate }}
+      </ion-label>
+    </ion-row>
+    <ion-row class="rowSeperator searchbarStyle">
+    <ion-searchbar class = "row-seperator-align" type="text" (ionInput)="getShippingLine($event)" tappable
+                   [(ngModel)]="shippingLine"
+                   (ionFocus)="getShippingLineMaster()"
+                   (ionBlur)="hideShippingLine()"
+                   (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,255}$','tashippingline')"
+                   onpaste="return true;"
+                    minlength="3" maxlength="255">
+
+      </ion-searchbar>
+    </ion-row>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(shippingLine, '^[0-9a-zA-Z]{0,255}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+    <ion-list *ngIf="showShipperLine">
+      <ion-item *ngFor="let item of filterShippingLineArray" (mousedown)="selectShippingLine(item)" tappable>
+        {{ item.shippingLineCode }}
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label stacked color="label" class="bold">{{ 'ta_move_type' | translate }}
+      </ion-label>
+      <ion-select class="label-left" [(ngModel)]="selectedMovetype"   tappable>
+        <ion-option *ngFor="let key of moveTypeList" value={{key.definedSetValueCode}}>{{key.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-row class = "filter-row" style=" padding-left: 15px;">
+      <ion-label stacked color="label" class="bold">{{ 'ta_rotation_number' | translate }}
+      </ion-label>
+    </ion-row>
+    <ion-row class="rowSeperator searchbarStyle">
+    <ion-searchbar class = "row-seperator-align" type="tel" (ionInput)="getRotationNumber($event)" tappable
+                   [(ngModel)]="rotationNumber"
+                   (ionFocus)="getRotationNumberMaster()"
+                   (ionBlur)="hideRotationNumber()"
+                   (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','tarotationnumber')"
+                   onpaste="return true;"
+                   minlength="1" maxlength="18">
+
+      </ion-searchbar>
+    </ion-row>
+    <ion-list *ngIf="showrotationNumber">
+      <ion-item *ngFor="let item of filterRotationNumberArray" (mousedown)="selectRotation(item)" tappable>
+        {{ item.rotationNo }}
+      </ion-item>
+    </ion-list>
+    <ion-item>
+    <ion-label stacked color="label" class="bold">{{ 'ta_ca_number' | translate }}
+    </ion-label>
+    <ion-input type="tel" placeholder="{{'ta_ca_number_placeholder'|translate}}" [(ngModel)]="containerAcceptanceNo"
+               (keyup)="keyUpValidate($event,'^[0-9]{0,30}$','tacanumber')"
+               onpaste="return true;"
+               minlength="3" maxlength="30" tappable>
+    </ion-input>
+  </ion-item>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(containerAcceptanceNo,'^[0-9]{0,30}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+
+    <ion-item>
+      <ion-label stacked color="label" class="bold">{{ 'ta_do_number' | translate }}
+      </ion-label>
+      <ion-input type="tel" placeholder="{{'ta_do_number_placeholder'|translate}}" [(ngModel)]="deliveryOrderNo"
+                 (keyup)="keyUpValidate($event,'^[0-9]{0,30}$','tadonumber')"
+                 onpaste="return true;"
+                 minlength="3" maxlength="30" tappable>
+      </ion-input>
+    </ion-item>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(deliveryOrderNo,'^[0-9]{0,30}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+
+    <ion-item>
+      <ion-label stacked color="label" class="bold">{{ 'ta_containerrelease_no' | translate }}
+      </ion-label>
+      <ion-input type="tel" placeholder="{{'ta_containerrelease_no_placeholder'|translate}}" [(ngModel)]="containerReleaseNo"
+                 (keyup)="keyUpValidate($event,'^[0-9]{0,30}$','tacontainerreleaseno')"
+                 onpaste="return true;"
+                 minlength="3" maxlength="30" tappable>
+      </ion-input>
+    </ion-item>
+    <div class="valerror-search" *ngIf="submit && fieldsValid(containerReleaseNo,'^[0-9]{0,30}$')">
+      {{agentReferenceNoErrormsg}}
+    </div>
+
+    <ion-item>
+      <ion-label stacked color="label" class="bold">{{ 'ta_status' | translate }}
+      </ion-label>
+      <ion-select class="label-left" [(ngModel)]="selectedStatus"   tappable>
+        <ion-option *ngFor="let status of statusList" value={{status.definedSetValueCode}}>{{status.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </div>
+
+
+
+  <ion-row clas="reset-button-container">
+    <ion-col class="imoitem" col-6>
+      <ion-item id="searchbutton" no-lines>
+        <button full color="submit" ion-button class="align-button-center-of-container button-apply-general" id="buttonsearch" (click)="reset()" tappable>{{ 'ca_reset' | translate }}</button>
+      </ion-item>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <ion-item id="searchbutton" no-lines>
+        <button  full color="submit" ion-button class="align-button-center-of-container button-apply-general" id="buttonsearch" (click)="showTaResults()" tappable>{{ 'ca_search' | translate }}</button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="row">
+    <ion-col class=" col" style="height:50px;" col-6="">
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,263 @@
+page-taedit {
+
+  .ionrow {
+    background: white;
+    //width: 98%;
+    width: 100%;
+    margin: 4px -5px -2px 3px;
+  }
+
+  .detailsheader {
+    height: 70px;
+  }
+
+  .additionalDetailsDropdown {
+    border: 1px solid #c8c7cc;
+    background-color: white;
+  }
+
+  .title {
+    position: relative;
+    right: 6%;
+  }
+
+  .additionalDetailStyle {
+    background-color: #5e84a5;
+  }
+
+  .filters {
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+      ion-icon {
+        color: #ccc;
+      }
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+
+  .padding-left-row {
+    padding-left: 10px;
+  }
+  .additional-details .text-input{
+    margin-top:0px;
+    margin-bottom:25px;
+
+  }
+  .alingn-elemnts-inline-left {
+    padding: 0px;
+    display: inline-block;
+    float: left;
+  }
+
+  .iconGeneral {
+    color: white;
+    font-size: 20px;
+    width: 30px;
+    text-align: center;
+  }
+
+  .pullRightToContainer {
+    float: right;
+    margin-right: 5px;
+    display: inline-block;
+  }
+
+  .error1 {
+    border-top: 1px solid red;
+    position: relative;
+    margin-top: -1px;
+    width: 100%;
+  }
+
+  .searchbar-error {
+    border-top: 1px solid red;
+    color: red;
+    position: relative;
+    width: 97%;
+    margin-top: 0px;
+    margin-left: 3px;
+  }
+
+  .rotateIconDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  .rotateIconUp {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  .boldStyle {
+    font-weight: 500;
+  }
+
+  .footer-submit {
+    margin-left: calc((100% - 118px) / 2) !important
+  }
+
+  .cal {
+    float: right;
+    font-size: 1.5em;
+    position: relative;
+    margin-top: -8%;
+    background-color: white;
+  }
+
+  .appointment-date-time {
+    width: 100%;
+    height: 100%;
+  }
+
+  .appointment-date-time .datetime-text {
+    padding-top: 12px;
+    padding-left: 0px;
+  }
+
+  .appointment-slot-select {
+    padding-top: 15px;
+  }
+
+  .appointment-slot-select .select-text {
+    padding-left: 0px;
+  }
+
+  //for Swipable Slider tabs
+  .main-content-slider ion-slide {
+    min-height: 100% !important;
+  }
+
+  .main-content-slider ion-slide .slide-zoom {
+    height: 100%;
+    font-size: 14px !important;
+    text-align: initial !important;
+  }
+  .main-content-slider ion-slide .slide-zoom .scrollable-div {
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .uploadbutton-label {
+    width: calc(100% - 120px) !important;
+    float: left;
+    display: inline-block;
+    min-height: 60px !important;
+  }
+  .uploadbutton-label-withoutbutton {
+    width: calc(100% - 250px) !important;
+    float: left;
+    display: inline-block;
+    //height: 58px !important;
+  }
+  //for Swipable Slider tabs
+}
+
+.platform-android page-taedit .disableDiv {
+  width: 98% !important;
+  opacity: .4;
+}
+
+.platform-android page-taedit .disableDiv ion-searchbar {
+  width: 98% !important;
+  margin-left: 2% !important;
+  opacity: .4;
+}
+
+.platform-ios page-taedit .disableDiv {
+  width: 98% !important;
+  opacity: .4;
+}
+
+.platform-ios page-taedit .disableDiv ion-searchbar {
+  width: 98% !important;
+  margin-left: 2% !important;
+  opacity: .4;
+}
+
+.platform-android page-taedit .attachrowSeperator {
+  border-bottom: 1px solid #dedede;
+  //border-bottom: 1px solid #efefef;
+}
+
+.platform-ios page-taedit .attachrowSeperator {
+  border-bottom: 0.55px solid #c8c7cc;
+  //border-bottom: 1px solid #efefef;
+}
+
+.platform-ios page-taedit .scroll-content {
+  margin-top: 40px !important;
+  margin-bottom: 36px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  //overflow-y: hidden !important;
+}
+
+.platform-mobile page-taedit textarea.text-input {
+  resize: none;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 30px;
+  max-height: 50px;
+  min-height: 10px;
+}
+
+.platform-android page-taedit .cal {
+  margin-top: -35px !important;
+  right: 15px !important;
+}
+
+page-taedit .create-apmt-details ion-input .text-input {
+  padding-top: 10px;
+  margin-top: 0px !important;
+  margin-bottom: 10px;
+  margin-left: 0px !important;
+}
+
+page-taedit .create-apmt-details ion-datetime,
+page-taedit .create-apmt-details .select {
+  padding: 10px 8px 10px 0px;
+}
+
+page-taedit .create-apmt-details ion-label[boldStyle ] {
+  padding: 10px 8px 10px 0px;
+  margin-left: 0px;
+}
+.platform-ios page-taedit .search-padding-ios {
+  padding-top: 5px !important;
+
+}
+.platform-android page-taedit ion-searchbar,
+.platform-ios page-taedit ion-searchbar,
+.platform-ios page-taedit ion-searchbar .searchbar-input-container{
+  margin-bottom: 0px !important;
+  padding: 0px !important;
+  padding-top: 0px !important;
+  height: 20px;
+  max-height: 20px;
+}
+
+.platform-android page-taedit .filteredit {
+  margin-top: 20px !important;
+  min-height:33px !important;
+}

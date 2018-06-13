@@ -1,0 +1,436 @@
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title>{{'SHIP_SERV_SCHED_DETAILS'| translate}}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar class="ion-toolbar-min-style" color="header" style="margin-top:-1%;" id="tool">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab | translate
+              }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow fwdArrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" padding id="shipservscheddetails" style="background-color:#E8E6E6"
+             (ionScroll)="scrollHandler($event)" >
+  <!--Container for Shipping Service Schedule Details-->
+  <div *ngIf="showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssLocation'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssSPName' | translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{locationName}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.spName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssNumber' | translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssStatus'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.shippingServiceScheduleNo}}
+        </ion-col>
+        <ion-col *ngIf="isCancelled" col-6 text-wrap>
+          <a href="#"(click)="showComments()">{{sssSearchDetailResultModel.statusView}}</a>
+        </ion-col>
+        <ion-col *ngIf="!isCancelled" col-6 text-wrap>
+          {{sssSearchDetailResultModel.statusView}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssAgentRefNumber'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssLeaderLine'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.agentReferenceNo}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.shippingLine}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssSchedCode'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssSchedName'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.shippingServiceCode}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.shippingServiceName}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssApprTotalMovesPerCall'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssLeaderLineMovesPerCall'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.approximateTotalMovesPerCall}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.leaderLineMovesPerCall}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssLeaderLineMovesPerCallPercent'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssStartDate'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.leaderLineMovesPerCallPercentage}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.startDateService}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssEndDate'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssExpectedTimeOfArrival'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.endDateService}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.expectedTimeOfArrival}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          {{'sssRemarks'| translate}}
+        </ion-col>
+        <ion-col class="ioncol">
+          {{'sssFrequencyOfCalls'| translate}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.remarks}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{sssSearchDetailResultModel.frequencyOfCalls}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row *ngIf='frequencyModeMonth || frequencyModeYear' class="rowSeperator padding-left-row headder-color-yellow"  col-12>
+      <ion-col col-12 style="color: white">
+       {{'sssOnThe'|translate}}
+      </ion-col>
+    </ion-row>
+    <div class = "inner-scroll-container" *ngIf="frequencyModeMonth">
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12 *ngFor="let frequency of sssFrequencyOfCallList">
+        <ion-col col-6 class="removeMargin">
+          <ion-label class="removeMargin">{{getIntervalPeriod(frequency.intervalperiod)}}</ion-label>
+        </ion-col>
+        <ion-col col-6 class="removeMargin">
+          <ion-label class="removeMargin">{{getIntervalDays(frequency.intervalDays)}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="inner-scroll-container" *ngIf="frequencyModeYear">
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12 *ngFor="let frequency of sssFrequencyOfCallList">
+        <ion-col col-5 class="removeMargin">
+          <ion-label text-wrap class="removeMargin">{{getMonthList(frequency.monthSelectedSo)}}</ion-label>
+        </ion-col>
+        <ion-col col-3 class="removeMargin">
+          <ion-label class="removeMargin">{{getIntervalPeriod(frequency.intervalperiod)}}</ion-label>
+        </ion-col>
+        <ion-col col-4 class="removeMargin">
+          <ion-label class="removeMargin">{{getIntervalDays(frequency.intervalDays)}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <!----------- Container for Partner Lines in Service Details ----------------->
+  <div *ngIf="showTabs[1]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <ion-label *ngIf="checkListIsNotEmpty(sssPartnerLinesList)" class="make-no-data-labels-center">
+      {{'sssDataNotAvailable'| translate}}
+    </ion-label>
+    <ion-row class="rowSeperatorRepeat" *ngFor="let partnerLine of sssPartnerLinesList">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssLineCodePartner'|translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssStartDate'|translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{partnerLine.lineCodePartner}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{partnerLine.startDatePartner}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssEndDate'| translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssPartnerLinesMovesPerCall'| translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{partnerLine.endDatePartner}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{partnerLine.partnerLinesMovesPerCall}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 text-wrap class="ioncol">
+            {{'sssPartnerLinesMovesPerCallPercent'| translate}}
+          </ion-col>
+          <ion-col col-6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{partnerLine.partnerLinesMovesPerCallPercentage}}
+          </ion-col>
+          <ion-col col-6>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+  </div>
+  <!----------- Container for Vessels in Service Details ----------------->
+  <div *ngIf="showTabs[2]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <ion-label *ngIf="checkListIsNotEmpty(sssVesselsInServiceList)" class="make-no-data-labels-center">
+      {{'sssDataNotAvailable'| translate}}
+    </ion-label>
+    <ion-row class="rowSeperatorRepeat" *ngFor="let vesselInService of sssVesselsInServiceList">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssLineCodeVessel'|translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssVesselName'|translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.lineCodeVessel}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.vesselName}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssStartDate'| translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssEndDate'| translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.startDateVessel}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.endDateVessel}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssCapacityInTEUS'| translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssTonnage'| translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.capacityInTEUS}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.tonnage}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssVesselLOA'| translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssVesselType'| translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.vesselLOA}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{vesselInService.serviceType}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+  </div>
+  <!----------- Container for Partner Lines in Service Details ----------------->
+  <div *ngIf="showTabs[3]" style="height: 98%;background: #F4F4F4;">
+    <ion-label *ngIf="checkListIsNotEmpty(sssPortOfCallList)" class="make-no-data-labels-center">
+      {{'sssDataNotAvailable'| translate}}
+    </ion-label>
+    <ion-row class="rowSeperatorRepeat" *ngFor="let portOfCall of sssPortOfCallList">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssPortCallSequence'|translate}}
+          </ion-col>
+          <ion-col class="ioncol">
+            {{'sssPortCode'|translate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{portOfCall.portCallSequence}}
+          </ion-col>
+          <ion-col col-6 text-wrap>
+            {{portOfCall.portCode}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col class="ioncol">
+            {{'sssPortName'| translate}}
+          </ion-col>
+          <ion-col class="ioncol" *ngIf="isApprover">
+            {{'sssCutoffTime'| translate}}
+          </ion-col>
+          <ion-col col-6 *ngIf="!isApprover">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{portOfCall.portName}}
+          </ion-col>
+          <ion-col *ngIf="isApprover" col-6 text-wrap>
+            {{(portOfCall.cutOffTime == "")?'4':portOfCall.cutOffTime}}
+          </ion-col>
+          <ion-col col-6 *ngIf="!isApprover">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+  </div>
+  <!--Container for Schedule Attachments-->
+  <div *ngIf="showTabs[4]" style="height: 98%;background: #F4F4F4;">
+    <ion-label *ngIf="checkListIsNotEmpty(sssAttachmentList)" class="make-no-data-labels-center">
+      {{'noattachmentmsg'| translate}}
+    </ion-label>
+    <div *ngFor="let attachment of sssAttachmentList;let i = index" class="rowSeperator">
+      <div (click)="openAttach(attachment)" tappable >
+        <img src="assets/img/image-icon.png" class="photoIconLabel"
+             *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+        <label>
+          {{attachment.fileName}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <ion-fab right bottom>
+    <button [hidden]="showActionButton()" class="edit" ion-fab color="$icon-highlight-bg-color-onfocus" tappable>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <ion-label [hidden]="workflowStatus()" class="fabedit"></ion-label>
+      <button [hidden]="workflowStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showWorkflow()"
+              tappable>
+        <ion-icon name="custom-workflow"></ion-icon>
+      </button>
+
+      <ion-label [hidden]="hideCompare()" class="fabedit"></ion-label>
+      <button [hidden]="hideCompare()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seeSsscomparison()"
+              tappable>
+        <ion-icon name="custom-comparison"></ion-icon>
+      </button>
+      <ion-label [hidden]="hideApproveButton" class="fabedit"></ion-label>
+      <button [hidden]="hideApproveButton" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="onActionApprove()"
+              tappable>
+        <ion-icon name="custom-action"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

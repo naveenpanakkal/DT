@@ -1,0 +1,77 @@
+
+page-ssrohistory {
+  .toolbar-title {
+    font-weight: 500 !important;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+  //---ios_change--start
+  //---title truncation bugfix
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  //---ios-change--end
+
+  .ionrow {
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+
+  #ioncol {
+    color: #a0a0a0;
+  }
+
+  .scroll-content {
+    padding-bottom: 15% !important;
+  }
+
+  #caption {
+    color: black !important;
+  }
+
+  h6 {
+    line-height: 0.2 !important;
+  }
+
+  #ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+
+  .attach {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    min-height: 45px;
+    padding-top: 7px;
+  }
+
+  .edit {
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom: 20%;
+    margin-right: 15%;
+  }
+
+  .image {
+    float: right;
+  }
+  .subheader {
+    background: #CFCFCF;
+    margin-top: 10px;
+  }
+  .bold {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 3% !important;
+  }
+}

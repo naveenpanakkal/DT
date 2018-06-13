@@ -1,0 +1,791 @@
+<!--
+  Generated template for the RBeditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title" >  {{ 'ssr-view-name' | translate }}
+    </ion-title>
+
+  </ion-navbar>
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1  tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding id="taEdit">
+  <!--General Details Tab-->
+  <div *ngIf="showTabs[0]" style="height:100%;">
+    <form  style="height:auto;width:100%;background-color: white;">
+      <div style="height:auto;    width: 100%;" *ngIf="!checkListIsNotEmpty(ssrSearchResult)">
+
+        <ion-row col-12 class="rowSeperator padding-left-row" [hidden]="!fromHistory">
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+            {{ 'requestId' | translate }}
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap>
+            <ion-label class="removeMargin  boldStyle">{{ssrSearchResult.ssrRequestReqNo}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row col-12 class="rowSeperator padding-left-row" [hidden]="!fromHistory">
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+            {{ 'Current_status' | translate }}
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap>
+            <ion-label class="removeMargin  boldStyle">{{ssrSearchResult.amendRequestStatus}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="rowSeperator" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle"> {{ 'ssr-sp-type' | translate }}</ion-label>
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.spType}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="rowSeperator" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle"> {{ 'ssr-location' | translate }}</ion-label>
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.location}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="rowSeperator" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ 'ssr-sp-name' | translate }}</ion-label>
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.spName}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="rowSeperator" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ 'ssr-terminal' | translate }}</ion-label>
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.terminal}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row  class="rowSeperator" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ 'ssr-service-cat' | translate }}</ion-label>
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+            <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.serviceCategory}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </form>
+  </div>
+  <!--End - General Details Tab-->
+  <!--Container Service-->
+  <div *ngIf="showTabs[1]" style="height:100%;">
+    <ion-row class="rowSeperator" col-12>
+     <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-cust-ref-no' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.cusReferenceNo}}</ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-special-serv-type' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrsubtypeResult.specialServiceName}}</ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="(ssrsubtypeResult.subType.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-sub-typ' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.subType}}</ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.approver)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Approver' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle rblabelstyle">
+        <a href="#" (click) = "openApproverModel()">{{ 'ssr-approverdetails' | translate }}</a>
+      </ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'instructions' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrsubtypeResult.instructions}}</ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.expCompDate)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle"> {{'ssr-expected-date' | translate}}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.expCompDate}} GST</ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Special-Instructions' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left " text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.specialInstructions}}</ion-label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'special-service-req' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.ssrRequestNo}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12>
+    <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-req-status' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.amendRequestStatus}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12 [hidden]="(ssrSearchResult.serviceStatus.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-service-status' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.serviceStatus}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12
+    [hidden]="((ssrSearchResult.serviceProvidedOn)?((ssrSearchResult.serviceProvidedOn.length==0)?true:false):false)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-serviceprovidedon' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.serviceProvidedOn}} GST</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.searchByContainer)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Search-By' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{searchby}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12 [hidden]="(ssrSearchResult.caNo.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr-ca' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.caNo}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12 [hidden]="(ssrSearchResult.doNo.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssr_dono' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.doNo}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12 [hidden]="(ssrSearchResult.cancelRemarks.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'ssrCancelRemarks' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.cancelRemarks}}</ion-label>
+    </ion-col>
+    </ion-row>
+    <div style="height:auto;">
+      <div class = "inner-scroll-container"  >
+      <div *ngFor="let ssrcontainer of ssrSearchResult.containerSsrDetailsSO;let selectedTabIndex = index;" >
+        <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+             (click)="openSelecedTab(selectedTabIndex)" tappable>
+
+          <div col-12 style="display: inline-block;float: left;">
+            <div class="rotateIconHolder"
+                 style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+              <div style="width:20px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright">
+                </ion-icon>
+              </div>
+            </div>
+            <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+              {{ssrcontainer.containerNo}}-{{ssrcontainer.isoType}}
+            </ion-label>
+          </div>
+        </div>
+
+
+        <div style="min-width:322px;background-color: white;margin-left:4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+             [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'ssr-containerno' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrcontainer.containerNo}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'ssr-isotype' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrcontainer.isoType}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'ssr-designation' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrcontainer.designation}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'ssr-tradetype' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrcontainer.tradeType}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'quantity' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrcontainer.quantityContainer}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'hours' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrcontainer.hoursContainer}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'cost' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label>
+                <a href="#" text-wrap (click) = "openCostModel()">{{ssrcontainer.totalCostContainer}}</a>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div style = "padding-left:5px;padding-right:5px;">
+      <ion-row class="rowSeperator padding-left-row headder-color-light" style="color: white;" col-12>
+        <ion-col col-4 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+          {{ 'ssr-requestfees' | translate }}
+        </ion-col>
+        <ion-col col-2 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+          {{ 'rb_tax' | translate }}
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+          {{ 'VLDS_total' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+        <ion-col col-4 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{ssrsubtypeResult.requestFee}}</ion-label>
+        </ion-col>
+        <ion-col col-2 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{ssrsubtypeResult.tax}}</ion-label>
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{ssrSearchResult.totalChargeAmount}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+  <ion-row class="rowSeperator" col-12 [hidden]="(ssrSearchResult.remarks.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+    <ion-label class="label-span-alignment boldStyle">{{ 'remarks' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+      <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.remarks}}</ion-label>
+    </ion-col>
+    </ion-row>
+  </div>
+  <!--End - Container Service-->
+
+
+  <!--Vessel Service-->
+  <div *ngIf="showTabs[2]" style="height:100%;">
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-cust-ref-no' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.cusReferenceNo}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-special-serv-type' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrsubtypeResult.specialServiceName}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="(ssrsubtypeResult.subType.length==0)?true:false">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-sub-typ' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.subType}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.approver)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Approver' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle rblabelstyle">
+          <a href="#" (click) = "openApproverModel()">{{ 'ssr-approverdetails' | translate }}</a>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'instructions' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrsubtypeResult.instructions}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row  class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.expCompDate)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle"> {{'ssr-expected-date' | translate}}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.expCompDate}} GST</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator"  col-12 [hidden]="checkVisibility(ssrsubtypeResult.startDate)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle"> {{'startDateService' | translate}}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.startDate}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.endDate)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle"> {{'endDateService' | translate}}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.endDate}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Special-Instructions' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left " text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.specialInstructions}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'special-service-req' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.ssrRequestNo}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" class="rowSeperator" col-12 text-wrap>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-req-status' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.amendRequestStatus}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <div style="height:auto;">
+      <div class = "inner-scroll-container"  >
+         <div *ngFor="let ssrvessel of ssrSearchResult.vesselSsrDetailsSO;let selectedTabIndex = index;" >
+        <div class="attach-headder" style="margin-top: 5px;margin-left: 4px;width: calc(100% - 8px);"
+             (click)="openSelecedTab(selectedTabIndex)" tappable>
+
+          <div col-12 style="display: inline-block;float: left;">
+            <div class="rotateIconHolder"
+                 style="width: 20px !important;height: 20px !important;margin-top: -5px;" tappable>
+              <div style="width:20px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright">
+                </ion-icon>
+              </div>
+            </div>
+            <ion-label style="float: left;display:inline-block;margin: -4px 0px 0px 20px;color:white;">
+              Rotation No-{{ssrvessel.rotationNo}}
+            </ion-label>
+          </div>
+        </div>
+
+
+        <div style="min-width:322px;background-color: white;margin-left:4px;width: calc(100% - 8px);border: 0.55px solid #c8c7cc;"
+             [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+          <!--<ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'rotationno' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>xxxxx</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>-->
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'ssr-Vessel-Name' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrvessel.vesselName}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'eta' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrvessel.eta}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'etd' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrvessel.etd}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'operationStatus' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrvessel.operationStatus}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'quantity' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrvessel.quantity}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'hours' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{ssrvessel.hours}}</h4>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="firstrow">
+            <ion-col col-6>
+              <ion-label><h4 class="labels" text-wrap>{{'cost' | translate}}</h4>
+              </ion-label>
+            </ion-col>
+            <ion-col col-6>
+              <ion-label>
+                <a href="#" text-wrap (click) = "openCostModel()">{{ssrvessel.totalCostVessel}}</a>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div style = "padding-left:5px;padding-right:5px;">
+      <ion-row class="rowSeperator padding-left-row headder-color-light" style="color: white;" col-12>
+        <ion-col col-4 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+          {{ 'ssr-requestfees' | translate }}
+        </ion-col>
+        <ion-col col-2 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+          {{ 'rb_tax' | translate }}
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding headder-color-light  boldStyle">
+          {{ 'VLDS_total' | translate }}
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row custom-list" col-12>
+        <ion-col col-4 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{ssrsubtypeResult.requestFee}}</ion-label>
+        </ion-col>
+        <ion-col col-2 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{ssrsubtypeResult.tax}}</ion-label>
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding">
+          <ion-label class=" boldStyle">{{ssrSearchResult.totalChargeAmount}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+  <!--End - Vessel Service-->
+  <!--Documentation Service-->
+  <div *ngIf="showTabs[3]" style="height:100%;">
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-cust-ref-no' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.cusReferenceNo}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-special-serv-type' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrsubtypeResult.specialServiceName}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="rowSeperator" col-12 [hidden]="checkVisibility(ssrsubtypeResult.approver)">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Approver' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle rblabelstyle">
+          <a href="#" (click) = "openApproverModel()">{{ 'ssr-approverdetails' | translate }}</a>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+     <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'instructions' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrsubtypeResult.instructions}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-Special-Instructions' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.specialInstructions}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" col-12>
+      <ion-col col-6 class=" ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'special-service-req' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.ssrRequestNo}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator" class="rowSeperator" col-12>
+      <ion-col col-6 class=" ion-col-minheight-nopadding ion-col-left-color boldStyle alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ 'ssr-req-status' | translate }}</ion-label>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding alingn-elemnts-inline-left" text-wrap>
+        <ion-label class="label-span-alignment boldStyle">{{ssrSearchResult.amendRequestStatus}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <!--End - Documentation Service-->
+  <!--Attachement Tab -->
+
+  <div *ngIf="showTabs[4]" style="height:100%;">
+    <div style="height:auto;" >
+      <div *ngFor="let ssrattachment of ssrSearchResult.sSRAttachSO;let selectedTabIndex = index;" >
+        <div class="attach-headder" style="padding-top:10px;" (click)="openSelecedTab(selectedTabIndex)" tappable>
+          <div col-12 style="float:left; display:inline-block;">
+            <div class="rotateIconHolder"
+                 style="width: 20px !important;height: 20px !important;" tappable>
+              <div style="width:20px;"
+                   [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                <ion-icon name="arrow-dropright">
+                </ion-icon>
+              </div>
+            </div>
+            <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;" >
+              Attachment {{selectedTabIndex+1}}
+            </ion-label>
+          </div>
+
+        </div>
+
+        <div style="min-width:360px;background-color: white;"
+             [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+          <ion-row class="rowSeperator padding-left-row"  col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              <ion-label class=" boldStyle">{{ 'documentType' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding" >
+              <ion-label class=" boldStyle">{{ssrattachment.docType}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row"  col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              <ion-label class=" boldStyle">{{ 'documentNo' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding" >
+              <ion-label class=" boldStyle">{{ssrattachment.docNum}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row"  col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              <ion-label class=" boldStyle">{{ 'document_IssueDate' | translate }}}</ion-label>
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding" >
+              <ion-label class=" boldStyle">{{ssrattachment.docIssueDate}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row"  col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                <ion-label class=" boldStyle">{{ 'documentExp_Date' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6 class="ion-col-minheight-nopadding" >
+              <ion-label class=" boldStyle">{{ssrattachment.docExpDate}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;" >
+            <div class="col photo-button-col" style="width: 200px !important;float: left;display: inline-block;">
+              <img src="assets/img/image-icon.png" class="photoSelectedIcon fileIconStyle"/>
+        <ion-label (click)="getAttachment(ssrattachment)" style = "margin-top:22px;" class="wrap-content filename"><a href="#">{{ssrattachment.fileName}}</a>
+        </ion-label>
+            </div>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Attachement Tab end-->
+<ion-fab [hidden]="!fromHistory" right bottom>
+    <button tappable class="edit" ion-fab color="$icon-highlight-bg-color-onfocus">
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+      <ion-label class="fabedit" [hidden]="hideEditButton()"></ion-label>
+      <button [hidden]="hideEditButton()" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="editSSR(ssrSearchResult)" tappable><ion-icon name ="custom-Edit" ></ion-icon></button>
+
+      <ion-label class="fabedit" [hidden]="hideCancelButton()" ></ion-label>
+      <button class="edit" [hidden]="hideCancelButton()" ion-fab color="$icon-highlight-bg-color-onfocus"
+              (click)="cancelSSR()"   tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+
+      <ion-label class="fabedit" [hidden] ="workflowStatus()" ></ion-label>
+      <button  class="edit" [hidden] ="workflowStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seeWorkFlow()"
+               tappable>
+        <ion-icon name ="custom-workflow"></ion-icon>
+      </button>
+      <ion-label class="fabedit" [hidden]="loadAction()" ></ion-label>
+      <button  class="edit" [hidden]="loadAction()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seeAction()"
+               tappable>
+        <ion-icon name="custom-action"></ion-icon>
+      </button>
+
+    </ion-fab-list>
+  </ion-fab>
+
+
+  <ion-col ion-fixed class="slider-bottom-navigation-col-left" (click)="slideSelectedPrev()" *ngIf="hidePreviousButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-back"  tappable></ion-icon>
+  </ion-col>
+
+  <ion-col ion-fixed   class="slider-bottom-navigation-col-right" (click)="slideSelectedNext()" *ngIf="hideNextButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-forward" tappable></ion-icon>
+  </ion-col>
+
+</ion-content>

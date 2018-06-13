@@ -1,0 +1,160 @@
+page-loaddischargemail {
+  .terminalButtonStyle {
+    background-color : #113B5F;
+    width: 46%;
+  }
+  .dropdown{
+    color:black;
+  }
+  //.inputs{
+  //  padding-left: 8.5%;
+  //}
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+  }
+.mailTitle {
+  font-size: 1.6rem !important;
+  text-decoration: solid;
+  font-weight: bold;
+  margin-left: 5%;
+  background-color: #fff;
+  position: relative;
+}
+
+  .inputReport {
+    color: #000000 !important;
+    font-size: 1.6rem !important;
+    text-decoration: solid;
+    font-weight: bold;
+    background-color: #fff;
+    position: relative;
+  }
+  .reportInput {
+    border: 1px solid #dedede;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 5px;
+  }
+
+  .label-left{
+    margin-left: 0% ;
+  }
+
+  .toggleButtonCenterAlign {
+    margin-left: calc((100% - 65px)/2);
+  }
+
+  .sortOption {
+    margin-top: 20px;
+  }
+  .sortOrderStyle {
+    margin-top: 30px;
+    padding-left: 15px !important;
+  }
+
+  .select-md .select-icon {
+    position: relative;
+    width: 12px;
+    height: 19px;
+    margin-right: 0%;
+    color: black !important;
+  }
+
+  .select-md .select-icon .select-icon-inner {
+    left: 5px;
+    top: 50%;
+    margin-top: -3px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 5px solid;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    color: #222;
+    pointer-events: none;
+  }
+  .title{
+    position: relative;
+  }
+
+  .filterHeight {
+    margin-bottom: 0%;
+  }
+
+  .reportSelect {
+    margin-top: -20%;
+  }
+  .reportError {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    margin-right: 9px;
+    margin-left: 12px;
+    margin-top: -1px !important;
+  }
+
+  .emailError {
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    margin-left: 16px;
+    margin-top: -1px !important;
+  }
+
+  .span
+  {
+    color:red;
+  }
+
+  .buttonCenterAlign {
+    margin-left: calc((100% - 118px)/2);
+  }
+  .removePadding item-inner{
+    padding: 0px !important;
+  }
+  .item_report{
+    padding-right: 11px !important;
+  }
+}
+page-loaddischargemail .list_ldd{
+  margin-bottom: 0px;
+}
+page-loaddischargemail ion-list .checkbox {
+  width: 100%;
+  max-width: 100%;
+  position: absolute !important;
+  margin: 0!important;
+}
+page-loaddischargemail .item_1 ion-label{
+  margin: 0;
+  margin-left: 35px !important;
+}
+.platform-ios page-loaddischargemail .list_ldd{
+  margin-bottom: 30px;
+}
+.platform-iphone page-loaddischargemail ion-list .checkbox {
+  margin-top: 0% !important;
+}
+.platform-ipad page-loaddischargemail .toggleStyle{
+  margin-bottom: 3%;
+  margin-top: -3%;
+}
+.platform-iphone page-loaddischargemail .toggleStyle{
+  margin-bottom: 5%;
+  margin-top: -3%;
+}

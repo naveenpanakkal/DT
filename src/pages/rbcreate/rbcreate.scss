@@ -1,0 +1,267 @@
+page-RBcreate {
+  .select-text{
+    overflow: initial !important;
+    white-space: initial !important;
+  }
+  .remarksInput .text-input-md{
+    margin-left: 0px !important;
+  }
+  .paddingVesselInfo{
+    padding-left: 8px !important
+  }
+  .attchItemStyle{
+    font-size: 1.5rem !important;
+    padding:0px !important;
+  }
+  .attachmentLabelAlignment{
+    margin-left: 8px !important;
+    margin-top: 0px !important;
+  }
+  .detailsheader {
+    height:70px;
+  }
+  .paddingAttach{
+    padding-right: 10px!important;
+  }
+  .paddingStyle{
+    padding: 0px!important;
+  }
+  .attachStyle{
+    float: left;
+    display:inline-block;
+    margin: 3px 0px 0px 30px;
+    color:white;
+  }
+  .rotateIcon{
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .add-button {
+    background-color: #113B5F !important;
+    margin-bottom: 10%;
+    border-radius: 0px !important;
+    float: left;
+    width: 40px;
+    height: 3.8rem !important;
+  }
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  .filters {
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+      ion-icon {
+        color: #ccc;
+      }
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  ion-select{
+    margin-left: 8px;
+  }
+  .labelStyle{
+    opacity: 0.4 !important;
+  }
+  .rblabelstyle{
+    margin-left: 8px !important;
+  }
+  .padding-left-row
+  {
+    padding-left: 10px;
+  }
+  .attchItemStyle ion-input .text-input{
+    margin-left: 0px !important;
+  }
+  .alingn-elemnts-inline-left
+  {
+    padding: 0px;
+    display:inline-block;
+    float:left;
+  }
+  .error1{
+    border-top: 1px solid red;
+    position: relative;
+    margin-top: -1px;
+    width:100%;
+  }
+  .error2{
+    border-top: 1px solid red;
+    position: relative;
+    margin-top: -2px;
+    width:100%;
+  }
+  .label-span-alignment{
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+  }
+  .ion-label-toppadding
+{
+  min-height: 45px;
+  padding: 0px !important;
+  padding-top: 25px !important;
+
+}
+// .edit-mode-style{
+//   ::placeholder {
+//     color:black !important;
+//   }
+// }
+.disable-caretsign
+{
+  .select-icon {
+		visibility: hidden;
+	}
+}
+  .searchbar-error
+  {
+    border-top: 1px solid red;
+    color:red;
+    position: relative;
+    top: 17px;
+  }
+  .rotateIconDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  .rotateIconUp {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .boldStyle
+  {
+    font-weight: 500;
+  }
+  .footer-submit {
+    margin-left: calc((100% - 118px) / 2) !important
+  }
+  .cal {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -35px;
+    margin-right: 2px;
+    background-color: white;
+  }
+  .appointment-date-time{
+    width: 100%;height: 100%;
+  }
+  .appointment-date-time .datetime-text
+  {
+    padding-top: 15px;
+  }
+  .appointment-slot-select{
+    padding-top: 15px;
+  }
+  .appointment-slot-select .select-text{
+    padding-left: 10px;
+  }
+
+  .photoIconLabel{
+    width: 30px;
+    height: 3rem;
+    margin: 11px;
+    vertical-align: middle;
+  }
+  .filename{
+    margin-left: 1px !important;
+    margin-top: 15px !important;
+  }
+  .attch_style{
+    width: 125px !important;
+    padding-top: 10px !important;
+    padding-bottom: 8px !important;
+    float: left;
+  }
+  .file_div{
+    width: calc(100% - 165px) !important;
+    padding-top: 10px !important;
+    padding-bottom: 8px !important;
+    float: left;
+    display: inline-block;
+  }
+  .close-button {
+    float: right;
+    margin-left: 100%;
+    margin-right: 20%;
+    border-radius: 0px !important;
+    width: 40px;
+    height: 3.8rem !important;
+    color: #FFFFFF;
+    background-color: #113B5F;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .gstStyle{
+    padding-left: 6px;
+  }
+}
+.platform-android page-RBcreate  .attachrowSeperator{
+  border-bottom: 1px solid #dedede;
+}
+.platform-ios page-RBcreate  .attachrowSeperator{
+  border-bottom: 0.55px solid #c8c7cc;
+}
+.platform-ios page-RBcreate .scroll-content {
+  margin-top: 40px !important;
+  margin-bottom: 49px;
+  padding-left:0px!important;
+  padding-right:0px!important;
+}
+.platform-ios page-RBcreate .list-ios > .item-block:first-child{
+  border-top:0px;
+}
+.platform-ios page-RBcreate .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+  border-bottom:0px;
+}
+.platform-ios page-RBcreate .text-input-ios, .item-ios.item-block .select-text, page-casearchdetailview .make-center, .searchbar-ios .searchbar-input {
+  font-size: 1.5rem;
+  font-weight: normal !important;
+  font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif !important;
+}
+.platform-ios page-RBcreate .searchbar-error
+{
+  border-top: 1px solid red;
+  color:red;
+  position: relative;
+  width: 100%;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+.platform-ios page-RBcreate .error2{
+  border-top: 1px solid red;
+  position: relative;
+  margin-top: -1px;
+  width:100%;
+}
+.platform-ios page-RBcreate .resourceselctStyle{
+  margin-left: 0px;
+}
+.platform-ios page-RBcreate .rblabelstyle{
+  margin-left: 0px !important;
+}
+page-RBcreate .input-color .searchbar-input{
+  color:#a0a0a0 !important;
+}

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title">{{'rb_history' | translate}} </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  no-bounce has-bounsing="false" style="background-color:#E8E6E6" class="rbHistoryContainer">
+
+  <ion-label [hidden]="!isEmpty" class="make-no-data-labels-center">{{'rb_history_empty_msg'| translate }} </ion-label>
+
+  <div [hidden]="isEmpty" class="attach" (click)="showHistory(history)" *ngFor="let history of historyResponseList; let i = index">
+    {{'rbHistory'|translate}} {{historyResponseList.length-i}}
+    <ion-icon [name]="geticon(history)" class="image" tappable></ion-icon>
+    <div *ngIf="history.showdetails" class="subheader">
+      <ion-grid (click)="openView(history.requestNo)" tappable>
+        <ion-row>
+          <ion-col>
+            {{'rbHistoryRequestId'|translate}}
+          </ion-col>
+          <ion-col >
+            {{history.requestNo}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'rbHistoryActionName'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.actionName}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'rbHistoryStatus'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.status}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'rbHistoryCreatedDate'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.createdDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{'rbHistoryLastModifiedDate'|translate}}
+          </ion-col>
+          <ion-col>
+            {{history.lastModifiedDate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+

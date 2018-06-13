@@ -1,0 +1,44 @@
+<!-- Generated template for the InformationmodalWithHeaderComponent component -->
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title">Information</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false" padding>
+  <!--<ion-row class="rowheight" *ngFor="let modals of modalData; ;" ng-init="dropDown='false'" >-->
+  <ion-row class="rowheight" *ngFor="let modals of modalData; let dropDown='false';">
+    <ion-col>
+      <div class="attach-headder" >
+        <div class="rotateIconHolder" tappable>
+        <!--<div class="rotateIconHolder" (click)="(dropDown=='true')? this.dropDown='false':this.dropDown='true'" tappable>-->
+          <div style="width:10px;height:30px;display: inline-block;float: left;" [ngClass]="(dropDown=='true')? 'rotateIconDown' : 'rotateIconUp' ">
+            <ion-icon name="arrow-dropright">
+            </ion-icon>
+          </div>
+          <ion-label class="label-Attachment-headder">
+            <!--{{modals.headderText}}-->
+          </ion-label>
+        </div>
+      </div>
+    </ion-col>
+    <div [ngClass]="(dropDown=='true') ? 'subheadermodel': 'hideSubheadermodel'">
+     <div *ngFor="let modal of modals;">
+          <ion-row class="rowSeperator">
+         <ion-col class="option-padding-left" col-4>
+           <ion-label class="ion-col-left-color">
+             {{modal.label}}
+           </ion-label>
+         </ion-col>
+         <ion-col>
+           <ion-label class="ion-col-right-color">
+             {{modal.value}}
+           </ion-label>
+         </ion-col>
+       </ion-row>
+     </div>
+    </div>
+  </ion-row>
+  <ion-row class="closeButton">
+  <button ion-button color="submit" block (click)="close()">Ok</button>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,730 @@
+<!--
+  Generated template for the BerthsearchdetailviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header" no-line>
+    <ion-title class="title" class="berthDetailsTitle-ios">Berth Details</ion-title>
+  </ion-navbar>
+   <ion-toolbar class="ion-toolbar-min-style">
+        <ion-row class="filters">
+            <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+                <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+            </ion-col>
+            <ion-col no-padding col-10>
+                <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+                      <ion-slide  (click)="filterData(category)" [class.selectedtab]="selectedCategory== category.heading" *ngFor="let category of mainArray" tappable>
+                        <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ category.heading }}</button>
+
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+            <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+                <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+            </ion-col>
+        </ion-row>
+
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="bearthSearchDetailsViewContainer">
+  <!--Agent Information -->
+<div *ngIf="agentinfo">
+   <ion-grid [hidden]="!fromHistory" class="ionrow">
+      <ion-row>
+        <ion-col class="ioncol">
+          Request ID
+        </ion-col>
+        <ion-col>
+          {{berthSearchDetailsResultModel.requestID}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="ioncol">
+          Current status
+        </ion-col>
+        <ion-col>
+          {{berthSearchDetailsResultModel.requestStatus}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Shipping Agent Name
+      </ion-col>
+     </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.shippingAgentName}}
+      </ion-col>
+     </ion-row>
+  </ion-grid>
+</div>
+<!--Vessel Information -->
+<div *ngIf="vesselinfo">
+<ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Port
+      </ion-col>
+      <ion-col class="ioncol">
+        Line
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.port}}
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.line}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Request ID
+      </ion-col>
+      <ion-col class="ioncol">
+        Request Status
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        {{berthSearchDetailsResultModel.requestID}}
+      </ion-col>
+      <ion-col id="ioncolright">
+       {{berthSearchDetailsResultModel.requestStatus}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Vessel Name
+      </ion-col>
+      <ion-col class="ioncol">
+        Vessel Type
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="berth_item">
+        {{berthSearchDetailsResultModel.vesselName}}
+      </ion-col>
+      <ion-col id="ioncolright">
+       {{berthSearchDetailsResultModel.vesselType}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Rotation Number
+      </ion-col>
+      <ion-col class="ioncol">
+        Connecting Vessel
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        {{berthSearchDetailsResultModel.rotationNumber}}
+      </ion-col>
+      <ion-col id="ioncolright" class="berth_item">
+       {{berthSearchDetailsResultModel.connectingVessel}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Shipping Service Name
+      </ion-col>
+      <ion-col class="ioncol">
+        Tonnage (Ton)
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        {{berthSearchDetailsResultModel.shippingServiceName}}
+      </ion-col>
+      <ion-col id="ioncolright">
+       {{berthSearchDetailsResultModel.tonnage}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        LOA (Meters)
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{berthSearchDetailsResultModel.loa}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+  <!--Call Information -->
+<div *ngIf="callinfo">
+<ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Arrival From
+      </ion-col>
+      <ion-col class="ioncol">
+        Sail To
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.arriveFrom}}
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.sailTo}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Inbound Voyage No.
+      </ion-col>
+      <ion-col class="ioncol">
+        Outbound Voyage No.
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.inboundVoyNo}}
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.outboundVoyNo}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        ETA
+      </ion-col>
+      <ion-col class="ioncol">
+        Cargo Cut Off Time
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.eta}} <span *ngIf="berthSearchDetailsResultModel.eta!=null && berthSearchDetailsResultModel.eta.length>0">{{TimeZone}}</span>
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.cargoCutOffTime}}  <span *ngIf="berthSearchDetailsResultModel.cargoCutOffTime!=null && berthSearchDetailsResultModel.cargoCutOffTime.length>0">{{TimeZone}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        ETB
+      </ion-col>
+      <ion-col class="ioncol">
+        ETD
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.etb}}  <span *ngIf="berthSearchDetailsResultModel.etb!=null && berthSearchDetailsResultModel.etb.length>0">{{TimeZone}}</span>
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.etd}}  <span *ngIf="berthSearchDetailsResultModel.etd!=null && berthSearchDetailsResultModel.etd.length>0">{{TimeZone}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Estimated Stay Hrs
+      </ion-col>
+      <ion-col class="ioncol">
+        Operation Status
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.estimantedStayHrs}}
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.operationStatus}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Arrival Draft (Meters)
+      </ion-col>
+      <ion-col class="ioncol">
+        Sail Draft (Meters)
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.arrivalDraft}}
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.sailDraft}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+   <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Air Draft (Meters)
+      </ion-col>
+      <ion-col class="ioncol">
+        Anchorage DateTime
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.airDraft}}
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.anchorageDateTime}}  <span *ngIf="berthSearchDetailsResultModel.anchorageDateTime!=null && berthSearchDetailsResultModel.anchorageDateTime.length>0">{{TimeZone}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Lay By DateTime
+      </ion-col>
+      <ion-col class="ioncol">
+        ATA
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.layByDateTime}}  <span *ngIf="berthSearchDetailsResultModel.layByDateTime!=null && berthSearchDetailsResultModel.layByDateTime.length>0">{{TimeZone}}</span>
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.ata}} <span *ngIf="berthSearchDetailsResultModel.ata!=null && berthSearchDetailsResultModel.ata.length>0">{{TimeZone}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        ATB
+      </ion-col>
+      <ion-col class="ioncol">
+        Work Start DateTime
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.atb}}  <span *ngIf="berthSearchDetailsResultModel.atb!=null && berthSearchDetailsResultModel.atb.length>0">{{TimeZone}}</span>
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.workStartDateTime}} <span *ngIf="berthSearchDetailsResultModel.workStartDateTime!=null && berthSearchDetailsResultModel.workStartDateTime.length>0">{{TimeZone}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Work End DateTime
+      </ion-col>
+      <ion-col class="ioncol">
+        ATD
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.workEndDateTime}}  <span *ngIf="berthSearchDetailsResultModel.workEndDateTime!=null && berthSearchDetailsResultModel.workEndDateTime.length>0">{{TimeZone}}</span>
+      </ion-col>
+      <ion-col id="ioncolright">
+        {{berthSearchDetailsResultModel.atd}}  <span *ngIf="berthSearchDetailsResultModel.atd!=null && berthSearchDetailsResultModel.atd.length>0">{{TimeZone}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+   <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Additional Services
+      </ion-col>
+      <ion-col class="ioncol" [hidden]="othersvisible()">
+        Others
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.additionalServices}}
+      </ion-col>
+      <ion-col id="ioncolright" [hidden]="othersvisible()" class="berth_item">
+        {{berthSearchDetailsResultModel.others}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+   <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Vessel Position
+      </ion-col>
+       <ion-col class="ioncol" >
+        Remarks
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        {{berthSearchDetailsResultModel.vesselPosition}}
+      </ion-col>
+      <ion-col id="ioncolright" class="berth_item">
+        {{berthSearchDetailsResultModel.remarks}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+   <!--Berthing Information -->
+<div *ngIf="berthinginfo">
+  <ion-list>
+<div *ngFor="let s of berthingInfo">
+    <ion-grid class="ionrow">
+         <ion-row>
+            <ion-col col-6 class="ioncol">
+              Terminal
+            </ion-col>
+            <ion-col col-6 class="ioncol">
+              Terminal Operator
+            </ion-col>
+         </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              {{terminalname}}
+            </ion-col>
+            <ion-col col-6>
+              {{s.terminalOperator}}
+            </ion-col>
+         </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 class="ioncol">
+              Preferred Berth
+            </ion-col>
+            <ion-col col-6 class="ioncol">
+              Call Reason
+            </ion-col>
+         </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              {{s.preferredBerth}}
+            </ion-col>
+            <ion-col col-6>
+              {{s.callReason}}
+            </ion-col>
+         </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 class="ioncol">
+              Alloted Berth
+            </ion-col>
+            <ion-col col-6 class="ioncol">
+              Bollard No
+            </ion-col>
+         </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              {{s.allotedBerth}}
+            </ion-col>
+            <ion-col col-6>
+              {{s.bollardNo}}
+            </ion-col>
+         </ion-row>
+    </ion-grid>
+  </div>
+  </ion-list>
+</div>
+ <!--Container Information -->
+<div *ngIf="containerinfo">
+<ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Estimated Discharge Moves
+      </ion-col>
+      <ion-col class="ioncol">
+        Estimated Load Moves
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+      {{berthSearchDetailsResultModel.estimatedDischgMoves}}
+      </ion-col>
+      <ion-col id="ioncolright">
+      {{berthSearchDetailsResultModel.estimatedLoadMoves}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+  <ion-row>
+      <ion-col class="ioncol">
+        Estimated Other Moves
+      </ion-col>
+   </ion-row>
+    <ion-row >
+      <ion-col>
+      {{berthSearchDetailsResultModel.estimatedOtherMoves}}
+      </ion-col>
+  </ion-row>
+  </ion-grid>
+  </div>
+  <!--Cargo Information -->
+<div *ngIf="cargoinfo">
+<ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        Type Of Operation
+      </ion-col>
+      <ion-col class="ioncol">
+        Mode Of Operation
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+      {{berthSearchDetailsResultModel.typeOfOperation}}
+      </ion-col>
+      <ion-col id="ioncolright">
+      {{berthSearchDetailsResultModel.modeOfOperation}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        No. Of Shore Cranes
+      </ion-col>
+      <ion-col class="ioncol">
+        Sustained Gears
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+      {{berthSearchDetailsResultModel.noOfCranes}}
+      </ion-col>
+      <ion-col id="ioncolright">
+      {{berthSearchDetailsResultModel.sustainedGears}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ionrow">
+    <ion-row>
+      <ion-col class="ioncol">
+        No Of Hatches
+      </ion-col>
+      </ion-row>
+    <ion-row >
+      <ion-col>
+      {{berthSearchDetailsResultModel.noOfHatches}}
+      </ion-col>
+      </ion-row>
+  </ion-grid>
+</div>
+  <!--Attachment -->
+<div *ngIf="attachmentinfo">
+  <div class="attach"  *ngFor="let attachment of attachments;let i = index">
+    <div (click)="show(attachment)">
+     Attachment {{i+1}}
+     <ion-icon [name]="geticon(attachment)" class="image"></ion-icon>
+    </div>
+    <div *ngIf="attachment.showdetails" class="subheader">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Document Type:
+          </ion-col>
+          <ion-col>
+            {{attachment.docType}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+            Document No:
+          </ion-col>
+          <ion-col>
+            {{attachment.docNum}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+            Document Issue Date:
+          </ion-col>
+          <ion-col>
+            {{attachment.docIssueDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+            Document Expiry Date:
+          </ion-col>
+          <ion-col>
+            {{attachment.docExpDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="highlightrow">
+          <ion-col>
+           Document Name
+          </ion-col>
+         <ion-col ion-icon name="archive" class="underline" (click)="openattach(attachment)">
+            {{attachment.fileName}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</div>
+ <!--Cargo Details -->
+<div *ngIf="cargodetails">
+  <ion-list>
+    <div *ngFor="let s of cargoInfo">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncol">
+            Operation Type
+          </ion-col>
+          <ion-col col-6 class="ioncol">
+            Cargo Type
+          </ion-col>
+       </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            {{s.operationType}}
+          </ion-col>
+          <ion-col col-6>
+            {{s.cargoType}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+         <ion-row>
+          <ion-col col-6 class="ioncol">
+            Hatch No
+          </ion-col>
+          <ion-col col-6 class="ioncol">
+            Quantity
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            {{s.hatchNo}}
+          </ion-col>
+          <ion-col col-6>
+            {{s.quantity}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+         <ion-row>
+          <ion-col col-6 class="ioncol">
+            Units
+          </ion-col>
+          <ion-col col-6 class="ioncol">
+            Weight(MT)
+          </ion-col>
+          </ion-row>
+          <ion-row>
+          <ion-col col-6>
+           {{s.units}}
+          </ion-col>
+          <ion-col col-6>
+           {{s.weightMT}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+         <ion-row>
+          <ion-col col-6 class="ioncol">
+            Volume(CBM)
+          </ion-col>
+          <ion-col col-6 class="ioncol">
+            Hazardous Cargo
+          </ion-col>
+        </ion-row>
+         <ion-row>
+          <ion-col col-6>
+            {{s.volumeCBM}}
+          </ion-col>
+          <ion-col col-6>
+            {{s.hazardousCargo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+          <ion-row>
+          <ion-col col-6 class="ioncol">
+            IMDG
+          </ion-col>
+          <ion-col col-6 class="ioncol">
+            UN No
+          </ion-col>
+        </ion-row>
+         <ion-row>
+          <ion-col text-wrap col-6>
+            {{s.imdg}}
+          </ion-col>
+          <ion-col col-6>
+           {{s.unNo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="ionrow">
+         <ion-row>
+          <ion-col col-6 class="ioncol">
+            Action
+          </ion-col>
+          <ion-col col-6 class="ioncol">
+          <!--to be updated-->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-list>
+</div>
+<ion-fab right bottom>
+    <button [hidden]="buttonStatus()" class="edit" ion-fab color="$icon-highlight-bg-color-onfocus" tappable>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+     <ion-label class="fabedit" [hidden]="cancelStatus()"></ion-label>
+      <button [hidden]="cancelStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="deleteberth()"
+              tappable>
+        <ion-icon name="custom-cancel"></ion-icon>
+      </button>
+      <ion-label [hidden]="workflowStatus()" class="fabedit"></ion-label>
+      <button [hidden]="workflowStatus()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="showWorkflow()" tappable>
+        <ion-icon name="custom-workflow"></ion-icon>
+      </button>
+      <ion-label [hidden]="hideCompare()"class="fabedit"></ion-label>
+      <button [hidden]="hideCompare()" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seecomparison()" tappable>
+        <ion-icon name="custom-comparison"></ion-icon>
+      </button>
+      <ion-label [hidden]="!hideApproveButton" class="fabedit"></ion-label>
+      <button [hidden]="!hideApproveButton" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="onClickofAction()"
+              tappable>
+        <ion-icon name="custom-action"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

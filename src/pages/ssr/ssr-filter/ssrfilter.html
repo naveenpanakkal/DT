@@ -1,0 +1,239 @@
+<!--
+  Generated template for the gigofilter page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="gigofilter" >
+  <form [formGroup]="groupOne" novalidate style="padding-right: 10px">
+      <ion-item>
+        <ion-label stacked color="label" class="labelmargin">{{ 'special-service-req' | translate }}
+        </ion-label>
+        <ion-input formControlName="ssrRequestNo" placeholder="{{ 'special-service-req' | translate }}" [(ngModel)]="ssrRequestNo"
+                   type="tel" (keyup)="keyUpValidate($event,'^([0-9]{1,255})$','ssrRequestNo')"
+                   (ionChange)="ssrRequestNoChange()"
+                   minlength="1" maxlength="255" tappable>
+        </ion-input>
+      </ion-item>
+      <div class="error1" *ngIf="isError && !groupOne.controls.ssrRequestNo.valid">
+        {{'rb_requestno_mandatory' | translate}}
+      </div>
+      <ion-item>
+        <ion-label stacked color="label" class="labelmargin">{{ 'cust-ref-no' | translate }}
+        </ion-label>
+        <ion-input formControlName="cusRefNo" placeholder="{{ 'cust-ref-no' | translate }}" [(ngModel)]="cusRefNo"
+                   (keyup)="keyUpValidate($event,'^([a-zA-Z0-9]{1,30})$','cusRefNo')"
+                   (ionBlur)="onCusRefNoFocusChange()" [disabled]="disableControls" minlength="1" maxlength="30"tappable>
+        </ion-input>
+      </ion-item>
+      <div class="error1" *ngIf="isError && !groupOne.controls.cusRefNo.valid">
+        {{'rb_refno_mandatory' | translate}}
+      </div>
+        <ion-item>
+          <ion-label class="labelmargin" stacked color="label">{{ 'sp-type' | translate }}
+          </ion-label>
+          <ion-select formControlName="spType" class="select" style="padding: 0px;width: 100%;max-width: 100%;" [(ngModel)]="spType"
+                      [disabled]="disableControls" (ionChange)="onServiceProviderChange()" placeholder = "{{ 'sp-type' | translate }}" tappable>
+            <ion-option *ngFor="let type of spTypeList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-location' | translate }}
+        </ion-label>
+        <ion-select formControlName="spLocationName" class="select" style="padding: 0px;width: 100%;max-width: 100%;" [(ngModel)]="spLocationName" (ionChange)="onLocationChanged()"
+                    [disabled]="disableControls" placeholder = "{{ 'ssr-location' | translate }}" tappable>
+          <ion-option *ngFor="let type of spNameList" value={{type.spLocationName}} tappable>{{type.spLocationName}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-sp-name' | translate }}
+        </ion-label>
+        <ion-select formControlName="spSubLocationName" class="select" style="padding: 0px;width: 100%;max-width: 100%;"  [(ngModel)]="spSubLocationName" (ionChange)="onSpLocationListChanged()"
+                    [disabled]="disableControls" placeholder = "{{ 'ssr-sp-name' | translate }}" tappable>
+          <ion-option *ngFor="let type of spLocationList" value={{type.spSubLocationName}} tappable>{{type.spSubLocationName}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-terminal' | translate }}
+        </ion-label>
+        <ion-select formControlName="ssrTerminalName" class="select" style="padding: 0px;width: 100%;max-width: 100%;" [(ngModel)]="ssrTerminalName"  [disabled]="disableControls"
+                    placeholder = "{{ 'ssr-terminal' | translate }}" tappable>
+          <ion-option *ngFor="let type of ssrTerminalList" value={{type.terminal}} tappable>{{type.terminal}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-service-cat' | translate }}
+        </ion-label>
+        <ion-select formControlName="serviceCategoryName" class="select" style="padding: 0px;width: 100%;max-width: 100%;"  [(ngModel)]="serviceCategoryName" (ionChange)="onServiceCategoryChanged()"
+                    [disabled]="disableControls" placeholder = "{{ 'ssr-service-cat' | translate }}" tappable>
+          <ion-option *ngFor="let type of serviceCategoryList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-special-serv-type' | translate }}
+        </ion-label>
+        <ion-select formControlName="specialServiceTypeName" class="select" style="padding: 0px;width: 100%;max-width: 100%;" [(ngModel)]="specialServiceTypeName"
+                    placeholder = "{{ 'ssr-special-serv-type' | translate }}" [disabled]="disableControls" tappable>
+          <ion-option *ngFor="let type of specialServiceTypeList" value={{type.specialServiceCode}} tappable>{{type.specialServiceName}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="showSearchBy">
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-Search-By' | translate }}
+        </ion-label>
+        <ion-select formControlName="searchByContainer" class="select" style="padding: 0px;width: 100%;max-width: 100%;" [disabled]="disableControls" [(ngModel)]=" searchByContainer"  (ionChange)="enableSearchTypeFeild()" tappable>
+          <ion-option *ngFor="let type of searchByList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <div *ngIf="showRotationNo">
+        <ion-label class="labelrotno" stacked color="label">{{ 'ssr-rotation-no' | translate }}
+        </ion-label>
+        <ion-searchbar class="searchbarStyle" type="tel"
+                       formControlName="rotationno"
+                       (ionInput)="getRotationNo($event)" spellcheck="false"
+                       [(ngModel)]="rotationno"
+                       (keyup)="keyUpValidate($event,'^[0-9]{0,30}$','rotationno')"
+                       (keyup.enter)="keyboardClose()" tappable
+                        onpaste="return true;"
+                       (ionChange)="checkRotation()"
+                       (ionBlur)="selectRotationNo(rotationno)" minlength="1"
+                       maxlength="30"
+                       [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')">
+
+        </ion-searchbar>
+        <ion-list *ngIf="showRotationNoList" style="width:95%;margin-top: 5px;"tappable>
+          <ion-item *ngFor="let item of filterRotationArray" (mousedown)="setRotationNumber(item)" tappable>
+            {{ item.rotationNoSrch }}
+          </ion-item>
+        </ion-list>
+        <div class="searchbar-error" *ngIf="isError && !groupOne.controls.rotationNo.valid">
+          {{'rb_roationno_mandatory' | translate}}
+        </div>
+      </div>
+      <ion-item *ngIf="containerStatus">
+        <ion-label stacked color="label" >{{ 'cshContainerNo' | translate }}
+        </ion-label>
+        <ion-input  formControlName="containerNo" placeholder="Container No" formControlName="containerNo" type="text"
+                    [(ngModel)] = "containerNo" [disabled]="disableControls" spellcheck="false"
+                    (keyup)="keyUpValidate($event,'^([a-zA-Z0-9]{0,11})$','containerNo')"
+                    minlength="10" maxlength="11" tappable>
+        </ion-input>
+      </ion-item>
+      <div class="error1" *ngIf="!disableControls && isError && !groupOne.controls.containerNo.valid">
+        {{'rb_containerno_mandatory' | translate}}
+      </div>
+
+      <div *ngIf="searchByCA">
+        <ion-label stacked color="label" style="margin-left: 15px;"
+                   [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')">{{ 'rb_cano' | translate }}
+        </ion-label>
+        <ion-searchbar formControlName="caNo" spellcheck="false"
+                       [(ngModel)] = "caNo"
+                       class="searchStyle"
+                       (ionInput)="getCANo($event)" type="text"
+                       (ionFocus)="searchCAMaster()"
+                       (keyup)="keyUpValidate($event,'^[a-zA-Z0-9]*$','caNo')"
+                       (keyup.enter)="keyboardClose()" [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')"
+                       tappable>
+        </ion-searchbar>
+        <ion-list *ngIf="showCANo">
+          <ion-item *ngFor="let item of filterCAArray" (mousedown)="setCANumber(item)" tappable> {{ item.caNo }}</ion-item>
+        </ion-list>
+        <div class="searchbar-error" *ngIf="isError && !groupOne.controls.caNo.valid">
+          {{'rb_cano_mandatory' | translate}}
+        </div>
+      </div>
+      <div *ngIf="searchByDO">
+        <ion-label stacked color="label" style="margin-left: 15px;"
+                   [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')">{{ 'rb_dono' | translate }}
+        </ion-label>
+        <ion-searchbar formControlName="doNo" spellcheck="false"
+                       [(ngModel)] = "doNo"  class="searchStyle"
+                       (ionInput)="getDONo($event)" type="text"
+                       (keyup.enter)="keyboardClose()"
+                       (keyup)="keyUpValidate($event,'^([a-zA-Z0-9])*$','doNo')"
+                       (ionFocus)="searchDOMaster()" [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')"
+                       tappable>
+        </ion-searchbar>
+        <ion-list *ngIf="showDONo">
+          <ion-item  *ngFor="let item of filterDOArray" (mousedown)="setDONumber(item)" tappable> {{ item.doNo }}
+          </ion-item>
+        </ion-list>
+        <div class="searchbar-error" *ngIf="isError && !groupOne.controls.doNo.valid">
+          {{'rb_dono_mandatory' | translate}}
+        </div>
+      </div>
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-req-status' | translate }}
+        </ion-label>
+        <ion-select formControlName="requestStatus" class="select" style="padding: 0px;width: 100%;max-width: 100%;"  [disabled]="disableControls"
+                    placeholder = "{{ 'ssr-req-status' | translate }}" [(ngModel)]="requestStatus" tappable>
+          <ion-option *ngFor="let type of requestStatusList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="labelmargin" stacked color="label">{{ 'ssr-service-status' | translate }}
+        </ion-label>
+        <ion-select formControlName="serviceStatus" class="select" style="padding: 0px;width: 100%;max-width: 100%;" [disabled]="disableControls"
+                    placeholder = "{{ 'ssr-service-status' | translate }}" [(ngModel)]="serviceStatus" tappable>
+          <ion-option *ngFor="let type of serviceStatusList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <div>
+        <ion-item >
+          <ion-label color="label" stacked>{{ 'ssr-create-from-date' | translate }}
+          </ion-label>
+          <ion-datetime formControlName="createdFromDate" placeholder="From Date" class="label-left dateTimeStyle"
+                        max={{maxDate}} [(ngModel)]="createdFromDate" displayFormat={{dateFormat}}
+                        [disabled]="disableControls" tappable></ion-datetime>
+        </ion-item>
+        <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+      </div>
+
+
+      <div>
+        <ion-item >
+          <ion-label color="label" stacked>{{ 'ssr-create-to-date' | translate }}
+          </ion-label>
+          <ion-datetime formControlName="createdToDate" placeholder="To Date" class="label-left dateTimeStyle"
+                        max={{maxDate}} [(ngModel)]="createdToDate" displayFormat={{dateFormat}}
+                        [disabled]="disableControls" tappable></ion-datetime>
+        </ion-item>
+        <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+      </div>
+  </form>
+    <ion-row style="margin-top: 30px;margin-left:20px;">
+      <ion-col col-6>
+        <button full color="submit" ion-button
+                class="buttonCenterAlign button-apply-general"
+                (click)="reset()" tappable>{{ 'rese-b' | translate }}</button>
+      </ion-col>
+      <ion-col  col-6>
+        <button full color="submit" ion-button
+                class="buttonCenterAlign button-apply-general"
+                (click)="ssrSearchFilterSubmit()" tappable>{{ 'SEARCH' | translate }}</button>
+      </ion-col>
+    </ion-row>
+  <!--</form>-->
+
+</ion-content>
+

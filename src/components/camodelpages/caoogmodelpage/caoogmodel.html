@@ -1,0 +1,128 @@
+<!-- Generated template for the OOgmodalComponent component -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Add Dimensions
+    </ion-title>
+    <ion-buttons start tappable>
+      <button ion-button (click)="close()" tappable style="color: white;">
+        <span ion-text showWhen="ios" >{{ 'del-b' | translate }}</span>
+        <ion-icon name="md-close" style="color: white;width:40px;" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false" padding id="caoogModel">
+  <ion-row class="mainContainer-caoogModel">
+      <div class="attach-caoogModel" tappable>
+      <div class="subheader-caoogmodel">
+        <ion-grid>
+          <form [formGroup]="oogForm" noValidate>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-4>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'oog_height' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col *ngIf="enableInput()">
+                <ion-item class="removePadding">
+                  <ion-input type="text" placeholder= "{{ 'oog_height' | translate }}" [(ngModel)]="containerElement.oogHeight"
+                           class="ion-col-right-color" maxlength="5" formControlName="oogHeight"
+                           (ionBlur)="onFocusFields('height',containerElement.oogHeight, decimalPattern)"
+                           (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,inputPattern,'height')"
+                           onpaste="return true;" spellcheck="false" tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput()">
+                {{containerElement.oogHeight}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator" >
+              <ion-col class="min-height-Css" col-4>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'oog_front' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col *ngIf="enableInput()">
+                <ion-item class="removePadding">
+                  <ion-input type="text" placeholder="{{ 'oog_front' | translate }}" [(ngModel)]="containerElement.oogFront"
+                           class="ion-col-right-color" maxlength="5" formControlName="oogFront"
+                           (ionBlur)="onFocusFields('front',containerElement.oogFront, decimalPattern)"
+                           (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,inputPattern,'front')"
+                           onpaste="return true;" spellcheck="false" tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput()">
+                {{containerElement.oogFront}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-4>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'oog_back' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col *ngIf="enableInput()">
+                <ion-item class="removePadding">
+                  <ion-input type="text" placeholder="{{ 'oog_back' | translate }}" [(ngModel)]="containerElement.oogBack"
+                             class="ion-col-right-color" maxlength="5" formControlName="oogBack"
+                             (ionBlur)="onFocusFields('back',containerElement.oogBack, decimalPattern)"
+                             (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,inputPattern,'back')"
+                             onpaste="return true;" spellcheck="false" tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput()">
+                {{containerElement.oogBack}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-4>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'oog_left' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col *ngIf="enableInput()">
+                <ion-item class="removePadding">
+                  <ion-input type="text" placeholder="{{ 'oog_left' | translate }}" [(ngModel)]="containerElement.oogLeft"
+                             class="ion-col-right-color" (keyup.enter)="keyboardClose()" maxlength="5"
+                             (ionBlur)="onFocusFields('left',containerElement.oogLeft, decimalPattern)"
+                             (keyup)="keyUpValidate($event,inputPattern,'left')" formControlName="oogLeft"
+                             onpaste="return true;" spellcheck="false" tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput()">
+                {{containerElement.oogLeft}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator">
+              <ion-col class="min-height-Css" col-4>
+                <ion-label class="label ion-col-left-color">
+                  {{ 'oog_right' | translate }}
+                </ion-label>
+              </ion-col>
+              <ion-col *ngIf="enableInput()">
+                <ion-item class="removePadding">
+                  <ion-input type="text" placeholder="{{ 'oog_right' | translate }}" [(ngModel)]="containerElement.oogRight"
+                           class="ion-col-right-color" (keyup.enter)="keyboardClose()" maxlength="5"
+                           (ionBlur)="onFocusFields('right',containerElement.oogRight, decimalPattern)"
+                           (keyup)="keyUpValidate($event,inputPattern,'right')" formControlName="oogRight"
+                           onpaste="return true;" spellcheck="false"  tappable></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="fit-toContent-Alignment" *ngIf="!enableInput()">
+                {{containerElement.oogRight}}
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-grid>
+      </div>
+    </div>
+    <ion-row class="ok-button-container" >
+      <ion-col>
+        <ion-row class="closeButton">
+          <button ion-button color="submit" block (click)="onOKClick()" tappable>Ok</button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-row>
+</ion-content>

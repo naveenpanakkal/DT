@@ -1,0 +1,104 @@
+<ion-content no-bounce has-bounsing="false" id="berthFilterPopOver">
+<form [formGroup]="groupOne" noValidate>
+  <ion-list class="popoverList">
+    <div class="divOverFloaw">
+    <div *ngFor="let p of pages">
+      <button ion-item (click)="toggleDetails(p)" tappable>
+        <span><ion-icon [name]="p.image" class="menuimage" item-left></ion-icon></span>
+        <span class="titles"><b>{{p.title}}</b></span>
+        <span><ion-icon class="dropdown"
+                        *ngIf="p.title=='Rotation Number' || p.title =='Vessel Name' || p.title=='ETA(GST)'
+                        || p.title =='Berth Booking Status' "
+                        [name]="getIcon(p)" float-right tappable></ion-icon></span>
+      </button>
+
+      <div *ngIf="p.title=='Berth Booking Status' && p.showDetails" color="collapse">
+        <ion-list [disabled]="disableControls" radio-group formControlName="filterSelected" [(ngModel)]="filterSelected" tappable>
+           <ion-item>
+            <ion-label class="greyStyle">All</ion-label>
+            <ion-radio value="All" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">Submitted</ion-label>
+            <ion-radio value="Submitted" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">Approved</ion-label>
+            <ion-radio value="Approved" tappable></ion-radio>
+          </ion-item>
+           <ion-item>
+            <ion-label class="greyStyle">Suspended</ion-label>
+            <ion-radio value="Suspended" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">Pending</ion-label>
+            <ion-radio value="Pending" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">Rejected</ion-label>
+            <ion-radio value="Rejected" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">Cancelled</ion-label>
+            <ion-radio value="Cancelled" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">Cancellation Initiated</ion-label>
+            <ion-radio value="CancellationInitiated" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div *ngIf="p.title=='ETA(GST)' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-datetime placeholder="DD/MM/YYYY HH:MM" displayFormat={{dateFormat}} [(ngModel)]="eta"
+                       formControlName="eta" [disabled]="disableControls" min={{minDate}} max={{maxDate}} tappable></ion-datetime>
+        </ion-item>
+      </div>
+    <!--  <div *ngIf="p.title=='Created From Date' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-label>Created From Date</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} [(ngModel)]="createdDate"></ion-datetime>
+        </ion-item>
+      </div>-->
+
+      <div *ngIf="p.title=='Rotation Number' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input type="tel" name="rInputText" [(ngModel)]="rotationNo"
+                    formControlName="rotationnumber"
+                    (ionChange)="rotationChange()"
+                     maxlength="6"
+                     tappable spellcheck="false"
+                     (keyup.enter)="keyboardClose()"
+                     (keyup)="keyUpValidate($event,'^((?!(0))[0-9]*)$','rotationNo')"></ion-input>
+        </ion-item>
+          <div class="error1" *ngIf="!groupOne.controls.rotationnumber.valid">
+          </div>
+         </div>
+
+
+
+      <div *ngIf="p.title=='Vessel Name' && p.showDetails" color="collapse">
+        <ion-item>
+         <!-- <ion-input (keyup)="keyUpValidate($event,inputStringPattern,'vesselName')"
+                     (keyup.enter)="keyboardClose()"
+                      onpaste="return false;" [(ngModel)]="vesselName"></ion-input>-->
+          <ion-input (keyup.enter)="keyboardClose()" tappable spellcheck="false"
+                     formControlName="vesselName" [disabled]="disableControls" [(ngModel)]="vesselName"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    </div>
+  </ion-list>
+
+  <ion-row class="options buttonHolder">
+      <ion-col class="topcol border-right-colr">
+      <button color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>Reset</button>
+    </ion-col>
+      <ion-col class="topcol border-left-colr">
+      <button color="light" id="clearsubmit" full ion-button (click)="submit()" tappable>Search</button>
+    </ion-col>
+  </ion-row>
+</form>
+</ion-content>
+
+

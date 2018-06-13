@@ -1,0 +1,93 @@
+page-RBhistory {
+  .toolbar-title {
+    font-weight: 500 !important;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+  //---ios_change--start
+  //---title truncation bugfix
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  //---ios-change--end
+
+  .ionrow {
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+
+  #ioncol {
+    color: #a0a0a0;
+  }
+
+  .scroll-content {
+    padding-bottom: 15% !important;
+  }
+
+  #caption {
+    color: black !important;
+  }
+
+  h6 {
+    line-height: 0.2 !important;
+  }
+
+  #ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+
+  .attach {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    min-height: 45px;
+    padding-top: 7px;
+  }
+
+  .edit {
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom: 20%;
+    margin-right: 15%;
+  }
+  // .message {
+  //   padding-top: 25px;
+  //   text-align: center;
+  // }
+  .make-no-data-labels-center{
+    margin: 0% auto;
+    height: 50px;
+    background: #ffffff;
+    padding-top: 15px;
+    text-align: center;
+    color:black !important;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+  .image {
+    float: right;
+  }
+  .subheader {
+    background: #CFCFCF;
+    margin-top: 10px;
+  }
+  .bold {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 3% !important;
+  }
+}
+.platform-ios  page-RBhistory  .rbHistoryContainer .scroll-content {
+  margin-top: 20px !important;
+  margin-bottom: 49px !important;
+}

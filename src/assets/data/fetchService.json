@@ -1,0 +1,19 @@
+{
+  "TPT": [
+    "Truck Registration",
+    "Client Registration",
+    "User Management",
+    "Import Delivery Order",
+    "Import/Export",
+    "Vessel/Voyage Schedule View"
+  ],
+  "SL": [
+    "Vessel Registration",
+    "Berth Booking",
+    "Client Registration",
+    "User Management",
+    "Import Delivery Order",
+    "Import/Export",
+    "Vessel/Voyage Schedule View"
+  ]
+}

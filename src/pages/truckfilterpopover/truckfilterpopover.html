@@ -1,0 +1,120 @@
+<ion-content no-bounce has-bounsing="false" >
+
+  <ion-list class="popoverList">
+    <div class="divOverFloaw">
+    <div *ngFor="let p of pages">
+      <button ion-item (click)="toggleDetails(p)" tappable>
+        <!--<span><ion-icon [name]="p.image" class="menuimage" item-left></ion-icon></span>-->
+        <span class="titles"><b>{{p.title}}</b></span>
+        <span><ion-icon class="dropdown" *ngIf="p.title=='Truck Registration ID' || p.title =='License Plate Number'
+        || p.title =='Owner Name'  || p.title =='Date Created' || p.title =='Status'" [name]="getIcon(p)" float-right tappable>
+        </ion-icon></span>
+      </button>
+
+      <form [formGroup]="groupOne" noValidate>
+        <div [hidden]="!(p.title=='Owner Name' && p.showDetails)" color="collapse">
+          <ion-item>
+            <ion-input #own_name placeholder="Enter Owner Name" [(ngModel)]="ownerName"
+                       formControlName="owner_name" tappable
+                       onpaste="return true;" (keyup.enter)="keyboardClose()"
+                       (keyup)="keyUpValidate($event,inputStringPattern,'ownerName')"
+                       [disabled]="is_disable" spellcheck="false"></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.owner_name.valid"></div>
+        </div>
+
+        <div [hidden]="!(p.title=='Truck Registration ID' && p.showDetails)" color="collapse">
+          <ion-item>
+            <ion-input #truck_reg_id type="tel" placeholder="Enter Truck Registration ID"
+                       [(ngModel)]="truckRegistrationId"
+                       formControlName="truck_reg_id" tappable
+                       onpaste="return true;" (keyup.enter)="keyboardClose()"
+                       (ionChange)="checkDisable()" spellcheck="false"
+                       (keyup)="keyUpValidate($event,'^[1-9][0-9]*$','truckRegistrationId')"
+            > </ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.truck_reg_id.valid "></div>
+        </div>
+
+        <div [hidden]="!(p.title=='License Plate Number' && p.showDetails)" color="collapse">
+          <ion-item>
+            <ion-input #lic_plt_num type="text"  placeholder="Enter License Plate Number" [(ngModel)]="licensePlateNumber"
+                       formControlName="license_num" tappable
+                       onpaste="return ;" (keyup.enter)="keyboardClose()" spellcheck="false"
+                       (keyup)="keyUpValidate($event,'^[a-z0-9A-Z- \/]*$','licensePlateNumber')"
+                       [disabled]="is_disable"></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.license_num.valid"></div>
+        </div>
+      </form>
+
+      <div class="status_appr" *ngIf="p.title=='Status' && p.showDetails" color="collapse">
+
+        <ion-list radio-group [(ngModel)]="filterSelected" [disabled]="is_disable" tappable>
+          <ion-item>
+            <ion-label class="greyStyle">All</ion-label>
+            <ion-radio value="All" tappable></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="greyStyle">Submitted</ion-label>
+            <ion-radio value="Submitted" tappable></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="greyStyle">Pending</ion-label>
+            <ion-radio value="Pending" tappable></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="greyStyle">Approved</ion-label>
+            <ion-radio value="Approved" tappable></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="greyStyle">Suspended</ion-label>
+            <ion-radio value="Suspended" tappable></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="greyStyle">Rejected</ion-label>
+            <ion-radio value="Rejected" tappable></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="greyStyle">Cancelled</ion-label>
+            <ion-radio value="cancelled" tappable></ion-radio>
+          </ion-item>
+
+        </ion-list>
+
+      </div>
+
+      <div *ngIf="p.title=='Date Created' && p.showDetails" color="collapse">
+        <ion-item >
+          <ion-label>From</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} min="1960-01-01"  max={{maxvalue}} [(ngModel)]="createdFromDate"
+                        [disabled]="is_disable" tappable></ion-datetime>
+          <ion-icon ios="ios-close" md="md-close" (click)="resetDate(createdFromDate)" tappable></ion-icon>
+        </ion-item>
+        <ion-item class="date_to">
+          <ion-label>To</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} min="1960-01-01" max={{maxvalue}} [(ngModel)]="createdToDate"
+                        [disabled]="is_disable" tappable></ion-datetime>
+          <ion-icon ios="ios-close" md="md-close" (click)="resetDate(createdToDate)" tappable></ion-icon>
+        </ion-item>
+      </div>
+
+    </div>
+    </div>
+  </ion-list>
+  <ion-row class="options buttonHolder">
+    <ion-col class="topcol">
+      <button class="buttonStyle border-right-colr" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>Reset</button>
+    </ion-col>
+    <ion-col  class="topcol">
+      <button [disabled]="disabledSubmit()" class="buttonStyle border-left-colr" color="light" id="clearsubmit"
+              full ion-button (click)="submit()" tappable>Search</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

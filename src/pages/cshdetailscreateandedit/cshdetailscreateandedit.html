@@ -1,0 +1,815 @@
+<!--
+  Generated template for the cshdetails page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+      <ion-title class="title" > {{editmode}}
+    </ion-title>
+
+  </ion-navbar>
+
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button class="toolBarButton toolBarButton-ios"  color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1  tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cshdetailsview"  no-bounce>
+  <form [formGroup]="groupOne" noValidate>
+  <!-- Base info -->
+  <div *ngIf="showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <div class="baseInfoFields" style="height:auto;">
+    <ion-row class="firstRowSeperator" [hidden]="isEditMode()" class="searchbarborder">
+      <div class="col" style="padding: 0px;" col-12 col-sm>
+      <ion-label col-6 class=" ion-col-left-color boldStyle padding-left" style="padding-top: 0px;margin-bottom: 0px;height: 20px;">
+        {{'rotationno' | translate}}
+        <span class="span">*</span>
+      </ion-label>
+      <ion-searchbar style="padding-bottom: 0px;" type="tel" formControlName="rotationnumber"
+                     [ngClass]="(isSuccess)?'search-bar-style-after-icon attachrowSeperator':'search-bar-style-before-icon attachrowSeperator'"
+                     (ionInput)="getRotationNo($event)"
+                      [(ngModel)]="rotationno"
+                      (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','rotationno')"
+                      (keyup.enter)="keyboardClose()" tappable
+                      onpaste="return true;"
+                      (ionFocus)="searchRotationMaster()"
+                      (ionChange)="checkRotation()"
+                      (ionBlur)="selectRotationNo(rotationno)"
+                       maxlength="18"
+                      [hidden]="isEditMode()"></ion-searchbar>
+        <div class = "infoicon-mac" style="height:0px;position:relative;bottom:45px;float:right;margin:0px;" [hidden]="!isSuccess">
+          <ion-icon  ios="ios-information-circle" md="md-information-circle"
+                     (click)="showInfoPopup()" class="infoIcon iconGeneral" tappable>
+          </ion-icon>
+        </div>
+
+     <div class="searchbar-error" *ngIf="rotationInValid && !groupOne.controls.rotationnumber.valid">
+        {{'csh_roationno_mandatory' | translate}}
+     </div>
+
+      </div>
+
+    </ion-row>
+      <ion-list class = "lastrow-android" *ngIf="showRotationNo" style="width:100%;margin-top: 1px;margin-bottom: 0px;"tappable>
+        <ion-item class = "last-row-left" *ngFor="let item of filterRotationArray" (mousedown)="setRotationNumber(item)" tappable>
+          {{ item.rotationNumber }}
+        </ion-item>
+      </ion-list>
+
+    <ion-row class="rowSeperator padding-left-row" [hidden]="!isEditMode()">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'rotationno' | translate}}
+      </ion-col>
+      <ion-col col-4 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin  boldStyle">{{cshSearchByIDResultModel.rotationNumber}}</ion-label>
+      </ion-col>
+      <ion-col col-2 class="ion-col-minheight-nopadding" >
+        <ion-icon ios="ios-information-circle" md="md-information-circle" (click)="showInfoPopup()"
+                  class="iconGeneral" style="color: #275680 !important;margin-left: 20px !important;"tappable>
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'shipping_line' | translate}}
+      </ion-col>
+      <ion-col text-wrap col-6 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin boldStyle">{{shippingLine}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" [hidden]="!isEditMode()">
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'cshRequestNo' | translate}}
+      </ion-col>
+      <ion-col col-4 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin  boldStyle">{{cshSearchByIDResultModel.cshNo}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'vesselName' | translate}}
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding">
+        <ion-label class="label-span-alignment boldStyle">{{vesselName}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'eta' | translate}}
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding">
+        <ion-label style="float: left;display: inline-block;"   class="label-span-alignment boldStyle">{{eta}}</ion-label>
+        <span *ngIf="eta" style="margin-left:3px;display: inline-block;font-size: 1.6rem"class="boldStyle">GST</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+       {{'etd' | translate}}
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding">
+        <ion-label style="float: left;display: inline-block;"   class="label-span-alignment boldStyle">{{etd}}</ion-label>
+        <span *ngIf="etd" style="margin-left:3px;display: inline-block;font-size: 1.6rem"class="boldStyle">GST</span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'cshRequestCutOffTime' | translate}}
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding">
+        <ion-label style="float: left;display: inline-block;"   class="label-span-alignment boldStyle">{{requestCutOffTime}}</ion-label>
+        <span *ngIf="requestCutOffTime" style="margin-left:3px;display: inline-block;font-size: 1.6rem"class="boldStyle">GST</span>
+      </ion-col>
+    </ion-row>
+  <ion-row class="rowSeperator padding-left-row" [hidden]="!isEditMode()">
+    <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+      {{'cshRequestStatus' | translate}}
+    </ion-col>
+    <ion-col col-6 class="ion-col-minheight-nopadding" >
+      <ion-label class="removeMargin  boldStyle">{{cshSearchByIDResultModel.requestStatus}}</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+   <ion-col class="imoitem" col-12 [hidden]="isEditMode()" >
+        <button full color="submit" ion-button id="buttonsearch" tabindex=-1 class="button-apply-general align-button-center-of-container"
+        (click)="getContainerDetails()" tappable>{{'SEARCH' | translate}}</button>
+    </ion-col>
+  </ion-row>
+    </div>
+  </div>
+  </form>
+  <!--- End of Base info -->
+
+  <!-- Hazardous Container Details -->
+   <div *ngIf="showTabs[1]" style="height: 100%;">
+    <form [formGroup]="groupTwo" novalidate style="padding-right: 0px">
+    <ion-label *ngIf="checkListIsNotEmpty(hazardousContainers)" class="make-no-data-labels-center">
+      {{'csh_nocontainermsg_1' | translate}}</ion-label>
+    <div style="height:auto;" *ngIf="!checkListIsNotEmpty(hazardousContainers)">
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-3 class="ion-col-minheight-nopadding boldStyle selectStyle">
+        <ion-checkbox class="checkboxStyle" [(ngModel)]="allhazardousSelected" tappable (click)="hazardousSelectAll()" formControlName="hazardousSelected"></ion-checkbox>
+      </ion-col>
+      <ion-col col-5 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin underline boldStyle">{{'sssSelectAll' | translate}} </ion-label>
+      </ion-col>
+
+      <ion-col class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin boldStyle allignright">
+          {{countcheckedHazardous}} out of {{groupTwo.get('hazardousFormArray').controls.length}} containers selected </ion-label>
+      </ion-col>
+
+
+    </ion-row>
+    <div class = "inner-scroll-container"  formArrayName="hazardousFormArray"
+    *ngFor="let hcontainer of groupTwo.get('hazardousFormArray').controls;let selectedTabIndex = index;" >
+    <div [formGroupName]="selectedTabIndex">
+    <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+      <div col-10 style="float:left; display:inline-block;">
+    <div class="rotateIconHolder"
+    style="width: 20px !important;height: 20px !important;" tappable>
+    <div style="width:20px;"
+    [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+    <ion-icon name="arrow-dropright">
+    </ion-icon>
+    </div>
+    </div>
+    <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;" >
+      {{hazardousContainers[selectedTabIndex].hazardousContainerNo}}
+    </ion-label>
+      </div>
+      <div col-2 style="display:inline-block; float:right;">
+        <ion-checkbox style="float:right"
+         [(ngModel)]="hazardousContainers[selectedTabIndex].selected"
+        [checked]="hazardousContainers[selectedTabIndex].selected"
+        (ionChange)="setHazardousValidators(selectedTabIndex)"
+        (click)="hazardousCheck(selectedTabIndex)"
+         formControlName="selectedHazardous" tappable></ion-checkbox>
+      </div>
+    </div>
+    <div style="min-width:360px;"
+    [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+      <ion-row class="rowSeperator padding-left-row"  col-12>
+        <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         {{'iso_code' | translate}}
+        </ion-col>
+        <ion-col col-6 class="ion-col-minheight-nopadding" >
+          <ion-label [style.opacity]="isDisabled()?'0.2 ':'1'" class="label-span-alignment boldStyle">{{hazardousContainers[selectedTabIndex].isoCode}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row"  col-12>
+        <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'imco_code' | translate}}
+        <span style="color:red" [hidden]="!hazardousContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class="removePadding " col-6="">
+          <ion-item>
+           <ion-input type="text" placeholder="IMCO Class" (keyup.enter)="keyboardClose()"
+                      formControlName="imcoCode" spellcheck="false"
+                      [disabled]="isDisabled()"
+                      maxlength="15" [(ngModel)]="hazardousContainers[selectedTabIndex].imcoCode"></ion-input>
+            <!--(keyup)="keyUpValidate($event,alphaPattern,'imcoCode',selectedTabIndex)"-->
+          </ion-item>
+           <div class="error1" style="color:red" *ngIf="isError && hazardousContainers[selectedTabIndex].selected && !groupTwo.controls.hazardousFormArray.controls[selectedTabIndex].controls.imcoCode.valid">
+              {{'csh_IMCO_mandatory' | translate}}
+           </div>
+       </ion-col>
+         </div>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row"  col-12>
+        <div class="removePadding" col-12>
+        <ion-col style="display:inline-block; float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'unno' | translate}}
+          <span style="color:red" [hidden]="!hazardousContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class="removePadding" col-6="">
+          <ion-item>
+           <ion-input type="tel" placeholder="UN No" (keyup.enter)="keyboardClose()" spellcheck="false"
+                      (keyup)="keyUpValidate($event,'^[0-9]{0,4}$','unNo',selectedTabIndex)" formControlName="unNo"
+                      [disabled]="isDisabled()"
+                      minlength="4" maxlength="4" [(ngModel)]="hazardousContainers[selectedTabIndex].unNo"></ion-input>
+          </ion-item>
+           <div class="error1" style="color:red" *ngIf="isError && hazardousContainers[selectedTabIndex].selected && !groupTwo.controls.hazardousFormArray.controls[selectedTabIndex].controls.unNo.valid">
+             {{'csh_UNNo_mandatory' | translate}}
+           </div>
+       </ion-col>
+         </div>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row"  col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block;float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'imdg_pageno' | translate}}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+           <ion-item>
+            <ion-input placeholder="IMDG Page"  (keyup.enter)="keyboardClose()" spellcheck="false"
+                       (keyup)="keyUpValidate($event,alphaPattern,'imdgPage',selectedTabIndex)" formControlName="imdgPage"
+                       [disabled]="isDisabled()"
+                      maxlength="15" [(ngModel)]="hazardousContainers[selectedTabIndex].imdgPage"></ion-input>
+          </ion-item>
+           <!--<div class="error1" *ngIf="isError && !groupTwo.controls.hazardousFormArray.controls[selectedTabIndex].controls.imdgPage.valid"></div>-->
+        </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row"  col-12>
+        <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         {{'flash_point' | translate}}
+          </ion-col>
+         <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+          <ion-item>
+            <ion-input type="tel" placeholder="Flash Point" spellcheck="false"
+                       [disabled]="isDisabled()"
+                       (keyup.enter)="keyboardClose()"
+                       (keyup)="keyUpValidate($event,'^[0-9]{0,3}$','flashPoint',selectedTabIndex)" formControlName="flashPoint"
+                      maxlength="3" [(ngModel)]="hazardousContainers[selectedTabIndex].flashPoint"></ion-input>
+          </ion-item>
+          <!--<div class="error1" *ngIf="isError && hcontainer.selected && !groupTwo.controls.hazardousFormArray.controls[selectedTabIndex].controls.flashPoint.valid"></div>-->
+        </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block;float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+        {{'packing_group' | translate}}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+          <ion-item>
+            <ion-input placeholder="Packing Group" (keyup.enter)="keyboardClose()" spellcheck="false"
+                       [disabled]="isDisabled()"
+                       (keyup)="keyUpValidate($event,alphamaxPattern,'packingGroup',selectedTabIndex)" formControlName="packingGroup"
+                      maxlength="3" [(ngModel)]="hazardousContainers[selectedTabIndex].packingGroup"></ion-input>
+          </ion-item>
+        <!--<div class="error1" *ngIf="isError && !groupTwo.controls.hazardousFormArray.controls[selectedTabIndex].controls.packingGroup.valid"></div>-->
+        </ion-col>
+        </div>
+      </ion-row>
+       <ion-row class="rowSeperator padding-left-row" col-12>
+      <div class="removePadding" col-12>
+        <ion-col style="display:inline-block;float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+         {{'risklabel' | translate}}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+          <ion-item>
+            <ion-input placeholder="Risk Label" (keyup.enter)="keyboardClose()" spellcheck="false"
+                       [disabled]="isDisabled()"
+                       (keyup)="keyUpValidate($event,alphaPattern,'riskLabel',selectedTabIndex)" formControlName="riskLabel"
+                      maxlength="15" [(ngModel)]="hazardousContainers[selectedTabIndex].riskLabel"></ion-input>
+          </ion-item>
+        <!--<div class="error1" *ngIf="isError && !groupTwo.controls.hazardousFormArray.controls[selectedTabIndex].controls.riskLabel.valid"></div>-->
+        </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <div class="removePadding" col-12>
+        <ion-col style="display:inline-block;float:left;"
+        col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+      {{'remarks' | translate}}
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+          <ion-item>
+            <ion-input placeholder="Remarks"  (keyup.enter)="keyboardClose()"
+                       formControlName="hazardousRemarks" spellcheck="false"
+                       [(ngModel)]="hazardousContainers[selectedTabIndex].hazardousRemarks"></ion-input>
+          </ion-item>
+        </ion-col>
+        </div>
+      </ion-row>
+      <ion-row class="rowSeperator padding-left-row" col-12>
+        <ion-col class=" photo-button-col removePadding removeMargin" col-5 >
+          <button class="button-apply-general photobutton-common" tabindex=-1
+               (click)="uploadDocs(hazardousContainers[selectedTabIndex])"  ion-button color="submit" block tappable>
+        {{'upload-b' | translate}}
+            <ion-icon name="clipboard" class="photoicon">
+            </ion-icon>
+          </button>
+        </ion-col>
+
+        <ion-col style="width: 30px;max-width: 30px;" class="ion-col-nopadding ion-col-left-color boldStyle">
+          <img src="assets/img/image-icon.png" style="height: 3.8rem;width:35px;" class="photoSelectedIcon"
+          *ngIf="(hazardousContainers[selectedTabIndex].fileName != null && hazardousContainers[selectedTabIndex].fileName != EMPTY && hazardousContainers[selectedTabIndex].fileName.length >0)">
+
+        </ion-col>
+
+        <ion-col class="ion-col-nopadding attachmentLabelContainer">
+          <ion-label (click)="openDocs(hazardousContainers[selectedTabIndex])" stacked class="attachment-label-span-alignment boldStyle" text-wrap>
+            <a href="#">{{hazardousContainers[selectedTabIndex].fileName}}</a></ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    </div>
+    </div>
+    </div>
+    </form>
+  </div>
+  <!--- End of Hazardous Container Details -->
+
+  <!-- OOG Container  Details -->
+  <div *ngIf="showTabs[2]" style="height:100%;">
+     <form [formGroup]="groupThree" novalidate style="padding-right:0px">
+    <ion-label *ngIf="checkListIsNotEmpty(oogContainers)" class="make-no-data-labels-center">
+      {{'csh_nocontainermsg_2' | translate}}</ion-label>
+  <div style="height:auto;" *ngIf="!checkListIsNotEmpty(oogContainers)">
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-3 class="ion-col-minheight-nopadding boldStyle selectStyle">
+        <ion-checkbox class="checkboxStyle" [(ngModel)]="alloogSelected" tappable (click)="oogSelectAll()" formControlName="oogSelected">
+        </ion-checkbox>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin underline boldStyle">{{'sssSelectAll' | translate}}</ion-label>
+      </ion-col>
+
+
+      <ion-col class="ion-col-minheight-nopadding" >
+          <ion-label class="removeMargin boldStyle allignright">
+            {{countcheckedOOG}} out of {{groupThree.get('oogFormArray').controls.length}} containers selected </ion-label>
+      </ion-col>
+
+
+    </ion-row>
+    <div class = "inner-scroll-container"  formArrayName="oogFormArray"
+    *ngFor="let oContainer of groupThree.get('oogFormArray').controls;let selectedTabIndex = index;" >
+    <div [formGroupName]="selectedTabIndex">
+      <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+        <div col-10 style="display: inline-block;float:left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label
+            style="float:left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" >
+             {{oogContainers[selectedTabIndex].oogContainerNo}}
+          </ion-label>
+        </div>
+        <div col-2 style="display: inline-block;float:right;">
+          <ion-checkbox style="float:right" [(ngModel)]="oogContainers[selectedTabIndex].selected"
+                        [checked]="oogContainers[selectedTabIndex].selected"
+                        (click)="oogCheck(selectedTabIndex)"
+                        formControlName="selectOog" tappable
+                        (ionChange)="setOogValidators(selectedTabIndex)"></ion-checkbox>
+        </div>
+      </div>
+      <div style="min-width:360px;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+       <ion-row class="rowSeperator  padding-left-row " col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+             {{'iso_code' | translate}}
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding"  >
+            <ion-label [style.opacity]="isDisabled()?'0.2 ':'1'"class="label-span-alignment boldStyle">{{oogContainers[selectedTabIndex].oogIso}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+         <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+            col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           {{'front' | translate}}
+           <span style="color:red" [hidden]="!oogContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class="removePadding" col-6="">
+            <ion-item>
+              <ion-input type="tel" placeholder="Front" (keyup.enter)="keyboardClose()" spellcheck="false"
+              [disabled]="isDisabled()"
+              (keyup)="keyUpValidate($event,'^[0-9]{0,8}$','ofFront',selectedTabIndex)"
+              maxlength="8" [(ngModel)]="oogContainers[selectedTabIndex].ofFront" formControlName="ofFront" ></ion-input>
+            </ion-item>
+         <div class="error1" style="color:red" *ngIf="isError && oogContainers[selectedTabIndex].selected && !groupThree.controls.oogFormArray.controls[selectedTabIndex].controls.ofFront.valid">
+           {{'csh_oog_mandatory' | translate}}
+         </div>
+        </ion-col>
+        </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+          <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+            col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'back' | translate}}
+             <span style="color:red" [hidden]="!oogContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+            <ion-item>
+              <ion-input type="tel" (keyup.enter)="keyboardClose()" spellcheck="false"
+               [disabled]="isDisabled()"
+              (keyup)="keyUpValidate($event,'^[0-9]{0,8}$','obBack',selectedTabIndex)"
+              maxlength="8" placeholder="Back"  [(ngModel)]="oogContainers[selectedTabIndex].obBack" formControlName="obBack"></ion-input>
+            </ion-item>
+          <div class="error1" style="color:red" *ngIf="isError && oogContainers[selectedTabIndex].selected && !groupThree.controls.oogFormArray.controls[selectedTabIndex].controls.obBack.valid">
+          {{'csh_oog_mandatory' | translate}}
+          </div>
+          </ion-col>
+          </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+            col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           {{'left' | translate}}
+            <span style="color:red" [hidden]="!oogContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+            <ion-item>
+              <ion-input type="tel" placeholder="Left"  (keyup.enter)="keyboardClose()" spellcheck="false"
+              [disabled]="isDisabled()"(keyup)="keyUpValidate($event,'^[0-9]{0,8}$','olLeft',selectedTabIndex)"
+             maxlength="8" [(ngModel)]="oogContainers[selectedTabIndex].olLeft" formControlName="olLeft"></ion-input>
+            </ion-item>
+            <div class="error1" style="color:red" *ngIf="isError && oogContainers[selectedTabIndex].selected && !groupThree.controls.oogFormArray.controls[selectedTabIndex].controls.olLeft.valid">
+            {{'csh_oog_mandatory' | translate}}
+            </div>
+          </ion-col>
+          </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+          <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+            col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           {{'right' | translate}}
+            <span style="color:red" [hidden]="!oogContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+            <ion-item>
+              <ion-input type="tel" placeholder="Right"  (keyup.enter)="keyboardClose()" spellcheck="false"
+              (keyup)="keyUpValidate($event,'^[0-9]{0,8}$','orRight',selectedTabIndex)"
+              [disabled]="isDisabled()"
+              maxlength="8" [(ngModel)]="oogContainers[selectedTabIndex].orRight" formControlName="orRight"></ion-input>
+            </ion-item>
+            <div class="error1" style="color:red" *ngIf="isError && oogContainers[selectedTabIndex].selected && !groupThree.controls.oogFormArray.controls[selectedTabIndex].controls.orRight.valid">
+            {{'csh_oog_mandatory' | translate}}
+            </div>
+          </ion-col>
+          </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+        <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+            col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           {{'cshheight' | translate}}
+            <span style="color:red" [hidden]="!oogContainers[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+            <ion-item>
+              <ion-input type="tel" placeholder="Height"  (keyup.enter)="keyboardClose()" spellcheck="false"
+              [disabled]="isDisabled()" (keyup)="keyUpValidate($event,'^[0-9]{0,8}$','ohHeight',selectedTabIndex)"
+             maxlength="8" [(ngModel)]="oogContainers[selectedTabIndex].ohHeight" formControlName="ohHeight"></ion-input>
+            </ion-item>
+               <div class="error1" style="color:red" *ngIf="isError && oogContainers[selectedTabIndex].selected && !groupThree.controls.oogFormArray.controls[selectedTabIndex].controls.ohHeight.valid">
+              {{'csh_oog_mandatory' | translate}}
+               </div>
+          </ion-col>
+        </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'remarks' | translate}}
+          </ion-col>
+          <ion-col col-6 style="padding: 0px;">
+            <ion-item>
+              <ion-input placeholder="Remarks"  [(ngModel)]="oogContainers[selectedTabIndex].oogRemarks"
+                         formControlName="oogRemarks" spellcheck="false"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col class=" photo-button-col removePadding removeMargin" col-5 >
+            <button class="button-apply-general photobutton-common" ion-button color="submit" block
+                    tabindex=-1   (click)="uploadDocs(oogContainers[selectedTabIndex])" tappable>
+             {{'upload-b' | translate}}
+              <ion-icon name="clipboard" class="photoicon">
+              </ion-icon>
+            </button>
+          </ion-col>
+
+          <ion-col style="width: 30px;max-width: 30px;"  class="ion-col-nopadding ion-col-left-color boldStyle">
+            <img src="assets/img/image-icon.png"   style="height: 3.8rem;width:35px;" class="photoSelectedIcon"
+            *ngIf="(oogContainers[selectedTabIndex].fileName != null && oogContainers[selectedTabIndex].fileName != EMPTY && oogContainers[selectedTabIndex].fileName.length >0)">
+          </ion-col>
+
+          <ion-col  class="ion-col-nopadding attachmentLabelContainer">
+            <ion-label (click)="openDocs(oogContainers[selectedTabIndex])" stacked class="attachment-label-span-alignment boldStyle"text-wrap>
+              <a href="#">{{oogContainers[selectedTabIndex].fileName}}</a></ion-label>
+          </ion-col>
+        </ion-row>
+    </div>
+    </div>
+    </div>
+    </div>
+  </form>
+  </div>
+  <!---  End of OOG Container  Details -->
+
+  <!-- Speacial Handling Details -->
+<div *ngIf="showTabs[3]" class="specialHandlingContainer" style="height:100%;">
+<form [formGroup]="groupFour" novalidate >
+<ion-label *ngIf="checkListIsNotEmpty(specialhandling)" class="make-no-data-labels-center">
+      {{'csh_nocontainermsg_3' | translate}}</ion-label>
+  <div style="height:auto;" *ngIf="!checkListIsNotEmpty(specialhandling)">
+    <ion-row class="rowSeperator padding-left-row" >
+      <ion-col col-3 class="ion-col-minheight-nopadding boldStyle selectStyle">
+        <ion-checkbox class="checkboxStyle" [(ngModel)]="allsplSelected" tappable (click)="splSelectAll()" formControlName="splSelected"></ion-checkbox>
+      </ion-col>
+      <ion-col col-6 class="ion-col-minheight-nopadding" >
+        <ion-label class="removeMargin underline boldStyle">{{'sssSelectAll' | translate}}</ion-label>
+      </ion-col>
+
+
+
+      <ion-col class="ion-col-minheight-nopadding" >
+          <ion-label class="removeMargin boldStyle allignright">
+            {{countcheckedSH}} out of {{groupFour.get('specialhandlingFormArray').controls.length}} containers selected </ion-label>
+      </ion-col>
+
+
+
+    </ion-row>
+    <div class = "inner-scroll-container"  formArrayName="specialhandlingFormArray"
+    *ngFor="let splcontainer of groupFour.get('specialhandlingFormArray').controls;let selectedTabIndex = index;" >
+    <div [formGroupName]="selectedTabIndex">
+      <div class="attach-headder" (click)="openSelecedTab(selectedTabIndex)" tappable>
+        <div col-10 style="display: inline-block;float:left;">
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label
+            style="float:left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" >
+            {{specialhandling[selectedTabIndex].containerNo}}
+          </ion-label>
+        </div>
+        <div col-2 style="display: inline-block;float:right;">
+          <ion-checkbox style="float:right" [(ngModel)]="specialhandling[selectedTabIndex].selected"
+                        [checked]="specialhandling[selectedTabIndex].selected"
+                        (click)="splCheck(selectedTabIndex)" formControlName="selectSpecial"
+                        (ionChange)="setSpecialValidators(selectedTabIndex)" tappable></ion-checkbox>
+        </div>
+      </div>
+      <div style="min-width:360px;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator  padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'iso_code' | translate}}
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label [style.opacity]="isDisabled()?'0.2 ':'1'" class="label-span-alignment boldStyle">{{specialhandling[selectedTabIndex].isoCode}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+           <div class="removePadding" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" style="display:inline-block; float:left;">
+            {{'csh_category' | translate}}
+          <span style="color:red" [hidden]="!specialhandling[selectedTabIndex].selected || !showMandatory" class="span">*</span>
+          </ion-col>
+          <ion-col col-6 class="removePadding" style="padding: 0px;display:inline-block; float:left;">
+            <ion-item>
+               <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'csh_category' | translate }}</ion-label>
+                 <ion-select placeholder="{{ 'csh_category' | translate }}" [(ngModel)]="specialhandling[selectedTabIndex].categorySh"
+                 [disabled]="isDisabled()" tappable
+                 (ionChange)="setSubCategoryKeysOnChange(selectedTabIndex)" formControlName="categorySh">
+                <!--<ion-option value="">--select--</ion-option>-->
+                <ion-option *ngFor="let cat of cat_map.keys()" value={{cat}}>{{cat_map.get(cat).cat_value}}</ion-option>
+              </ion-select>
+            </ion-item>
+                <div class="error1" style="color:red" *ngIf="isError && specialhandling[selectedTabIndex].selected
+                && !groupFour.controls.specialhandlingFormArray.controls[selectedTabIndex].controls.categorySh.valid">
+                      {{'csh_mandatory' | translate}}
+              </div>
+          </ion-col>
+           </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+           <div class="removePadding" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" style="display:inline-block; float:left;">
+            {{'csh_sub_category' | translate}}
+        <span style="color:red" [hidden]="!specialhandling[selectedTabIndex].selected || !showMandatory " class="span">*</span>
+          </ion-col>
+          <ion-col col-6 class="removePadding"  style="display:inline-block; float:left;">
+            <ion-item>
+                <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'csh_sub_category' | translate }}</ion-label>
+              <ion-select placeholder="{{ 'csh_sub_category' | translate }}" tappable [disabled]="isDisabled()" [(ngModel)]="specialhandling[selectedTabIndex].subCategorySh" formControlName="subCategorySh">
+                <!--<ion-option value="">--select--</ion-option>-->
+                <ion-option *ngFor="let subcat of subcat_map[selectedTabIndex].keys()" value={{subcat}}>{{subcat_map[selectedTabIndex].get(subcat)}}</ion-option>
+              </ion-select>
+            </ion-item>
+                <div class="error1" style="color:red" *ngIf="isError && specialhandling[selectedTabIndex].selected && !groupFour.controls.specialhandlingFormArray.controls[selectedTabIndex].controls.subCategorySh.valid">
+                    {{'csh_mandatory' | translate}}
+                </div>
+          </ion-col>
+           </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row"  col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle" style="display:inline-block; float:left;">
+            {{'remarks' | translate}}
+          </ion-col>
+          <ion-col col-6 class="removePadding"  style="display:inline-block; float:left;">
+            <ion-item>
+              <ion-input placeholder="Remarks"  [(ngModel)]="specialhandling[selectedTabIndex].remarksSh"
+                         formControlName="remarksSh" spellcheck="false"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col class=" photo-button-col removePadding removeMargin" col-5 >
+            <button tabindex=-1 class="button-apply-general photobutton-common" ion-button color="submit" block
+                    (click)="uploadDocs(specialhandling[selectedTabIndex])" tappable>
+              {{'upload-b' | translate}}
+              <ion-icon name="clipboard" class="photoicon">
+              </ion-icon>
+            </button>
+          </ion-col>
+
+          <ion-col  style="width: 30px;max-width: 30px;"  class="ion-col-nopadding ion-col-left-color boldStyle">
+            <img src="assets/img/image-icon.png" style="height: 3.8rem;width:35px;" class="photoSelectedIcon"
+          *ngIf="(specialhandling[selectedTabIndex].fileName != null && specialhandling[selectedTabIndex].fileName != EMPTY && specialhandling[selectedTabIndex].fileName.length >0)"/>
+          </ion-col>
+
+          <ion-col class="ion-col-nopadding attachmentLabelContainer">
+            <ion-label (click)="openDocs(specialhandling[selectedTabIndex])"  stacked class="attachment-label-span-alignment boldStyle" text-wrap>
+              <a href="#">{{specialhandling[selectedTabIndex].fileName}}</a></ion-label>
+          </ion-col>
+        </ion-row>
+
+      </div>
+    </div>
+    </div>
+    </div>
+  </form>
+  </div>
+  <!-- End of Speacial Handling Details -->
+
+  <!-- Attachments -->
+  <div *ngIf="showTabs[4]" class="attachmentsContainer" style="height:100%;">
+    <form [formGroup]="groupFive" novalidate >
+   <div class = "inner-scroll-container csh-attachment"  formArrayName="attachmentsFormArray"
+    *ngFor="let attachment of groupFive.get('attachmentsFormArray').controls;let selectedTabIndex = index;" >
+    <div [formGroupName]="selectedTabIndex">
+      <div class="attach-headder" >
+        <div col-11 style="display: inline-block;float: left;" class="attachopen-increase-clickable-area" (click)="openSelecedTab(selectedTabIndex)" tappable>
+          <div class="rotateIconHolder"
+               style="width: 20px !important;height: 20px !important;" tappable>
+            <div style="width:20px;"
+                 [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label
+            style="float: left;display:inline-block;margin: 3px 0px 0px 30px;color:white;" > Attachment {{selectedTabIndex+1}}
+          </ion-label>
+        </div>
+
+          <div col-1 style="display: inline-block;float: right;">
+          <ion-icon  name="trash"
+                    class="iconGeneral pullRightToContainer"
+                     tappable style="right:10px;position:absolute;"
+                     (click)="closeAttachment(selectedTabIndex)"></ion-icon>
+        </div>
+      </div>
+      <div style="min-width:360px;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+        <ion-row class="rowSeperator padding-left-row" col-12>
+        <div class="removePadding" col-12>
+          <ion-col style="display:inline-block;float:left;"
+            col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+           {{'csh_category' | translate}}
+            <span style="color:red" [hidden]="!attachments[selectedTabIndex].categoryeditable"class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;"class="removePadding" col-6="">
+            <ion-item>
+              <ion-label hidden color="dark" stacked class="headerVisibility">{{ 'csh_category' | translate }}</ion-label>
+              <ion-select [disabled]="!attachments[selectedTabIndex].categoryeditable" placeholder="{{ 'csh_category' | translate }}" [(ngModel)]="attachments[selectedTabIndex].fileCategory"
+              formControlName="fileCategory"
+              tappable>
+                <ion-option value="HAZARDOUS">Hazardous</ion-option>
+                <ion-option value="OOG">Oog</ion-option>
+                <ion-option value="SPECIAL HANDLING">Special Handling</ion-option>
+              </ion-select>
+            </ion-item>
+           <div class="error1" style="color:red" style="color:red" *ngIf="isError && !groupFive.controls.attachmentsFormArray.controls[selectedTabIndex].controls.fileCategory.valid">
+               {{'csh_mandatory' | translate}}
+           </div>
+          </ion-col>
+            </div>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+          {{'remarks' | translate}}
+          </ion-col>
+          <ion-col col-6 style="padding: 0px;">
+            <ion-item>
+              <ion-input placeholder="Remarks" [(ngModel)]="attachments[selectedTabIndex].fileRemarks"
+                         formControlName="fileRemarks" spellcheck="false"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col class=" photo-button-col removePadding removeMargin" col-5 >
+            <button (click)="uploadDocs(attachments[selectedTabIndex])" tabindex=-1 class="button-apply-general photobutton-common"
+                    ion-button color="submit" block tappable>
+             {{'upload-b' | translate}}
+              <ion-icon name="clipboard" class="photoicon">
+              </ion-icon>
+            </button>
+          </ion-col>
+
+          <ion-col style="width: 30px;max-width: 30px;"  class="ion-col-nopadding ion-col-left-color boldStyle">
+            <img src="assets/img/image-icon.png" style="height: 3.8rem;width:35px;" class="photoSelectedIcon"
+            *ngIf="(attachments[selectedTabIndex].fileName != null && attachments[selectedTabIndex].fileName != EMPTY && attachments[selectedTabIndex].fileName.length >0)">
+          </ion-col>
+
+          <ion-col  class="ion-col-nopadding attachmentLabelContainer">
+            <ion-label (click)="openDocs(attachments[selectedTabIndex])" class="attachment-label-span-alignment boldStyle"
+                       stacked text-wrap><a href="#">{{attachments[selectedTabIndex].fileName}}</a></ion-label>
+          </ion-col>
+        </ion-row>
+.
+      </div>
+   </div>
+    </div>
+  <ion-row>
+   <ion-col class="imoitem" col-12>
+     <div class="row responsive-sm">
+       <button ion-button class="add-button margin-forPhotoButton" (click)="addAttachment()" tappable>
+         <ion-icon ios="ios-add" md="md-add" class="photo-button-icon"></ion-icon>
+       </button>
+     </div>
+        <button full color="submit" ion-button id="buttonsearch" class="button-apply-general align-button-center-of-container"
+        (click)="createEditCSH()" tappable>{{'sub-b' | translate}}</button>
+    </ion-col>
+  </ion-row>
+
+  </form>
+  </div>
+  <!---End of Attachments -->
+
+</ion-content>

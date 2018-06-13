@@ -1,0 +1,1129 @@
+page-docreate {
+  .filters {
+
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+
+      ion-icon {
+        color: #ccc;
+      }
+
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      /*font-weight: 700;*/
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  .photSelectedIconLabel
+  {
+    display: inline-block;
+    float: left;
+    width: 75%;
+    padding-left: 5px;
+    margin-top: 12px !important;
+  }
+  .label_cont{
+    margin-left: 60px !important;
+    margin-bottom: -3px;
+  }
+
+  .checkbox_cont{
+    position: absolute !important;
+    width: 100%;
+  }
+
+  .attach-container
+  {
+    background: white;
+    //margin-top: 10px;
+  }
+  .underline{
+    text-decoration-line: underline;
+    color:darkblue;
+    white-space: normal;
+  }
+  .container-padding
+  {
+    padding-top: 13px;
+  }
+  .doPhotobutton {
+    position: relative;
+    margin-top: 11%;
+    width: 85%;
+    max-height: 55% !important;
+    margin-left: 0%;
+    padding-left: 9%! important;
+  }
+  .photoicon{
+    position: relative;
+    right: 8%;
+    bottom: 3%;
+  }
+  .container-details-headder
+  {
+    color:white;
+    height: 48px;
+    padding: 15px;
+    padding-right: 0px;
+    background-color: #275680;
+    border-bottom: 1px solid #235179;
+    margin-bottom: 1%;
+  }
+  .container-details-content
+  {
+    width:100%;
+    height:auto;
+    background: white;
+    //margint-top:10px;
+    //padding: 10px;
+    //margin: 10px;
+  }
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+      }
+  .container-details-content
+  {
+    width:100%;
+    height:0px;
+    background: white;
+    overflow: hidden;
+  }
+  .expand-holder-left-side
+  {
+    height:100%;
+    width:85%;
+    display:inline-block;
+  }
+  .container-details-headder-text
+  {
+    float:left;
+    left:0px;
+    width:50%;
+    display: inline-block;
+    padding-top: 3px;
+  }
+
+  .container-details-sub-content
+  {
+    background-color: white;
+    color : black;
+    border-bottom: thin solid #ece7e7;
+    font-size : 14px;
+    font-weight : lighter;
+  }
+  .container-details-sub-content-last
+  {
+    background-color: white;
+    color : black;
+
+    font-size : 14px;
+    font-weight : lighter;
+  }
+
+  .contanerlist {
+    //max-height:200px;
+    overflow-y:scroll;
+    height: auto;
+  }
+
+  .doneButton {
+    font-size:1.3rem;
+    color: #fff;
+    background-color: #113B5F;
+    margin-left: calc((100% - 118px) / 2) !important;
+  }
+
+  .clearButton {
+    font-size:1.3rem;
+    color: #fff;
+    background-color: #113B5F;
+  }
+
+  .cal
+  {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -10%;
+    background-color: white;
+  }
+
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+  .datetimeStyle{
+    width:100%;
+  }
+  #tool .button-md .toolbar-md {
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  #deliveryordertypebutton{
+    width: 49%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+    margin-left : -6px;
+  }
+
+  #attachmentbutton{
+    width: 49%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    border-bottom: 5px solid lightblue;
+    position: relative;
+    top: 10px;
+  }
+
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+  .doFilename ion-label{
+    text-align: left;
+    margin-top: 7%;
+  }
+  .doFileicon{
+    width: 20px;
+    padding-top: 13px;
+  }
+  .doClose_button{
+    max-height: 55%;
+    margin-top : 11%;
+    float: right;
+    margin-left:100%;
+    width: 75%;
+    color:#FFFFFF;
+    background-color: #113B5F;
+    font-size: 14px !important;
+  }
+
+  .expandable {
+
+    .expand-wrapper {
+      transition: 0.2s linear;
+    }
+
+    .collapsed {
+      height: 0 !important;
+    }
+
+  }
+
+  /*  #header{
+      height: 70px !important;
+    }*/
+
+  .title{
+    position : relative;
+    text-align: center;
+    width : 85%;
+  }
+
+  .left {
+    width: 100%! important;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 3% !important;
+  }
+  .center{
+    text-align: center;
+  }
+
+  .deliverycreate{
+    margin-left:4.5%;
+    max-width: 100%;
+    width:100%;
+  }
+
+  .mandatory {
+    border-top: 1px solid red;
+    position: relative;
+    bottom: 1px;
+    width:100%;
+    color: red;
+  }
+
+  .list-md {
+    margin :-1px 0 -10px;
+  }
+
+  .greycolor {
+    color: gray;
+  }
+
+  .bold {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+  }
+
+  .label_cdo{
+    padding-left: 5px;
+    margin-left: 3% !important;
+  }
+
+  .commodity-header {
+    font-weight: bold;
+    //margin-left: 2%;
+    border: 1px solid #929292;
+  }
+
+  .add_button{
+    background-color: #113B5F;
+    margin-bottom : 10%;
+    float: left;
+  }
+
+  .footer_submit{
+    font-size: 2rem;
+    margin-left: calc((100% - 118px)/2) !important;
+    font-weight: 500 !important;
+  }
+
+  ion-label .span {
+    color: red;
+  }
+
+  .collapsedivtitle {
+    background-color: #113B5F;
+    color: white;
+    font-size: 1.9rem !important;
+    height : 34px;
+  }
+
+  .container .subContainer {
+    background-color: rgba(17, 62, 99, 0.95);
+    color: white;
+    font-size: 61%;
+    height : 35px;
+  }
+
+  .container .subContainer2 {
+    background: gray;
+    color : white;
+    border: thin solid white;
+    font-size :61%;
+    font-weight : lighter;
+  }
+
+  .code {
+    width : 10%;
+  }
+
+  .image{
+    float: right;
+    color: white;
+  }
+
+  .retrive{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    font-weight: 500 !important;
+  }
+
+  .commodityTitleStyle {
+    background: #F2B111;
+    width: 98%;
+    margin: 2px -5px -2px 3px;
+    text-align: left;
+    color: white;
+    font-weight: bold !important;
+   /* border-right: 1px solid;
+    border-color: white;*/
+  }
+
+  .headderRowCommodity
+  {
+    padding: 0px !important;
+    background: #F2B111;
+  }
+  .headderColCommodity
+  {
+    padding: 0px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 2px !important;
+    margin: 0px auto !important;
+  }
+
+  #ioncol {
+    padding-top: 5%;
+    color: #a0a0a0;
+  }
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+
+    .cal{
+      margin-top: -5%;
+    }
+    .select-icon {
+      position: relative;
+      width: 12px;
+      height: 19px;
+      margin-right: 12px;
+    }
+
+    .doPhotobutton {
+      width: 50%;
+      right: 1%;
+      padding-left: 4%!important;
+    }
+    .doClose_button{
+      width: 30%;
+    }
+    .doFileicon{
+       width: 27px;
+       margin-top: 13%;
+     }
+  }
+  //media query ends here
+
+  .gridstyle_1{
+    margin-top: 7px;
+    border: 1px solid #929292;
+  }
+  .gridstyle_2{
+    border-bottom: 1px solid #929292;
+    border-right: 1px solid #929292;
+    border-left: 1px solid #929292;
+    margin-bottom: 0px;
+    padding-left: 2%;
+    text-align: left;
+  }
+  .containerCount {
+    text-align: center;
+    font-size: 1.5rem !important;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  .border-right-colr2{
+    border-right: 1px solid #FFF;
+
+  }
+  .reeferLabel{
+    padding-top: 10px;
+  }
+  .reeferText .text-input{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-left: 5px;
+    font-weight: 500 !important;
+    font-size: 15px;
+  }
+  .attachrowSeperator{
+    border-bottom: 1px solid #dedede;
+  }
+  .close-button {
+    //margin-top: 10%;
+    //float: right;
+    //margin-right: 20px;
+    //width:23px;
+    //height:22px;
+    //background-color: #113B5F;
+    //color: white;
+    //border-radius:50%;
+
+    float: right;
+    margin-left: 100%;
+    margin-right: 20%;
+    border-radius: 0px !important;
+    width: 40px;
+    height: 3.8rem !important;
+    color: #FFFFFF;
+    background-color: #113B5F;
+  }
+
+  .add-button {
+    background-color: #113B5F !important;
+    margin-bottom: 10%;
+    border-radius: 0px !important;
+    float: left;
+    width: 40px;
+    height: 3.8rem !important;
+  }
+  .footer-submit {
+    //font-size: 2rem;
+    margin-left: calc((100% - 118px) / 2) !important
+  }
+}
+
+ .platform-iphone page-docreate .photoicon {
+  position: relative;
+  left: -3%;
+  bottom: 1%;
+}
+.platform-ios page-docreate .attachMargin{
+  margin-top: -4%;
+}
+
+.platform-iphone page-docreate .attachMargin{
+  margin-top: -6%;
+}
+.platform-iphone page-docreate .doFileicon{
+  width: 20px;
+  padding-top: 14px;
+}
+.platform-iphone page-docreate .doFilename ion-label {
+  text-align: left;
+  margin-top: 11%;
+  margin-left: 9%;
+}
+.platform-iphone page-docreate .doClose_button{
+  margin-top : 25%;
+  float: right;
+  margin-left:100%;
+  width: 80%;
+  color:#FFFFFF;
+  background-color: #113B5F;
+  height: 2.0em;
+  font-size: 14px !important;
+  padding-bottom: 3% !important;
+  font-weight: 500 !important;
+}
+.platform-ipad page-docreate .doClose_button {
+  font-weight: 500 !important;
+  margin-top: 15%;
+}
+.platform-iphone page-docreate .doPhotobutton{
+  padding-bottom: 3% !important;
+  margin-bottom: 20%;
+  margin-top: 25%;
+}
+.platform-ipad page-docreate .cal {
+  margin-top: -6%;
+}
+.platform-ios page-docreate .datetimeStyle{
+  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-left: 0%;
+}
+.platform-ipad page-docreate .doPhotobutton {
+  padding-left: 3% !important;
+  width:50%;
+  margin-left: 0%;
+  margin-top: 15%;
+}
+.platform-ipad page-docreate .doFileicon{
+  margin-left: 70px;
+  margin-top: 29%;
+}
+.platform-ipad page-docreate .doFilename ion-label {
+  margin-left: 15%;
+  margin-top: 7.5%;
+}
+.platform-ipad page-docreate .deliverycreate{
+  width:97%;
+}
+.platform-ios page-docreate .billSearchHeight{
+  margin-bottom: -1px !important;
+}
+//.platform-tablet page-docreate .mandatory {
+//  left: 10px;width:calc(100% - 10px);
+//}
+.platform-ios page-docreate .scroll-content {
+  margin-top: 42px !important;
+}
+//.platform-android  page-docreate  .attachrowSeperator{
+//  border-bottom: 1px solid #dedede;
+//  //border-bottom: 1px solid #efefef;
+//}
+//.platform-ios  page-docreate  .attachrowSeperator{
+//  border-bottom: 0.55px solid #c8c7cc;
+//  //border-bottom: 1px solid #efefef;
+//}
+.platform-ios  page-docreate .scroll-content {
+  margin-top: 40px !important;
+  margin-bottom: 49px;
+  padding-left:0px!important;
+  padding-right:0px!important;
+}
+.platform-ios page-docreate .deliverycreate{
+  width:97%;
+}
+
+
+//Code Modified for UI Alignment issue fix ios Specific
+
+.platform-ios page-docreate .style1 form .label_cdo
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+.platform-ios page-docreate .style1 form .left
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style1 form  ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style1 form  .select-icon
+{
+  Left:10px!important;
+}
+
+.platform-ios page-docreate .style2 form  .mandatory{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.style1 form .row[col-11],
+.style3 .row[col-11],
+.style2 form .row[col-11],
+.style4 form .row[col-11]{
+  width: 100%;
+  max-width: 100%;
+  padding-right: 5px;
+  padding-bottom: 0px;
+  //background-color: white;
+}
+
+.platform-ios page-docreate .style2 form .label_cdo,
+.platform-ios page-docreate .style4 form .label_cdo
+{
+  padding-left: 7px;
+  margin-left: 0% !important;
+}
+.platform-ios page-docreate .style2 form .left,
+.platform-ios page-docreate .style4 form .left
+{
+  padding-left: 6px;
+  margin-left: 0% !important;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+
+.platform-ios page-docreate .style2 form  ion-select,
+.platform-ios page-docreate .style4 form  ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style2 form  .select-icon,
+.platform-ios page-docreate .style4 form  .select-icon
+{
+  Left:10px!important;
+}
+
+.platform-ios page-docreate .style2 form  .mandatory,
+.platform-ios page-docreate .style4 form  .mandatory{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.platform-ios page-docreate .style2 form .input-wrapper ion-label,
+.platform-ios page-docreate .style2 form .input-wrapper ion-label .col,
+.platform-ios page-docreate .style4 form .input-wrapper ion-label,
+.platform-ios page-docreate .style4 form .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+.platform-ios page-docreate .style2 form .input-wrapper ion-label .col,
+.platform-ios page-docreate .style2 form ion-searchbar,
+.platform-ios page-docreate .style4 form .input-wrapper ion-label .col,
+.platform-ios page-docreate .style4 form ion-searchbar
+{
+  padding:0px!important;
+}
+.platform-ios page-docreate .style2 form .item[no-lines],
+.platform-ios page-docreate .style4 form .item[no-lines]
+{
+  min-height: 10px!important;
+}
+
+
+.platform-ios page-docreate .style3 .label_cdo
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+.platform-ios page-docreate .style3 .left
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style3 ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style3  .select-icon
+{
+  Left:10px!important;
+}
+
+.platform-ios page-docreate .style3  .mandatory{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.platform-ios page-docreate .style3 .input-wrapper ion-label,
+.platform-ios page-docreate .style3 .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+.platform-ios page-docreate .style3 .input-wrapper ion-label .col,
+.platform-ios page-docreate .style3 ion-searchbar
+{
+  padding:0px!important;
+}
+.platform-ios page-docreate .style3 .item[no-lines]
+{
+  min-height: 10px!important;
+}
+
+.style3 .row[col-11],
+.style6 .row[col-11]{
+  width: 100%;
+  max-width: 100%;
+  padding-bottom:0px;
+  padding-right:5px;
+  padding-top: 0px;
+
+}
+
+.platform-ios page-docreate .style3 .label_cdo,
+.platform-ios page-docreate .style6 .label_cdo
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+.platform-ios page-docreate .style3 .left,
+.platform-ios page-docreate .style6 .left
+{
+  padding-left:8px;
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style3 ion-select,
+.platform-ios page-docreate .style6 ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate .style3  .select-icon,
+.platform-ios page-docreate .style6  .select-icon
+{
+  Left:10px!important;
+}
+
+.platform-ios page-docreate .style3  .mandatory,
+.platform-ios page-docreate .style6 .mandatory
+{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.platform-ios page-docreate .style3 .input-wrapper ion-label,
+.platform-ios page-docreate .style3 .input-wrapper ion-label .col,
+.platform-ios page-docreate .style2 .input-wrapper ion-label,
+.platform-ios page-docreate .style2 .input-wrapper ion-label .col,
+.platform-ios page-docreate .style4 .input-wrapper ion-label,
+.platform-ios page-docreate .style4 .input-wrapper ion-label .col,
+.platform-ios page-docreate .style6.input-wrapper ion-label,
+.platform-ios page-docreate .style6 .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+
+.platform-android page-docreate .style3 .input-wrapper ion-label,
+.platform-android page-docreate .style3 .input-wrapper ion-label .col,
+.platform-android page-docreate .style2 .input-wrapper ion-label,
+.platform-android page-docreate .style2 .input-wrapper ion-label .col,
+.platform-android page-docreate .style4 .input-wrapper ion-label,
+.platform-android page-docreate .style4 .input-wrapper ion-label .col,
+.platform-android page-docreate .style6.input-wrapper ion-label,
+.platform-android page-docreate .style6 .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+
+.platform-ios page-docreate .style3 .input-wrapper ion-label .col,
+.platform-ios page-docreate .style3 ion-searchbar,
+.platform-ios page-docreate .style6 .input-wrapper ion-label .col,
+.platform-ios page-docreate .style6 ion-searchbar
+{
+  padding:0px!important;
+}
+.platform-ios page-docreate .style3 .item[no-lines],
+.platform-ios page-docreate .style6 .item[no-lines]
+{
+  min-height: 10px!important;
+  padding-top: 0px;
+}
+
+.platform-ios page-docreate .style4 form .deliverycreate
+{
+  margin-top: 15px;
+}
+.platform-ios page-docreate .style6 [col-12],
+.platform-ios page-docreate .style4 [col-12]
+{
+  background-color: white;
+  padding: 0px;
+}
+.platform-ios page-docreate .style1 [col-12],
+.platform-ios page-docreate .style2 [col-12],
+.platform-ios page-docreate .style3 [col-12]{
+  padding-left: 0px;
+  background-color: white;
+}
+.platform-ios page-docreate .style4 form .left
+{
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+.platform-ios page-docreate .style4 form  .cal {
+  right:10px;
+}
+
+ page-docreate .style1 ,
+ page-docreate .style2 ,
+ page-docreate .style4 ,
+ page-docreate .style6 ,
+ page-docreate .style3 {
+  background-color: white;
+}
+
+.platform-ios page-docreate .style2 form .mandatory,
+.platform-ios page-docreate .style4 form .mandatory,
+.platform-android page-docreate .style2 form .mandatory,
+.platform-android page-docreate .style4 form .mandatory {
+  margin-left: 6px !important;
+  width: calc(100% - 12px);
+  margin-bottom: -3px !important;
+}
+
+.platform-android page-docreate .style1 [col-12],
+.platform-android page-docreate .style2 [col-12],
+.platform-android page-docreate .style3 [col-12]{
+  padding-left: 0px;
+  background-color: white;
+}
+.platform-android page-docreate .style4 form .left
+{
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+.platform-android page-docreate .style4 form  .cal {
+  right:10px;
+}
+//Code Modified for UI Alignment issue fix ios specfic code end
+
+
+//Code Modified for UI Alignment issue fix android specfic code
+.platform-android page-docreate .style1 form .label_cdo
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+.platform-android page-docreate .style1 form .left
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style1 form  ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style1 form  .select-icon
+{
+  Left:10px!important;
+}
+//
+//.platform-android page-docreate .style2 form  .mandatory{
+//  margin-left: 10px!important;
+//  width:calc(100% - 10px);
+//}
+
+.platform-android page-docreate .style2 form .label_cdo,
+.platform-android page-docreate .style4 form .label_cdo
+{
+  padding-left: 5px;
+  margin-left: 0% !important;
+}
+.platform-android page-docreate .style2 form .left,
+.platform-android page-docreate .style4 form .left
+{
+  padding-left: 6px;
+  padding-bottom: 0px !important;
+  margin-left: 0% !important;
+}
+
+.platform-ios page-docreate textarea::-webkit-input-placeholder,
+.platform-android page-docreate textarea::-webkit-input-placeholder {
+  padding-left: 0px !important;
+}
+
+.platform-ios page-docreate textarea:-ms-input-placeholder,
+.platform-android page-docreate textarea:-ms-input-placeholder {
+  padding-left: 0px !important;
+}
+
+.platform-android page-docreate textarea::placeholder,
+.platform-android page-docreate textarea::placeholder {
+  padding-left: 0px !important;
+}
+
+.platform-android page-docreate .style2 form  ion-select,
+.platform-android page-docreate .style4 form  ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style2 form  .select-icon,
+.platform-android page-docreate .style4 form  .select-icon
+{
+  Left:10px!important;
+}
+.platform-ios page-docreate .style1 form  .mandatory,
+.platform-android page-docreate .style1 form  .mandatory{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.platform-android page-docreate .style2 form  .mandatory,
+.platform-android page-docreate .style4 form  .mandatory{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.platform-android page-docreate .style2 form .input-wrapper ion-label,
+.platform-android page-docreate .style2 form .input-wrapper ion-label .col,
+.platform-android page-docreate .style4 form .input-wrapper ion-label,
+.platform-android page-docreate .style4 form .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+.platform-android page-docreate .style2 form .input-wrapper ion-label .col,
+.platform-android page-docreate .style2 form ion-searchbar,
+.platform-android page-docreate .style4 form .input-wrapper ion-label .col,
+.platform-android page-docreate .style4 form ion-searchbar
+{
+  padding:0px!important;
+}
+.platform-android page-docreate .style2 form .item[no-lines],
+.platform-android page-docreate .style4 form .item[no-lines]
+{
+  min-height: 10px!important;
+}
+
+
+.platform-android page-docreate .style3 .label_cdo
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+.platform-android page-docreate .style3 .left
+{
+  padding-left: 10px;
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style3 ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style3  .select-icon
+{
+  Left:10px!important;
+}
+
+//.platform-android page-docreate .style3  .mandatory{
+//  margin-left: 10px!important;
+//  width:calc(100% - 10px);
+//}
+
+.platform-android page-docreate .style3 .input-wrapper ion-label,
+.platform-android page-docreate .style3 .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+.platform-android page-docreate .style3 .input-wrapper ion-label .col,
+.platform-android page-docreate .style3 ion-searchbar
+{
+  padding:0px!important;
+}
+.platform-android page-docreate .style3 .item[no-lines]
+{
+  min-height: 10px!important;
+}
+
+
+.platform-android page-docreate .style3 .label_cdo,
+.platform-android page-docreate .style6 .label_cdo
+{
+  padding-left: 7px !important;
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style3 .left,
+.platform-android page-docreate .style6 .left
+{
+  padding-left:8px;
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style3 ion-select,
+.platform-android page-docreate .style6 ion-select
+{
+  margin-left: 0% !important;
+}
+
+.platform-android page-docreate .style3  .select-icon,
+.platform-android page-docreate .style6  .select-icon
+{
+  Left:10px!important;
+}
+
+.platform-android page-docreate .style3  .mandatory,
+.platform-android page-docreate .style6 .mandatory
+{
+  margin-left: 6px!important;
+  width:calc(100% - 6px);
+}
+
+.platform-android page-docreate .style3 .input-wrapper ion-label,
+.platform-android page-docreate .style3 .input-wrapper ion-label .col,
+.platform-android page-docreate .style6.input-wrapper ion-label,
+.platform-android page-docreate .style6 .input-wrapper ion-label .col
+{
+  margin: 0px 0px 0px 0px !important;
+}
+.platform-android page-docreate .style3 .input-wrapper ion-label .col,
+.platform-android page-docreate .style3 ion-searchbar,
+.platform-android page-docreate .style6 .input-wrapper ion-label .col,
+.platform-android page-docreate .style6 ion-searchbar
+{
+  padding:0px!important;
+}
+.platform-android page-docreate .style3 .item[no-lines],
+.platform-android page-docreate .style6 .item[no-lines]
+{
+  min-height: 10px!important;
+  padding-top: 0px;
+}
+
+.platform-android page-docreate .style4 form .deliverycreate
+{
+  margin-top: 15px;
+}
+.platform-android page-docreate .style6 [col-12]
+.platform-android page-docreate .style4 [col-12]
+{
+  background-color: white;
+  padding-top: 0px;
+}
+
+//Code Modified for UI Alignment issue fix android specfic code end
+
+.valerror-search-warning{;
+  margin-left: 6px;
+  position: relative;
+  bottom: 2px;
+  color: gray;
+  margin-top: 5px;
+  margin-right: 1px;
+  font-size: 12px;
+}
+
+.platform-android page-docreate .style1 [col-12],
+.platform-android page-docreate .style2 [col-12],
+.platform-android page-docreate .style3 [col-12]{
+  padding-left: 0px;
+  background-color: white;
+}
+
+.platform-android page-docreate .style4 form .left
+{
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+
+.platform-android page-docreate .style4 form  .cal {
+  right:10px;
+}
+
+.platform-android page-docreate .style4 form .cal {
+  bottom: 10px;
+}
+
+.platform-android page-dosearchdetailview .toolbar-content  ion-slide,
+.platform-android page-docreate .toolbar-content  ion-slide,
+.platform-ios page-dosearchdetailview .toolbar-content  ion-slide,
+.platform-ios page-docreate .toolbar-content  ion-slide {
+  width:auto !important;
+}
+
+.platform-ipad page-dosearchdetailview .toolbar-content  ion-slide,
+.platform-ipad page-docreate .toolbar-content  ion-slide,
+.platform-tablet page-dosearchdetailview .toolbar-content  ion-slide,
+.platform-tablet page-docreate .toolbar-content  ion-slide {
+  width:300px !important;
+}
+
+.platform-android page-docreate .style4 form .datetimeStyle
+{
+  padding-left: 0px!important;
+}
+.platform-android page-docreate .style4 form .text-input-md
+{
+  margin-left:0px !important;
+}
+.platform-ios page-docreate .style4 form .left {
+  padding-right: 6px;
+  padding-bottom: 0px !important;
+}
+
+.platform-android page-docreate ion-header .toolbar ion-row ion-col[col-10],
+.platform-ios page-docreate ion-header .toolbar ion-row ion-col[col-10],
+.platform-android page-dosearchdetailview ion-header .toolbar ion-row ion-col[col-10],
+.platform-ios page-dosearchdetailview ion-header .toolbar ion-row ion-col[col-10]
+{
+  padding-left: 0px !important;
+}
+
+.platform-ios page-docreate  ion-toolbar ion-slides  .swiper-wrapper,
+.platform-ios page-dosearchdetailview  ion-toolbar ion-slides  .swiper-wrapper{
+  margin-left: 10px;
+}

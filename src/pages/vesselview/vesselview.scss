@@ -1,0 +1,234 @@
+page-vesselviewpage {
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+    }
+
+     .title{
+          position : relative;
+		  right : 6%;
+   }
+ .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+
+  }
+
+
+  .filters {
+
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+
+      ion-icon {
+        color: #ccc;
+      }
+
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+
+
+    #notifybadge{
+        float:right;
+    }
+
+ #notifications-badge {
+        background-color: red;
+        position: absolute;
+        bottom: 60%;
+        right: 0;
+        border-radius: 50%;
+            height: 85%;
+        }
+   #vesselbutton{
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid #519CDC;
+    position: relative;
+    top: 10px;
+	margin-left : -6px;
+    }
+
+    #truckbutton{
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid #519CDC;
+    position: relative;
+    top: 10px;
+    right : -6px;
+    }
+
+    #berthbutton {
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid #519CDC;
+    position: relative;
+    top: 10px;
+	right : -16px;
+    }
+
+    #voyagebutton{
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+        border-bottom: 5px solid #F2B011;
+    position: relative;
+    top: 10px;
+	right : -16px;
+    }
+
+    .ionrow{
+             background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+
+    }
+
+    ion-col{
+                margin: 5px auto !important;
+                padding-left: 20px !important;
+                font-weight: 500 !important;
+    }
+
+    #ioncol{
+        color: #a0a0a0;
+    }
+
+    .scroll-content{
+            padding-bottom: 15% !important;
+    }
+
+    #caption{
+        color: black !important;
+    }
+
+    h6{
+        line-height: 0.2 !important;
+    }
+
+    #ioncolrightwithcolor{
+        color: #a0a0a0;
+    }
+
+    .attach{
+        background: white;
+    padding: 10px;
+    margin: 10px;
+      min-height: 45px;
+      padding-top: 7px;
+    }
+
+    .image{
+        float: right;
+    }
+    .subheader{
+            background: #CFCFCF;
+            margin-top: 10px;
+    }
+    .underline{
+         border-bottom: 1px solid darkblue;
+        color:darkblue;
+    }
+  //---ios_change--start
+  //---title alignment
+  div.toolbar-title.toolbar-title-ios{
+    overflow: visible;
+    margin-left: -10%;
+    margin-top: -10%;
+  }
+  .toolbar-title{
+    font-weight: 500 !important;
+    text-align: center;
+    font-size : 2rem;
+  }
+  //---ios_change--end
+  .filters {
+
+                    ion-col {
+                        text-align: center;
+                        font-size: 1.6rem;
+                        line-height: 1.6rem;
+
+                        ion-icon {
+                            color: #ccc;
+                        }
+
+                        &.col-with-arrow {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    p {
+                        color: #fff;
+                        margin: 0;
+                        font-size: 1.6rem;
+                        line-height: 1.6rem;
+                    }
+
+                    .selected {
+                        font-weight: 700;
+                    }
+        }
+
+
+}
+

@@ -1,0 +1,987 @@
+page-truckdetails {
+.doc_no{
+  padding-right: 20px!important;
+}
+  .port_labels{
+    color: #929292;
+    font-weight: bold;
+  }
+  hr{
+    background-color: red;
+  }
+
+  .rowSeperator_1{
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 7px;
+  }
+
+  .scroll-content{
+    margin-top: 30%;
+  }
+
+  form
+  {
+  backface-visibility: hidden !important;
+  }
+
+  .item_border .item-inner{
+    border-bottom: none !important;
+  }
+
+  .item_border_1 .item-inner{
+    border-bottom: 1px solid #dedede !important;
+  }
+
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+  .title{
+      position : relative;
+		  right : 6%;
+  }
+
+
+  #notifybadge{
+    float:right;
+  }
+  #back{
+    float:left;
+  }
+  .right_arrow{
+    padding-left: 0px !important;
+  }
+  #tool .button-md .toolbar-md {
+      padding:0 !important;
+      margin:0 !important;
+  }
+  #notifications-badge {
+      background-color: red;
+      position: absolute;
+      bottom: 60%;
+      right: 0;
+      border-radius: 50%;
+      height: 85%;
+  }
+  .truck_photobutton {
+        //height: 50%;
+   //---ios_changes--start
+    font-size: 70%;
+   //---ios_changes--end
+    position: relative;
+    margin-top: 11%;
+    margin-left: 0%;
+    padding-left: 8.5%;
+  }
+  .truck_photoicon{
+      position: relative;
+      left: 8%;
+      bottom: 3%;
+  }
+  .terminals_tab{
+    margin-top: 13px;
+  }
+  //---ios_changes--start
+   .toggle-ios{
+    position: relative;
+    display: block;
+  }
+  //---ios_changes--end
+  .newtrucksearch {
+    margin-top:5px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    margin: 0;
+    font-size: 1.6rem !important;
+  }
+
+   #ownerdetailbutton{
+
+     width: 22%;
+     font-weight: $header-title-font-weight !important;
+     text-transform: none;
+     font-size: $vessel-tabs-font-size;
+     border-bottom: 5px solid lightblue;
+     position: relative;
+     //---ios_change--start
+     top: 8px;
+     //margin-left : -6px;
+     //---ios_change--end
+   }
+
+    #truckdetailbutton{
+
+      width: 22%;
+      font-weight: $header-title-font-weight !important;
+      text-transform: none;
+      font-size: $vessel-tabs-font-size;
+      border-bottom: 5px solid lightblue;
+      position: relative;
+      //---ios_change--start
+      top: 8px;
+      //---ios_change--end
+      //right : -6px;
+    }
+
+    #terminaldetailbutton {
+
+      width: 25%;
+      font-weight: $header-title-font-weight !important;
+      text-transform: none;
+      font-size: $vessel-tabs-font-size;
+      border-bottom: 5px solid lightblue;
+      position: relative;
+      //---ios_change--start
+      top: 8px;
+      //---ios_change--end
+      //right : -16px;
+    }
+
+    #attachmentbutton{
+
+      width: 22%;
+      font-weight: $header-title-font-weight !important;
+      text-transform: none;
+      font-size: $vessel-tabs-font-size;
+      border-bottom: 5px solid lightblue;
+      position: relative;
+      //---ios_change--start
+      top: 8px;
+      //---ios_change--end
+      //right : -16px;
+    }
+
+	ion-label .span {
+            color: red;
+        }
+    .buttontool {
+    	width:100%;
+    }
+     .collapsediv {
+        padding: 0px 5px 0px 5px;
+        width: 100%;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    .collapsedivtitle {
+        background-color: #2a739b;
+        color: white;
+		font-size: 2rem !important;
+    }
+    .collapsedivtitle:hover {
+        background-color: #67D3F4;
+        color: white;
+    }
+.ownercheck{
+float : right;
+font-weight: bold;
+}
+
+.item.item-md .checkbox-md {
+    position: static;
+    display: block;
+    margin: 9px 9px 9px 4px !important;
+}
+  .footer_submit{
+    font-size: 2rem;
+    margin-left: calc((100% - 118px)/2) !important;
+    margin-top: 13% !important;
+  }
+  .hr_line{
+    background-color: #f4f4f4;
+    border: 3px solid #f4f4f4;
+    width: 100%;
+    position: fixed;
+    top: 89.5%;
+    right: 0px;
+  }
+    .collapsedivsubfields {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+	.collapsedivsubfields .item-md{
+		padding: 10px;
+	}
+    .left {
+        width: 100%! important;
+    }
+    .splitrow {
+        /* margin-top: 10px;*/
+    }
+    .vflagerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 0px;
+        margin-left: 15px;
+    }
+    p {
+        padding: 0px 0px 0px 5px;
+    }
+    .vowncountryerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 0px;
+        margin-left: 15px;
+    }
+    .vownstateerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .vopcountryerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .vopstateerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 0px;
+        margin-left: 15px;
+    }
+    .vactiveerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+    .vtypeerror {
+        border-bottom: 1px solid red;
+        position: relative;
+        bottom: 10px;
+        margin-left: 15px;
+    }
+  .truckDetailsError ,.truckDetailsError_2,.truckDetailsError_3{
+    border-top: 1px solid red;
+    position: relative;
+    color: red;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+  .truckDetailsError_1{
+    border-top:1px solid red;
+    position: relative;
+    color: red;
+    margin-top:1.45%;
+  }
+  .truckDetailsError_4{
+    border-top:1px solid red;
+    position: relative;
+    color: red;
+  }
+  .truckDetailsError1{
+    border-top:1px solid red;
+    position: relative;
+    margin-top: 5px;
+    color: red;
+  }
+  .truckDetailsError1_post{
+    border-top:1px solid red;
+    position: relative;
+    margin-top: 5px;
+    color: red;
+  }
+  .errorattach{
+    border-bottom:1px solid red;
+    position: relative;
+    float: right;
+    margin-left: 50%;
+  }
+  .errorattach_mod{
+    color: red;
+    border-top:1px solid red;
+    position: relative;
+    top: 3px;
+  }
+  .errorattach_mod_1{
+    color: red;
+    border-top:1px solid red;
+    position: relative;
+    top: 6px;
+  }
+  .errorattach_mod_doc{
+    color: red;
+    border-top:1px solid red;
+    position: relative;
+    top: 3px;
+  }
+    .bold {
+        font-weight: bold;
+		font-size: 1.5rem !important;
+		padding-left: 5px;
+		padding-top: 5px;
+        margin-left: 3% !important;
+    }
+  .boldtitle{
+    font-weight: bold;
+  }
+  .attchlabels {
+    font-weight: bold;
+    font-size: 1.4rem !important;
+  }
+
+  .ionrow{
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+  }
+
+  .ionrow .rfidList {
+    margin-top: 11px;
+    height:auto;
+    margin-left: 4%;
+  }
+
+  ion-row {
+    height:auto;
+  }
+  ion-col{
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+    .boxd {
+        font-weight: bold;
+		font-size: 1.5rem !important;
+		padding-left: 5px;
+		padding-top: 5px;
+    }
+    .dateitem{
+            margin-bottom: -8% !important;
+    }
+    .item-md{
+      margin-bottom: -2%;
+    padding-right: 0px !important;
+    padding-left: 0;
+    width: 100% !important;
+
+    }
+    .dateitemlast{
+            margin-top: 1%;
+            margin-bottom: -8% !important;
+    }
+    .truckinputs{
+        padding-left: 8.5%;
+    }
+  .inputs{
+     padding-left: 8.5%;
+  }
+  .inputs .text-input[disabled]{
+    opacity: 1 !important;
+  }
+  .select-disabled,.item-select-disabled ion-label{
+    opacity: 1;
+  }
+  .datetime-disabled,.item-datetime-disabled ion-label {
+    opacity: 1;
+  }
+  .dateTimeHide {
+    display: none !important;
+  }
+  .inputs_2{
+    font-size: 1.3rem !important ;
+    position: relative;
+    right: 9%;
+  }
+  .select{
+    margin-left: 8.5%;
+  }
+    .truckselect{
+        margin-left:4.5%;
+    }
+    #rfidbutton{
+        bottom: 40px;
+        float: right;
+        z-index: 1;
+        font-size: 3em;
+        position: relative;
+        right: 4%;
+        margin-bottom: -5%;
+    }
+
+
+  .cal {
+        float: right;
+        z-index: 1;
+        font-size: 2em;
+        position: relative;
+        margin-top: -10%;
+        right: 4%;
+        margin-bottom: -5%;
+    }
+  .attachdate {
+    float: right;
+    font-size: 2em;
+    position: relative;
+    margin-top: -13%;
+    background-color: white;
+  }
+  .item-cover {
+     width:0px;
+     height: 0px;
+     position:relative;
+   }
+    #nextbutton {
+    	    padding: 22px;
+    float: right;
+    position: relative;
+    height: 6rem;
+    font-size: 2rem;
+    right: 2%;
+    //border-radius: 50%;
+    background-color: #113B5F;
+    color: white;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    }
+	.iconadd{
+	  	      background-color: #185389;
+    color: white;
+    height: 47px;
+    width: 43px;
+    float: right;
+    position: relative;
+    bottom: 53px;
+    right: 0px;
+    margin-bottom: -42px !important;
+	}
+	.iconsearch{
+	  	    background-color: #185389;
+    color: white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    position: relative;
+    bottom: 45px;
+	right : 0px;
+	margin-bottom : -42px !important;
+	z-index: 2 !important;
+	}
+
+	.iconsearch-ios {
+    background-color: #185389;
+    color: white;
+    height: 40px;
+    width: 40px;
+    float: right;
+    position: relative;
+    bottom: 45px;
+    right: 7px;
+    margin-bottom: -42px !important;
+    z-index: 2 !important;
+    }
+
+     .toolbar-title-ios {
+    color: #fff;
+    position: relative;
+       //---ios_change--start
+    bottom: 15%;
+       //---ios_change--end
+}
+.portdetails {
+			border: 1px solid black;
+            padding: 2%;
+    margin: 2%;
+	}
+    .rfiddiv {
+			padding-left: 10px;
+			width: 50% !important;
+	}
+
+	.rfidnum .item-inner {
+	    position: relative;
+    	bottom: 10px;
+    	font-weight: bold;
+	}
+.truckTerminalHeight{
+  min-height: 50px;
+}
+	.trkAttachment_clse {
+		float: right;
+    color:#113B5F;
+    font-size: 1.2em;
+	}
+    .rfid {
+
+    border: 2px solid;
+      font-weight: bold;
+    }
+
+  .rfidList {
+    height:auto;
+  }
+
+/*    .rfidadded{
+
+    width: 88%;
+    border: 2px solid;
+    height: 47% !important;
+
+    }*/
+/*  .attachInput {
+    width: 88%;
+    top: 20%;
+    border: 1px solid;
+  }*/
+	.rfidnum {
+
+		    border: 2px solid;
+        margin-top:10px;
+		    height: 10px;
+		    background-color: #EEF0F1;
+	}
+
+    .rfidnum .item-inner{
+        margin-top: 7px;
+    }
+
+  .rfidNum {
+    //---ios_change--start
+    margin-top : -15%;
+    //margin-left : -7px;
+    overflow-x: scroll;
+    margin-right: -15%;
+    //---ios_change--end
+  }
+  .rfIdBoxStyle {
+    border: 1px solid;
+    border-color: black;
+    height: 30px;
+    min-height: 30px !important;
+
+  }
+
+  .rfidInput {
+    height: 20px;
+    width: 40px;
+  }
+
+    .pop{
+        margin-left: 1%;
+        color: #113B5F;
+		font-weight: bold;
+    }
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+  .next{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 6rem;
+    font-size: 2rem;
+    background-color: #113B5F;
+    color: white;
+    //border-radius: 50%;
+    margin-bottom: 5%;
+    margin-right: 3%;
+  }
+  .truck_add_button{
+    background-color: #113B5F;
+    margin-bottom : 10%;
+    //float: left;
+  }
+  .ion-datetimeinline{
+    width: 75%;
+    display: inline-block;
+        margin: 20px 0px 0px 10px;
+  }
+  .attach_head{
+    font-size: 17px;
+    padding-left: 2%;
+    height: 35px;
+    padding-top: 7px;
+  }
+  .truck_close_button{
+    margin-left : 80%;
+    height: 5%;
+    padding: 7px;
+    font-size: 70%;
+  }
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+  }
+  .Docnum{
+    width: 100%;
+  }
+  .Docnum_1{
+    width: 98%;
+  }
+  .inputfont {
+    font-size: 1.3rem !important ;
+  }
+  .item-input-disabled ion-label {
+    opacity: 0.99;
+  }
+
+  .filters {
+
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+
+      ion-icon {
+        color: #ccc;
+      }
+
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+
+  .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  .lab1 {
+	  color : green;
+  }
+
+  .scroll-content{
+    margin-top : 30%;
+    padding-bottom: 0!important;
+  }
+  .truck_attachments{
+    padding-top: 2%;
+    min-height: 100px;
+    height: 100%;
+
+  }
+  .attach{
+    background: white;
+  }
+  .truck_fileicon{
+    width: 15%;
+    padding-top: 20px;
+  }
+  .image{
+    float: right;
+    position: relative;
+    right: 2%;
+  }
+  .subheader{
+    background: white;
+    margin-top: 10px;
+    margin-left: -15px;
+  }
+  .underline{
+    text-decoration-line: underline;
+    color:darkblue;
+    white-space: normal;
+    margin-top: 3%;
+  }
+  //---ios_change--start
+  //---title truncation bugfix
+    div.toolbar-title.toolbar-title-ios{
+      overflow: visible;
+      left: -10%;
+      left: -10%;
+    }
+  //---ios_change--end
+  .selectWrapper {
+    .select-icon {
+      visibility: hidden;
+    }
+  }
+  .rfidbox {
+    border: 2px solid;
+    height:33px;
+  }
+  //---ios_change--start
+  .label-ios{
+    width:100%;
+  }
+
+  //.item-ios.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,.item-ios.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner
+  //{
+  //  border-bottom-color: #c8c7cc!important;
+  //}
+  //
+  //.flaseClass {
+  //  border-bottom-color :#32db64
+  //}
+
+  .search_bar{
+    width:85% !important;
+    margin-left: 7% ;
+  }
+  .countryListStyle{
+    overflow: hidden;
+  }
+  //---ios_change--end
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .item-md{
+      margin-bottom: 0%;
+    }
+      .truck_photobutton {
+      width: 35%;
+      //height: 46%;
+      padding-left: 4.5%;
+    }
+    .truckDetailsError_1{
+      top:-13px;
+    }
+    .errorattach_mod{
+      top: -1px;
+    }
+    .errorattach_mod_1{
+      top: -1px;
+    }
+    .truckDetailsError1_post{
+      margin-top: -2px;
+    }
+    .errorattach_mod_doc{
+      top: -2px;
+    }
+    .error1{
+      margin-top:14px;
+    }
+    .footer_submit{
+      font-size: 2rem;
+      margin-left: calc((100% - 118px)/2) !important;
+      margin-top: 7% !important;
+    }
+    .truckDetailsError1{
+      margin-top: -2px;
+    }
+    truckDetailsError_4{
+      margin-top: -2px;
+    }
+    .cal
+    {
+      margin-top: -5%;
+    }
+    .truck_close_button{
+      margin-left: 85%;
+    }
+    .inputs_2{
+      font-size: 1.3rem !important ;
+      position: relative;
+      right: 5%;
+    }
+    .truck_fileicon{
+      width: 7%;
+      padding-top: 11px;
+    }
+    .truckDetailsError{
+      top:-7px;
+    }
+    .truckDetailsError_2{
+      top:-6px;
+    }
+    .truckDetailsError_3{
+      top:-7px;
+    }
+  }
+
+  .countryListStyle {
+    margin-left: 10%;
+    margin-bottom: 0%;
+  }
+  //media query ends here
+  .itemOwner .chkboxStyle
+  {
+    width: 80%;
+    position: absolute!important;
+    z-index: 11;
+  }
+
+  .itemOwner .item-inner{
+    position: absolute;
+    z-index: 10;
+    margin-left: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .itemOwner .checkbox
+  {
+    margin: 12px 0px 0px 10px !important;
+  }
+
+  .itemOwner .checkbox .checkbox-icon{
+    margin-left: 15px!important;
+  }
+
+  .itemOwner ion-label {
+    margin-left: 60px !important;
+    z-index:9;
+  }
+  .viewmodeTextArea textarea {
+    opacity: .9 !important;
+    height:95%;
+    margin:2px !important;
+  }
+}
+page-truckdetails .content-ios .scroll-content{
+  padding-top: 10px !important;
+  padding-left: 0px !important;
+}
+page-truckdetails .content-ios form{
+  margin-left: 5px !important;
+}
+.platform-ipad page-truckdetails .truckDatetimeMargin{
+  margin-left: 13%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+.platform-iphone page-truckdetails .truckDatetimeMargin{
+  margin-left: 13%;
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+.platform-iphone page-truckdetails  .itemOwner ion-label {
+  margin-top: 15px !important;
+  margin-left: 50px !important;
+}
+.platform-iphone page-truckdetails  .itemOwner .checkbox
+{
+  margin: 3px 0px 0px 0px !important;
+}
+page-truckdetails .item.item-md .checkbox-md {
+  position: static;
+  display: block;
+  margin: 0px 9px 9px 4px !important;
+}
+.platform-iphone page-truckdetails  .inputs_2{
+  position: relative;
+  right: 4%;
+  //font-size: 1.3rem !important ;
+}
+.platform-ipad page-truckdetails .attachdate {
+  margin-top: -6%;
+}
+
+.platform-ipad page-truckdetails .itemOwner .checkbox
+{
+  //margin: 11px 0px 0px 10px !important;
+  margin: 0px !important;
+  height: 100%;
+}
+.platform-ipad page-truckdetails .itemOwner .checkbox-icon
+{
+  margin-left: 15px !important;
+  margin-top: calc((50px - 21px)/2);
+}
+.platform-ipad page-truckdetails  .inputs_2{
+  position: relative;
+  right: 2%;
+  font-size: 1.3rem !important ;
+}
+.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}
+
+// Added for auto scroll issue fix while clicking of edit button
+page-truckdetails .item-input-disabled  ion-input
+{
+  pointer-events: none;
+}
+
+ion-app.ios page-truckdetails .scroll-content
+{
+  -webkit-overflow-scrolling: auto !important;
+}
+.platform-ios page-truckdetails .truckDatetimeMargin {
+  height: 40px;
+  margin-bottom: 0% !important;
+  margin-top: 0% !important;
+}
+
+.platform-ios page-truckdetails .truckDatetimeMargin .datetime-text {
+  padding-top: 10px;
+  z-index: -1;
+}
+.platform-ios ion-picker-cmp
+{
+  transition: .2s cubic-bezier(1, 0, 0, 0) !important;
+}
+.platform-ios ion-picker-cmp ion-backdrop
+{
+  transition: .2s cubic-bezier(1, 0, 0, 0) !important;
+}
+.platform-ios ion-picker-cmp .picker-wrapper
+{
+  transition: .2s cubic-bezier(1, 0, 0, 0) !important;
+}
+
+page-truckdetails ion-textarea.inputs.input.input-ios.ng-touched.ng-dirty.ng-invalid
+{
+  pointer-events: inherit !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+}
+page-truckdetails ion-textarea.inputs.input.input-ios.ng-touched.ng-dirty.ng-invalid textarea
+{
+  opacity: 1 !important;
+  transform: inherit !important;
+}
+page-truckdetails  ion-input.inputs.input.input-ios.ng-touched.ng-dirty.ng-valid {
+  pointer-events: inherit !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+}
+
+page-truckdetails  ion-input.inputs.input.input-ios.ng-touched.ng-dirty.ng-valid  input{
+  opacity: 1 !important;
+  transform: inherit !important;
+
+}
+.md page-truckdetails .toolBarButton{
+  width: 100%;
+  font-weight: $header-title-font-weight !important;
+  text-transform: none;
+  font-size: $do-tabs-font-size;
+  /*border-bottom: 5px solid lightblue;*/
+  position: relative;
+  top: 10px;
+  margin-left : -3%;
+}

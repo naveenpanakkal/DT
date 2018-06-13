@@ -1,0 +1,133 @@
+ page-shipservschedsummaryview {
+   .blnk_div{
+     height: 46px;
+   }
+  .toolbar-title{
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+
+   .title {
+     position: relative;
+     padding-left: 30px !important;
+     margin-top:4px !important;
+   }
+  #header {
+    /*height: 70px;*/
+  }
+
+  #notifybadge{
+    float:right;
+  }
+
+  .detailcontent{
+    position : relative;
+    z-index : 1;
+  }
+
+  #notifications-badge {
+    background-color: red;
+    position: absolute;
+    bottom: 60%;
+    right: 0;
+    border-radius: 50%;
+    height: 85%;
+  }
+
+  .labels{
+    opacity : 0.6;
+    top: 30%;
+    position: relative;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: medium;
+    text-align: left;
+    margin-left: 10%;
+  }
+  .sssno{
+    opacity : 0.9;
+    text-align: center;
+  }
+  .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+   .fabedit{
+     margin-right : 200%;
+     position : relative;
+     bottom : 25px;
+     font-weight : normal;
+     color : white;
+     padding: 6px;
+     border-radius: 0.6em;
+
+   }
+  .approvedicon{
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    position: relative;
+    margin-top: 3%;
+
+  }
+
+  #divv{
+    text-align: center;
+  }
+  .status{
+    text-align: center;
+    margin-top: 0%;
+    font-weight: normal;
+  }
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+
+  }
+  .ion-md-checkmark-circle:before {
+    content: "\f2bb";
+    font-size: 3em;
+    color: $approved-button-color;
+  }
+  .details {
+
+    text-align: center;
+    line-height: -1;
+    top : 20%;
+
+  }
+  //---ios_change--start
+  //---title truncation bugfix
+  div.toolbar-title.toolbar-title-ios{
+    overflow: visible;
+    margin-left: -10%;
+    margin-top:-10%
+  }
+  //---ios_change--end
+}
+
+ .platform-ios  page-shipservschedsummaryview .scroll-content {
+   margin-top: 25px !important;
+ }
+ .platform-iphone page-shipservschedsummaryview div.toolbar-title.toolbar-title-ios{
+   margin-left: 7% !important;
+ }
+ .platform-android page-shipservschedsummaryview .title {
+   left: 10px !important;
+ }

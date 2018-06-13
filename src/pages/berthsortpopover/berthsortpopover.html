@@ -1,0 +1,49 @@
+<ion-content no-bounce has-bounsing="false">
+  <ion-list class="popoverList">
+    <div class="divOverFloaw">
+<ion-label class="lab">
+   Sort By
+  <button class="sort" (click)="changeorder()" tappable>
+    <ion-icon [name]="getordericon()">
+    </ion-icon>
+  </button>
+</ion-label>
+
+<ion-list radio-group [(ngModel)]="sortselect">
+   <ion-item>
+    <ion-label>Rotation Number</ion-label>
+    <ion-radio value="rno" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Vessel Name</ion-label>
+    <ion-radio value="vname" tappable></ion-radio>
+  </ion-item>
+   <ion-item>
+    <ion-label>ETA(GST)</ion-label>
+    <ion-radio value="eta" tappable></ion-radio>
+  </ion-item>
+   <ion-item>
+    <ion-label>Created By</ion-label>
+    <ion-radio value="createdby" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Created Date(GST)</ion-label>
+    <ion-radio value="createddate" tappable></ion-radio>
+  </ion-item>
+    <ion-item>
+    <ion-label>Berth Booking Status</ion-label>
+    <ion-radio value="status" tappable></ion-radio>
+  </ion-item>
+</ion-list>
+    </div>
+  </ion-list>
+
+<ion-row class="options buttonHolder">
+  <ion-col col-6 class="topcol">
+    <button class="buttonStyle border-right-colr" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>Reset</button>
+  </ion-col>
+  <ion-col col-6 class="topcol">
+    <button class="buttonStyle border-left-colr" color="light" id="clearsubmit" full ion-button (click)="submit()" tappable>Done</button>
+  </ion-col>
+</ion-row>
+</ion-content>

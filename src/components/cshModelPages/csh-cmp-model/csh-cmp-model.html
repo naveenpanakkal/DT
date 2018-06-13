@@ -1,0 +1,43 @@
+<!-- Generated template for the CshCmpModelComponent component -->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="compareTitle" class="truckComparison-ios">Comparison Result</ion-title>
+    <ion-buttons start tappable>
+      <button ion-button (click)="close()" tappable style="color: white;">
+        <span ion-text showWhen="ios"> {{ 'ca_cancel_small' | translate }}</span>
+        <ion-icon name="md-close" style="color: white;width:40px;" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="cshComparisonContent">
+  <div class="subheader">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Field Name</ion-col>
+        <ion-col>Last Approved</ion-col>
+        <ion-col>Amended</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="item" *ngFor="let cshObj of cshCmpDiffmodelArray">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          {{cshObj.diffattribute}}
+        </ion-col>
+        <ion-col col-4>
+          {{cshObj.newValue}}
+        </ion-col>
+        <ion-col col-4>
+          {{cshObj.oldValue}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div style="text-align:center; padding-top:4%" *ngIf="empty">
+    No data is available
+  </div>
+</ion-content>

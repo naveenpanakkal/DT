@@ -1,0 +1,76 @@
+
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Sort' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="no-scroll">
+  <div>
+    <ion-row>
+      <ion-col class="removePadding sortOrderStyle" style="margin-top: 20px;"  col-8>
+        {{ 'Sortby' | translate }}
+      </ion-col>
+      <ion-col class="removePadding sortOption"  col-4>
+        <label class="toggleButtonCenterAlign" style="margin-top: 20px" >{{sortMode}}</label>
+        <ion-toggle class="toggleButtonCenterAlign" [(ngModel)]="ascend" (ngModelChange)="changeorder()"
+                    style="display: inline-block">
+        </ion-toggle>
+        <!--<label >{{ 'VLDS_descending' | translate }}</label>-->
+      </ion-col>
+    </ion-row>
+    <div class="scrollList">
+      <ion-list radio-group [(ngModel)]="sortselect" style="padding-right: 10px;" tappable>
+
+        <ion-item>
+          <ion-label>{{ 'cshRequestNo' | translate }}</ion-label>
+          <ion-radio value="cshRequestNo" tappable></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'rotationno' | translate }}</ion-label>
+          <ion-radio value="rotationno" tappable></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'vesselName' | translate }}</ion-label>
+          <ion-radio value="vesselName" tappable></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'eta' | translate }}</ion-label>
+          <ion-radio value="eta" tappable></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{ 'cshRequestCutOffTime' | translate }}</ion-label>
+          <ion-radio value="cshRequestCutOffTime" tappable></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'createdDate' | translate }}</ion-label>
+          <ion-radio value="createdDate" tappable></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'createdBy' | translate }}</ion-label>
+          <ion-radio value="createdBy" tappable></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ 'cshRequestStatus' | translate }}</ion-label>
+          <ion-radio value="cshRequestStatus" tappable></ion-radio>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+  <ion-row class="bottomButtons">
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general"(click)="clear()" tappable>
+        {{ 'vesselreset' | translate }}</button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general" (click)="submit()" tappable>
+        {{ 'vesseldone' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

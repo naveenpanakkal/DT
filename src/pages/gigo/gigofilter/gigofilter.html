@@ -1,0 +1,213 @@
+<!--
+  Generated template for the gigofilter page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="gigofilter" >
+    <div >
+      <ion-item >
+        <ion-label color="label" stacked>{{ 'gigo_fromdate' | translate }}
+        </ion-label>
+        <ion-datetime placeholder="From Date" class="label-left dateTimeStyle"
+                      max={{maxDate}} [(ngModel)]="createdFromDate" displayFormat={{dateFormat}}
+                      tappable></ion-datetime>
+      </ion-item>
+      <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+    </div>
+
+
+    <div >
+      <ion-item >
+        <ion-label color="label" stacked>{{ 'gigo_todate' | translate }}
+        </ion-label>
+        <ion-datetime placeholder="To Date" class="label-left dateTimeStyle"
+                      max={{maxDate}} [(ngModel)]="createdToDate" displayFormat={{dateFormat}}
+                      tappable></ion-datetime>
+      </ion-item>
+      <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+
+    </div>
+    <ion-item>
+      <ion-label class="labelmargin selectLabelStyle" stacked color="label">{{ 'gigo_movetype' | translate }}
+      </ion-label>
+      <ion-select class="select selectStyle" style="padding: 0px;width: 100%;max-width: 100%;"  [(ngModel)]="moveType" tappable>
+        <ion-option *ngFor="let type of moveTypeList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item >
+      <ion-label class="labelmargin selectLabelStyle" stacked color="label">{{ 'gigo_loacation' | translate }}
+      </ion-label>
+
+          <ion-select class="select selectStyle" style="padding: 0px;width: 100%;max-width: 100%;" placeholder="{{'gigo_loacation' | translate}}"
+                      (ionChange)="onLocationChanged(true)" [(ngModel)]="loc" tappable >
+            <ion-option value="">--Select--</ion-option>
+            <ion-option *ngFor="let key of locationMasterModel" value={{key.spLocationCode}} tappable>{{key.spLocationName}}</ion-option>
+          </ion-select>
+
+    </ion-item>
+  <ion-item >
+      <ion-label class="labelmargin selectLabelStyle" stacked color="label">{{ 'gigo_SP_Name' | translate }}
+      </ion-label>
+
+          <ion-select class="select selectStyle" style="padding: 0px;width: 100%;max-width: 100%;" placeholder="{{'gigo_SP_Name' | translate}}"
+                      [(ngModel)]="spName" tappable>
+            <ion-option value="">--Select--</ion-option>
+            <ion-option *ngFor="let sp of sublocationMasterModel" value={{sp.spSubLocationCode}} tappable>{{sp.spSubLocationName}}</ion-option>
+          </ion-select>
+
+
+</ion-item>
+
+        <ion-item>
+          <ion-label stacked color="label" class="labelmargin">{{ 'gigo_no' | translate }}
+          </ion-label>
+          <ion-input  type="tel" placeholder="{{'gigo_no'|translate}}" [(ngModel)]="gigoNo"
+                      (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9]{1,18}$','gigo_no')"
+                      minlength="1" maxlength="18" spellcheck="false"
+                      onpaste="return true;" tappable>
+          </ion-input>
+        </ion-item>
+
+        <div class="valerror-search" *ngIf="submit && validate(gigoNo,'^[0-9]{0,18}$')">
+          {{Errormsg}}
+      </div>
+
+
+      <ion-item>
+        <ion-label stacked color="label" class="labelmargin">{{ 'gigo_eir_no' | translate }}
+        </ion-label>
+        <ion-input type="text"  placeholder="{{'gigo_eir_no'|translate}}" [(ngModel)]="eIRNoSearch"
+                   (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','gigo_eir_no')"
+                   onpaste="return true;" spellcheck="false"
+                   minlength="1" maxlength="30" tappable>
+        </ion-input>
+      </ion-item>
+  <div class="valerror-search" *ngIf="submit && validate(eIRNoSearch, '^[0-9a-zA-Z]{0,30}$')">
+    {{Errormsg}}
+  </div>
+  <ion-item>
+    <ion-label stacked color="label" class="labelmargin">{{ 'gigo_chassis_no' | translate }}
+    </ion-label>
+    <ion-input type="text"  placeholder="{{'gigo_chassis_no'|translate}}" [(ngModel)]="chassisNoSearch"
+               (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','gigo_chassis_no')"
+               onpaste="return true;" spellcheck="false"
+               minlength="1" maxlength="18" tappable>
+    </ion-input>
+  </ion-item>
+
+  <div class="valerror-search" *ngIf="submit && validate(chassisNoSearch, '^[0-9a-zA-Z]{0,30}$')">
+    {{Errormsg}}
+  </div>
+
+  <ion-item>
+    <ion-label stacked color="label" class="labelmargin">{{ 'gigo_truck_no' | translate }}
+    </ion-label>
+    <ion-input type="text"  placeholder="{{'gigo_truck_no'|translate}}" [(ngModel)]="truckNoSearch"
+               (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','gigo_truck_no')"
+               onpaste="return true;" spellcheck="false"
+               minlength="1" maxlength="18" tappable>
+    </ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validate(truckNoSearch, '^[0-9a-zA-Z]{0,18}$')">
+    {{Errormsg}}
+  </div>
+
+
+  <ion-item>
+    <ion-label stacked color="label" class="labelmargin">{{ 'gigo_delivery_order_no' | translate }}
+    </ion-label>
+    <ion-input type="text"  placeholder="{{'gigo_delivery_order_no'|translate}}" [(ngModel)]="deliveryOrderNoSearch"
+               (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','gigo_delivery_order_no')"
+               onpaste="return true;" spellcheck="false"
+               minlength="1" maxlength="30" tappable>
+    </ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validate(deliveryOrderNoSearch, '^[0-9a-zA-Z]{0,30}$')">
+    {{Errormsg}}
+  </div>
+
+  <ion-item>
+    <ion-label stacked color="label" class="labelmargin">{{ 'gigo_container_Acceptance_no' | translate }}
+    </ion-label>
+    <ion-input type="text"  placeholder="{{'gigo_container_Acceptance_no'|translate}}" [(ngModel)]="containerAcceptanceNoSearch"
+               (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','gigo_container_Acceptance_no')"
+               onpaste="return true;" spellcheck="false"
+               minlength="1" maxlength="30" tappable>
+    </ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validate(containerAcceptanceNoSearch, '^[0-9a-zA-Z]{0,30}$')">
+    {{Errormsg}}
+  </div>
+
+    <ion-item >
+      <ion-label class="labelmargin selectLabelStyle"
+                 stacked color="label">{{ 'gigo_damage' | translate }}
+      </ion-label>
+      <ion-select class="select selectStyle" style="padding: 0px;width: 100%;max-width: 100%;"  [(ngModel)]="damageSearch" tappable>
+        <ion-option *ngFor="let type of damageList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item >
+      <ion-label class="labelmargin selectLabelStyle" stacked color="label">{{ 'gigo_seal' | translate }}
+      </ion-label>
+      <ion-select class="select selectStyle" style="padding: 0px;width: 100%;max-width: 100%;" placeholder="{{'gigo_seal' | translate}}"
+                  [(ngModel)]="sealSearch" tappable >
+        <ion-option *ngFor="let type of booleanList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+      <ion-item>
+        <ion-label stacked color="label" class="labelmargin">{{ 'gigo_container_no' | translate }}
+        </ion-label>
+        <ion-input type="text"  placeholder="{{'gigo_container_no'|translate}}" [(ngModel)]="containerNo"
+                   (keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,11}$','gigo_container_no')"
+                   onpaste="return true;" spellcheck="false"
+                   minlength="10" maxlength="11" tappable>
+        </ion-input>
+      </ion-item>
+  <div class="valerror-search" *ngIf="submit && containerNoValid()">
+    {{containerNoErrormsg}}
+  </div>
+
+  <ion-item >
+    <ion-label class="labelmargin selectLabelStyle" stacked color="label">Created By
+    </ion-label>
+    <ion-select style="padding: 0px;width: 100%;max-width: 100%;"  class="label-left vesselStatus selectStyle" [(ngModel)]="createdBy" tappable>
+      <ion-option *ngFor="let type of gigoReleasebyList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+    <ion-item >
+      <ion-label class="labelmargin selectLabelStyle" stacked color="label">{{ 'gigo_status' | translate }}
+      </ion-label>
+      <ion-select class="select selectStyle" style="padding: 0px;width: 100%;max-width: 100%;" placeholder="{{'gigo_status' | translate}}"
+                  (ionChange)="getDefinedSet()" [(ngModel)]="statusSearch" tappable >
+        <ion-option *ngFor="let type of gigoStatusList" value={{type.definedSetValueCode}} tappable>{{type.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-row style="margin-top: 30px;margin-left:20px;">
+      <ion-col col-6>
+        <button full color="submit" ion-button
+                class="buttonCenterAlign button-apply-general"
+                (click)="reset()" tappable>{{ 'rese-b' | translate }}</button>
+      </ion-col>
+      <ion-col  col-6>
+        <button full color="submit" ion-button
+                class="buttonCenterAlign button-apply-general"
+                (click)="GigoSubmit()" tappable>{{ 'SEARCH' | translate }}</button>
+      </ion-col>
+    </ion-row>
+
+</ion-content>
+

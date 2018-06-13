@@ -1,0 +1,135 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+  header:     #113B5F,
+  label:      #929292,
+  submit:     #113B5F,
+  option:     #135E9F,
+  milkygrey:  #F4F4F4
+);
+
+$header-title-font-weight:50;
+$registration-image-bgcolor: #F7F5F6;
+$footer-font-color: #B9B9B9;
+$vessel-logo-bgcolor: #E8A80A;
+$vessel-tabs-font-size: 0.85em;
+$do-tabs-font-size: 0.72em;
+$pop-over-font-size:1.5em;
+$login-button-color: #135E9F;
+
+$forgot-password-text: #135E9F;
+$approved-button-color:green;
+$rejected-button-color: red;
+$icon-highlight-bg-color-onfocus:#F2B011;
+
+$header-font-size:1em;
+$footer-font-size:1em;
+$footer-color:1em;
+$login-button-font-size: 2em;
+
+$tabs-onfocus: #F2B111;
+$tabs-bgcolor: blue;
+$icon-bgcolor: blue;
+$registration-search-button-color: blue;
+$pop-up-options-color: darkblue;
+$next-button-color:blue;
+$next-button-text-color: blue;
+$registration-titles-onbg-color:white;
+$registration-titles-onfocus-color:blue;
+$registration-titles-highlight-color:lightblue;
+
+$icon-highlight-bg-color:grey;
+$vessel-name-font-size:2em;
+$reg-id-font-size:1em;
+$imo-font-size:1em;
+
+
+$pending-button-color:orange;
+$bg-color-search:grey;
+$text-input-ios-show-focus-highlight: false !default;
+$searchbar-ios-input-clear-icon-color:    white;
+$button-md-text-transform: none;
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

@@ -1,0 +1,781 @@
+<!--
+  Generated template for the TacreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title"> {{headerTitle}}
+    </ion-title>
+
+  </ion-navbar>
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+            <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding id="taCreate">
+  <!--Container Details Tab-->
+  <div [hidden]="!showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">
+    <form [formGroup]="containerDetailsForm" style="height:auto;width:100%;">
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'location' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">Location</ion-label>
+              <ion-select placeholder="Location" formControlName="location"
+                          (ionChange)="onLocationChanged()" [(ngModel)]="selectedModel.locationCreate" tappable>
+                <ion-option *ngFor="let loc of locationList" value={{loc}}>{{loc}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="error && !containerDetailsForm.controls.location.valid"
+                 style="color:red;margin-top:-1px">
+              {{ 'ca_location_mandatory' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-row col-12>
+        <div class="removePadding" col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'sssSPName' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding alingn-elemnts-inline-left">
+            <ion-item style="padding-left: 0px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility">SP Name</ion-label>
+              <ion-select placeholder="SP Name" formControlName="serviceProvider"
+                          (ionChange)="onspNameChanged()" [(ngModel)]="selectedModel.spNameCreate" tappable>
+                <ion-option *ngFor="let spName of spNameList" value={{spName}}>{{spName}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="error && !containerDetailsForm.controls.serviceProvider.valid"
+                 style="color:red;margin-top:-1px">
+              {{ 'ca_service_provider_mandatory' | translate }}
+            </div>
+          </ion-col>
+        </div>
+      </ion-row>
+    </form>
+
+  </div>
+  <!--Container Details Tab end-->
+
+  <!--Move type : In Tab-->
+  <div [hidden]="!showTabs[1]" style="height:100%;">
+
+    <div style="height:auto;" *ngFor="let containerDetail of moveTypeIn; let selectedTabIndex = index;">
+      <div class="inner-scroll-container">
+        <div>
+          <div class="attach-headder" style="padding-top:10px;" (click)="openSelecedTab(selectedTabIndex)" tappable>
+            <div col-10 style="float:left; display:inline-block;">
+              <div class="rotateIconHolder"
+                   style="width: 20px !important;height: 20px !important;" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright">
+                  </ion-icon>
+                </div>
+              </div>
+              <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+                {{containerDetail.containerNumberDetails}} - {{containerDetail.isoCodeDetails.substring(0,4)}}
+              </ion-label>
+            </div>
+            <div col-2 (click)="removeContainerDetais(selectedTabIndex, true)"
+                 style="display:inline-block; float:right;">
+              <ion-icon name="trash" class="iconGeneral" style="margin-left: 20px;"></ion-icon>
+            </div>
+          </div>
+          <div style="min-width:360px;"
+               [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Container No
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.containerNumberDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                ISO Code
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding" text-wrap="">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.isoCodeDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Container Status
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.containerStatusDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Shipper Name
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.shipperName}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Shipping Line
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.shippingLineDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Cut Off Time
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.cutOffTimeDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" style="background-color:#5e84a5;" tappable col-12
+                     *ngIf="!hideAddtionalDetailsIcon(selectedTabIndex,true)"
+                     (click)="showAdditionDetails(selectedTabIndex, true)">
+              <ion-col col-9 class="bold" style="color:white">
+                Additional Details
+              </ion-col>
+              <ion-col col-3 class="statusCenter">
+                <ion-icon [name]="getIcon()" class="image removePadding icon-margin"
+                          style="padding-top: 10px;margin-right: 10px;float: right;color:white"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <div *ngIf="showAdditionalDetails" class = "additional-details">
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_ship_billno' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input style="padding-left:10px;" type="text" placeholder=" {{ 'ta_ship_billno-place-h' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.shippingBillNo" spellcheck="false"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9a-zA-Z]{0,18}$','shipbillno', selectedTabIndex)"
+                               maxlength="18" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','shipbillno', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_cmmdty_desc' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="text" style="padding-left:10px;" placeholder=" {{ 'ta_cmmdty_desc-place-h' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.commodityDescription" spellcheck="false"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9a-zA-Z]{0,18}$','commoditydescription', selectedTabIndex)"
+                               (keyup.enter)="keyboardClose()"
+                               maxlength="18" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','commoditydescription', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_decldwght' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="tel" style="padding-left:10px;" placeholder=" {{ 'ta_decldwght-place-h' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.declaredWeight" spellcheck="false"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9]{0,5}$','declaredweight', selectedTabIndex)"
+                               maxlength="5" (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','declaredweight', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_maxwght' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="tel" style="padding-left:10px;" placeholder=" {{ 'ta_maxwght-place-h' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.maxWeight" spellcheck="false"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9]{0,5}$','maxweight', selectedTabIndex)"
+                               maxlength="5" (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','maxweight', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_verified_mass' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="tel" style="padding-left:10px;" placeholder=" {{ 'ta_verified_mass-place-h' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.verifiedGross" spellcheck="false"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9]{0,5}$','verifiedmass', selectedTabIndex)"
+                               maxlength="5" (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','verifiedmass', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_custom_sealno' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="text" style="padding-left:10px;" placeholder=" {{ 'ta_custom_sealno' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.customSealNo" spellcheck="false"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9a-zA-Z]{0,18}$','customSeal', selectedTabIndex)"
+                               maxlength="18" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','customSeal', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  {{ 'ta_agent_sealno' | translate }}
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="text" style="padding-left:10px;" placeholder=" {{ 'ta_agent_sealno' | translate }}"
+                               [(ngModel)]="containerDetail.additionalDetails.agentSealNo" spellcheck="false"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9a-zA-Z]{0,18}$','agentSeal', selectedTabIndex)"
+                               maxlength="18" (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','agentSeal', selectedTabIndex)"
+                               onpaste="return true;"
+                               tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [hidden]="hideContainerDetails">
+      <ion-row style="padding:0px !important;" class=" padding-left-row" col-12>
+        <ion-col class=" photo-button-col removePadding removeMargin" col-12>
+          <button class="button-apply-general photobutton-common margin-forPhotoButton"
+                  ion-button color="submit" style="margin-left: calc((100% - 118px) / 2); margin-top: 50px !important;"
+                  (click)="openTaAddContainer(true)"
+                  block tappable>
+            Add Container
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+  <!--Move type : In Tab end-->
+
+  <!--Move type : Out Tab-->
+  <div [hidden]="!showTabs[2]" style="height:100%;">
+
+    <div style="height:auto;" *ngFor="let containerDetail of moveTypeOut; let selectedTabIndex = index;">
+      <div class="inner-scroll-container">
+        <div>
+          <div class="attach-headder"  (click)="openSelecedTab(selectedTabIndex)" tappable>
+            <div col-11 style="float:left; display:inline-block;">
+              <div class="rotateIconHolder"
+                   style="width: 20px !important;height: 20px !important;" tappable>
+                <div style="width:20px;"
+                     [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                  <ion-icon name="arrow-dropright">
+                  </ion-icon>
+                </div>
+              </div>
+              <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+                {{containerDetail.containerNumberDetails}} - {{containerDetail.isoCodeDetails.substring(0,4)}}
+              </ion-label>
+            </div>
+            <div col-1 style="display:inline-block; float:right;"
+                 (click)="removeContainerDetais(selectedTabIndex, false)">
+              <ion-icon name="trash" class="iconGeneral" ></ion-icon>
+            </div>
+          </div>
+          <div style="min-width:360px;"
+               [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Container No/Request No
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label *ngIf="containerDetail.isFromAddContainer" class="removeMargin boldStyle">
+                  {{containerDetail.containerNumberDetails}}
+                </ion-label>
+                <ion-label *ngIf="!containerDetail.isFromAddContainer" class="removeMargin boldStyle">
+                  {{containerDetail.requestNo}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <div class="removePadding" col-12>
+                <ion-col style="display:inline-block; float:left;"
+                         col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  ISO Code
+                </ion-col>
+                <ion-col style="display:inline-block;float:left;" class="removePadding " col-6 text-wrap="">
+                  <ion-label *ngIf="containerDetail.isFromAddContainer"
+                             class=" boldStyle">{{containerDetail.isoCodeDetails}}
+                  </ion-label>
+                  <ion-item *ngIf="!containerDetail.isFromAddContainer" style="padding:0px;">
+                    <ion-label hidden color="dark" stacked class="headerVisibility">ISO Code</ion-label>
+                    <ion-select placeholder="ISO Code" [(ngModel)]="containerDetail.isoCodeDetails"
+                                (ionChange)="onISOCodeChanged(selectedTabIndex)" tappable>
+                      <ion-option *ngFor="let isoCode of containerDetail.isoCodeList" value={{isoCode}}>{{isoCode}}
+                      </ion-option>
+                    </ion-select>
+                  </ion-item>
+                  <div class="error1" *ngIf="error && isISOCodeValid(selectedTabIndex)"
+                       style="color:red;">
+                    ISO Code is mandatory
+                  </div>
+                </ion-col>
+              </div>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col style="display:inline-block; float:left;"
+                       col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Count
+                <!--<span style="color:red"  class="span">*</span>-->
+              </ion-col>
+              <ion-col style="display:inline-block;float:left;" class="removePadding" col-6>
+                <ion-label *ngIf="containerDetail.isFromAddContainer"
+                           class=" boldStyle">{{containerDetail.maxCount}}
+                </ion-label>
+                <ion-item *ngIf="!containerDetail.isFromAddContainer" style="padding:0px;">
+                  <ion-input type="tel" placeholder="Count" [(ngModel)]="containerDetail.containerCountDetails"
+                             (ionBlur)="onContainerCountChanged(selectedTabIndex)" spellcheck="false"
+                             minlength="1" maxlength="3" (keyup.enter)="keyboardClose()"
+                             (keyup)="keyUpValidate($event,'^[0-9]{1,3}$','containerCountDetails', selectedTabIndex)"
+                             onpaste="return true;" tappable></ion-input>
+                </ion-item>
+                <div class="error1" *ngIf="error && isCountDetailsValid(selectedTabIndex)"
+                     style="color:red;">
+                  Count is mandatory
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Container Status
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.containerStatusDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Shipper Name
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.shipperName}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Shipping Line
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.shippingLineDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                Cut Off Time
+              </ion-col>
+              <ion-col col-6 class="ion-col-minheight-nopadding">
+                <ion-label class="removeMargin boldStyle">{{containerDetail.cutOffTimeDetails}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="rowSeperator padding-left-row" *ngIf="!hideAddtionalDetailsIcon(selectedTabIndex,false)"
+                     style="background-color:#5e84a5;"
+                     (click)="showAdditionDetails(selectedTabIndex, false)" tappable col-12>
+              <ion-col col-9 class="bold" style="color:white">
+                Additional Details
+              </ion-col>
+              <ion-col col-3 class="statusCenter">
+                <ion-icon [name]="getIcon()" class="image removePadding icon-margin"
+                          style="padding-top: 10px;margin-right: 10px;float: right; color:white"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+            <div *ngIf="showAdditionalDetails">
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  Bill Of Entry
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input type="text" style="padding-left:10px;" [(ngModel)]="containerDetail.additionalDetails.billOfEntry"
+                               (keyup.enter)="keyboardClose()"
+                               (ionBlur)="additionDetailonfocusChanged('^[0-9a-zA-Z]{0,18}$','billofentry', selectedTabIndex)"
+                               (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','billofentry', selectedTabIndex)"
+                               onpaste="return true;" maxlength="18"
+                               placeholder="Bill Of Entry" tappable spellcheck="false" tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  Out Of Charge
+                </ion-col>
+                <ion-col col-6>
+                  <ion-label style="padding-left:10px;">{{containerDetail.additionalDetails.outOfCharge}}</ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="rowSeperator padding-left-row" col-12>
+                <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                  Custom Seal No
+                </ion-col>
+                <ion-col col-6 style="padding:0px;">
+                  <ion-item style="padding:0px;">
+                    <ion-input style="padding-left:10px;" [(ngModel)]="containerDetail.additionalDetails.customSealNo"
+                               placeholder="Custom Seal No" spellcheck="false" tappable></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="padding-bottom: 70px;" [hidden]="hideContainerDetails">
+      <ion-row style="padding:0px !important;" class=" padding-left-row" col-12>
+        <ion-col class=" photo-button-col removePadding removeMargin" col-6>
+          <button class="button-apply-general photobutton-common margin-forPhotoButton"
+                  ion-button color="submit" style="margin-left: calc((100% - 118px) / 2);    margin-top: 50px !important;" block
+                  (click)="openTaAddQuantity()" tappable>
+            Add Quantity
+          </button>
+        </ion-col>
+        <ion-col class=" photo-button-col removePadding removeMargin" col-6>
+          <button class="button-apply-general photobutton-common margin-forPhotoButton"
+                  ion-button color="submit" style="margin-left: calc((100% - 118px) / 2);    margin-top: 50px !important;"
+                  (click)="openTaAddContainer(false)"
+                  block tappable>
+            Add Container
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+  <!--Move type : Out Tab End-->
+
+  <!--Appointment Details Tab -->
+  <div [hidden]="!showTabs[3]" style="height:auto;min-height: 100%;" class="create-apmt-details">
+    <form [formGroup]="appointmentDetailsForm1" style="height:auto;width:100%;">
+      <ion-row class=" padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked style=" padding-top:10px;"
+                 class="bold  ion-col-left-color alingn-elemnts-inline-left">
+          {{ 'ta_agentreference_no' | translate }}
+          <span style="color:red" class="span">*</span>
+        </ion-col>
+        <ion-col col-12 class="removePadding  ">
+          <ion-item style="padding:0px;">
+            <ion-input style="padding-left:0px;" placeholder="Agent Reference No" type="text" spellcheck="false"
+                       (keyup.enter)="keyboardClose()"
+                       (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','agentReferenceNo')"
+                       (ionBlur)="onAgentNoFocusChange()" [(ngModel)]="selectedModel.agentReferenceNo"
+                       minlength="3" maxlength="30" onpaste="return true;"
+                       formControlName="agentReferenceNo" tappable></ion-input>
+          </ion-item>
+        </ion-col>
+        <div class="error1" *ngIf="error && !appointmentDetailsForm1.controls.agentReferenceNo.valid"
+             style="color:red;margin-top:-1px;">
+          {{ 'ta_mandatory_agentReferenceno' | translate }}
+        </div>
+      </ion-row>
+      <ion-row class=" padding-left-row" col-12>
+        <div class="removePadding"  [ngClass]="enableAppointmentDate() ? '' : 'disableDiv' " col-12>
+          <ion-col col-12 color="label" stacked
+                   class="bold  ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'ta_appointment_date' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col style="display:inline-block;float:left;" class=" removePadding " col-12>
+            <ion-item style="padding-left:0px;" >
+              <ion-datetime [disabled]="!enableAppointmentDate()" displayFormat={{dateFormat}} [(ngModel)]="appointmentFrom" min={{currDate}}
+                            max={{maxValidDate}} formControlName="appointmentFrom"
+                            placeholder={{dateFormat}} (ionChange)="onAppointmentDateChanged()"
+                            class="appointment-date-time" style="padding: 5px 8px 8px 0px;" tappable></ion-datetime>
+            </ion-item>
+            <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+          </ion-col>
+        </div>
+        <div class="error1" *ngIf="error && enableAppointmentDate() && !appointmentDetailsForm1.controls.appointmentFrom.valid"
+             style="color:red;margin-top:-1px;">
+          {{ 'ta_mandatory_appointment_date' | translate }}
+        </div>
+      </ion-row>
+    </form>
+    <ion-row class=" padding-left-row" col-12>
+      <div class="removePadding" [ngClass]="enableAppointmentSlot() ? '' : 'disableDiv' " col-12>
+        <ion-col col-12 color="label" stacked
+                 class="bold  ion-col-left-color alingn-elemnts-inline-left">
+          Appointment Slot
+        </ion-col>
+        <ion-col style="display:inline-block;float:left;" class=" removePadding" col-12="">
+          <ion-item style="padding:0px;padding-top:10px;">
+            <ion-label hidden color="dark" stacked class="headerVisibility">Appointment Slot</ion-label>
+            <ion-select class="appointment-slot-select" placeholder="Appointment Slot" [disabled]="!enableAppointmentSlot()"
+                        [(ngModel)]="selectedModel.appointmentSlotCreate" (ionChange)="onAppointmentSlotChanged()"
+                        tappable>
+              <ion-option *ngFor="let timeSlot of timeSlots" value={{timeSlot}}>{{timeSlot}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </div>
+    </ion-row>
+    <ion-row class="padding-left-row" *ngIf="showAvailableQuantity" col-12>
+      <ion-col col-12 color="label" stacked
+               class="bold  ion-col-left-color alingn-elemnts-inline-left">
+        Available Quantity
+      </ion-col>
+      <ion-col col-12 class="rowSeperator ">
+        <ion-label style="padding-left:0px;" class="label-span-alignment boldStyle">{{selectedModel.availableQuantity}}
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="appointmentDetailsForm2" style="height:auto;width:99.5%;">
+
+      <ion-row class="padding-left-row" col-12>
+        <div [ngClass]="enableAppointmentSlot() ? 'rowSeperator' : 'rowSeperator disableDiv' " style="width: 100%;">
+          <ion-col col-12 color="label" stacked style=" padding-bottom:10px;"
+
+                   class="bold extra-bottomspace ion-col-left-color alingn-elemnts-inline-left">
+            {{ 'ta_truck_number' | translate }}
+            <span style="color:red" class="span">*</span>
+          </ion-col>
+          <ion-col col-12 class="removePadding ">
+            <ion-searchbar [disabled]="!enableAppointmentSlot()" type="text" class="align-left-validationForms row-seperator-align"
+                           [(ngModel)]="selectedModel.truckNumberCreate" formControlName="truckNumberCreate"
+                           (ionFocus)="getTruckNumberMaster()" (ionBlur)="hideTruckNumber()"
+                           (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','truckNumber')"
+                           (ionInput)="getTruckNumber($event)" minlength="3" maxlength="18" spellcheck="false"
+                           onpaste="return true;" tappable style = "margin-left:0px!important;padding-left:0px;"></ion-searchbar>
+            <ion-list style="width:95%;margin-top: 5px;" *ngIf="showTruckNumber">
+              <ion-item *ngFor="let item of filterTruckNumberArray" (mousedown)="selectTruckNumber(item)" tappable>
+                {{ item.licensePlateNumber }}
+              </ion-item>
+            </ion-list>
+
+          </ion-col>
+
+        </div>
+        <div class="error1" *ngIf="error && enableAppointmentSlot() && !appointmentDetailsForm2.controls.truckNumberCreate.valid"
+        style="color:red;margin-top:-1px;">
+     {{ 'ta_truck_number_mandatory' | translate }}
+   </div>
+      </ion-row>
+    </form>
+    <ion-row class="padding-left-row" col-12>
+      <ion-col col-12 color="label" stacked
+               class="bold  ion-col-left-color alingn-elemnts-inline-left">
+        Truck Type
+      </ion-col>
+      <ion-col col-12 class="rowSeperator" style="padding-bottom:10px !important;padding-left:0px;">
+        <ion-label style="padding-left:0px;   margin-top: 15px;" class="label-span-alignment boldStyle">{{selectedModel.trucktypeCreate}}
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="appointmentDetailsForm3" style="height:auto;width:99.5%;">
+
+      <ion-row class="padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked
+                 class="bold extra-bottomspace ion-col-left-color alingn-elemnts-inline-left">
+          Trailer Number
+        </ion-col>
+        <ion-col col-12 class="removePadding rowSeperator">
+          <ion-searchbar type="text" style = "padding-left:0px;" class="align-left-validationForms row-seperator-align"
+                         [(ngModel)]="selectedModel.trailerNoCreate"
+                         (keyup.enter)="keyboardClose()" formControlName="trailerNoCreate"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','trailNumber')"
+                         minlength="3" maxlength="30"
+                         spellcheck="false" onpaste="return true;" tappable></ion-searchbar>
+        </ion-col>
+        <div class="error1" *ngIf="error && !appointmentDetailsForm3.controls.trailerNoCreate.valid"
+             style="color:red;">
+          {{ 'enter_3_char' | translate }}
+        </div>
+      </ion-row>
+      <ion-row class="padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked
+                 class="bold extra-bottomspace ion-col-left-color alingn-elemnts-inline-left">
+          {{ 'ta_driver_name' | translate }}
+          <span style="color:red" class="span">*</span>
+        </ion-col>
+        <ion-col col-12 class="removePadding rowSeperator">
+          <ion-searchbar style = "padding-left:0px;" type="text" class="align-left-validationForms row-seperator-align"
+                         (ionFocus)="getDriverNameMaster()" (ionBlur)="hideDriverName()"
+                         (ionInput)="getDriverName($event)" [(ngModel)]="selectedModel.driverNameCreate"
+                         (keyup.enter)="keyboardClose()"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','driverName')"
+                          minlength="3" maxlength="255" formControlName="driverNameCreate"
+                         spellcheck="false" onpaste="return true;" tappable></ion-searchbar>
+          <ion-list style="width:95%;margin-top: 5px;" *ngIf="showDriverName">
+            <ion-item *ngFor="let item of filterDriverNameArray" (mousedown)="selectDriverName(item)" tappable>
+              {{ item.name }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <div class="error1" *ngIf="error && !appointmentDetailsForm3.controls.driverNameCreate.valid"
+             style="color:red;margin-top:-1px;">
+          {{ 'ta_driver_name_mandatory' | translate }}
+        </div>
+      </ion-row>
+    </form>
+    <ion-row class="padding-left-row" col-12>
+      <ion-col col-12 color="label" stacked
+               class="bold ion-col-left-color alingn-elemnts-inline-left">
+        Driver Mobile Number
+      </ion-col>
+      <ion-col col-12 class="rowSeperator" style="padding-bottom:10px !important;padding-left:0px;">
+        <ion-label style="padding-left:0px;margin-top: 15px;" class="label-span-alignment boldStyle">
+          {{selectedModel.driverMobileNumberCreate}}
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="appointmentDetailsForm4" style="height:auto;width:100%;">
+      <ion-row class="padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked
+                 class="bold  ion-col-left-color alingn-elemnts-inline-left">
+          Alternative Mobile Number
+        </ion-col>
+        <ion-col col-12 class=" ion-col-minheight-nopadding" style="padding-top: 0px !important;">
+          <ion-item style="padding:0px;">
+            <ion-input style="padding-left:0px;margin-left:0px;" type="tel" [(ngModel)]="selectedModel.alternativeMobileNumber"
+                       minlength="3" maxlength="15"
+                       (keyup.enter)="keyboardClose()"
+                       (keyup)="keyUpValidate($event,'^[0-9]{0,15}$','alternativeNumber')"
+                       onpaste="return true;"
+                       formControlName="alternativeMobileNumber" placeholder="Alternative Mobile Number"
+                       spellcheck="false" tappable></ion-input>
+          </ion-item>
+        </ion-col>
+        <div class="error1" *ngIf="error && !appointmentDetailsForm4.controls.alternativeMobileNumber.valid"
+             style="color:red;">
+          {{ 'enter_3_char' | translate }}
+        </div>
+      </ion-row>
+      <ion-row class="padding-left-row" col-12>
+        <ion-col col-12 color="label" stacked
+                 class="bold removePadding ion-col-left-color alingn-elemnts-inline-left">
+          Remarks
+        </ion-col>
+        <ion-col col-12 class=" ion-col-minheight-nopadding" style="padding-top: 0px !important;">
+          <ion-item style="padding:0px;">
+            <ion-textarea style="padding-left:0px;padding-top:10px;margin: 2px 0px 2px 0px;" [(ngModel)]="selectedModel.remarksCreate"
+                          formControlName="remarksCreate" placeholder="Remarks" spellcheck="false"
+                          tappable></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <div class="error1" *ngIf="error && !appointmentDetailsForm4.controls.remarksCreate.valid"
+             style="color:red;">
+          {{ 'enter_3_char' | translate }}
+        </div>
+      </ion-row>
+    </form>
+
+    <div style="height:100%;">
+      <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;"
+               *ngIf="uploadAttachment()">
+        <div class="col photo-button-col" style="width: 200px !important;float: left;display: inline-block;">
+          <button style="margin: 5px !important;padding: 5px !important;width:150px!important;max-width:150px!important;" (click)="initializeAttachment()"
+                  class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block
+                  tappable>Add Attachments
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <ion-row *ngFor="let attachment of attachments" class="attachrowSeperator min-height-Css"
+               style="border-top: 0.55px solid #c8c7cc;">
+        <div class="col photo-button-col" *ngIf="attachment.hideUploadButton" style="width: 125px !important;float: left;display: inline-block;">
+          <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block
+                  (click)="uploadDocs(attachment)" tappable>Upload
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+        <div [ngClass]="(attachment.hideUploadButton==false || attachment.fileName != null || attachment.fileName != EMPTY)?'removePadding uploadbutton-label':'removePadding uploadbutton-label-withoutbutton'"
+             (click)="displayAttachment(attachment)" tappable>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon"
+               style="margin-top: 20px !important;width:20px;height:20px;"
+               *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+          <ion-label class="wrap-content removeMargin photSelectedIconLabel filename underline " style="margin-top: 20px !important;padding-bottom: 10px;">
+            {{attachment.fileName}}
+          </ion-label>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+            <ion-icon ios="ios-close" md="md-close"></ion-icon>
+          </button>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()" tappable>
+            <ion-icon ios="ios-add" md="md-add" style="font-size: 24px;"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <button class="button-apply-general footer-submit" style="margin-top: 30px;bottom: 5px;"  ion-button full
+              type="submit" color="submit" (click)="submit()" tappable>
+        Submit
+      </button>
+    </div>
+
+  </div>
+<!--  <ion-row class = "slider-bottom-navigation-row" ion-fixed col-12>-->
+    <ion-col ion-fixed class="slider-bottom-navigation-col-left" (click)="slideSelectedPrev()" *ngIf="hidePreviousButton" no-padding col-2 tappable>
+      <ion-icon name="arrow-back"  tappable></ion-icon>
+      <!--<ion-label>Previous</ion-label>-->
+    </ion-col>
+    <ion-col ion-fixed   class="slider-bottom-navigation-col-right" (click)="slideSelectedNext()" *ngIf="hideNextButton" no-padding col-2 tappable>
+      <!--<ion-label>Next</ion-label>-->
+      <ion-icon name="arrow-forward" tappable></ion-icon>
+    </ion-col>
+  <!--</ion-row>-->
+</ion-content>

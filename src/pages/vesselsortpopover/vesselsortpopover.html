@@ -1,0 +1,50 @@
+
+<ion-content no-bounce has-bounsing="false" class="no-scroll">
+
+  <ion-list class="popoverList">
+    <div class="divOverFloaw">
+<ion-label class="lab">
+   {{ 'Sortby' | translate }}
+  <button class="sort" (click)="changeorder()" tappable>
+    <ion-icon [name]="getordericon()" class="sortIconStyle">
+    </ion-icon>
+  </button>
+</ion-label>
+
+<ion-list radio-group [(ngModel)]="sortselect">
+  <ion-item>
+    <ion-label>{{ 'vesselregid' | translate }}</ion-label>
+    <ion-radio value="regid" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'vesselname' | translate }}</ion-label>
+    <ion-radio value="vname" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'vesseltype' | translate }}</ion-label>
+    <ion-radio value="type" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'vesselimo' | translate }}</ion-label>
+    <ion-radio value="imo" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'vesselcreateddate' | translate }}</ion-label>
+    <ion-radio value="createDate" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'vesselstatus' | translate }}</ion-label>
+    <ion-radio value="status" tappable></ion-radio>
+  </ion-item>
+</ion-list>
+    </div>
+  </ion-list>
+  <ion-row class="options buttonHolder">
+    <ion-col class="topcol">
+      <button class="buttonStyle border-right-colr" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>{{ 'vesselreset' | translate }}</button>
+    </ion-col>
+    <ion-col class="topcol">
+      <button class="buttonStyle border-left-colr" color="light" id="clearsubmit" full ion-button (click)="submit()" tappable>{{ 'vesseldone' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

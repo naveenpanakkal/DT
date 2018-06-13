@@ -1,0 +1,145 @@
+page-voyagefilterpopover
+{
+  .dropdown{
+    color:black;
+  }
+  .approve{
+    width: 15%;
+    float: right;
+  }
+  .titles{
+    right : 0%;
+    position : relative;
+  }
+  //.checkbox_1{
+  //  margin-right: 17px;
+  //}
+  .item_1{
+    margin-bottom: -25px;
+  }
+  .item_2{
+    margin-bottom: -8px;
+  }
+  .greenStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : green;
+  }
+  .redStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : red;
+  }
+  .greyStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : gray;
+  }
+  .blueStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : #060a80;
+  }
+
+
+  .options{
+    position: relative;
+    top: 8px;
+  }
+
+  .scroll-content{
+    overflow: hidden;
+    padding-bottom: 0 !important;
+  }
+
+
+  #clearsubmit{
+    color: white;
+    background-color : #113B5F;
+    //width: 108%;
+    //margin-left: -5%;
+    //margin-bottom: 2.3%;
+  }
+
+  .mydp .selector {
+    position: relative ;
+    right: 13% ;
+  }
+  .topcol{
+    border-right: 3px solid #FFF;
+  }
+
+  .filterHeight{
+    height:240px;
+    overflow: auto;
+    //margin-top: 15%;
+  }
+//---ios_change--start
+  .terminalButtonStyle {
+  background-color : #113B5F;
+    width: 46%;
+}
+
+//---ios_change--end
+  //media query starts here
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+
+    .titles{
+      right : 0%;
+      position : relative;
+    }
+  }
+  .mandatory {
+    color: red;
+    text-align: center;
+    margin-top: 25px;
+  }
+  .error{
+    border-bottom:1px solid red;
+    position: relative;
+    bottom: 2px;
+    margin-left: 15px;
+  }
+
+  //media query ends here
+}
+page-voyagefilterpopover  .item-cover {
+  left: 0 !important;
+  top: 0 !important;;
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+page-voyagefilterpopover .change-property .checkbox {
+  position: absolute;
+  height:100%;
+  width: 100%;z-index:10;
+  margin:0px !important;
+  margin-left:10px !important
+}
+page-voyagefilterpopover .change-property   .item-inner
+{
+  position: absolute !important;
+  margin-left: 20px;
+}
+page-voyagefilterpopover .change-property   .item-inner .label  {
+  margin-left: 20px;z-index:1;
+}
+
+.platform-ios page-voyagefilterpopover .voyageFilterDate{
+  margin-right: 4%;
+}
+.platform-ios page-voyagefilterpopover .terminalButtonStyle {
+  background-color: #113B5F;
+  width: 47%;
+  font-size: 1.5rem !important;
+  height: 30px !important;
+}
+.platform-ipad page-voyagefilterpopover .change-property .checkbox {
+  position: absolute !important;
+  margin-top: 2% !important;
+}
+.platform-iphone page-voyagefilterpopover .change-property .checkbox {
+  position: absolute !important;
+  margin-top: 4% !important;
+}

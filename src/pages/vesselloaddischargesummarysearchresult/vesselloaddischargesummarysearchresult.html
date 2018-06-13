@@ -1,0 +1,120 @@
+<!--
+  Generated template for the VesselloaddischargesummarysearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <!--<img class="fields" src="assets/img/Vessel load_Dischang Summary.svg" >-->
+    <ion-title class="title change-title-label">{{ 'VLDS_search_title' | translate }}</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="navigateToSort($event)" tappable>
+          <img class="filterImg" src="assets/img/sort.svg" tappable/>
+          {{ 'Sort' | translate }}
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="navigateToFilter($event)" tappable>
+          <img class="filterImg" src="assets/img/filter.svg" tappable/>
+          {{ 'Filter' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-toolbar color="milkygrey" class="countrow countresult">
+    <div>  {{vldsSearchResult?.length}} out of {{vldsSearchResult?.length}} results </div>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content no-bounce has-bounsing="false" class="searchcontent" id="vesselloaddischargesummarysearchresult">
+
+  <ion-list >
+    <div class="gridclass" *ngFor="let selVlds of vldsSearchResult; let i= index;">
+        <ion-item-sliding>
+          <ion-item (click)="showVldsDetails(i)" tappable>
+
+            <ion-row>
+              <ion-col text-wrap>
+                <h4 class="headers"> {{selVlds.vesselName}} </h4>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-9>
+                <ion-row class="subtitle">
+                  <ion-col col-4>
+                    <h6 class="subheader1">{{ 'rotationno' | translate }}</h6>
+                  </ion-col>
+                  <ion-col>
+                    <h6 class="subheader2">{{selVlds.rotationNoSrch}}</h6>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row class="subtitle">
+                  <ion-col col-4>
+                    <h6 class="subheader1">{{ 'eta' | translate }}</h6>
+                  </ion-col>
+                  <ion-col text-wrap >
+                    <h6 class="subheader2">{{selVlds.eta}}</h6>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row class="subtitle">
+                  <ion-col col-4>
+                    <h6 class="subheader1">{{ 'etd' | translate }}</h6>
+                  </ion-col>
+                  <ion-col text-wrap >
+                    <h6 class="subheader2">{{selVlds.etd}}</h6>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row class="subtitle">
+                  <ion-col col-4>
+                    <h6 class="subheader1">{{ 'ata' | translate }}</h6>
+                  </ion-col>
+                  <ion-col text-wrap >
+                    <h6 class="subheader2">{{selVlds.ata}}</h6>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row class="subtitle">
+                  <ion-col col-4>
+                    <h6 class="subheader1">{{ 'atd' | translate }}</h6>
+                  </ion-col>
+                  <ion-col text-wrap >
+                    <h6 class="subheader2">{{selVlds.atd}}</h6>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <ion-col>
+                <ion-row>
+                  <ion-col class="statusStyle" text-wrap>
+                    <img class="approvedicon" [src]="getStatusIcon(selVlds)"/>
+                    <h6 [style.color]="getStyle(selVlds)">{{getStatus(selVlds.status)}}</h6>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+          </ion-item>
+          <ion-item-options side="right">
+
+            <button ion-button color="secondary" (click)="goVldsMailDownLoad(selVlds.rotationNoSrch,pdfDownLoad,false)" style="border: 1px solid white;" tappable>
+              <ion-icon name ="custom-pdf"></ion-icon></button>
+            <button ion-button color="secondary" (click)="goVldsMailDownLoad(selVlds.rotationNoSrch,csvDownLoad,false)" style="border: 1px solid white;" tappable>
+              <ion-icon name ="custom-csv"></ion-icon></button>
+            <button ion-button color="secondary" (click)="goVldsMailDownLoad(selVlds.rotationNoSrch,csvDownLoad,sendMail)" style="border: 1px solid white;" tappable>
+              <ion-icon name ="custom-mail"></ion-icon></button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+      </div>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >
+      {{ 'Sort' | translate }}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" class="sortcontent">
+  <div>
+    <ion-row>
+      <ion-col class="removePadding sortOrderStyle"  col-8>
+        {{'Sortby' | translate}}
+      </ion-col>
+      <ion-col class="removePadding sortOption"  col-4>
+        <label class="toggleButtonCenterAlign" style="margin-top: 20px" >{{sortMode | translate}}</label>
+        <ion-toggle class="toggleButtonCenterAlign" [(ngModel)]="ascend" (ngModelChange)="changeOrder()"
+                    style="display: inline-block">
+        </ion-toggle>
+      </ion-col>
+    </ion-row>
+    <div class="scrollList">
+        <ion-list radio-group [(ngModel)]="sortSelect" style="padding-right: 10px;">
+          <ion-item>
+            <ion-label>{{ 'sssNumber' | translate }}</ion-label>
+            <ion-radio value="sssNoSummary" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssAgentRefNumber' | translate }}</ion-label>
+            <ion-radio value="agentReferenceNoSummary" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssSchedCode' | translate }}</ion-label>
+            <ion-radio value="shippingServiceCodeSummary" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssSchedName' | translate }}</ion-label>
+            <ion-radio value="shippingServiceNameSummary" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssRole' | translate }}</ion-label>
+            <ion-radio value="role" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssLeaderLineCode' | translate }}</ion-label>
+            <ion-radio value="leaderLine" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssValidityDate' | translate }}</ion-label>
+            <ion-radio value="validityDateSummary" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssStatus' | translate }}</ion-label>
+            <ion-radio value="statusSummary" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ 'sssVesselName' | translate }}</ion-label>
+            <ion-radio value="vesselName" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+    </div>
+  </div>
+    <ion-row>
+      <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general"(click)="reset()" tappable>
+          {{ 'sssReset' | translate }}</button>
+      </ion-col>
+      <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general" (click)="submit()" tappable>
+          {{ 'sssDone' | translate }}</button>
+      </ion-col>
+    </ion-row>
+</ion-content>

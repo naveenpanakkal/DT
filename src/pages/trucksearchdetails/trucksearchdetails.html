@@ -1,0 +1,142 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" class="truckSummary-ios">Summary - Truck Registration
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="detailcontent" id="truckSearchDetailsContent">
+  <div id="divv" [hidden] = "isFromTruckDetails()">
+    <img class="approvedicon" [src]="getStatusIcon(truckstatus)" />
+  </div>
+  <h6 class="status" [style.color]="getStyle()" [hidden] = "isFromTruckDetails()">{{truckstatus}}</h6>
+  <h2 class="vname">{{truckOwnname}}</h2>
+
+  <ion-grid class="details" [hidden] = "isFromTruckDetails()">
+    <ion-row class="firstrow">
+      <ion-col col-6>
+        <ion-label> <h4 class="labels">Truck Reg ID</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label><h4 class="labels">{{truckRegId}}</h4>
+          </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="secondrow">
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">License Plate No.</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">{{trucklicensePlateNo}}</h4>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <!--<ion-row class="secondrow">-->
+      <!--<ion-col col-6 >-->
+        <!--<ion-label ><h4 class="labels">Truck Name</h4>-->
+        <!--</ion-label>-->
+      <!--</ion-col>-->
+      <!--<ion-col col-6 text-wrap>-->
+        <!--<ion-label > <h4 class="labels">{{truckOwnname}}</h4>-->
+          <!--</ion-label >-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+    <ion-row>
+      <ion-col col-6 text-wrap>
+        <ion-label ><h4 class="labels">Registration Date</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">{{truckcreatedDate}}</h4>
+          </ion-label >
+      </ion-col>
+    </ion-row>
+
+
+
+
+  </ion-grid>
+
+  <div [hidden] = "isFromTruckCreate()" width-50 text-wrap>
+    <ion-item margin-top="30dp">
+    <img class="submittedicon" [src]="truckStatusIcon" item-left />
+    <h2 class="truckcreatetitle">Your request has been sent </h2>
+    </ion-item>
+  <ion-grid class="details" [hidden] = "isFromTruckCreate()">
+
+    <ion-row class="firstrow">
+      <ion-col col-6>
+        <ion-label ><h4 class="labels">License Plate No.</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label > <h4 class="labels">{{trucklicensePlateNo}}</h4>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="firstrow">
+      <ion-col col-6>
+        <ion-label> <h4 class="labels">Truck Reg ID</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label><h4 class="labels">{{truckRegId}}</h4>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col  col-6>
+        <ion-label ><h4 class="labels">Truck Length(Metres)</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col  col-6>
+        <ion-label >  <h4 class="labels">{{truckLength}}</h4>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <!--<ion-row>-->
+      <!--<ion-col  col-6>-->
+        <!--<ion-label ><h4 class="labels">Reg Owner Name</h4>-->
+        <!--</ion-label>-->
+      <!--</ion-col>-->
+      <!--<ion-col  col-6>-->
+        <!--<ion-label ><h4 class="labels">{{truckOwnname}}</h4>-->
+        <!--</ion-label>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <ion-row>
+      <ion-col  col-6>
+        <ion-label ><h4 class="labels">Vehicle Color</h4>
+        </ion-label>
+      </ion-col>
+      <ion-col  col-6>
+        <ion-label >  <h4 class="labels">{{truckColor}}</h4>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  </div>
+
+  <ion-fab right bottom [hidden] = "isFromTruckDetails()">
+    <button class ="edit"ion-fab color="$icon-highlight-bg-color-onfocus"><ion-icon ios="ios-menu" md="md-menu" tappable></ion-icon></button>
+    <ion-fab-list side="top">
+      <ion-label class="fabedit" [hidden]="editHiddenStatus"></ion-label>
+      <button [hidden]="editHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="editTruck()" tappable><ion-icon name ="custom-Edit" ></ion-icon></button>
+      <ion-label class="fabedit" [hidden]="cancelHiddenStatus"></ion-label>
+      <button [hidden]="cancelHiddenStatus" ion-fab color="$icon-highlight-bg-color-onfocus" (click)="cancelTruck()" tappable><ion-icon name="custom-cancel"></ion-icon></button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="viewTruck()"><ion-icon name ="custom-view" tappable></ion-icon></button>
+      <ion-label class="fabedit"></ion-label>
+      <button ion-fab color="$icon-highlight-bg-color-onfocus" (click)="seehistory()"><ion-icon name ="custom-history" tappable></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

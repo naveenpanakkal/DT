@@ -1,0 +1,593 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title"> {{headerTitle}}
+    </ion-title>
+
+  </ion-navbar>
+  <ion-toolbar color="header" style="margin-top:-1%;" id="tool" class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+          <ion-slide (click)="filterTabs(tab)" [class.selected]="selectedTab == tab" *ngFor="let tab of tabs"
+                     tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>{{ tab }}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding id="taView" style="background-color:#E8E6E6">
+  <ion-slides #mainSlides (ionSlideDidChange)="mainContainerslideChanged()" class="main-content-slider">
+    <ion-slide>
+      <!--Container Details Tab-->
+      <!--<div *ngIf="showTabs[0]" style="height:100%;padding-left:5px;padding-right:5px;">-->
+      <div class="scrollable-div" style="padding-left:5px;padding-right:5px;">
+        <form style="height:auto;width:100%">
+          <ion-grid class="ionrow">
+            <ion-row col-12>
+              <ion-col col-6 color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Location
+              </ion-col>
+              <ion-col col-6 color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                SP Name
+              </ion-col>
+            </ion-row>
+            <ion-row col-12>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse?.locationCreate}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse?.spNameCreate}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="ionrow">
+            <ion-row col-12>
+              <ion-col col-6 color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Truck Appointment No
+              </ion-col>
+              <ion-col col-6 color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Status
+              </ion-col>
+            </ion-row>
+            <ion-row col-12>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse?.truckAppointmentNo}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse?.taStatus}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+      <!--Container Details Tab end-->
+    </ion-slide>
+    <ion-slide>
+      <!--Move type : In Tab-->
+      <!--<div *ngIf="showTabs[2]" style="height:100%;">-->
+      <div class="scrollable-div" style="height:100%;">
+        <ion-label *ngIf="moveTypeInList.length == 0" class="make-no-data-labels-center">No Details Available
+        </ion-label>
+        <form style="height:auto;width:100%;margin-bottom: 70px;">
+          <div style="height:auto;" *ngFor="let inContainer of moveTypeInList;let selectedTabIndex = index;">
+            <div class="inner-scroll-container">
+              <div>
+                <div class="attach-headder" style="padding-top:10px;" (click)="openSelecedTab(selectedTabIndex)"
+                     tappable>
+                  <div col-10 style="float:left; display:inline-block;">
+                    <div class="rotateIconHolder"
+                         style="width: 20px !important;height: 20px !important;" tappable>
+                      <div style="width:20px;"
+                           [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                        <ion-icon name="arrow-dropright">
+                        </ion-icon>
+                      </div>
+                    </div>
+                    <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+                      {{inContainer.containerNumberDetails}} - {{inContainer.isoCodeDetails.substring(0,4)}}
+                    </ion-label>
+                  </div>
+                </div>
+                <div style="min-width:360px;"
+                     [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Container No
+                      </ion-col>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        ISO Code
+                      </ion-col>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{inContainer.containerNumberDetails}}
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;" text-wrap>
+                        {{inContainer.isoCodeDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Container Status
+                      </ion-col>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Shipper Name
+                      </ion-col>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{inContainer.containerStatusDetails}}
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{inContainer.shipperName}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Shipping Line
+                      </ion-col>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        CutOff Time
+                      </ion-col>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{inContainer.shippingLineDetails}}
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{inContainer.cutOffTimeDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid style = "margin-top:10px;" class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        EIR No
+                      </ion-col>
+                      <ion-col col-6 class="ion-col-minheight-nopadding">
+                        <ion-label class="removeMargin boldStyle">{{inContainer.eirNoDetails}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-row class="additionalDetailStyle"
+                           *ngIf="!hideAddtionalDetailsIcon(selectedTabIndex,true)" tappable col-12
+                           (click)="showAdvSearch(selectedTabIndex,true)">
+                    <ion-col col-9  style="color:white !important" class="ion-col-left-color boldStyle">
+                      {{ 'ta_additionaldetails' | translate }}
+                    </ion-col>
+                    <ion-col col-3 class="statusCenter">
+                      <ion-icon [name]="getIcon(selectedTabIndex,true)" class="image removePadding icon-margin"
+                                style="margin-right: 10px;float: right;color:white"></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="moveTypeInList[selectedTabIndex].showadvOption">
+                    <ion-grid class="ionrow">
+                      <ion-row col-12>
+                        <ion-col col-6 color="label"  style="padding-right: 8px!important;"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_ship_billno' | translate }}
+                        </ion-col>
+                        <ion-col col-6 color="label"  style="padding-left: 8px!important;"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_cmmdty_desc' | translate }}
+                        </ion-col>
+                      </ion-row>
+                      <ion-row col-12>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.shippingBillNo}}
+                        </ion-col>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 10px;padding-right: 5px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.commodityDescription}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <ion-grid class="ionrow">
+                      <ion-row col-12>
+                        <ion-col col-6 color="label" style="padding-right: 8px!important;"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_decldwght' | translate }}
+                        </ion-col>
+                        <ion-col col-6 color="label" style="padding-left: 8px!important;"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_maxwght' | translate }}
+                        </ion-col>
+                      </ion-row>
+                      <ion-row col-12>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.declaredWeight}}
+                        </ion-col>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 10px;padding-right: 5px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.maxWeight}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <ion-grid class="ionrow">
+                      <ion-row col-12>
+                        <ion-col col-6 color="label" style="padding-right: 8px!important;"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_verified_mass' | translate }}
+                        </ion-col>
+                        <ion-col col-6 color="label" style="padding-left: 8px!important;"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_custom_sealno' | translate }}
+                        </ion-col>
+                      </ion-row>
+                      <ion-row col-12>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.verifiedGross}}
+                        </ion-col>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 10px;padding-right: 5px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.customSealNo}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <ion-grid class="ionrow">
+                      <ion-row col-12>
+                        <ion-col col-6 color="label"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          {{ 'ta_agent_sealno' | translate }}
+                        </ion-col>
+                      </ion-row>
+                      <ion-row col-12>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeInList[selectedTabIndex].additionalDetails.agentSealNo}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--Move type : In Tab End-->
+
+    </ion-slide>
+    <ion-slide>
+
+
+      <!--Move type : Out Tab-->
+      <!--<div  *ngIf="showTabs[1]" style="height:100%;">-->
+      <div class="scrollable-div" style="height:100%;">
+        <ion-label *ngIf="moveTypeOutList.length == 0" class="make-no-data-labels-center">No Details Available
+        </ion-label>
+
+        <form style="height:auto;width:100%;margin-bottom: 70px;">
+          <div style="height:auto;" *ngFor="let outContainer of moveTypeOutList;let selectedTabIndex = index;">
+
+            <div class="inner-scroll-container">
+              <div>
+                <div class="attach-headder" style="padding-top:10px;" (click)="openSelecedTab(selectedTabIndex)"
+                     tappable>
+                  <div col-10 style="float:left; display:inline-block;">
+                    <div class="rotateIconHolder"
+                         style="width: 20px !important;height: 20px !important;" tappable>
+                      <div style="width:20px;"
+                           [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+                        <ion-icon name="arrow-dropright">
+                        </ion-icon>
+                      </div>
+                    </div>
+                    <ion-label style="float:left; display:inline-block;margin: 3px 0px 0px 30px;color:white;">
+                      {{outContainer.containerNumberDetails}} - {{outContainer.isoCodeDetails.substring(0,4)}}
+                    </ion-label>
+                  </div>
+                </div>
+                <div style="min-width:360px;"
+                     [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Container No
+                      </ion-col>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        ISO Code
+                      </ion-col>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.containerNumberDetails}}
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;" text-wrap="">
+                        {{outContainer.isoCodeDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <div class="removePadding" col-12>
+                        <ion-col style="display:inline-block; float:left;"
+                                 col-6 color="label"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          Count
+                        </ion-col>
+                        <ion-col col-6 color="label"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          Container Status
+                        </ion-col>
+                      </div>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.containerCountDetails}}
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.containerStatusDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Shipper Name
+                      </ion-col>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        Shipping Line
+                      </ion-col>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.shipperName}}
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.shippingLineDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        CutOff Time
+                      </ion-col>
+                    </ion-row>
+                    <ion-row col-12>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.cutOffTimeDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid style = "margin-top:10px;" class="ionrow">
+                    <ion-row col-12>
+                      <ion-col col-6 color="label"
+                               class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                        EIR No
+                      </ion-col>
+                      <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                        {{outContainer.eirNoDetails}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-row class="additionalDetailStyle"
+                           *ngIf="!hideAddtionalDetailsIcon(selectedTabIndex,false)" tappable col-12
+                           (click)="showAdvSearch(selectedTabIndex,false)">
+                    <ion-col col-9  style="color:white !important;" class="ion-col-left-color boldStyle">
+                      {{ 'ta_additionaldetails' | translate }}
+                    </ion-col>
+                    <ion-col col-3 class="statusCenter">
+                      <ion-icon [name]="getIcon(selectedTabIndex,false)" class="image removePadding icon-margin"
+                                style="margin-right: 10px;float: right;"></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                  <div *ngIf="moveTypeOutList[selectedTabIndex].showadvOption">
+                    <ion-grid class="ionrow">
+                      <ion-row col-12>
+                        <ion-col col-6 color="label"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          Bill Of Entry
+                        </ion-col>
+                        <ion-col col-6 color="label"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          Out Of Charge
+                        </ion-col>
+                      </ion-row>
+                      <ion-row col-12>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeOutList[selectedTabIndex].additionalDetails.billOfEntry}}
+                        </ion-col>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeOutList[selectedTabIndex].additionalDetails.outOfCharge}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <ion-grid class="ionrow">
+                      <ion-row col-12>
+                        <ion-col col-6 color="label"
+                                 class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                          Custom Seal No
+                        </ion-col>
+                      </ion-row>
+                      <ion-row col-12>
+                        <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                          {{moveTypeOutList[selectedTabIndex].additionalDetails.customSealNo}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--Move type : Out Tab end-->
+
+    </ion-slide>
+    <ion-slide>
+
+
+      <!--Appointment Details Tab -->
+      <!--<div *ngIf="showTabs[3]" style="height:auto;min-height: 100%;">-->
+      <div class="scrollable-div" style="height:auto;min-height: 100%;">
+        <form style="height:auto;width:100%;">
+          <ion-grid class="ionrow">
+            <ion-row>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Agent Reference No
+              </ion-col>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Appointment Date
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse.agentReferenceNo}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;">
+                {{viewResponse.appointmentDateCreate}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="ionrow">
+            <ion-row>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Appointment Slot
+              </ion-col>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Truck Number
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse.appointmentSlotCreate}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;">
+                {{viewResponse.truckNumberCreate}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="ionrow">
+            <ion-row>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Truck Type
+              </ion-col>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Trailer No
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse.trucktypeCreate}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;">
+                {{viewResponse.trailerNoCreate}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="ionrow">
+            <ion-row>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Driver Name
+              </ion-col>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Driver Mobile Number
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse.driverNameCreate}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;">
+                {{viewResponse.driverMobileNumberCreate}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="ionrow">
+            <ion-row>
+              <ion-col color="label" class="bold ion-col-minheight-nopadding ion-col-left-color
+          alternateNum alingn-elemnts-inline-left">
+                Alternative Mobile Number
+              </ion-col>
+              <ion-col color="label"
+                       class="bold ion-col-minheight-nopadding ion-col-left-color alingn-elemnts-inline-left">
+                Remarks
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;padding-right: 10px;">
+                {{viewResponse.alternativeMobileNumber}}
+              </ion-col>
+              <ion-col class="boldStyle" col-6 style="padding-left: 0px;">
+                {{viewResponse.remarksCreate}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+
+        <div class="ionrow" *ngFor="let attachment of viewResponse?.attachs" style="background-color: white;">
+          <ion-row class="attachMargin view_atch">
+            <ion-col style="padding-top:0px;" col-1 *ngIf="attachment.fileName">
+              <ion-icon class="taFileicon" item-start tappable>
+                <img src="assets/img/image-icon.png"/>
+              </ion-icon>
+            </ion-col>
+            <ion-col style="padding-top:0px;" class="taFilename_1" (click)="displayattach(attachment)" tappable>
+              <ion-label class="underline" text-wrap>
+                {{attachment.fileName}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+
+      </div>
+
+
+    </ion-slide>
+  </ion-slides>
+
+  <!--  <ion-row class = "slider-bottom-navigation-row" ion-fixed col-12>-->
+  <ion-col ion-fixed class="slider-bottom-navigation-col-left" (click)="slideSelectedPrev()" *ngIf="hidePreviousButton" no-padding col-2 tappable>
+    <ion-icon name="arrow-back"  tappable></ion-icon>
+    <!--<ion-label>Previous</ion-label>-->
+  </ion-col>
+  <ion-col ion-fixed   class="slider-bottom-navigation-col-right" (click)="slideSelectedNext()" *ngIf="hideNextButton" no-padding col-2 tappable>
+    <!--<ion-label>Next</ion-label>-->
+    <ion-icon name="arrow-forward" tappable></ion-icon>
+  </ion-col>
+  <!--</ion-row>-->
+</ion-content>

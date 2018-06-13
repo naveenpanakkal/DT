@@ -1,0 +1,9 @@
+export enum TruckStatus{
+  APPROVED,
+  PENDING,
+  SUBMITTED,
+  SUSPENDED,
+  REJECTED,
+  CANCELLED,
+  ALL
+}

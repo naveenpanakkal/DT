@@ -1,0 +1,150 @@
+<ion-header>
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="chsearch" >
+
+  <!-- HOLD ACTION -->
+  <ion-item >
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_holdaction' | translate }}
+    </ion-label>
+    <ion-select  class="label-left vesselStatus" [(ngModel)]="HoldAction" tappable >
+      <ion-option *ngFor="let ha of holdActionDataLst" value="{{ha.definedSetValueCode}}">{{ha.definedSetValueIntMessage}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- CONTAINER CATEGORY -->
+  <ion-label class="labelmargin" stacked color="label" style="margin-left:15px;margin-top: 20px;margin-bottom:10px;">{{ 'ch_container_category' | translate }}</ion-label>
+  <ion-list class="contanerlist" style="padding-left: 25px;" >
+    <ion-item *ngFor="let category of containerCategoryDataLst">
+      <ion-label class="category_style">{{category.definedSetValueIntMessage}}</ion-label>
+      <ion-checkbox (ionChange)="checkUncheck($event,category,3)" class="checkbox_cont" [(ngModel)]="category.checked"  tappable></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-item class="item-with-button">
+    <button ion-button class= "button-apply-general" (click)="checkUncheck($event,[],1)" tappable>{{ 'ch_Select_all' | translate }}</button>
+    <button ion-button  class= "button-apply-general" (click)="checkUncheck($event,[],2)" tappable>{{'ch_deselect_all'|translate }}</button>
+  </ion-item>
+
+  <!-- CONTAINER NO -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_container_no' | translate }}</ion-label>
+
+    <ion-input class="label-left" (keyup)="keyUpValidate($event,'^[a-zA-z0-9]{0,11}$','hcContainerNo')"
+               spellcheck="false"
+               type="text" [(ngModel)]="ContainerNo" [disabled]="disableControls"
+               tappable placeholder="Container No" minlength="10"
+               (ionBlur)="validateContainer()"  onpaste="return true;"
+               maxlength="11" (keyup.enter)="keyboardClose()">
+    </ion-input>
+
+  </ion-item>
+  <div class="valerror-search" *ngIf="(submit || containerError) && containerNoValid()">
+    {{ContainerNumberValidateLbl}}
+  </div>
+
+  <!-- LOCATION -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_Location' | translate }}</ion-label>
+      <ion-select  placeholder="Location" class="label-left vesselStatus" [(ngModel)]="Location" (ionChange)="getSubLocNameLst(true)"  tappable>
+        <ion-option value="">--Select--</ion-option>
+        <ion-option *ngFor="let lc of locationDataLst" value="{{lc.spLocationCode}}">{{lc.spLocationName}}</ion-option>
+      </ion-select>
+  </ion-item>
+
+  <!-- SUB LOCATION NAME -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_spname' | translate }}</ion-label>
+    <ion-select  placeholder="SP Name" class="label-left vesselStatus" [(ngModel)]="SpName" tappable>
+      <ion-option value="">--Select--</ion-option>
+      <ion-option *ngFor="let sp of spNameDataLst" value="{{sp.spSubLocationCode}}">{{sp.spSubLocationName}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- REFERENCE NO -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_reference_no' | translate }}</ion-label>
+      <ion-input class="label-left" spellcheck="false" placeholder="{{ 'ch_reference_no' | translate }}"
+                 type="text" [(ngModel)]="ReferenceNo"
+                 onpaste="return true;"
+                 minlength="3" maxlength="30"
+                 tappable></ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && referenceNoValid()">
+    {{ReferenceNumberValidateLbl}}
+  </div>
+
+  <!-- REQUEST NO -->
+  <ion-item>
+    <ion-label class="labelmargin" stacked color="label">{{ 'ch_hold_request_no' | translate }}</ion-label>
+    <ion-input class="label-left" spellcheck="false"  placeholder="{{ 'ch_hold_request_no' | translate }}"
+               type="tel" [(ngModel)]="RequestNo"
+               (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','hcRequestNo')"
+               minlength="1" maxlength="18"
+               onpaste="return true;"
+               tappable></ion-input>
+  </ion-item>
+  <div class="valerror-search" *ngIf="submit && validate(RequestNo,'^[0-9]{0,18}$')">
+    {{'invalid_characters'|translate}}
+  </div>
+
+  <!-- FROM DATE -->
+  <div>
+    <ion-item>
+      <ion-label color="label" stacked>{{ 'ch_from_date' | translate }}</ion-label>
+      <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle"  max="2050-01-01" min= "2000-01-01"
+                    [(ngModel)]="FromDate" displayFormat={{dateFormat}} (ionChange)="onFromDateChange()" tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+
+  <!-- TO DATE -->
+  <div>
+    <ion-item>
+      <ion-label color="label" stacked>{{ 'ch_to_date' | translate }}</ion-label>
+      <ion-datetime placeholder="DD/MM/YYYY HH:MM GST" class="label-left dateTimeStyle" max="2050-01-01" min={{minToDate}} [(ngModel)]="ToDate"
+                    displayFormat={{dateFormat}} tappable></ion-datetime>
+    </ion-item>
+    <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+  </div>
+
+  <!-- DESIGNATION -->
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">{{ 'ch_designation' | translate }}
+      </ion-label>
+      <ion-select  class="label-left vesselStatus" [(ngModel)]="DesignationType" tappable>
+        <ion-option *ngFor="let des of designationTypeDataLst" value="{{des.definedSetValueCode}}">{{des.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+  <!-- STATUS -->
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">{{ 'ch_status' | translate }}
+      </ion-label>
+      <ion-select  class="label-left vesselStatus" [(ngModel)]="HoldActionStatus" tappable>
+        <ion-option *ngFor="let hld of statusDataLst" value="{{hld.definedSetValueCode}}">{{hld.definedSetValueIntMessage}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+
+
+
+    <ion-row style="margin-top: 10px;margin-left: 20px;margin-bottom: 10px;">
+      <ion-col col-6>
+        <button full color="submit" ion-button
+                class="buttonCenterAlign button-apply-general"
+                (click)="resetValues()" tappable>{{ 'rese-b' | translate }}</button>
+      </ion-col>
+      <ion-col  col-6>
+        <button full color="submit" ion-button
+                (click)="getFilterResults()"
+                class="buttonCenterAlign button-apply-general"
+                tappable>{{ 'SEARCH' | translate }}</button>
+      </ion-col>
+    </ion-row>
+
+</ion-content>
+

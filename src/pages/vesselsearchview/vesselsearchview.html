@@ -1,0 +1,93 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">{{ 'VESSEL_SEARCH' | translate }}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="optput" full ion-button (click)="presentSortPopover($event)" tappable>
+          <img class="sortimg" src="assets/img/sort.svg"/>
+          {{ 'Sort' | translate }}
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="optput" full ion-button (click)="presentFilterPopover($event)" tappable>
+          <img class="sortimg" src="assets/img/filter.svg"/>
+          {{ 'Filter' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-toolbar color="milkygrey" >
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{searchdetails?.length}}  {{ 'out_of' | translate }} {{searchdetails?.length}} results </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="vesselcontent" id="vesselSearchViewContent">
+
+  <ion-list>
+
+    <div class="gridclass" *ngFor="let s of searchdetails">
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(s)" tappable>
+          <ion-row class="vesselName">
+            <ion-col text-wrap col-8 >
+              <h4 class="headers"> {{s.vesselName}} </h4>
+            </ion-col>
+            <ion-col col-4 class = "statusIcon">
+              <img class="approvedicon" [src]="getStatusIcon(s)"/>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col col-3>
+              <h6 class="subheader1">{{ 'reg_id' | translate }}</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="subheader3">{{s.vesselRegistrationId}}</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="status" [style.color]="getStyle(s)">{{s.vesselRegistrationStatus}}</h6>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-3>
+              <h6 class="subheader1">{{ 'imo_sin' | translate }}</h6>
+            </ion-col>
+            <ion-col>
+              <h6 class="subheader2">{{s.imoNo}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+
+          <button [hidden]="hideApproveButton(s)" ion-button color="secondary" (click)="gotoapprove(s)"
+                  style=" border: 1px solid white;">
+            <ion-icon name="custom-action"></ion-icon>
+           {{ 'approve' | translate }}
+          </button>
+
+          <button ion-button color="secondary" (click)="goview(s)" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view"></ion-icon>
+            {{ 'view' | translate }}
+          </button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </div>
+
+  </ion-list>
+</ion-content>
+

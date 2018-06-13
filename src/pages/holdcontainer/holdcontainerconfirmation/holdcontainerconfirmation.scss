@@ -1,0 +1,126 @@
+page-hold-container{
+  .toolbar-title {
+    font-weight: 500 !important;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+  //---ios_change--start
+  //---title truncation bugfix
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  //---ios-change--end
+
+  .ionrow {
+    background: white;
+    width: 98%;
+    margin: 4px -5px -2px 3px;
+
+  }
+
+  ion-col {
+    margin: 5px auto !important;
+    padding-left: 20px !important;
+    font-weight: 500 !important;
+  }
+
+  #ioncol {
+    color: #a0a0a0;
+  }
+
+  .scroll-content {
+    padding-bottom: 15% !important;
+  }
+
+  #caption {
+    color: black !important;
+  }
+
+  h6 {
+    line-height: 0.2 !important;
+  }
+
+  #ioncolrightwithcolor {
+    color: #a0a0a0;
+  }
+
+  .attach {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    min-height: 45px;
+    padding-top: 7px;
+  }
+
+  .edit {
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom: 20%;
+    margin-right: 15%;
+  }
+
+  .image {
+    float: right;
+  }
+  .subheader {
+    background: #CFCFCF;
+    margin-top: 10px;
+  }
+  .bold {
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 3% !important;
+  }
+
+  .padding-left-row
+  {
+    padding-left: 10px;
+  }
+
+  .firstrow {
+    min-height: 50px !important;
+    align-content: center;
+  }
+  .details {
+    text-align: center;
+    line-height: -1;
+    top: 20%;
+    margin-left:0px;
+  }
+  .labels {
+    opacity: 0.6;
+    position: relative;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: medium;
+    text-align: left;
+    //margin-left: 10%;
+    text-wrap: normal;
+    width: 100%;
+  }
+  .divv {
+    text-align: center;
+  }
+  .status {
+    text-align: center;
+    margin-top: 0%;
+    font-weight: normal;
+  }
+  .approvedicon {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    position: relative;
+    margin-top: 12%;
+
+  }
+}
+.platform-ios  page-hold-container .scroll-content {
+  margin-top: 20px !important;
+  margin-bottom: 49px !important;
+}
+.platform-ios page-hold-container ion-header .toolbar-ios ion-title{
+  left: 0px !important;
+}

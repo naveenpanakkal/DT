@@ -1,0 +1,60 @@
+
+<ion-header>
+
+<ion-navbar color="header" id="header">
+    <ion-title class="title" class="berthHistoryTitle-ios">Amendment History </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="berthHistoryContainer">
+
+  <div class="attach" (click)="show(berth)" *ngFor="let berth of berthHistoryResponseArray;let i = index">
+    History {{berthHistoryResponseArray.length-i}}
+    <ion-icon [name]="geticon(berth)" class="image" tappable></ion-icon>
+
+    <div *ngIf="berth.showdetails" class="subheader">
+      <ion-grid (click)="openview(berth.requestNo)" tappable>
+        <ion-row>
+          <ion-col>
+            Request Id:
+          </ion-col>
+          <ion-col >
+            {{berth.requestNo}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+            Action:
+          </ion-col>
+          <ion-col>
+            {{berth.actionName}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Status:
+          </ion-col>
+          <ion-col>
+            {{berth.status}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+           <ion-col>
+           Created Date:
+          </ion-col>
+          <ion-col>
+            {{berth.createdDate}}
+          </ion-col>
+        </ion-row>
+         <ion-row>
+           <ion-col>
+           Last Modified Date:
+          </ion-col>
+          <ion-col>
+            {{berth.lastModifiedDate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

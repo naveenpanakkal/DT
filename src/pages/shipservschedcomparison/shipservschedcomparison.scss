@@ -1,0 +1,32 @@
+page-shipservschedcomparison {
+  .title{
+    position : relative;
+    right : 6%;
+  }
+
+  .compareTitle{
+    position : relative;
+    right : 1%;
+  }
+  .subheader{
+    background: white;
+    margin-top: 10px;
+    font-weight : bold;
+  }
+  .item{
+    background: #CFCFCF;
+  }
+  //---ios_change--start
+  //---title alignment
+  div.toolbar-title.toolbar-title-ios {
+    overflow: visible;
+    margin-left: -10%;
+    margin-top: -10%;
+  }
+  .toolbar-title {
+    font-weight: 500 !important;
+    text-align: center;
+    font-size : 2.2rem;
+  }
+  //---ios_change--end
+}

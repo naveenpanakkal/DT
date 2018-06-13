@@ -1,0 +1,80 @@
+<!-- Generated template for the LoaddischargesortComponent component -->
+<ion-header>
+ <ion-toolbar>
+
+   <ion-buttons start tappable>
+     <button ion-button (click)="close()" tappable>
+
+       <span ion-text color="primary" showWhen="ios"> {{ 'ca_cancel_small' | translate }}</span>
+       <ion-icon name="md-close" style="color: white;width:40px;" showWhen="android, windows"></ion-icon>
+     </button>
+   </ion-buttons>
+
+    <ion-title style="width: 40%;
+    display: inline-block;">
+      {{ 'Sort' | translate }}
+    </ion-title>
+
+<!--   <span class="sort-icon-holder">
+     <ion-icon [name]="getordericon()" style="color: white;width:40px;" (click)="changeorder()"></ion-icon>
+   </span>-->
+
+  </ion-toolbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false">
+<div>
+  <ion-row>
+    <ion-col class="removePadding sortOrderStyle"  col-8>
+      Sort Order
+    </ion-col>
+  <ion-col class="removePadding sortOption"  col-4>
+    <label class="toggleButtonCenterAlign" style="margin-top: 20px" >{{sortMode}}</label>
+    <ion-toggle class="toggleButtonCenterAlign" [(ngModel)]="!ascend" (ionChange)="changeorder()"
+                style="display: inline-block">
+    </ion-toggle>
+    <!--<label >{{ 'VLDS_descending' | translate }}</label>-->
+  </ion-col>
+    </ion-row>
+<ion-list radio-group [(ngModel)]="sortselect" style="padding-right: 10px;">
+  <ion-item>
+    <ion-label>{{ 'rotationno' | translate }}</ion-label>
+    <ion-radio value="rotationno" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'vesselName' | translate }}</ion-label>
+    <ion-radio value="vesselName" tappable></ion-radio>
+  </ion-item>
+   <ion-item>
+    <ion-label>{{ 'eta' | translate }}</ion-label>
+    <ion-radio value="eta" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'etd' | translate }}</ion-label>
+    <ion-radio value="etd" tappable></ion-radio>
+  </ion-item>
+   <ion-item>
+    <ion-label>{{ 'ata' | translate }}</ion-label>
+    <ion-radio value="ata" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'atd' | translate }}</ion-label>
+    <ion-radio value="atd" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{ 'status' | translate }}</ion-label>
+    <ion-radio value="status" tappable></ion-radio>
+  </ion-item>
+</ion-list>
+</div>
+ <ion-row>
+    <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general"(click)="clear()" tappable>
+          {{ 'vesselreset' | translate }}</button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general" (click)="submit()" tappable>
+          {{ 'vesseldone' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+

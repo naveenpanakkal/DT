@@ -1,0 +1,139 @@
+<!--
+  Generated template for the TasearchresultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title">{{'ch_Header_Result'| translate}}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="navigateToSort()" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="navigateToFilter()" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-toolbar color="milkygrey">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{searchResults?.length}} {{ 'ca_out_of' | translate }} {{searchResults?.length}} {{
+          'ca_results' | translate }} </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="searchcontent" no-bounce has-bounsing="false">
+
+  <ion-list style="overflow: hidden;">
+
+    <div class="gridclass" *ngFor="let selResource of searchResults;">
+
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(selResource)" tappable>
+          <ion-row>
+            <ion-col col-9>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'ch_hold_request_no' | translate }}</h6>
+                </ion-col>
+                <ion-col text-wrap>
+                  <h4 class="subheader2">{{selResource.holdRequestNo}}</h4>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'ch_reference_no' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.referenceNo}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'ch_designation' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.designation}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'ch_container_category' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.containerCategory}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'ch_holdaction' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.holdAction}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader1">{{ 'ch_holdenddateandtime' | translate }}</h6>
+                </ion-col>
+                <ion-col col-6 text-wrap>
+                  <h6 class="subheader2">{{selResource.holdendDateTime}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-3 class="statusCenter">
+              <img class="myttClass" [src]="getStatusIcon(selResource)"/>
+              <h6 class="statusLabelStyle" [style.color]="getStyle()">{{selResource.holdStatus}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+
+        <ion-item-options side="right">
+
+          <button ion-button color="secondary" [hidden]="hideEdit(selResource.holdStatus)" (click)="goedit(selResource)"
+                  style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-Edit"></ion-icon>
+            {{ 'edi-b' | translate }}
+          </button>
+
+          <button ion-button color="secondary" (click)="goview(selResource)" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-view"></ion-icon>
+            {{ 'view' | translate }}
+          </button>
+
+          <button ion-button color="secondary" [hidden]="hideCancel(selResource.holdStatus)" (click)="goCancelHC(selResource)"
+                  style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-cancel"></ion-icon>
+            {{ 'del-b' | translate }}
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+
+
+  <ion-fab right bottom>
+    <button [hidden]="!hideCreate()" ion-fab style="background-color: #F2B011;" (click)="openContainerHoldCreate()" tappable>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,59 @@
+page-home {
+
+   	 .toolbar-title{
+        font-weight: $header-title-font-weight !important;
+        text-align: center;
+		font-size: 2.1rem;
+    }
+
+    .scroll-content{ overflow-y: auto; }
+
+
+    #men{
+        float: left;
+        color: white;
+        position: absolute;
+        left: 2%;
+    }
+    ion-tabs div.tabbar { display: none; }
+
+
+
+    #notifybadge{
+        position: relative;
+        font-size: 1em !important;
+        left: 30%;
+    }
+
+    #moreoptions{
+        float:right;
+    }
+
+   #vesselbutton{
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    }
+
+    #truckbutton{
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    }
+
+    #berthbutton {
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    }
+
+    #voyagebutton{
+    width: 23.3%;
+    font-weight: $header-title-font-weight !important;
+    text-transform: none;
+    font-size: $vessel-tabs-font-size;
+    }
+}

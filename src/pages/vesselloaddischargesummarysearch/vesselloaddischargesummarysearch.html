@@ -1,0 +1,177 @@
+<!--
+  Generated template for the vesselloaddischargesummarysearch page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'container_acceptance_search' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" id="vesselloaddischargesummarysearch" >
+
+  <!--<ion-item>-->
+    <!--<ion-label stacked color="label" stacked class="bold">{{ 'container_acceptance_no' | translate }}</ion-label>-->
+    <!--<ion-input  type="tel" [(ngModel)]="caSearchReqModel.containerAcceptanceNoSearch"-->
+               <!--(keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,canoPattern,'caacceptanceno')"-->
+               <!--onpaste="return true;" tappable spellcheck="false"-->
+    <!--&gt;</ion-input>-->
+  <!--</ion-item>-->
+  <!--<div>-->
+    <!--<div class="valerror" *ngIf="validate(caSearchReqModel.containerAcceptanceNoSearch,canoPattern)"></div>-->
+    <!--<div class="error" *ngIf="submit && validate(caSearchReqModel.containerAcceptanceNoSearch,canoPattern)">-->
+      <!--Please enter valid characters.-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<ion-item>-->
+    <!--<ion-label stacked color="label">{{ 'ca_location' | translate }}-->
+    <!--</ion-label>-->
+    <!--<ion-select class="label-left" [(ngModel)]="caSearchReqModel.locationSearch"  (ionChange)="onLocationChanged()" tappable>-->
+      <!--<ion-option *ngFor="let key of locationList" value={{key}}>{{key}}</ion-option>-->
+    <!--</ion-select>-->
+  <!--</ion-item>-->
+
+
+  <!--<ion-item>-->
+    <!--<ion-label stacked color="label">{{ 'service_provider_name' | translate }}-->
+    <!--</ion-label>-->
+    <!--<ion-select class="label-left" [(ngModel)]="caSearchReqModel.serviceProviderSearch" tappable>-->
+      <!--<ion-option *ngFor="let key of spNameList" value={{key}}>{{key}}</ion-option>-->
+    <!--</ion-select>-->
+  <!--</ion-item>-->
+
+  <!--<ion-item>-->
+    <!--<ion-label stacked color="label">{{ 'ca_acceptance_type' | translate }}-->
+    <!--</ion-label>-->
+    <!--<ion-select class="label-left" [(ngModel)]="caSearchReqModel.acceptanceSearch" tappable-->
+                <!--(ionChange)="acceptanceTypeChange(caSearchReqModel.acceptanceSearch)">-->
+      <!--<ion-option *ngFor="let accType of acceptanceTypeList" value={{accType.definedSetValueCode}}>{{accType.definedSetValueIntMessage}}</ion-option>-->
+    <!--</ion-select>-->
+  <!--</ion-item>-->
+
+  <!--<ion-item [hidden]="tradetypehidden">-->
+    <!--<ion-label stacked color="label">{{ 'ca_trade_type' | translate }}-->
+    <!--</ion-label>-->
+    <!--<ion-select class="label-left"   [(ngModel)]="caSearchReqModel.tradeTypeSearch" tappable>-->
+      <!--<ion-option *ngFor="let trdType of tradeTypeList" value={{trdType.definedSetValueCode}}>{{trdType.definedSetValueIntMessage}}</ion-option>-->
+    <!--</ion-select>-->
+  <!--</ion-item>-->
+  <!--<ion-item>-->
+    <!--<ion-label color="label" stacked class="bold">{{ 'liner_booking_number' | translate }}</ion-label>-->
+    <!--<ion-input  type="text"  [(ngModel)]="caSearchReqModel.linerBookingNumberSearch" tappable-->
+               <!--(keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,linerPattern,'linerbookingnumber')"-->
+               <!--onpaste="return true;" spellcheck="false"-->
+    <!--&gt;</ion-input>-->
+  <!--</ion-item>-->
+   <!--<div>-->
+     <!--<div class="valerror" *ngIf="!submit && validate(caSearchReqModel.linerBookingNumberSearch,linerPattern)"></div>-->
+     <!--<div class="valerror" *ngIf="submit &&(linerbookingValid() || validate(caSearchReqModel.linerBookingNumberSearch,linerPattern))">-->
+       <!--{{ 'ca_linerbooking_validation' | translate }}-->
+     <!--</div>-->
+   <!--</div>-->
+  <!--<ion-item>-->
+    <!--<ion-label color="label" stacked class="bold">{{ 'ca_rotation_number' | translate }}-->
+    <!--</ion-label>-->
+  <!--</ion-item>-->
+  <!--<ion-searchbar type="tel" (ionInput)="getRotationNo($event)" tappable-->
+                 <!--[(ngModel)]="caSearchReqModel.rotationNumberSearch"-->
+                 <!--(ionFocus)="getRotationNumberMaster()"-->
+                 <!--(ionBlur)="hideRotation()"-->
+                 <!--(keyup.enter)="keyboardClose()"-->
+                 <!--(keyup)="keyUpValidate($event,'^[0-9]{0,18}$','rotateNumber')"-->
+                 <!--onpaste="return true;"></ion-searchbar>-->
+  <!--&lt;!&ndash;<div  class="smartSearchListContainer" *ngIf="showRotationNo">&ndash;&gt;-->
+  <!--&lt;!&ndash;<ion-list *ngIf="showRotationNo" style="overflow: hidden">&ndash;&gt;-->
+  <!--<ion-list *ngIf="showRotationNo">-->
+    <!--<ion-item *ngFor="let item of filterRotationArray" (mousedown)="selectRotation(item)" tappable>-->
+      <!--{{ item.rotationNo }}-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+  <!--<ion-item>-->
+    <!--<ion-label stacked color="label">{{ 'ca_client_type' | translate }}-->
+    <!--</ion-label>-->
+    <!--<ion-select class="label-left" [(ngModel)]="caSearchReqModel.clientTypeSearch" tappable-->
+                <!--(ionChange)="clientTypeChange(caSearchReqModel.clientTypeSearch)">-->
+      <!--<ion-option *ngFor="let clttype of clientList" value={{clttype.definedSetValueCode}}>{{clttype.definedSetValueIntMessage}}</ion-option>-->
+    <!--</ion-select>-->
+  <!--</ion-item>-->
+
+  <!--<div [hidden]="clientcodehidden">-->
+  <!--<ion-item>-->
+    <!--<ion-label color="label" stacked class="bold">{{ 'ca_client_code' | translate }}-->
+    <!--</ion-label>-->
+  <!--</ion-item>-->
+  <!--<ion-searchbar type="text" (ionInput)="getClientCode($event)" tappable-->
+                 <!--[(ngModel)]="caSearchReqModel.clientTypeCode"-->
+                 <!--(ionFocus)="getClientCodeMaster()"-->
+                 <!--(ionBlur)="hideClientCode()"-->
+                 <!--(keyup.enter)="keyboardClose()" (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,30}$','clientcode')"-->
+                 <!--onpaste="return true;">-->
+  <!--</ion-searchbar>-->
+    <!--&lt;!&ndash;<div  class="smartSearchListContainer" *ngIf="showClientCode">&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-list *ngIf="showClientCode" style="overflow: hidden">&ndash;&gt;-->
+    <!--<ion-list *ngIf="showClientCode" >-->
+    <!--<ion-item *ngFor="let item of filterClientArray" (mousedown)="selectClientCode(item)" tappable>-->
+      <!--{{ item.companyCode }}-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+  <!--</div>-->
+
+  <!--<div>-->
+    <!--<ion-item>-->
+      <!--<ion-label color="label" stacked class="bold">{{ 'ca_from_date' | translate }}</ion-label>-->
+      <!--<ion-datetime class="label-left" displayFormat={{dateFormat}} max={{maxvalue}}-->
+                    <!--[(ngModel)]="createdFromDate" tappable></ion-datetime>-->
+    <!--</ion-item>-->
+    <!--<ion-icon class="cal" name="calendar" color="header"></ion-icon>-->
+  <!--</div>-->
+
+  <!--<div>-->
+    <!--<ion-item>-->
+      <!--<ion-label color="label" stacked class="bold">{{ 'ca_to_date' | translate }}</ion-label>-->
+      <!--<ion-datetime class="label-left" displayFormat={{dateFormat}} max={{maxvalue}}-->
+                    <!--[(ngModel)]="createdToDate" tappable></ion-datetime>-->
+    <!--</ion-item>-->
+    <!--<ion-icon class="cal" name="calendar" color="header"></ion-icon>-->
+  <!--</div>-->
+
+  <!--<ion-item>-->
+    <!--<ion-label stacked color="label">{{ 'ca_status' | translate }}-->
+    <!--</ion-label>-->
+    <!--<ion-select class="label-left" [(ngModel)]="caSearchReqModel.statusSearch" tappable>-->
+      <!--<ion-option *ngFor="let status of statusList" value={{status.definedSetValueCode}}>{{status.definedSetValueIntMessage}}</ion-option>-->
+    <!--</ion-select>-->
+  <!--</ion-item>-->
+
+  <!--<ion-row>-->
+
+
+    <!--<ion-col class="imoitem" col-6>-->
+      <!--<ion-item id="searchbutton" no-lines>-->
+        <!--<button full color="submit" ion-button class="align-button-center-of-container button-apply-general" id="buttonsearch" (click)="reset()" tappable>{{ 'ca_reset' | translate }}</button>-->
+      <!--</ion-item>-->
+    <!--</ion-col>-->
+    <!--<ion-col class="imoitem" col-6>-->
+      <!--<ion-item id="searchbutton" no-lines>-->
+        <!--<button full color="submit" ion-button class="align-button-center-of-container button-apply-general" id="buttonsearch" (click)="showCAresults()" tappable>{{ 'ca_search' | translate }}</button>-->
+      <!--</ion-item>-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row class="row"><ion-col class=" col" style="height:50px;" col-6="">-->
+  <!--</ion-col></ion-row>-->
+
+  <!--<ion-fab right bottom>-->
+    <!--<button ion-fab style="background-color: #F2B011;" *ngIf="hideCreate()" (click)="openCACreate()" tappable>-->
+      <!--<ion-icon name="add"></ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
+
+</ion-content>

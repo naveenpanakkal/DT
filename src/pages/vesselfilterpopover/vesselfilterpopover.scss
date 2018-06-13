@@ -1,0 +1,124 @@
+page-vesselfilterpopover {
+.dropdown{
+        color:black;
+    }
+    .approve{
+        width: 15%;
+        float: right;
+    }
+.titles{
+  //---ios_changes--start
+left : 2%;
+  //---ios_changes--end
+position : relative;
+}
+    .lab1 {
+    margin: 13px 8px 8px 12px !important;
+	color : black;
+}
+.lab2 {
+    margin: 13px 8px 8px 12px !important;
+	color : red;
+}
+.lab3 {
+    margin: 13px 8px 8px 12px !important;
+	color : gray;
+}
+  .blackStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : black;
+  }
+  .greenStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : green;
+  }
+  .redStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : red;
+  }
+  .greyStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : gray;
+  }
+  .blueStyle {
+    margin: 13px 8px 8px 12px !important;
+    color : #060a80;
+  }
+
+
+
+.options{
+        position: relative;
+     top: 8px;
+}
+
+  .topcol{
+    border-right: 3px solid #FFF;
+  }
+
+.scroll-content{
+    overflow: hidden;
+  padding-bottom: 0 !important;
+}
+
+  //---ios_changes--start
+#clearsubmit1{
+    color: white;
+    width: 107%;
+    margin-left: -5%;
+  background-color : rgba(17, 59, 95, 0.96)
+}
+  #clearsubmit2{
+    color: white;
+    width: 110%;
+    margin-left: -5%;
+  background-color : #113B5F;
+}
+  #clearsubmit {
+    color: white;
+    background-color : #113B5F;
+  }
+  //---ios_changes--end
+
+.mydp .selector {
+    position: relative ;
+    right: 13% ;
+}
+ .error{
+    border-bottom:1px solid red;
+    position: relative;
+    bottom: 8px;
+  }
+
+}
+
+page-vesselfilterpopover .ionContent
+{
+  overflow: hidden !important;
+}
+//.popover-content {top: 120px;
+// // border-radius: 28px !important;
+//}
+page-vesselfilterpopover .scroll-content{
+  overflow: hidden !important;
+}
+page-vesselfilterpopover popover-viewport
+{
+  overflow: hidden !important;
+}
+page-vesselfilterpopover .popover-content{
+  top: 115px !important;
+  left: inherit !important;
+  right: 12px  !important;;
+  transform-origin: left top 0px  !important;;
+  transform: scale(1)  !important;
+}
+page-vesselfilterpopover .item-cover {
+  left: 0 !important;
+  top: 0 !important;;
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}

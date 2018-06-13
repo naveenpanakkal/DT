@@ -1,0 +1,85 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Sort' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-bounce has-bounsing="false" class="removeScroll" >
+  <div class="divHeight">
+    <ion-row>
+      <ion-col class="removePadding sortOrderStyle"  col-8>
+        {{ 'Sortby' | translate }}
+      </ion-col>
+      <ion-col class="removePadding sortOption"  col-4>
+        <label class="toggleButtonCenterAlign" style="margin-top: 20px" >{{sortMode}}</label>
+        <ion-toggle class="toggleButtonCenterAlign" [(ngModel)]="ascend" (ngModelChange)="changeorder()"
+                    style="display: inline-block">
+        </ion-toggle>
+      </ion-col>
+    </ion-row>
+    <div style="max-height: calc(100% - 85px);
+          overflow-x: hidden;overflow-y: scroll;-webkit-overflow-scrolling: touch;
+        will-change: scroll-position;">
+    <ion-list radio-group [(ngModel)]="sortselect" style="padding-right: 10px;" tappable>
+      <ion-item>
+        <ion-label>{{ 'rch_container_no' | translate }}</ion-label>
+        <ion-radio value="rchcontainerno" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_iso_Code' | translate }}</ion-label>
+        <ion-radio value="rchisoCode" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_hold_request_no' | translate }}</ion-label>
+        <ion-radio value="rchholdrequestno" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_reference_no' | translate }}</ion-label>
+        <ion-radio value="rchreferenceno" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_type' | translate }}</ion-label>
+        <ion-radio value="rchtype" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_hold_action' | translate }}</ion-label>
+        <ion-radio value="rchholdaction" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_auto_release_date_time' | translate }}</ion-label>
+        <ion-radio value="rchautoreleasedatetime" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_status' | translate }}</ion-label>
+        <ion-radio value="rchstatus" tappable></ion-radio>
+      </ion-item>
+      <!-- REMOVING AS PER WEB REFERENCE
+      <ion-item>
+        <ion-label>{{ 'rch_hold_by' | translate }}</ion-label>
+        <ion-radio value="rchholdby" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_hold_reason' | translate }}</ion-label>
+        <ion-radio value="rchholdreason" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'rch_rotation' | translate }}</ion-label>
+        <ion-radio value="rchrotation" tappable></ion-radio>
+      </ion-item>-->
+    </ion-list>
+    </div>
+  </div>
+  <ion-row >
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general"(click)="clear()" tappable>
+        {{ 'rch_reset' | translate }}</button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general" (click)="submit()" tappable>
+        {{ 'rch_done' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

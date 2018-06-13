@@ -1,0 +1,132 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content  no-bounce has-bounsing="false" id="cshFilter">
+  <form [formGroup]="groupOne" novalidate style="padding-right: 10px">
+    <ion-item>
+      <ion-label stacked color="label">{{ 'cshRequestNo' | translate }}
+      </ion-label>
+      <ion-input class="label-left" (keyup)="keyUpValidate($event,'^[0-9]{1,18}$','cshRequestNo')"
+                 formControlName="cshRequestNo" spellcheck="false"
+                 type="tel" [(ngModel)]="cshRequestNo"
+                 (ionChange)="cshRequestNoChange()" tappable
+                 placeholder="{{ 'cshRequestNo' | translate }}"
+                 (ionBlur)="onBlurValidation($event,'^[0-9]{1,18}$',cshRequestNo)" minlength="1"
+                 maxlength="18" (keyup.enter)="keyboardClose()">
+      </ion-input>
+    </ion-item>
+    <div class="error1" *ngIf="isError && !groupOne.controls.cshRequestNo.valid">
+      {{'csh_requestno_mandatory' | translate}}
+    </div>
+
+    <div class="searchbarborder searchStyle">
+      <ion-label stacked color="label" [ngClass]="(disableControls?'disabledLabel': 'enabledLabel')">{{ 'rotationno' | translate }}
+      </ion-label>
+      <ion-searchbar style="padding-bottom: 0px;" type="tel" formControlName="rotationnumber"
+                     (ionInput)="getRotationNo($event)"
+                     [(ngModel)]="cshRotationNo" [disabled]="disableControls"
+                     (keyup)="keyUpValidate($event,'^[0-9]{0,18}$','rotationNumber')"
+                     (keyup.enter)="keyboardClose()" tappable
+                     onpaste="return true;"
+                     (ionFocus)="searchRotationMaster()"
+                     (ionChange)="checkRotation()"
+                     (ionBlur)="selectRotationNo(cshRotationNo)"
+                     minlength="1" maxlength="18"
+                     [ngClass]="(disableControls?'disabledLabel attachrowSeperator': 'enabledLabel attachrowSeperator')"></ion-searchbar>
+      <ion-list *ngIf="showRotationNo" class = "lastrow-android" style="width:95%;margin-top: 5px;"tappable>
+        <ion-item class = "last-row-left" *ngFor="let item of filterRotationArray" (mousedown)="setRotationNumber(item)" tappable>
+          {{ item.rotationNumber }}
+        </ion-item>
+      </ion-list>
+      <div class="searchbar-error" *ngIf="rotationInValid && isError && !groupOne.controls.rotationnumber.valid && !disableControls">
+        {{'csh_roationno_mandatory' | translate}}
+      </div>
+    </div>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">{{ 'vesselName' | translate }}
+      </ion-label>
+      <ion-input class="label-left" (keyup.enter)="keyboardClose()" spellcheck="false"
+                 formControlName="vesselname"
+                 placeholder="{{ 'vesselName' | translate }}"
+                 minlength="3" maxlength="255"
+                 (ionBlur)="vesselValidation($event,'3','255')"
+                 [disabled]="disableControls" type="text" [(ngModel)]="cshVesselName" tappable></ion-input>
+    </ion-item>
+    <div class="error1" *ngIf="isError && (cshVesselName.length >0 && (cshVesselName.length <3 || cshVesselName.length >255))">
+      {{'csh_vessel_mandatory' | translate}}
+    </div>
+    <ion-item>
+      <ion-label stacked color="label">{{ 'cshContainerNo' | translate }}
+      </ion-label>
+      <ion-input class="label-left" (keyup)="keyUpValidate($event,'^[a-zA-z0-9]{0,11}$','cshContainerNo')"
+                 formControlName="cshContainerNo" spellcheck="false"
+                 type="text" [(ngModel)]="cshContainerNo" [disabled]="disableControls"
+                 tappable placeholder="{{ 'cshContainerNo' | translate }}" minlength="10"
+                 (ionBlur)="validateContainer()" (paste)="onPaste($event)"
+                 maxlength="11" (keyup.enter)="keyboardClose()">
+      </ion-input>
+    </ion-item>
+    <div class="error1" *ngIf="isError && !groupOne.controls.cshContainerNo.valid">
+      {{'csh_container_no_mandatory' | translate}}
+    </div>
+
+    <div >
+      <ion-item >
+        <ion-label color="label" stacked>{{ 'created_from' | translate }}
+        </ion-label>
+        <ion-datetime placeholder="Created From Date"class="label-left dateTimeStyle"
+                      [disabled]="disableControls" displayFormat={{dateFormat}}
+                      [(ngModel)]="cshFromDate"
+                      formControlName="cshFromDate" max="{{currDate}}"
+                      tappable></ion-datetime>
+      </ion-item>
+      <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+    </div>
+
+
+    <div >
+      <ion-item >
+        <ion-label color="label" stacked>{{ 'created_to' | translate }}
+        </ion-label>
+        <ion-datetime placeholder="Created To Date" class="label-left dateTimeStyle" [disabled]="disableControls"
+                      displayFormat={{dateFormat}} [(ngModel)]="cshToDate"
+                      formControlName="cshToDate"
+                      max="{{currDate}}"
+                      tappable></ion-datetime>
+      </ion-item>
+      <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+    </div>
+
+  </form>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">{{ 'status' | translate }}
+      </ion-label>
+      <ion-select class="label-left vesselStatus" [(ngModel)]="cshstatus" [disabled]="disableControls" tappable>
+        <ion-option value="ALL">{{ 'All' | translate }}</ion-option>
+        <ion-option value="Submitted">{{ 'vesselstatus2' | translate }}</ion-option>
+        <ion-option value="Pending">{{ 'vesselstatus3' | translate }}</ion-option>
+        <ion-option value="Approved">{{ 'vesselstatus4' | translate }}</ion-option>
+        <ion-option value="Rejected">{{ 'vesselstatus6' | translate }}</ion-option>
+        <ion-option value="Cancelled">{{ 'vesselstatus7' | translate }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-row style="margin-top: 30px">
+      <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign button-apply-general"(click)="reset()" tappable>{{ 'rese-b' | translate }}</button>
+      </ion-col>
+      <ion-col class="imoitem" col-6>
+        <button  full color="submit" ion-button  class="buttonCenterAlign button-apply-general" (click)="showCshFilterResult()" tappable>{{ 'SEARCH' | translate }}</button>
+      </ion-col>
+    </ion-row>
+
+
+</ion-content>

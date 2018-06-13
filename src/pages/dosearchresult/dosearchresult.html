@@ -1,0 +1,153 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" class="doSearchResultTitle-ios">{{ 'do_order_title' | translate }}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="header" class="ion-toolbar-min-style">
+    <ion-row class="toprow">
+      <ion-col class="topcol">
+        <button color="header" id="sortId" full ion-button (click)="presentSortPopover($event)" tappable>
+          <img class="filterImg" src="assets/img/sort.svg"/>
+          Sort
+        </button>
+      </ion-col>
+      <ion-col class="topcol">
+        <button color="header" id="filterId" full ion-button (click)="presentFilterPopover($event)" tappable>
+          <img class="filterImg" src="assets/img/filter.svg"/>
+          Filter
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-toolbar color="milkygrey">
+    <ion-row class="countrow">
+      <ion-col>
+        <h6 class="countresult"> {{searchresults?.length}} out of {{searchresults?.length}} results </h6>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content no-bounce has-bounsing="false" class="searchcontent" id="doSearchResultContent">
+
+  <ion-list>
+
+    <div class="gridclass" *ngFor="let selDO of searchresults">
+
+      <ion-item-sliding>
+        <ion-item (click)="showdetails(selDO)" tappable>
+
+          <!--<ion-row tappable>-->
+            <!--<ion-col col-5>-->
+              <!--<h6 class="subheader1">DO Request No</h6>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 text-wrap>-->
+              <!--<h4 class="subheader2"> {{selDO.dORequestNoSearch}} </h4>-->
+            <!--</ion-col>-->
+
+          <!--</ion-row>-->
+
+
+          <!--<ion-row tappable>-->
+            <!--<ion-col col-5 text-wrap>-->
+              <!--<h6 class="subheader1">Agent Reference No</h6>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-4 text-wrap>-->
+              <!--<h6 class="subheader2"  >{{selDO.agentDoNoSearch}}</h6>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 class="statusStyle" text-wrap>-->
+              <!--<img  center class="approvedicon" [src]="getStatusIcon(selDO)"/>-->
+               <!--<h6 center class="status" [style.color]="getStyle(selDO)" >{{selDO.statusSearch}}</h6>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+
+          <!--<ion-row tappable>-->
+            <!--<ion-col col-5 text-wrap>-->
+              <!--<h6 class="subheader1">Rotation No (VIA No)</h6>-->
+            <!--</ion-col >-->
+            <!--<ion-col col-4 text-wrap>-->
+              <!--<h6 class="subheader2">{{selDO.rotationNumberSearch}}</h6>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3></ion-col>-->
+          <!--</ion-row>-->
+          <ion-row>
+            <ion-col col-9>
+              <ion-row class="subtitle">
+                <ion-col col-7 class="wrap-content">
+                  <h6 class="subheader1">DO Request No</h6>
+                </ion-col>
+                <ion-col>
+                  <h4 class="subheader2"> {{selDO.dORequestNoSearch}} </h4>
+                </ion-col>
+              </ion-row>
+              <ion-row class="subtitle">
+                <ion-col col-7 class="wrap-content">
+                  <h6 class="subheader1">Agent Reference No</h6>
+                </ion-col>
+                <ion-col text-wrap>
+                  <h6 class="subheader2"  >{{selDO.agentDoNoSearch}}</h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="subtitle">
+                <ion-col col-7 class="wrap-content">
+                  <h6 class="subheader1">Rotation No (VIA No)</h6>
+                </ion-col>
+                <ion-col text-wrap>
+                  <h6 class="subheader2">{{selDO.rotationNumberSearch}}</h6>
+                </ion-col>
+              </ion-row>
+
+            </ion-col>
+            <ion-col col-3>
+              <ion-row >
+                <ion-col class="statusStyle" text-wrap>
+                  <!--<img class="approvedicon" [src]="getStatusIcon(selDO)"/>-->
+                  <!--<h6 [style.color]="getStyle(selDO)">{{selDO.statusSearch}}</h6>-->
+                  <img  center class="approvedicon" [src]="getStatusIcon(selDO)"/>
+                  <h6 center [style.color]="getStyle(selDO)" >{{selDO.statusSearch}}</h6>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+
+        </ion-item>
+        <ion-item-options side="right">
+
+          <button [hidden]="hideEditOption(selDO)" (click)="onEditClick(selDO)" ion-button color="secondary" style="border: 1px solid white;" tappable>
+            <ion-icon name="custom-Edit" tappable></ion-icon>
+            Edit
+          </button>
+
+          <button (click)="onViewClick(selDO)" ion-button color="secondary" style="border: 1px solid white;" tappable>
+            <ion-icon name ="custom-view" tappable></ion-icon>
+            View
+          </button>
+
+          <button [hidden]="hideCancelButton(selDO)" ion-button color="secondary" style="border: 1px solid white;" (click)="cancelDO(selDO)" tappable>
+            <ion-icon name="custom-cancel" tappable></ion-icon>
+            Cancel
+          </button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </div>
+
+  </ion-list>
+
+<!--  <div style="text-align:center;" *ngIf="empty">
+    No data is available
+  </div>-->
+
+  <ion-fab right bottom>
+    <button ion-fab style="background-color: #F2B011;" (click)="openDOCreate()" tappable>
+      <ion-icon name="add" tappable></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
+

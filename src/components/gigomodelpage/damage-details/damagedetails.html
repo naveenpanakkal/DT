@@ -1,0 +1,197 @@
+<!-- Generated template for the imdgModelComponent component -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ 'damage-detials' | translate }}
+    </ion-title>
+    <ion-buttons start tappable>
+      <button ion-button (click)="close()" tappable style="color: white;">
+        <span ion-text showWhen="ios"> {{ 'ca_cancel_small' | translate }}</span>
+        <ion-icon name="md-close" style="color: white;width:40px;" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-bounce has-bounsing="false" padding id="caImgdModel">
+  <ion-row class="mainContainer-caImgdModel">
+    <div class="attach-caImgdModel">
+
+        <ion-grid>
+          <form [formGroup]="damageForm" noValidate>
+          <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'condition' | translate}}
+            </ion-col>
+            <ion-col col-6 style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input placeholder="{{'condition' | translate}}" onpaste="return true;"[(ngModel)]="damageCondition"
+                           spellcheck="false" minlength="1" maxlength="255" (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','condition')" formControlName="damageCondition"
+                           (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z ]{0,255}$',damageCondition)"
+                           tappable></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'location' | translate}}
+            </ion-col>
+            <ion-col col-6 style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input placeholder="{{'location' | translate}}"onpaste="return true;"
+                           [(ngModel)]="damageLocation" spellcheck="false"
+                           minlength="1" maxlength="255"(keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','location')"
+                           (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z ]{0,255}$',damageLocation)"
+                           tappable formControlName="damageLocation"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'item' | translate}}
+            </ion-col>
+            <ion-col col-6 style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input placeholder="{{'item' | translate}}" onpaste="return true;"
+                           [(ngModel)]="damageItem" spellcheck="false"
+                           minlength="1" maxlength="255" (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','item')"
+                           (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z ]{0,255}$',damageItem)"
+                           tappable formControlName="damageItem"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'count' | translate}}
+            </ion-col>
+            <ion-col col-6 style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input type="tel" placeholder="{{'count' | translate}}" onpaste="return true;"
+                           [(ngModel)]="damageCount" spellcheck="false" minlength="1"
+                           maxlength="5" (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','count')"formControlName="damageCount"
+                           (ionBlur)="onBlurValidation($event,'^[0-9]{0,5}$',damageCount)"
+                           tappable></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+            <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+              <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+                {{'width' | translate}}
+              </ion-col>
+              <ion-col col-6 style="padding-top: 0px;">
+                <ion-item class="pdgBtmZero" style="padding:0px;">
+                  <ion-input type="tel" placeholder="{{'width' | translate}}" onpaste="return true;"
+                             [(ngModel)]="damageWidth" spellcheck="false" minlength="1"
+                             maxlength="5" (keyup.enter)="keyboardClose()"
+                             (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','width')" formControlName="damageWidth"
+                             (ionBlur)="onBlurValidation($event,'^[0-9]{0,5}$',damageWidth)"tappable></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'height' | translate}}
+            </ion-col>
+            <ion-col col-6 style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input type="tel" placeholder="{{'height' | translate}}" onpaste="return true;"
+                           [(ngModel)]="damageHeight" spellcheck="false" minlength="1"
+                           maxlength="5" (keyup.enter)="keyboardClose()"
+                           (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','height')" formControlName="damageHeight"
+                           (ionBlur)="onBlurValidation($event,'^[0-9]{0,5}$',damageHeight)"tappable></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'length' | translate}}
+            </ion-col>
+            <ion-col col-6 style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input type="tel" placeholder="{{'length' | translate}}" onpaste="return true;"
+                           [(ngModel)]="damageLength" spellcheck="false"minlength="1"
+                           maxlength="5" (keyup.enter)="keyboardClose()" formControlName="damageLength"
+                           (keyup)="keyUpValidate($event,'^[0-9]{0,5}$','length')"
+                           (ionBlur)="onBlurValidation($event,'^[0-9]{0,5}$',damageLength)" tappable></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+            <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+              {{'remarks' | translate}}
+            </ion-col>
+            <ion-col col-6 class="pdgBtmZero" style="padding-top: 0px;">
+              <ion-item class="pdgBtmZero" style="padding:0px;">
+                <ion-input placeholder="{{'remarks' | translate}}" onpaste="return true;"
+                           [(ngModel)]="damageRemarks" spellcheck="false" minlength="1"
+                           maxlength="255" (keyup.enter)="keyboardClose()" formControlName="damageRemarks"
+                           (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','remarks')"
+                           (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z ]{0,255}$',damageRemarks)" tappable></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          </form>
+        </ion-grid>
+      <div>
+        <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;"
+                 *ngIf="uploadAttachment()">
+          <div class="col photo-button-col" style="width: 200px !important;float: left;display: inline-block;">
+            <button style="margin: 5px !important;padding: 5px !important;width:150px!important;max-width:150px!important;"
+                    class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block
+                    (click)="initializeAttachment()"
+                    tappable>Add Attachments
+              <ion-icon name="clipboard" class="photoicon"></ion-icon>
+            </button>
+          </div>
+        </ion-row>
+        <!--<ion-row *ngFor="let attachment of attachments" class="attachrowSeperator min-height-Css"-->
+        <ion-row class="attachrowSeperator min-height-Css"
+                 style="border-top: 0.55px solid #c8c7cc;" *ngFor="let attachment of attachments" >
+          <!--<div class="col photo-button-col" *ngIf="attachment.hideUploadButton" style="width: 125px !important;float: left;display: inline-block;">-->
+          <div class="col photo-button-col" *ngIf="attachment.hideUploadButton" style="width: 125px !important;float: left;display: inline-block;">
+            <!--<button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block-->
+            <!--(click)="uploadDocs(attachment)" tappable>Upload-->
+            <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block
+                    (click)="uploadDocs(attachment)"   tappable>Upload
+              <ion-icon name="clipboard" class="photoicon"></ion-icon>
+            </button>
+          </div>
+          <div [ngClass]="(attachment.hideUploadButton==false || attachment.fileName != null || attachment.fileName != EMPTY)?'removePadding uploadbutton-label':'removePadding uploadbutton-label-withoutbutton'"
+          (click)="displayAttachment(attachment)" tappable>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon"
+          style="margin-top: 20px !important;width:20px;height:20px;"
+          *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+          <ion-label class="wrap-content removeMargin photSelectedIconLabel filename underline " style="margin-top: 20px !important;padding-bottom: 10px;">
+          {{attachment.fileName}}
+          </ion-label>
+          </div>
+          <div class="removePadding removeMargin"
+               style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+            <!--<button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>-->
+            <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+              <ion-icon ios="ios-close" md="md-close"></ion-icon>
+            </button>
+          </div>
+          <div class="removePadding removeMargin"
+               style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+            <!--<button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()" tappable>-->
+            <button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()"  tappable>
+              <ion-icon ios="ios-add" md="md-add" style="font-size: 24px;"></ion-icon>
+            </button>
+          </div>
+        </ion-row>
+        <button class="button-apply-general footer-submit" style="margin-top: 30px;bottom: 5px;"  ion-button full
+                type="submit" color="submit" (click)="onOKClick()"  tappable>{{ 'gigo-save-label' | translate }}
+        </button>
+
+      </div>
+    </div>
+  </ion-row>
+</ion-content>

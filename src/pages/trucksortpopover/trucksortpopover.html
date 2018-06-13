@@ -1,0 +1,45 @@
+
+<ion-content no-bounce has-bounsing="false">
+
+  <ion-list class="popoverList">
+    <div class="divOverFloaw">
+<ion-label class="lab">
+   Sort By
+  <button class="sort" (click)="changeorder()" tappable>
+    <ion-icon [name]="getordericon()" class="sortIconStyle">
+    </ion-icon>
+  </button>
+</ion-label>
+
+<ion-list radio-group [(ngModel)]="sortselect">
+  <ion-item>
+    <ion-label>Truck Registration ID</ion-label>
+    <ion-radio value="truckRegID" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>License Plate Number</ion-label>
+    <ion-radio value="licPlateNo" tappable></ion-radio>
+  </ion-item>
+   <ion-item>
+    <ion-label>Owner Name</ion-label>
+    <ion-radio value="ownerName" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Registration Date</ion-label>
+    <ion-radio value="regDate" tappable></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Status</ion-label>
+    <ion-radio value="status" tappable></ion-radio>
+  </ion-item>
+</ion-list>
+    </div></ion-list>
+<ion-row class="options buttonHolder">
+  <ion-col class="topcol">
+<button class="buttonStyle border-right-colr" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>Reset</button>
+  </ion-col>
+  <ion-col class="topcol">
+<button class="buttonStyle border-left-colr" color="light" id="clearsubmit" full ion-button (click)="submit()" tappable>Done</button>
+  </ion-col>
+</ion-row>
+</ion-content>

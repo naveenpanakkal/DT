@@ -1,0 +1,153 @@
+page-services {
+  .toolbar-title {
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size: 2.1rem;
+  }
+  .logo {
+    width: 100%;
+    height: 2%;
+    text-align: center;
+    color: white;
+  }
+
+  .mawanilogo {
+    width: 50%;
+    margin-top: -10%;
+  }
+
+  ion-slide.swiper-slide {
+    height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  #men {
+    float: left;
+    position: absolute;
+    left: 2%;
+    color: white
+  }
+
+  ion-scroll {
+    white-space: nowrap;
+  }
+
+  img {
+  }
+
+  .col {
+    height: 95px !important;
+  }
+
+  .firstrow {
+    height: 20% !important;
+  }
+
+  .imgrow {
+    height: 23% !important;
+  }
+
+  .slide-zoom {
+    height: 100% !important;
+  }
+
+  .secslide {
+    margin-top: -115% !important;
+  }
+
+  .imgcol {
+    height: 50%;
+    width: 50%;
+  }
+  #notifications-badge {
+    background-color: red;
+    position: absolute;
+    bottom: 60%;
+    right: 0;
+    border-radius: 50%;
+    height: 85%;
+  }
+  .section {
+    display: inline-block;
+    white-space: nowrap;
+
+  }
+
+  .grid {
+    height: 80% !important;
+  }
+
+  .finalrow {
+    margin-bottom: 20%;
+  }
+  .gridimage {
+    background-color: $registration-image-bgcolor;
+    margin-right: 1%;
+  }
+
+  .image {
+    position: relative;
+    height: 50%;
+    text-align: center;
+    font-size: 0.75em;
+  }
+  .gridcaption {
+    height: 70px;
+    text-align: center;
+    padding: 5%;
+    margin-right: 1%;
+    font-size: 0.75em;
+  }
+
+  .gridlastcaption {
+    font-size: 0.75em;
+    padding-bottom: 30px;
+  }
+
+  #activebut {
+    border-radius: 50%;
+    height: 10px;
+    width: 5px;
+    background-color: #135E9F;
+  }
+
+  .inactivebut {
+    height: 10px;
+    width: 5px;
+    border-radius: 50%;
+
+  }
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: -0.4rem;
+    margin-bottom: 2%;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.5rem !important;
+  }
+
+  .footer {
+    text-align: center;
+    color: $footer-font-color;
+
+  }
+
+  .footrow {
+    padding-top: 7%;
+  }
+
+  #notifybadge {
+    float: right;
+  }
+
+  .popover-md .popover-content {
+    top: 10% !important;
+    left: 40% !important;
+
+  }
+  //media query starts here
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .mawanilogo {
+      margin-top: -13%;
+    }
+  }
+}

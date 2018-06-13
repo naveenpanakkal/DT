@@ -1,0 +1,349 @@
+<!--
+  Generated template for the CasearchdetailviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar #navbar color="header" class="detailsheader">
+    <ion-title class="title" >{{'gigo_create-title'| translate}}
+
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content  id="gigoeditview">
+
+  <div  style="padding-top: 3px;padding-left:5px;background-color:white">
+    <form [formGroup]="FormGroup1" style="height:auto;width:100%;">
+    <ion-row col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigo_loacation'| translate}} <span class="span star-color">*</span>
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col col-12 class="removePadding">
+        <ion-item style="padding:0px;min-height:2.7rem;">
+          <ion-label hidden color="dark" stacked class="headerVisibility"> {{'gigo_loacation'| translate}}
+          </ion-label>
+          <ion-select class="select" style="padding: 0px;width: 100%;max-width: 100%;" placeholder="{{'gigo_loacation' | translate}}"
+                      formControlName="location" (ionChange)="onLocationChanged()" [(ngModel)]="selectedModel.location" tappable >
+            <ion-option style="margin-top:8px;" value="">--Select--</ion-option>
+            <ion-option *ngFor="let key of locationMasterModel" value={{key.spLocationCode}}>{{key.spLocationName}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <div class="error1" *ngIf="containerError && !FormGroup1.controls.location.valid"
+             style="color:red;margin-top:-1px">
+          {{ 'gigo_mandatory' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigo_SP_Name'| translate}} <span class="span star-color">*</span>
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col col-12 class="removePadding">
+        <ion-item style="padding:0px;min-height:2.7rem;">
+          <ion-label hidden color="dark" stacked class="headerVisibility"> {{'gigo_SP_Name'| translate}}
+          </ion-label>
+          <ion-select class="select" style="padding: 0px;width: 100%;max-width: 100%;" placeholder="{{'gigo_SP_Name' | translate}}"
+                      formControlName="spname" [(ngModel)]="selectedModel.sPName" tappable>
+            <ion-option style="margin-top:8px;" value="">--Select--</ion-option>
+           <ion-option *ngFor="let sp of sublocationMasterModel" value={{sp.spSubLocationCode}} tappable>{{sp.spSubLocationName}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <div class="error1" *ngIf="containerError && !FormGroup1.controls.spname.valid"
+             style="color:red;margin-top:-1px">
+          {{ 'gigo_mandatory' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row  col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigo_movetype'| translate}} <span class="span star-color">*</span>
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col col-12 class="removePadding">
+        <ion-item style="padding:0px;min-height:2.7rem;">
+          <ion-label hidden color="dark" stacked class="headerVisibility"> {{'gigo_movetype'| translate}}
+          </ion-label>
+          <ion-select class="select" style="padding: 0px;width: 100%;max-width: 100%;"  placeholder="{{'gigo_movetype'| translate}}" (ionChange)="moveTypeSelected($event)"
+                      formControlName="moveType" [(ngModel)]="selectedModel.moveType" tappable>
+            <ion-option style="margin-top:8px;" *ngFor="let type of moveTypeList" value={{type.definedSetValueCode}}>{{type.definedSetValueIntMessage}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <div class="error1" *ngIf=" containerError && !FormGroup1.controls.moveType.valid"
+             style="color:red;margin-top:-1px">
+          {{ 'gigo_mandatory' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    </form>
+    <form [formGroup]="FormGroup2" style="height:auto;width:100%;">
+    <ion-row style="padding-bottom: 0px;padding-right:0px;" col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigo_truck_num' | translate}}<span class="span star-color">*</span>
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col class="removePadding" style="padding-top: 0px;" col-12>
+        <ion-item style="padding:0px;min-height:2.7rem;">
+        <ion-input style="margin-left:0px;" placeholder="{{'gigo_truck_num' | translate}}" [(ngModel)]="selectedModel.truckNumber"
+                   formControlName="truckNumber" (keyup.enter)="keyboardClose()"
+                   (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','truckNumber')"
+                   (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z]{0,18}$',selectedModel.truckNumber)" minlength="1" maxlength="18" spellcheck="false"></ion-input>
+        </ion-item>
+        <div class="error1" *ngIf="error && !FormGroup2.controls.truckNumber.valid"
+             style="color:red;margin-top:-1px">
+          {{ 'gigo_mandatory' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-bottom: 0px;padding-right:0px;" col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigo_driver_Name' | translate}}
+      </ion-col>
+    </ion-row>
+      <ion-row col-12>
+      <ion-col class="removePadding" style="padding-top: 0px;" col-12>
+        <ion-item style="padding:0px;min-height:2.7rem;">
+          <ion-input style="margin-left:0px;" placeholder="{{'gigo_driver_Name' | translate}}"  formControlName="driverName"
+                     [(ngModel)]="selectedModel.driverName" (keyup.enter)="keyboardClose()"
+                     (keyup)="keyUpValidate($event,'^[0-9a-zA-Z ]{0,255}$','driverName')"
+                     (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z ]{0,255}$',selectedModel.driverName)" minlength="1" maxlength="255" spellcheck="false" tappable></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-bottom: 0px;padding-right:0px;" col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigo_reference_no' | translate}}
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col class="removePadding" style="padding-top: 0px;" col-12>
+        <ion-item style="padding:0px;min-height:2.7rem;">
+          <ion-input style="margin-left:0px;" placeholder="{{'gigo_reference_no' | translate}}" formControlName="refNo"
+                     [(ngModel)]="selectedModel.referenceNo" (keyup.enter)="keyboardClose()"
+                     (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,30}$','referenceNo')"
+                      (ionBlur)="verifyRefNo($event,'^[0-9a-zA-Z]{0,30}$',selectedModel.referenceNo)" minlength="1" maxlength="30" spellcheck="false" tappable></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+      <ion-row col-12>
+      <ion-col col-12 class="removePadding ion-col-left-color boldStyle">
+        {{'gigoDate_Time' | translate}} <span class="span star-color">*</span>
+      </ion-col>
+      </ion-row>
+    <ion-row col-12>
+      <ion-col class="removePadding" col-12 class="removePadding">
+        <ion-item style="padding-left: 0px;min-height:2.7rem;">
+          <ion-datetime style="padding-left:0px;" class="appointment-date-time" formControlName="gigoDate" [(ngModel)]="gigoDate" max={{maxvalue}}
+                         displayFormat={{dateTimeFormat}} placeholder={{dateTimeFormatplaceHolder}} tappable></ion-datetime>
+        </ion-item>
+
+        <ion-icon class="cal" name="calendar" color="header" tappable></ion-icon>
+        <div class="error1" *ngIf="error && !FormGroup2.controls.gigoDate.valid"
+             style="color:red;margin-top:-1px">
+          {{ 'gigo_mandatory' | translate }}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    </form>
+    <div *ngFor="let item of gigoContainerDetailsSO; let selectedTabIndex = index;" tappable>
+      <div class="attach-headder" style="margin-top: 0px;padding: 0;" >
+        <div class="accordionSection" (click)="openSelecedTab(selectedTabIndex)" tappable>
+          <div class="cont_head verticalAlign" >
+            <div  [ngClass]="(selectedTabsIndex==selectedTabIndex)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright">
+              </ion-icon>
+            </div>
+          </div>
+          <ion-label class="cont_label verticalAlign" style="width: calc(100% - 20px);" >
+            {{gigoTabheader}} {{selectedTabIndex+1}}
+          </ion-label>
+        </div>
+        <div class="iconSection">
+          <ion-icon  name="trash" class="iconGeneral verticalAlign" *ngIf="showDeleteIcon()" (click)="closeContainer(item)" tappable
+                     style="margin-left:2px"></ion-icon>
+          <ion-icon ios="ios-add" md="md-add" class="iconGeneral pullRightToContainer verticalAlign" (click)="addContainer()" tappable></ion-icon>
+
+        </div>
+
+
+      </div>
+      <div style="min-width:345px;background-color: white;"
+           [ngClass]="(selectedTabsIndex==selectedTabIndex) ? 'subheaderContianerDetails': 'hideSubheaderContianerDetails'">
+
+        <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_chassis_no' | translate}}<span class="span star-color">*</span>
+          </ion-col>
+          <ion-col style="padding-top: 0px;">
+            <ion-item style="padding:0px;">
+              <ion-input placeholder="{{'gigo_chassis_no' | translate}}" [(ngModel)]="item.chassisNo" (keyup.enter)="keyboardClose()"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,18}$','chassisNo',selectedTabIndex)"
+                         (ionBlur)="onBlurValidation($event,'^[0-9a-zA-Z]{0,18}$',item.chassisNo)" minlength="1" maxlength="18" spellcheck="false" tappable></ion-input>
+            </ion-item>
+            <div class="error1" *ngIf="error && !(validateChasisNo(selectedTabIndex))"
+                 style="color:red;margin-top:-1px">
+              {{ 'gigo_mandatory' | translate }}
+            </div>
+          </ion-col>
+
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" style="padding-bottom: 0px;padding-right:0px;" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_container_no' | translate}}
+          </ion-col>
+          <ion-col style="padding-top: 0px;">
+            <ion-item style="padding:0px;">
+              <ion-input placeholder="{{'gigo_container_no' | translate}}" [(ngModel)]="item.containerNo" (keyup.enter)="keyboardClose()"
+                         (keyup)="keyUpValidate($event,'^[0-9a-zA-Z]{0,11}$','containerNo',selectedTabIndex)" (ionChange) = "containerNochange(selectedTabIndex)"
+                         (ionBlur)="verifyContainerNo(item, selectedTabIndex)" minlength="10" maxlength="11" spellcheck="false" tappable></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator reqType padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_requesttype'| translate}}<span *ngIf="item.showSealButtton" class="span star-color">*</span>
+          </ion-col>
+          <ion-col col-6 class="removePadding">
+            <ion-item style="padding-left:10px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility"> {{'gigo_requesttype'| translate}}
+              </ion-label>
+              <ion-select class="select" style="width: 100%;max-width: 100%;" [(ngModel)]="item.requestType" (ionChange)="onRequestTypeChanged(item)">
+                <ion-option *ngFor="let type of item.requesttypeList" value={{type.definedSetValueCode}}>{{type.definedSetValueIntMessage}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <div class="error1" *ngIf="error && item.showSealButtton && !(validateRequestType(selectedTabIndex))"
+                 style="color:red;margin-top:-1px">
+              {{ 'gigo_mandatory' | translate }}
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_request_no'| translate}}
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle" style="margin-left: 10px;" text-wrap>{{item.requestNo}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_iso_code'| translate}}
+          </ion-col>
+          <ion-col col-6 class="ion-col-minheight-nopadding">
+            <ion-label class="label-span-alignment boldStyle" style="margin-left: 10px;" text-wrap>{{item.isoCode}}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_laden_status'| translate}}<span *ngIf="item.showSealButtton" class="span star-color">*</span>
+          </ion-col>
+          <ion-col col-6 class="removePadding">
+            <ion-item style="padding-left:10px;">
+              <ion-label hidden color="dark" stacked class="headerVisibility"> {{'gigo_laden_status'| translate}}
+              </ion-label>
+              <ion-select class="select" style="width: 100%;max-width: 100%;" [(ngModel)]="item.ladenStatus">
+                <ion-option *ngFor="let status of ladenStatusList" value={{status.definedSetValueCode}}>{{status.definedSetValueIntMessage}}</ion-option>
+              </ion-select>
+            </ion-item>
+              <div class="error1" *ngIf="error && item.showSealButtton && !(validateLadenStatus(selectedTabIndex))"
+                   style="color:red;margin-top:-1px">
+                {{ 'gigo_mandatory' | translate }}
+              </div>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_damage_details'| translate}}
+          </ion-col>
+          <ion-col col-6 class="removePadding">
+
+            <button class="button-apply-general " (click) = "damageDetailsmodel(item)" style="margin-top: 5px;bottom: 0px;margin-left: 10px;"  ion-button full
+                    type="submit" color="submit"  tappable>
+              {{'gigo_damage_details'| translate}}
+            </button>
+
+          </ion-col>
+        </ion-row>
+        <ion-row class="rowSeperator padding-left-row" col-12>
+          <ion-col col-6 class="ion-col-minheight-nopadding ion-col-left-color boldStyle">
+            {{'gigo_seal_details'| translate}}
+          </ion-col>
+          <ion-col col-6 class="removePadding">
+
+
+            <button class="button-apply-general " *ngIf="item.showSealButtton" (click) = "sealDetailsmodel(item)" style="margin-left:10px;margin-top: 5px;bottom: 0px;"  ion-button full
+                    type="submit" color="submit"  tappable>
+              {{'gigo_seal_details'| translate}}
+            </button>
+
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+
+    <div style="height:100%;margin-top: 10px;margin-bottom: 10px;" >
+      <ion-row class="attachrowSeperator min-height-Css" style="border-top: 0px solid #c8c7cc;" *ngIf="uploadAttachment()">
+        <div class="col photo-button-col" style="width: 200px !important;float: left;display: inline-block;">
+          <button style="margin: 5px !important;margin-left:0px!important; padding: 5px !important;width:150px!important;max-width:150px!important;"
+                  class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block (click)="initializeAttachment()"
+                  tappable>Add Attachments
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <ion-row  class="attachrowSeperator min-height-Css" style="border-top: 0.55px solid #c8c7cc;" *ngFor="let attachment of attachments" >
+        <div class="col photo-button-col" style="width: 125px !important;float: left;display: inline-block;" *ngIf="attachment.hideUploadButton">
+          <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit" block  (click)="uploadDocs(attachment)" tappable>Upload
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+        <div [ngClass]="(attachment.hideUploadButton==false || attachment.fileName != null || attachment.fileName != EMPTY)?'removePadding uploadbutton-label':'removePadding uploadbutton-label-withoutbutton'" (click)="displayAttachment(attachment)" tappable>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon"
+               style="margin-top: 20px !important;width:20px;height:20px;" *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+          <ion-label class="wrap-content removeMargin photSelectedIconLabel filename underline " style="margin-top: 20px !important;padding-bottom: 10px;">
+            {{attachment.fileName}}
+          </ion-label>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+            <ion-icon ios="ios-close" md="md-close"></ion-icon>
+          </button>
+        </div>
+        <div class="removePadding removeMargin"
+             style="width: 60px !important;max-height: 80px;float: left;display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="addAttachment()" tappable>
+            <ion-icon ios="ios-add" md="md-add" style="font-size: 24px;"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <button class="button-apply-general footer-submit" style="margin-top: 20px;bottom: 10px;"  ion-button full
+              (click)="submit()" type="submit" color="submit"  tappable>
+        Submit
+      </button>
+    </div>
+  </div>
+
+</ion-content>

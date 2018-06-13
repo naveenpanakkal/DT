@@ -1,0 +1,13 @@
+{
+  "SETTINGS": "paramètres",	
+  "HOME": {
+    "TITLE": "Quelle langue vous voulez?",
+    "SELECT": "Choisissez la langue"
+  },
+  
+   "Register": "Registre",
+   
+   "Vessel" : "navire",
+   "Registration" : "enregistrement",
+   "Truck" : "un camion"
+}

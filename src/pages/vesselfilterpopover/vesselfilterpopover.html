@@ -1,0 +1,157 @@
+<ion-content no-bounce has-bounsing="false">
+
+  <ion-list class="popoverList">
+    <div class="divOverFloaw">
+    <div *ngFor="let p of pages">
+      <button ion-item (click)="toggleDetails(p)">
+        <span class="titles"><b>{{p.title}}</b></span>
+        <span><ion-icon class="dropdown"
+                        *ngIf="p.title =='Vessel Registration ID' ||  p.title =='Vessel Name' ||  p.title=='IMO/SIN Number' || p.title =='Vessel Type' ||
+                         p.title=='Created Date' || p.title =='Status'"
+                        [name]="getIcon(p)" float-right tappable></ion-icon></span>
+      </button>
+
+      <form [formGroup]="groupOne" noValidate>
+
+        <div *ngIf="p.title=='Vessel Registration ID' && p.showDetails" color="collapse">
+          <ion-item>
+            <ion-input type="tel" (keyup.enter)="keyboardClose()"
+                       formControlName="regid"
+                       onpaste="return true;"
+                       (keyup)="keyUpValidate($event,'^[0-9]{0,19}$','vesselReg')"
+                       placeholder="{{ 'vregplaceholder' | translate }}"
+                       [(ngModel)]="vesselReg" spellcheck="false" tappable></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.regid.valid"></div>
+        </div>
+
+        <div *ngIf="p.title=='Vessel Name' && p.showDetails" color="collapse">
+          <ion-item>
+            <ion-input type="text" (keyup.enter)="keyboardClose()"
+                       formControlName="name"
+                       maxlength="50"
+                       onpaste="return true;"
+                       (keyup)="keyUpChecker($event)"
+                       placeholder="{{ 'vnameplaceholder' | translate }}"
+                       [(ngModel)]="vesselName"
+                       maxlength="50" spellcheck="false" tappable></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.name.valid"></div>
+        </div>
+
+        <div *ngIf="p.title=='IMO/SIN Number' && p.showDetails" color="collapse">
+          <ion-item>
+            <ion-input type="tel" name="imoInputText" (keyup.enter)="keyboardClose()"
+                       formControlName="imosin"
+                       placeholder="{{ 'vimoplaceholder' | translate }}" [(ngModel)]="vesselImo"
+                       onpaste="return true;"
+                       (keyup)="keyUpCheckforNumber($event)" spellcheck="false" tappable
+                       ></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.imosin.valid"></div>
+        </div>
+
+      </form>
+
+      <div *ngIf="p.title=='Vessel Type' && p.showDetails" color="collapse">
+
+        <ion-list radio-group [(ngModel)]="vesselType" tappable>
+          <ion-item>
+            <ion-label class="greyStyle">All</ion-label>
+            <ion-radio value="All" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'BULKCARRIER' | translate }}</ion-label>
+            <ion-radio value="BULKCARRIER" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'OILTANKER' | translate }}</ion-label>
+            <ion-radio value="OILTANKER" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'LIVESTOCKCARRIER' | translate }}</ion-label>
+            <ion-radio value="LIVESTOCKCARRIER" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'LNGCARRIER' | translate }}</ion-label>
+            <ion-radio value="LNGCARRIER" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'CONTAINERVESSEL' | translate }}</ion-label>
+            <ion-radio value="CONTAINERVESSEL" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'DRYCARGO' | translate }}</ion-label>
+            <ion-radio value="DRYCARGO" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'VEHICLECARRIER' | translate }}</ion-label>
+            <ion-radio value="VEHICLECARRIER" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div *ngIf="p.title=='Created Date' && p.showDetails" color="collapse">
+
+        <ion-item>
+          <ion-label>{{ 'FROM' | translate }}</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} min="1960-01-01" max={{maxvalue}} [(ngModel)]="createdFromDate"
+                        tappable></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{ 'TO' | translate }}</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} min="1960-01-01" max={{maxvalue}} [(ngModel)]="createdToDate"
+                        tappable></ion-datetime>
+        </ion-item>
+
+      </div>
+
+      <div *ngIf="p.title=='Status' && p.showDetails" color="collapse">
+
+        <ion-list radio-group [(ngModel)]="filterSelected" tappable>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus1' | translate }}</ion-label>
+            <ion-radio value="All" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus2' | translate }}</ion-label>
+            <ion-radio value="Submitted" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus3' | translate }}</ion-label>
+            <ion-radio value="Pending" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus4' | translate }}</ion-label>
+            <ion-radio value="Approved" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus5' | translate }}</ion-label>
+            <ion-radio value="Suspended" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus6' | translate }}</ion-label>
+            <ion-radio value="Rejected" tappable></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label class="greyStyle">{{ 'vesselstatus7' | translate }}</ion-label>
+            <ion-radio value="Cancelled" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+
+      </div>
+
+    </div>
+    </div>
+  </ion-list>
+  <ion-row class="options buttonHolder">
+      <ion-col class="topcol">
+        <button class="buttonStyle border-right-colr" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>{{ 'rese-b' | translate }}</button>
+      </ion-col>
+      <ion-col  class="topcol">
+      <button [disabled]="!groupOne.valid" class="buttonStyle border-left-colr" color="light" id="clearsubmit" tappable
+              full ion-button (click)="submit()">{{ 'SEARCH' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

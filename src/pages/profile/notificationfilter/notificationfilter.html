@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Filter' | translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  no-bounce has-bounsing="false" id="notificationsFilter">
+  <form  novalidate style="padding-right: 10px">
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Service Provider
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="Sea Port">Sea Port</ion-option>
+        <ion-option value="cfs">CFS</ion-option>
+        <ion-option value="shippingLine">Shipping Line</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Location
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="kochi">Kochi</ion-option>
+        <ion-option value="chennai">Chennai</ion-option>
+        <ion-option value="mumbai">Mumbai</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Service name
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="Registration">Registration</ion-option>
+        <ion-option value="Marine">Marine</ion-option>
+        <ion-option value="Invoice">Invoice</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Notification Type
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="Registration">Registration</ion-option>
+        <ion-option value="Approvals">Approvals</ion-option>
+        <ion-option value="Others">Others</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Importance
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="Yes">Yes</ion-option>
+        <ion-option value="No">No</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Event Category
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="Workflow">Workflow</ion-option>
+        <ion-option value="CRUD">CRUD</ion-option>
+        <ion-option value="Finance">Finance</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Received
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="Today">Today</ion-option>
+        <ion-option value="Yesterday">Yesterday</ion-option>
+        <ion-option value="This week">This week</ion-option>
+        <ion-option value="Last week">Last week</ion-option>
+        <ion-option value="This month">This month</ion-option>
+        <ion-option value="Last month">Last month</ion-option>
+        <ion-option value="This quarter">This quarter</ion-option>
+        <ion-option value="Last Quarter">Last Quarter</ion-option>
+        <ion-option value="This year">This year</ion-option>
+        <ion-option value="Last year">Last year</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Show
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="All">All</ion-option>
+        <ion-option value="Read">Read</ion-option>
+        <ion-option value="UnRead">UnRead</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelmargin" stacked color="label">Status
+      </ion-label>
+      <ion-select class="label-left vesselStatus"  tappable>
+        <ion-option value="All">All</ion-option>
+        <ion-option value="Active">Active</ion-option>
+        <ion-option value="Archived">Archived</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-row style="margin-top: 30px;padding-bottom: 25px;">
+      <ion-col class="imoitem" col-6>
+        <button full color="submit" ion-button  class="buttonCenterAlign button-apply-general"
+                (click)="reset()" tappable>{{ 'rese-b' | translate }}</button>
+      </ion-col>
+      <ion-col class="imoitem" col-6>
+        <button  full color="submit" ion-button  class="buttonCenterAlign button-apply-general"
+                 (click)="showNotificatiosFilterResult()" tappable>{{ 'SEARCH' | translate }}</button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" >{{ 'Sort' | translate }}
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-bounce has-bounsing="false" class="removeScroll" >
+  <div >
+    <ion-row>
+      <ion-col class="removePadding sortOrderStyle"  col-8>
+        {{ 'Sortby' | translate }}
+      </ion-col>
+      <ion-col class="removePadding sortOption"  col-4>
+        <label class="toggleButtonCenterAlign" style="margin-top: 20px" >{{sortMode}}</label>
+        <ion-toggle class="toggleButtonCenterAlign" [(ngModel)]="ascend" (ngModelChange)="changeorder()"
+                    style="display: inline-block">
+        </ion-toggle>
+      </ion-col>
+    </ion-row>
+    <div style="overflow-y: auto; height: auto;
+                          overflow-x:hidden;-webkit-overflow-scrolling: touch;">
+    <ion-list radio-group [(ngModel)]="sortselect" style="padding-right: 10px;" tappable>
+      <ion-item>
+        <ion-label>{{ 'ch_hold_request_no' | translate }}</ion-label>
+        <ion-radio value="chholdrequestno" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ch_reference_no' | translate }}</ion-label>
+        <ion-radio value="chreferenceno" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ch_designation' | translate }}</ion-label>
+        <ion-radio value="chdesignation" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ch_container_category' | translate }}</ion-label>
+        <ion-radio value="chcontainercategory" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ch_holdaction' | translate }}</ion-label>
+        <ion-radio value="chholdaction" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ch_holdenddateandtime' | translate }}</ion-label>
+        <ion-radio value="chholdenddateandtime" tappable></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'ch_status' | translate }}</ion-label>
+        <ion-radio value="chstatus" tappable></ion-radio>
+      </ion-item>
+    </ion-list>
+    </div>
+  </div>
+  <ion-row class="bottomButtons">
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general"(click)="clear()" tappable>
+        {{ 'rch_reset' | translate }}</button>
+    </ion-col>
+    <ion-col class="imoitem" col-6>
+      <button full color="submit" ion-button  class="buttonCenterAlign  button-apply-general" (click)="submit()" tappable>
+        {{ 'rch_done' | translate }}</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

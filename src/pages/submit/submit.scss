@@ -1,0 +1,130 @@
+page-submit {
+.toolbar-title{
+        font-weight: $header-title-font-weight !important;
+        text-align: center;
+    }
+
+    .title{
+          position : relative;
+		  right : 6%;
+   }
+
+
+    #notifybadge{
+        float:right;
+    }
+
+    .detailcontent{
+   position : relative;
+        z-index : 1;
+   }
+
+   #notifications-badge {
+        background-color: red;
+        position: absolute;
+        bottom: 60%;
+        right: 0;
+       border-radius: 50%;
+           height: 85%;
+        }
+
+   .labels{
+top: 30%;
+    position: relative;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: medium;
+    text-align: left;
+    margin-left: 20%;
+    color: #000 !important;
+
+   }
+
+   .values{
+top: 30%;
+    position: relative;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: medium;
+    text-align: left;
+    margin-left: 20%;
+    color: #9C8F8D;
+   }
+
+
+   .vname{
+    opacity : 0.9;
+    text-align: center;
+   }
+    .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+   .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.fabedit{
+
+      margin-right : 200%;
+                  position : relative;
+                  bottom : 25px;
+                  font-weight : normal;
+                  color : white;
+                  /*background-color: #E8A808;*/
+                  padding: 6px;
+                  border-radius: 0.6em;
+
+}
+
+
+	.approvedicon{
+height: 50px;
+    width: 50px;
+    text-align: center;
+    position: relative;
+    margin-top: 12%;
+
+	}
+
+    #divv{
+        text-align: center;
+    }
+	.status{
+	      text-align: center;
+    margin-top: 3%;
+    font-weight: normal;
+    color : green;
+	}
+	.edit{
+	   background-color: $icon-highlight-bg-color-onfocus;
+	   margin-bottom : 20%;
+	   margin-right : 15%;
+
+	}
+.ion-md-checkmark-circle:before {
+    content: "\f2bb";
+    font-size: 3em;
+    color: $approved-button-color;
+}
+.details {
+
+		text-align: center;
+		    line-height: -1;
+		 top : 20%;
+
+	}
+	.scroll-content {
+   margin-top: 45px !important;
+}
+}

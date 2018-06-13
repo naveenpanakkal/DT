@@ -1,0 +1,197 @@
+page-cshdetailsview {
+  .filters {
+    ion-col {
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+      ion-icon {
+        color: #ccc;
+      }
+      &.col-with-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    p {
+      color: #fff;
+      margin: 0;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+    }
+
+    .selected {
+      border-bottom: 5px solid lightblue;
+    }
+  }
+  .filenameStyle{
+    max-width:288px;
+    color:#5078a0;
+    padding-left: 5px !important;
+    margin-top: 0px !important;
+    display:inline-block !important;
+  }
+  .imgStyle{
+    max-width: 40px;
+    margin-top: 4px !important;
+    margin-right:5px;
+    float: left;
+    display: inline-block;
+  }
+  .remarks{
+    max-width: 170px;
+  }
+  .boldStyle
+  {
+    font-weight: 500;
+  }
+  .detailsheader
+  {
+    height:70px;
+  }
+  .toolbar-title {
+    font-weight: $header-title-font-weight !important;
+    text-align: center;
+    font-size: 2rem;
+  }
+  .selectStyle{
+    flex: 0 0 10%;
+  }
+  .title {
+    position: relative;
+    right: 6%;
+  }
+  .underline {
+    text-decoration: underline;
+  }
+
+  .statusStyle {
+    font-size: 1.3rem;
+    color:#a0a0a0 !important;
+    font-weight: 500;
+  }
+  .edit{
+    background-color: $icon-highlight-bg-color-onfocus;
+    margin-bottom : 20%;
+    margin-right : 15%;
+  }
+  .fabedit{
+    margin-right : 200%;
+    position : relative;
+    bottom : 25px;
+    font-weight : normal;
+    color : white;
+    /*background-color: #E8A808;*/
+    padding: 6px;
+    border-radius: 0.6em;
+  }
+  .fab-in-list.show {
+    opacity: 1;
+    background-color: darkgray;
+    color: white;
+    visibility: visible;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .fab-in-list {
+    margin: -16px 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  .tool {
+    margin-top: -1%;
+    width: 100% !important;
+  }
+  .label-span-alignment{
+    display: inline-block;
+    margin: 0px;padding: 0px;
+    margin-top: 4px;
+    float: left;
+  }
+  .padding-left-row
+  {
+    padding-left: 10px;
+  }
+  .calculate-height
+  {
+    position:relative;
+    height:calc((100% - 50px)) !important;
+
+  }
+  .rotateIconDown {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  .rotateIconUp {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .attach-container-details .col {
+    padding: 0px !important;
+  }
+  .inner-scroll-container{
+    //position: absolute;
+    //will-change: transform;
+    height:auto;
+  }
+  @media only screen
+  and (min-device-width : 768px)
+  and (max-device-width : 1024px) {
+    .remarks {
+      max-width: 365px;
+    }
+    .selectStyle{
+      flex: 0 0 5%;
+    }
+    .filenameStyle {
+      max-width: 686px;
+    }
+  }
+}
+
+.platform-ios page-vesselloaddischargesummarydetails .scroll-content
+{
+  padding: 0px !important;
+  //overflow-y: hidden;
+}
+.platform-ios page-vesselloaddischargesummaryfilter .scroll-content
+{
+  padding: 0px !important;
+  padding-right: 15px !important;
+}
+.platform-ios  page-vesselloaddischargesummaryfilter .toolbar-title-ios {
+  color: #fff;
+  position: relative;
+  bottom: 10px;
+}
+.platform-ipad  page-vesselloaddischargesummarysearchresult .toolbar-title-ios {
+    color: #fff;
+  position: relative;
+  bottom: 0px;
+}
+.platform-ios page-vesselloaddischargesummarysearchresult .toolbar-title-ios {
+  color: #fff;
+  position: relative;margin-right:30px;
+  bottom: 10px;
+}
+.platform-ios page-vesselloaddischargesummarysearchresult .scroll-content
+{
+  padding-top: 0px !important;
+}
+.platform-iphone page-vesselloaddischargesummarydetails .toolbar-ios ion-title {
+  padding: 5px !important;
+  top: 8px;
+}
+.platform-ios page-cshdetailsview .scroll-content {
+  margin-top: 36px !important;
+  margin-bottom: 49px;
+  padding-left:0px !important;
+  padding-right:0px !important;
+}

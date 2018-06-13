@@ -1,0 +1,66 @@
+<ion-header>
+
+  <ion-navbar color="header" id="header">
+    <ion-title class="title" class="truckHistory-ios">Amendment History
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-bounce has-bounsing="false" style="background-color:#E8E6E6" id="truckHistoryContent">
+
+  <div class="attach" (click)="show(historyList)" *ngFor="let historyList of truckHistoryResponseList;let i = index" tappable>
+    <div style="padding-top:7px">
+      History {{truckHistoryResponseList.length-i}}
+      <ion-icon [name]="geticon(historyList)" class="image" tappable></ion-icon>
+    </div>
+
+
+    <div *ngIf="historyList.showdetails" class="subheader">
+      <ion-grid (click)="openView(historyList.requestNo)" tappable>
+        <ion-row>
+          <ion-col>
+            Request ID:
+          </ion-col>
+          <ion-col >
+            {{historyList.requestNo}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Action:
+          </ion-col>
+          <ion-col>
+            {{historyList.actionName}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Status:
+          </ion-col>
+          <ion-col>
+            {{historyList.status}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Registration Date:
+          </ion-col>
+          <ion-col>
+            {{historyList.createdDate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Last Modified Date:
+          </ion-col>
+          <ion-col>
+            {{historyList.lastModifiedDate}}
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+  </div>
+
+</ion-content>

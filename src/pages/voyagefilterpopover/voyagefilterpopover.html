@@ -1,0 +1,170 @@
+<ion-content no-bounce has-bounsing="false" >
+  <ion-list class="filterHeight">
+    <div *ngFor="let p of pages">
+      <button [hidden]="p.hide" ion-item (click)="toggleDetails(p)" tappable><!--<span><ion-icon [name]="p.image" class="menuimage" item-left></ion-icon></span>-->
+
+        <span class="titles"><b>{{p.title}}</b></span>
+        <span><ion-icon class="dropdown" *ngIf="p.title=='Rotation Number' || p.title =='Vessel Name' || p.title =='Shipping Line'
+         || p.title =='Date' || p.title=='Ports' || p.title=='Terminals' || p.title=='Duration' || p.title=='Operational Status'
+          || p.title=='Trade Type' || p.title=='Container No' || p.title=='Booking Reference No.' || p.title=='DO No' || p.title=='Bill of Lading' || p.title=='Customs Declaration No'"
+                        [name]="getIcon(p)" float-right tappable>
+        </ion-icon></span>
+      </button>
+      <div  *ngIf="p.title=='Rotation Number' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input type="tel" placeholder="Rotation Number"
+                     (keyup)="keyUpValidate($event,'^((?!(0))[0-9]*)$','rotationNumber')"
+                     [(ngModel)]="voyageEnquirySearchRequestModel.rotationNumberSearch"
+                     [disabled]="rotationNoHidden" (keyup.enter)="keyboardClose()"
+                     (ionChange)="rotationnoChange()"  maxlength="6" spellcheck="false" tappable></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.rotationNumberSearch,'^((?!(0))[0-9]*)$')"></div>
+      </div>
+      <div  *ngIf="p.title=='Vessel Name' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input placeholder="Vessel Name"  type="text"
+                     (keyup)="keyUpValidate($event,inputStringPattern,'vesselName')"
+                     [disabled]="vesselNameHidden" (keyup.enter)="keyboardClose()" spellcheck="false"
+                     [(ngModel)]="voyageEnquirySearchRequestModel.vesselNameSearch" tappable></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.vesselNameSearch,inputStringPattern)"></div>
+      </div>
+      <div *ngIf="p.title=='Shipping Line' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input placeholder="Shipping Line" type="text"
+                     (keyup)="keyUpValidate($event,inputStringPattern,'shippingLine')"
+                     [disabled]="shippingLineHidden" (keyup.enter)="keyboardClose()" spellcheck="false"
+                     [(ngModel)]="voyageEnquirySearchRequestModel.shippingLineSearch" tappable></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.shippingLineSearch,inputStringPattern)"></div>
+      </div>
+      <div class="change-property" *ngIf="p.title=='Ports' && p.showDetails" color="collapse">
+        <ion-list *ngFor="let obj of ports">
+          <ion-item class="item_1">
+            <ion-label class="lab1">{{obj.portName}}</ion-label>
+            <ion-checkbox [disabled]="portHidden" [(ngModel)]="obj.status" (ionChange)="portChange()" tappable></ion-checkbox>
+          </ion-item>
+        </ion-list>
+        <ion-item >
+          <button ion-button [disabled]="portHidden" class= "terminalButtonStyle" (click)="setPorts(true)" tappable>Select all</button>
+          <button ion-button [disabled]="portHidden" class= "terminalButtonStyle" (click)="setPorts(false)" tappable>Deselect all</button>
+        </ion-item>
+      </div>
+      <div class="change-property terminals" *ngIf="p.title=='Terminals' && p.showDetails" color="collapse">
+        <ion-list *ngFor="let obj of terminals" radio-group tappable>
+          <ion-item class="item_1">
+            <ion-label class="lab1">{{obj.terminalName}}</ion-label>
+            <ion-checkbox [disabled]="terminalHidden" [(ngModel)]="obj.status" (ionChange)="terminalChange()" tappable></ion-checkbox>
+          </ion-item>
+        </ion-list>
+        <ion-item *ngIf="terminals.length>0">
+          <button ion-button [disabled]="terminalHidden" class= "terminalButtonStyle" (click)="setTerminal(true)" tappable>Select all</button>
+          <button ion-button [disabled]="terminalHidden" class= "terminalButtonStyle"  (click)="setTerminal(false)" tappable>Deselect all</button>
+        </ion-item>
+      </div>
+      <div *ngIf="p.title=='Duration' && p.showDetails" color="collapse">
+        <ion-list  *ngFor="let obj of duration" radio-group [(ngModel)]="voyageEnquirySearchRequestModel.durationSearch" tappable>
+          <ion-item class="item_1" text-wrap>
+            <ion-label class="lab1">{{obj.definedSetValueIntMessage}}</ion-label>
+            <ion-radio [disabled]="durationHidden" (ionSelect)="onDurationChanged()" value="{{obj.definedSetValueCode}}" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div  *ngIf="p.title=='Date' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-label>ETA From</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} class="voyageFilterDate"
+                        max={{maxDate}}  min={{minDate}} [(ngModel)]="voyageEnquirySearchRequestModel.etaFromDateSearch"
+                        [disabled]="etaHidden" tappable>
+
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>ETA To</ion-label>
+          <ion-datetime displayFormat={{dateFormat}} class="voyageFilterDate"
+                        max={{maxDate}} min={{minDate}} [(ngModel)]="voyageEnquirySearchRequestModel.etaToDateSearch"
+                        [disabled]="etaHidden" tappable>
+
+          </ion-datetime>
+        </ion-item>
+      </div>
+      <div *ngIf="p.title=='Operational Status' && p.showDetails" color="collapse">
+        <ion-list *ngFor="let obj of operationStatusobj" radio-group
+                  [(ngModel)]="voyageEnquirySearchRequestModel.operationalStatusSearch" tappable>
+          <ion-item class="item_1">
+            <ion-label class="lab1">{{obj.definedSetValueIntMessage}}</ion-label>
+            <ion-radio [disabled]="operationStatusHidden" value="{{obj.definedSetValueCode}}" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div  *ngIf="p.title=='Trade Type' && p.showDetails" color="collapse">
+        <ion-list *ngFor="let obj of tradeType" radio-group [(ngModel)]="voyageEnquirySearchRequestModel.tradeType" tappable>
+          <ion-item class="item_1">
+            <ion-label class="lab1">{{obj.definedSetValueIntMessage}}</ion-label>
+            <ion-radio [disabled]="tradeTypeHidden" (ionSelect)="tradeTypeChange()" value="{{obj.definedSetValueCode}}" tappable></ion-radio>
+          </ion-item>
+        </ion-list>
+        <ion-label text-wrap class = "mandatory" [hidden]="tradeTypeDisabled">Any one of the Trade Type related attributes is mandatory</ion-label>
+      </div>
+
+      <form [formGroup]="groupOne" noValidate>
+
+        <div  *ngIf="p.title=='Container No' && p.showDetails" color="collapse">
+          <ion-item>
+            <ion-input [disabled]="containerHidden" type="text" placeholder="Container No" [(ngModel)]="voyageEnquirySearchRequestModel.containerNo"
+                       formControlName="containerno" (keyup)="keyUpValidate($event,inputStringPattern,'containerNumber')"
+                       (ionChange)="containerNoChange()"   maxlength="11" (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="!groupOne.controls.containerno.valid">
+          </div>
+        </div>
+        <div  *ngIf="p.title=='DO No' && p.showDetails" color="collapse">
+          <ion-item>
+            <ion-input [disabled]="doHidden" type="text" placeholder="DO No" [(ngModel)]="voyageEnquirySearchRequestModel.doNo"
+                       formControlName="dono" (keyup)="keyUpValidate($event,inputStringPattern,'DONumber')"
+                       (ionChange)="doNoChange()"   maxlength="30" (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.doNo,DONumberPattern)"></div>
+        </div>
+
+      </form>
+
+
+      <div  *ngIf="p.title=='Bill of Lading' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input [disabled]="billHidden" type="text"  placeholder="Bill of Lading"
+          [(ngModel)]="voyageEnquirySearchRequestModel.billOfLading" (keyup.enter)="keyboardClose()"
+                 (keyup)="keyUpValidate($event,inputStringPattern,'billofLoading')"
+                 (ionChange)="billChange()" spellcheck="false" tappable></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.billOfLading,inputStringPattern)"></div>
+      </div>
+      <div  *ngIf="p.title=='Customs Declaration No' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input [disabled]="customsDHidden" type="text" placeholder="Customs Declaration No"
+                     [(ngModel)]="voyageEnquirySearchRequestModel.customsDeclarationNo"
+                     (keyup)="keyUpValidate($event,inputStringPattern,'customsDeclarationNo')"
+                     (ionChange)="customsChange()"  (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.customsDeclarationNo,inputStringPattern)"></div>
+      </div>
+      <div  *ngIf="p.title=='Booking Reference No.' && p.showDetails" color="collapse">
+        <ion-item>
+          <ion-input [disabled]="bookingHidden" placeholder="Booking Reference No."
+                     (keyup)="keyUpValidate($event,inputStringPattern,'BookingReferenceNo')"
+                     [(ngModel)]="voyageEnquirySearchRequestModel.bookingReferenceNo"
+                     (ionChange)="bookingChange()"  (keyup.enter)="keyboardClose()" spellcheck="false" tappable></ion-input>
+        </ion-item>
+        <div class="error" *ngIf="validate(voyageEnquirySearchRequestModel.bookingReferenceNo,inputStringPattern)"></div>
+      </div>
+      </div>
+  </ion-list>
+  <ion-row class="options buttonHolder">
+    <ion-col class="topcol">
+      <button class="buttonStyle" color="light" id="clearsubmit" full ion-button (click)="clear()" tappable>Reset</button>
+    </ion-col>
+    <ion-col class="topcol">
+      <button class="buttonStyle" [disabled]="disableDone()" color="light" id="clearsubmit" full ion-button (click)="submit()" tappable>Retrieve</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

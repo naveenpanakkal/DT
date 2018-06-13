@@ -1,0 +1,1119 @@
+<ion-header>
+
+  <ion-navbar #navbar color="header" id="header">
+    <ion-title class="title" *ngIf="viewMode" class="doSearchViewTitle-ios">{{ 'do_order_view' | translate }}
+    </ion-title>
+    <ion-title class="title" *ngIf="editMode" class="doSearchViewTitle-ios">{{ 'do_order_edit' | translate }}
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar class="ion-toolbar-min-style">
+    <ion-row class="filters">
+      <ion-col class="col-with-arrow" (click)="slidePrev()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showLeftButton" name="arrow-back" tappable></ion-icon>
+      </ion-col>
+      <ion-col no-padding col-10>
+        <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView="2">
+
+          <ion-slide (click)="filterData(category)" [class.selected]="selectedCategory== category.heading"
+                     *ngFor="let category of mainArray" tappable>
+            <button ion-button class="toolBarButton toolBarButton-ios" color="light" clear tappable>
+              {{ category.heading}}
+            </button>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col class="col-with-arrow" (click)="slideNext()" no-padding col-1 tappable>
+        <ion-icon *ngIf="showRightButton" name="arrow-forward" tappable></ion-icon>
+      </ion-col>
+    </ion-row>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content no-bounce has-bounsing="false" style="background-color:rgb(225, 225, 225);" id="doSearchDetailsViewContent">
+
+
+  <div *ngIf="dotype">
+    <ion-grid *ngIf="fromHistory" class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Request ID
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          Current Status
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{this.deliveryorderreqmodel.deliveryOrderRequestId}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.deliveryOrderStatus}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Location
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          SP-Name
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.port}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.terminal}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          DO Type
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor" *ngIf="tradetype">
+          Trade Type
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.doType}}
+        </ion-col>
+        <ion-col *ngIf="tradetype">
+          {{deliveryorderreqmodel.tradeType}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <div *ngIf="billoflandingno">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Box Operator
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          Rotation No (VIA No)
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.boxOperator}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.rotationNo}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          IGM/MRN No
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor" *ngIf="billlandno">
+          Bill Of Lading No
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor" *ngIf="housebilloflandingno">
+          House Bill Of Lading No
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col *ngIf="!tradetype">
+          {{deliveryorderreqmodel.lclIGMMRNNo}}
+        </ion-col>
+        <ion-col *ngIf="tradetype">
+          {{deliveryorderreqmodel.fclIGMMRNNo}}
+        </ion-col>
+        <ion-col *ngIf="billlandno">
+          {{deliveryorderreqmodel.billofLadingNo}}
+        </ion-col>
+        <ion-col *ngIf="housebilloflandingno">
+          {{deliveryorderreqmodel.hbillofLadingNo}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+
+  <div *ngIf="importer">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col col-6 class="ioncolrightwithcolor">
+          Importer Name
+        </ion-col>
+        <ion-col col-6 class="ioncolrightwithcolor">
+          Importer Address
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-6 text-wrap>
+          {{deliveryorderreqmodel.importerName}}
+        </ion-col>
+        <ion-col col-6 text-wrap>
+          {{deliveryorderreqmodel.importerAddress}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col col-6 class="ioncolrightwithcolor">
+          Port Of Loading
+        </ion-col>
+        <ion-col col-6 class="ioncolrightwithcolor">
+          Port Of Destination
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-6>
+          {{deliveryorderreqmodel.portOfLoading}}
+        </ion-col>
+        <ion-col col-6>
+          {{deliveryorderreqmodel.portOfDestination}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col id="ioncol">
+          No Of Containers
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.noOfContainers}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+
+  <div *ngIf="dodetails">
+    <div *ngIf="!showPermitDetails()">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Box Operator
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Rotation No (VIA No)
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.doDboxOperator}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.rotationNo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="editdo">
+      <form [formGroup]="deliveryOrderForm1" noValidate>
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Delivery Order No
+            </ion-col>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Delivery Order Status
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-6>
+              {{deliveryorderreqmodel.deliveryOrderNo}}
+            </ion-col>
+            <ion-col col-6>
+              {{deliveryorderreqmodel.deliveryOrderStatus}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Agent Reference No
+            </ion-col>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Total No Of Containers
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-6>
+              {{deliveryorderreqmodel.agentDoNumber}}
+            </ion-col>
+            <ion-col col-6>
+              {{deliveryorderreqmodel.totalNoOfContainers}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              DO Validity Date<span class="span">*</span>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="ioncolrightwithcolorblack">
+              <ion-item>
+                <ion-datetime class="doValidityClass" displayFormat={{dateFormat}} min={{currentdate}}
+                              max="2050-01-01" tappable
+                              formControlName="dovalidityDate"
+                              [(ngModel)]="deliveryorderreqmodel.dOValidityDate"></ion-datetime>
+              </ion-item>
+              <ion-icon class="cal" name="calendar" color="header"></ion-icon>
+              <div class="mandatory" *ngIf="mandatory && !deliveryOrderForm1.controls.dovalidityDate.valid">DO Validity Date is mandatory</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              DO For Examination
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ioncolrightwithcolorblack">
+              <ion-item>
+                <ion-label class="headerVisibility">DO For Examination</ion-label>
+                <ion-select [(ngModel)]="deliveryorderreqmodel.doForExamination"
+                            formControlName="doForExam" tappable>
+                  <ion-option *ngFor="let option of doExamination" value={{option.definedSetValueCode}}>
+                    {{option.definedSetValueIntMessage}}
+                  </ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Departure Mode
+            </ion-col>
+            <ion-col col-6>
+              {{deliveryorderreqmodel.depatureMode}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              Delivery To
+              <span *ngIf="isDeliveryToMandatory" class="span">*</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ioncolrightwithcolorblack">
+              <ion-item>
+                <ion-label class="headerVisibility">Delivery To
+                </ion-label>
+                <ion-select [(ngModel)]="deliveryorderreqmodel.deliveryTo"
+                            (ionChange)="onSelectionchangeofDeliveryTo()"
+                            formControlName="deliveryTo"
+                            tappable>
+                  <ion-option *ngFor="let deTo of deliveryToList" value={{deTo.definedSetValueCode}}>
+                    {{deTo.definedSetValueIntMessage}}
+                  </ion-option>
+                </ion-select>
+              </ion-item>
+              <div class="mandatory" *ngIf="mandatory && !deliveryOrderForm1.controls.deliveryTo.valid">
+                Delivery To is mandatory
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+      <ion-grid class="ionrow" *ngIf="deliveryorderreqmodel.deliveryTo">
+        <form [formGroup]="deliveryOrderForm2" noValidate>
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor"
+                     *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+              Consignee Company Code<span class="span">*</span>
+            </ion-col>
+            <ion-col class="ioncolrightwithcolor"
+                     *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+              Freight Forwarder Company Code<span class="span">*</span>
+            </ion-col>
+            <ion-col class="ioncolrightwithcolor"
+                     *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+              CFS Company Code<span class="span">*</span>
+            </ion-col>
+            <ion-col class="ioncolrightwithcolor"
+                     *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+              Empty Yard Company Code<span class="span">*</span>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+              <ion-searchbar (ionInput)="getConsigneeItems($event)" tappable
+                             (ionFocus)="getConsigneeFromService()"
+                             (ionBlur)="hideConsigneeSuggestion($event)"
+                             [(ngModel)]="deliveryorderreqmodel.consigneeCode"
+                             formControlName="consigneeCode"
+                             onpaste="return true;"
+                             [maxlength]="255"
+                             (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.consigneeCode')">
+              </ion-searchbar>
+              <div class="smartSearchListContainer" *ngIf="showConsigneeSug">
+                <ion-list *ngIf="showConsigneeSug" style="overflow: hidden;margin-bottom: 0px;">
+                  <ion-item *ngFor="let item of filterConsigneeArray" (mousedown)="onSelectConsignee(item)">
+                    {{ item.companyCode }} - {{ item.companyName }}
+                  </ion-item>
+                </ion-list>
+              </div>
+              <div class="mandatory"
+                   *ngIf="mandatory && !deliveryOrderForm2.controls.consigneeCode.valid">
+                Consignee Company Code is mandatory
+              </div>
+            </ion-col>
+            <ion-col *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+              <ion-searchbar (ionInput)="getFrieghtItems($event)" tappable
+                             (ionFocus)="getFrieghtFromService()"
+                             (ionBlur)="hideFrieghtSuggestion($event)"
+                             [(ngModel)]="deliveryorderreqmodel.frieghtForwarderCode"
+                             formControlName="ffc"
+                             onpaste="return true;"
+                             [maxlength]="255"
+                             (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.frieghtForwarderCode')">
+              </ion-searchbar>
+              <div class="smartSearchListContainer" *ngIf="showFrieghtSug">
+                <ion-list *ngIf="showFrieghtSug" style="overflow: hidden;margin-bottom: 0px;">
+                  <ion-item *ngFor="let item of filterFrieghtArray" (mousedown)="onSelectFrieght(item)">
+                    {{ item.companyCode }} - {{ item.companyName }}
+                  </ion-item>
+                </ion-list>
+              </div>
+              <div class="mandatory"
+                   *ngIf="mandatory && !deliveryOrderForm2.controls.ffc.valid">
+                Freight Forwarder Company Code is mandatory
+              </div>
+            </ion-col>
+            <ion-col *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+              <ion-searchbar (ionInput)="getCFSItems($event)" tappable
+                             (ionFocus)="getCFSFromService()"
+                             (ionBlur)="hideCFSSuggestion($event)"
+                             [(ngModel)]="deliveryorderreqmodel.cFSCode"
+                             formControlName="cFSCode"
+                             onpaste="return true;"
+                             [maxlength]="255"
+                             (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.cFSCode')">
+              </ion-searchbar>
+              <div class="smartSearchListContainer" *ngIf="showCFSSug">
+                <ion-list *ngIf="showCFSSug" style="overflow: hidden;margin-bottom: 0px;">
+                  <ion-item *ngFor="let item of filterCFSArray" (mousedown)="onSelectCFS(item)">
+                    {{ item.companyCode }} - {{ item.companyName }}
+                  </ion-item>
+                </ion-list>
+              </div>
+              <div class="mandatory"
+                   *ngIf="mandatory && !deliveryOrderForm2.controls.cFSCode.valid">
+                CFS Company Code is mandatory
+              </div>
+            </ion-col>
+            <ion-col *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+              <ion-searchbar (ionInput)="getEmptyItems($event)" tappable
+                             (ionFocus)="getEmptyFromService()"
+                             (ionBlur)="hideEmptySuggestion($event)"
+                             [(ngModel)]="deliveryorderreqmodel.emptyYardCode"
+                             formControlName="emptyYardCode"
+                             onpaste="return true;"
+                             [maxlength]="255"
+                             (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.emptyYardCode')">
+              </ion-searchbar>
+              <div class="smartSearchListContainer" *ngIf="showEmptySSug">
+                <ion-list *ngIf="showEmptySSug" style="overflow: hidden;margin-bottom: 0px;">
+                  <ion-item *ngFor="let item of filterEmptyArray" (mousedown)="onSelectEmpty(item)">
+                    {{ item.companyCode }} - {{ item.companyName }}
+                  </ion-item>
+                </ion-list>
+              </div>
+              <div class="mandatory"
+                   *ngIf="mandatory && !deliveryOrderForm2.controls.emptyYardCode.valid">
+                Empty Yard Company Code is mandatory
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+            Consignee Company Name
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+            Freight Forwarder Company Name
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+            CFS Company Name
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+            Empty Yard Company Name
+          </ion-col>
+
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+            <ion-label class="chaNameStyle">{{deliveryorderreqmodel.consigneeName}}</ion-label>
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+            <ion-label class="chaNameStyle">{{deliveryorderreqmodel.frieghtForwarderName}}</ion-label>
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+            <ion-label class="chaNameStyle">{{deliveryorderreqmodel.cFSName}}</ion-label>
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+            <ion-label class="chaNameStyle">{{deliveryorderreqmodel.emptyYardName}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <form [formGroup]="deliveryOrderForm3" noValidate>
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              CHA Company Code
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-searchbar (ionInput)="getCHAItems($event)" tappable
+                             (ionFocus)="getCHAFromService()"
+                             (ionBlur)="hideCHASuggestion($event)"
+                             [(ngModel)]="deliveryorderreqmodel.cHACode"
+                             formControlName="cHACode"
+                             onpaste="return true;"
+                             [maxlength]="255"
+                             (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.cHACode')">
+              </ion-searchbar>
+              <div class="smartSearchListContainer" *ngIf="showCHASug">
+                <ion-list *ngIf="showCHASug" style="overflow: hidden;margin-bottom: 0px;">
+                  <ion-item *ngFor="let item of filterCHAArray" (mousedown)="onSelectCHA(item)">
+                    {{ item.companyCode }} - {{ item.companyName }}
+                  </ion-item>
+                </ion-list>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              CHA Company Name
+            </ion-col>
+            <ion-col col-6>
+              <ion-label class="chaNameStyle">{{deliveryorderreqmodel.cHAName}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              Haulier Company Code
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-searchbar (ionInput)="getItems($event)" tappable
+                             (ionFocus)="getHaulierCode()"
+                             (ionBlur)="hideHaulierSuggestion($event)"
+                             [(ngModel)]="deliveryorderreqmodel.haulierCode"
+                             formControlName="haulierCode"
+                             onpaste="return true;"
+                             [maxlength]="255"
+                             (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]{0,255}$','deliveryorderreqmodel.haulierCode')">
+              </ion-searchbar>
+              <div class="smartSearchListContainer" *ngIf="showHaulierSug">
+                <ion-list *ngIf="showHaulierSug" style="overflow: hidden;margin-bottom: 0px;">
+                  <ion-item *ngFor="let item of filterHaulierArray" (mousedown)="onSelectHaulierCode(item)">
+                    {{ item.companyCode }} - {{ item.companyName }}
+                  </ion-item>
+                </ion-list>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Haulier Company Name
+            </ion-col>
+            <ion-col col-6>
+              <ion-label class="chaNameStyle">{{deliveryorderreqmodel.haulierName}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ionrow" *ngIf="showPermitDetails()">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              Container Permit No
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ioncolrightwithcolorblack">
+              <ion-item text-wrap="">
+                <ion-textarea type="text" [(ngModel)]="deliveryorderreqmodel.containerPermitNo" maxlength="255"
+                              (ionBlur)="onContainerPermitNoBlur()" formControlName="containerPermitNo"
+                              (keyup.enter)="keyboardClose()" onpaste="return true;"
+                              (keyup)="keyUpValidate($event,'^[a-z0-9A-Z]*$','containerPermitNo')"
+                              placeholder="Container Permit No" spellcheck="false" tappable>
+                </ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              Container Permit Date
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ioncolrightwithcolorblack">
+              <ion-item>
+                <ion-datetime class="label-left dachaNte_tappable" displayFormat={{dateFormat}} tappable
+                              [(ngModel)]="deliveryorderreqmodel.containerPermitDate" min="1960-01-01"
+                              (ionChange)="onPermitDateSelection()" max={{currentdate}} placeholder="DD/MM/YYYY"
+                              formControlName="containerPermitDate">
+                </ion-datetime>
+              </ion-item>
+              <ion-icon class="cal date_icon" name="calendar" color="header"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="instructiontoother ionrow">
+          <ion-row>
+            <ion-col class="ioncolrightwithcolor">
+              Instructions To Other Party
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-wrap class="ioncolrightwithcolorblack">
+              <ion-item class="textarea_scroll">
+                <ion-textarea type="text" class="textarea_scroll" maxlength="255"
+                              [(ngModel)]="deliveryorderreqmodel.instructionsToOtherParty"
+                              placeholder="Instructions" (ionBlur)="oninstructionsToOtherPartyBlur($event)"
+                              spellcheck="false" formControlName="instructionsToOtherParty" tappable>
+                </ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </div>
+
+    <div *ngIf="viewdo">
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Delivery Order No
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Delivery Order Status
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.deliveryOrderNo}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.deliveryOrderStatus}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Agent Reference No
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Total No Of Containers
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.agentDoNumber}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.totalNoOfContainers}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            DO Validity Date
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            DO For Examination
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.dOValidityDate}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.doForExamination}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Departure Mode
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Delivery To
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.depatureMode}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.deliveryTo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow" *ngIf="deliveryorderreqmodel.deliveryTo">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+            Consignee Company Code
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+            Freight Forwarder Company Code
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+            CFS Company Code
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+            Empty Yard Company Code
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+            Consignee Company Name
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+            Freight Forwarder Company Name
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+            CFS Company Name
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor"
+                   *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+            Empty Yard Company Name
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+            {{deliveryorderreqmodel.consigneeCode}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+            {{deliveryorderreqmodel.frieghtForwarderCode}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+            {{deliveryorderreqmodel.cFSCode}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+            {{deliveryorderreqmodel.emptyYardCode}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[2].definedSetValueCode">
+            {{deliveryorderreqmodel.consigneeName}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[1].definedSetValueCode">
+            {{deliveryorderreqmodel.frieghtForwarderName}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[3].definedSetValueCode">
+            {{deliveryorderreqmodel.cFSName}}
+          </ion-col>
+          <ion-col col-6 *ngIf="deliveryorderreqmodel.deliveryTo == this.deliveryToList[4].definedSetValueCode">
+            {{deliveryorderreqmodel.emptyYardName}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            CHA Company Code
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            CHA Company Name
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.cHACode}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.cHAName}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Haulier Company Code
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Haulier Company Name
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.haulierCode}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.haulierName}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow" *ngIf="showPermitDetails()">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Container Permit No
+          </ion-col>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Container Permit Date
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{deliveryorderreqmodel.containerPermitNo}}
+          </ion-col>
+          <ion-col col-6>
+            {{deliveryorderreqmodel.containerPermitDate}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="ionrow">
+        <ion-row>
+          <ion-col col-6 class="ioncolrightwithcolor">
+            Instructions To Other Party
+          </ion-col>
+          <ion-col col-6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            {{deliveryorderreqmodel.instructionsToOtherParty}}
+          </ion-col>
+          <ion-col col-6>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
+
+  <div class="container container-padding" *ngIf="containertable">
+    <div *ngIf="containerCount(containerArray.length)" class="containerCount">Showing {{containerArray.length}}
+      {{containerValue}}
+    </div>
+    <div style="background-color:#E8E6E6" class="attach-container" *ngFor="let container of containerArray; let i = index; let cx = count; ">
+      <div class="container-details-headder">
+        <div class="expand-holder-left-side"
+             (click)="(container.hideval == true) ? container.hideval=false : container.hideval=true" tappable>
+          <div class="rotateIconHolder">
+            <div style="float:left;left:0px;text-align: left;"
+                 [ngClass]="(container.hideval)? 'rotateIconDown' : 'rotateIconUp' ">
+              <ion-icon name="arrow-dropright" style="float:right;left:0px;" tappable>
+              </ion-icon>
+            </div>
+          </div>
+          <div class="container-details-headder-text"> {{container.containerNo}}</div>
+        </div>
+        <div class="icon-holder-right-side" *ngIf="checkStatus(container.containerStatus)"
+             (click)="removeAttachContainerDetais(container)" tappable>
+          <ion-icon name="trash" class="iconGeneral pullRightToContainer" tappable></ion-icon>
+        </div>
+      </div>
+      <div [ngClass]="(container.hideval)? 'container-details-content-hide':'container-details-content'">
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              Container No
+            </ion-col>
+            <ion-col col-6 class="ioncolrightwithcolor">
+              ISO Code
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 text-wrap>
+              {{container.containerNo}}
+            </ion-col>
+            <ion-col col-6>
+              {{container.iSOCode}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col style="margin-left: 0px !important;" col-6 class="ioncolrightwithcolor">
+              Container Size
+            </ion-col>
+            <ion-col [hidden]="doisEmpty" col-6 class="ioncolrightwithcolor">
+              Seal No
+            </ion-col>
+            <ion-col *ngIf="doisEmpty" col-6 class="ioncolrightwithcolor">
+              Reefer
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="margin-left: 0px !important;" col-6 text-wrap>
+              {{container.containerSize}}
+            </ion-col>
+            <ion-col [hidden]="doisEmpty" col-6>
+              {{container.sealNo}}
+            </ion-col>
+            <ion-col *ngIf="doisEmpty && !editReefer(container)" col-6 text-wrap>
+              {{container.reefer}}
+            </ion-col>
+            <ion-col *ngIf="doisEmpty && editReefer(container)" class="reeferText removePadding removeMargin"
+                     style="margin-bottom: 1px !important;" col-6>
+              <ion-item style="padding-left: 3px !important;">
+
+                <ion-input type="text" maxlength="3" [(ngModel)]="container.reefer"
+                           (ionFocus)="checkReffer($event,'in')"
+                           (ionBlur)="checkReffer($event,'out');lstKeyUpValidateOnBlur(container)"
+                           spellcheck="false" (keyup.enter)="keyboardClose()"
+                           (keyup)="lstKeyUpValidate($event,'^[0-9-.]{0,7}$','reefer',container)" tappable></ion-input>
+
+              </ion-item>
+              <div class="valerror-search-warning" *ngIf="isConfirmOpen == true">
+                {{WarningMsg_Refeer}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid class="ionrow">
+          <ion-row>
+            <ion-col col-6 style="margin-left: 0px !important;" class="ioncolrightwithcolor" >
+              Container Status
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="margin-left: 0px !important;" col-6>
+              {{container.containerStatus}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="cargodetails">
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Nature Of Cargo
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          Unit Of Quantity
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.natureOfCargo}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.unitOfQuantity}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Package Detail
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          Total No Of Packages
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.packageDetail}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.totalNoOfPackages}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Package Type
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          Total Item No
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.packageType}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.totalItemNo}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow">
+      <ion-row>
+        <ion-col class="ioncolrightwithcolor">
+          Total Quantity
+        </ion-col>
+        <ion-col class="ioncolrightwithcolor">
+          Total Weight
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          {{deliveryorderreqmodel.totalQuantity}}
+        </ion-col>
+        <ion-col>
+          {{deliveryorderreqmodel.totalWeight}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="ionrow gridstyle_1 removePadding">
+      <ion-row class="headderRowCommodity removePadding">
+        <ion-col text-wrap class="commodityTitleStyle border-right-colr2 headderColCommodity" col-4>
+          Commodity Code
+        </ion-col>
+        <ion-col class="commodityTitleStyle headderColCommodity" col-8>
+          Item Description
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="ionrow gridstyle_2" *ngFor="let cargo of cargoArray">
+      <ion-row>
+        <ion-col col-4 class="col_style">
+          {{cargo.cargoCommodityCode}}
+        </ion-col>
+        <ion-col text-wrap col-8 class="col_style">
+          {{cargo.cargoItemDescription}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <div *ngIf="showAttachments">
+
+
+    <div *ngFor="let attachment of attachReceived">
+      <ion-row *ngIf="editdo" style="background-color: white;" class="attachrowSeperator min-height-Css">
+        <div class="col photo-button-col" style="width: 125px !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+float: left;
+display: inline-block;">
+          <button class="button-apply-general photobutton-common margin-forPhotoButton" ion-button color="submit"
+                  block
+                  (click)="openDocs(attachment)" tappable>Upload
+            <ion-icon name="clipboard" class="photoicon"></ion-icon>
+          </button>
+        </div>
+        <div class="removePadding" style="width: calc(100% - 185px) !important;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+float: left;
+display: inline-block;" (click)="openattach(attachment)" tappable>
+          <img src="assets/img/image-icon.png" class="photoSelectedIcon" style="margin-top: 12px !important;"
+               *ngIf="(attachment.fileName != null || attachment.fileName != EMPTY)">
+          <ion-label class="wrap-content removeMargin photSelectedIconLabel filename">
+            {{attachment.fileName}}
+          </ion-label>
+        </div>
+        <div class="removePadding removeMargin" style="width: 60px !important;
+float: left;
+padding-top: 10px !important;
+padding-bottom: 10px !important;
+display: inline-block;">
+          <button class="close-button margin-forPhotoCloseButton" (click)="closeAttachment(attachment)" tappable>
+            <ion-icon ios="ios-close" md="md-close"></ion-icon>
+          </button>
+        </div>
+      </ion-row>
+      <ion-row class="attachMargin view_atch" syle="background-color: white;" *ngIf="!editdo">
+        <ion-col col-1 *ngIf="attachment.fileName">
+          <ion-icon class="doFileicon" item-start tappable>
+            <img src="assets/img/image-icon.png"/>
+          </ion-icon>
+        </ion-col>
+        <ion-col class="doFilename_1" (click)="displayattach(attachment)" tappable>
+          <ion-label class = "underline" text-wrap>
+            {{attachment.fileName}}
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="editdo">
+      <div class="row responsive-sm">
+        <button ion-button class="add_button" (click)="addAttachment()" tappable>
+          <ion-icon ios="ios-add" md="md-add" tappable></ion-icon>
+        </button>
+      </div>
+
+      <button class="button-apply-general footer_submit" ion-button full type="submit" color="submit"
+              (click)="doEditSubmit()" tappable>Submit
+      </button>
+    </div>
+
+  </div>
+
+</ion-content>
